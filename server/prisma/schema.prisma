@@ -1,0 +1,132 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+//Models
+enum E_Role {
+  ADMIN
+  USER
+  TECHNICIAN
+}
+enum E_TechnicianStatus {
+  AVAILABLE
+  BUSY
+}
+enum E_TicketStatus {
+  PENDING
+  ASSIGNED
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+model User {
+  id                          Int         @id @default(autoincrement())
+  name                        String
+  lastName                    String
+  email                       String      @unique
+  password                    String
+  profileImage                String?
+  role                        E_Role        @default(USER)
+  status                      Boolean     @default(true)
+  lastLogin                   DateTime?
+  createdAt                   DateTime    @default(now())
+  updatedAt                   DateTime    @updatedAt
+
+  // Relations
+  userTechnician              UserTechnician?
+  tickets                      Ticket[]
+  ticketHistory                TicketHistory[]
+}
+
+model UserTechnician {
+  id                          Int         @id @default(autoincrement())
+  userId                      Int         @unique
+  status                      E_TechnicianStatus @default(AVAILABLE)
+  workload                    Int         @default(0) //carga de trabajo
+  createdAt                   DateTime    @default(now())
+  updatedAt                   DateTime    @updatedAt
+
+  // Relations
+  user                        User        @relation(fields: [userId], references: [id])
+  especialities               EspecialityArea[]
+  tickets                     Ticket[]
+}
+
+model EspecialityArea {
+  id                          Int         @id @default(autoincrement())
+  name                        String      @unique
+  description                 String?
+  createdAt                   DateTime    @default(now())
+  updatedAt                   DateTime    @updatedAt
+
+  // Relations
+  technicians                 UserTechnician[]
+}
+
+model Ticket {
+  id                          Int         @id @default(autoincrement())
+  userId                      Int
+  technicianId                Int?
+  title                       String
+  description                 String?
+  status                      String      @default("OPEN") // OPEN, IN_PROGRESS, CLOSED
+  priority                    String      @default("MEDIUM") // LOW, MEDIUM, HIGH
+  createdAt                   DateTime    @default(now())
+  updatedAt                   DateTime    @updatedAt
+
+  // Relations
+  user                        User        @relation(fields: [userId], references: [id])
+  technician                  UserTechnician? @relation(fields: [technicianId], references: [id])
+  ticketImages                TicketImage[]
+  ticketHistory               TicketHistory[]
+}
+
+model TicketImage{
+  id                          Int         @id @default(autoincrement())
+  ticketId                    Int?
+  ticketHistoryObservationId  Int?
+  imageUrl                    String
+  createdAt                   DateTime    @default(now())
+  updatedAt                   DateTime    @updatedAt
+
+  // Relations
+  ticket                      Ticket?     @relation(fields: [ticketId], references: [id])
+  ticketHistoryObservation     TicketHistoryObservation? @relation(fields: [ticketHistoryObservationId], references: [id])
+}
+
+model TicketHistory {
+  id                          Int         @id @default(autoincrement())
+  ticketId                    Int
+  status                      E_TicketStatus
+  changedBy                   Int
+  changedAt                   DateTime    @default(now())
+
+  // Relations
+  ticket                      Ticket      @relation(fields: [ticketId], references: [id])
+  user                        User        @relation(fields: [changedBy], references: [id])
+  ticketHistoryObservations   TicketHistoryObservation[]
+}
+
+model TicketHistoryObservation {
+  id                          Int         @id @default(autoincrement())
+  ticketHistoryId             Int
+  observation                 String
+  createdAt                   DateTime    @default(now())
+  updatedAt                   DateTime    @updatedAt
+  
+  // Relations
+  ticketHistory               TicketHistory @relation(fields: [ticketHistoryId], references: [id])
+  ticketImages                TicketImage[]
+}
