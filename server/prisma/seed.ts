@@ -1,6 +1,9 @@
-import { generos } from "./seeds/generos";
-import { usuarios } from "./seeds/usuarios";
-import { plataformas } from "./seeds/plataformas";
+import {slas} from "./seeds/sla";
+import {users} from "./seeds/users";
+import { specialities } from "./seeds/specialities";
+import { technicians } from "./seeds/technicians";
+import { ticketCategories } from "./seeds/ticketCategories";
+
 import { PrismaClient } from "../generated/prisma";
 
 const prisma = new PrismaClient();
