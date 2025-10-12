@@ -22,3 +22,4 @@ main()
     console.error(e)
     await prisma.$disconnect()
   })
+//node
