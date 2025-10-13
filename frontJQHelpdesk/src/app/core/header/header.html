@@ -1,0 +1,29 @@
+<header class="header" [class.dark-mode]="isDarkMode">
+    <div class="logo-container">
+        <a href="/" class="logo-link">
+            <img src="/Images/Logo_JQHelpdesk1.png" alt="Company Logo">
+        </a>
+    </div>
+
+    <button class="menu-toggle" (click)="toggleMenu()" [attr.aria-expanded]="isMenuOpen"
+        aria-label="Toggle navigation menu">
+        <span class="hamburger-icon"></span>
+    </button>
+
+    <nav class="navigation" [class.active]="isMenuOpen" role="navigation">
+        <ul class="nav-list">
+            @for (item of menuItems; track item) {
+            <li class="nav-item">
+                <a [href]="item.link" class="nav-link" [class.active]="item.active"
+                    (click)="handleNavClick($event, item)">
+                    {{ item.label }}
+                </a>
+            </li>}
+        </ul>
+    </nav>
+
+    <div class="action-area">
+        <button class="btn login-btn">Login</button>
+        <button class="btn signup-btn">Sign Up</button>
+    </div>
+</header>
