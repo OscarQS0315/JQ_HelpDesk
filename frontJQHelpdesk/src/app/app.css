@@ -1,6 +1,6 @@
 .body-container {
 padding-top: 64px; /* altura del header */
-padding-bottom: 70px; /* altura del footer */
+ /* altura del footer */
 width: 100%;
 box-sizing: border-box;
 min-height: calc(100vh - 64px); /* garantiza al menos toda la ventana */
