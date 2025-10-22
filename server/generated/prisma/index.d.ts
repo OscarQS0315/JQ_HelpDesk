@@ -44,6 +44,11 @@ export type SLA = $Result.DefaultSelection<Prisma.$SLAPayload>
  */
 export type TicketCategory = $Result.DefaultSelection<Prisma.$TicketCategoryPayload>
 /**
+ * Model AutoTriageRule
+ * 
+ */
+export type AutoTriageRule = $Result.DefaultSelection<Prisma.$AutoTriageRulePayload>
+/**
  * Model Ticket
  * 
  */
@@ -78,7 +83,15 @@ export type TicketValoration = $Result.DefaultSelection<Prisma.$TicketValoration
  * Enums
  */
 export namespace $Enums {
-  export const E_Role: {
+  export const E_AssignedMethod: {
+  AUTOMATIC: 'AUTOMATIC',
+  MANUAL: 'MANUAL'
+};
+
+export type E_AssignedMethod = (typeof E_AssignedMethod)[keyof typeof E_AssignedMethod]
+
+
+export const E_Role: {
   ADMIN: 'ADMIN',
   USER: 'USER',
   TECHNICIAN: 'TECHNICIAN'
@@ -115,6 +128,10 @@ export const E_TicketPriority: {
 export type E_TicketPriority = (typeof E_TicketPriority)[keyof typeof E_TicketPriority]
 
 }
+
+export type E_AssignedMethod = $Enums.E_AssignedMethod
+
+export const E_AssignedMethod: typeof $Enums.E_AssignedMethod
 
 export type E_Role = $Enums.E_Role
 
@@ -311,6 +328,16 @@ export class PrismaClient<
   get ticketCategory(): Prisma.TicketCategoryDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.autoTriageRule`: Exposes CRUD operations for the **AutoTriageRule** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AutoTriageRules
+    * const autoTriageRules = await prisma.autoTriageRule.findMany()
+    * ```
+    */
+  get autoTriageRule(): Prisma.AutoTriageRuleDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.ticket`: Exposes CRUD operations for the **Ticket** model.
     * Example usage:
     * ```ts
@@ -427,8 +454,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.16.2
-   * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
+   * Prisma Client JS version: 6.16.3
+   * Query Engine version: bb420e667c1820a8c05a38023385f6cc7ef8e83a
    */
   export type PrismaVersion = {
     client: string
@@ -815,6 +842,7 @@ export namespace Prisma {
     CategoryEtiquette: 'CategoryEtiquette',
     SLA: 'SLA',
     TicketCategory: 'TicketCategory',
+    AutoTriageRule: 'AutoTriageRule',
     Ticket: 'Ticket',
     TicketImage: 'TicketImage',
     TicketHistory: 'TicketHistory',
@@ -839,7 +867,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userTechnician" | "specialityArea" | "categoryEtiquette" | "sLA" | "ticketCategory" | "ticket" | "ticketImage" | "ticketHistory" | "ticketHistoryObservation" | "notification" | "ticketValoration"
+      modelProps: "user" | "userTechnician" | "specialityArea" | "categoryEtiquette" | "sLA" | "ticketCategory" | "autoTriageRule" | "ticket" | "ticketImage" | "ticketHistory" | "ticketHistoryObservation" | "notification" | "ticketValoration"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1236,6 +1264,72 @@ export namespace Prisma {
           count: {
             args: Prisma.TicketCategoryCountArgs<ExtArgs>
             result: $Utils.Optional<TicketCategoryCountAggregateOutputType> | number
+          }
+        }
+      }
+      AutoTriageRule: {
+        payload: Prisma.$AutoTriageRulePayload<ExtArgs>
+        fields: Prisma.AutoTriageRuleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AutoTriageRuleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AutoTriageRulePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AutoTriageRuleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AutoTriageRulePayload>
+          }
+          findFirst: {
+            args: Prisma.AutoTriageRuleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AutoTriageRulePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AutoTriageRuleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AutoTriageRulePayload>
+          }
+          findMany: {
+            args: Prisma.AutoTriageRuleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AutoTriageRulePayload>[]
+          }
+          create: {
+            args: Prisma.AutoTriageRuleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AutoTriageRulePayload>
+          }
+          createMany: {
+            args: Prisma.AutoTriageRuleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.AutoTriageRuleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AutoTriageRulePayload>
+          }
+          update: {
+            args: Prisma.AutoTriageRuleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AutoTriageRulePayload>
+          }
+          deleteMany: {
+            args: Prisma.AutoTriageRuleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AutoTriageRuleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AutoTriageRuleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AutoTriageRulePayload>
+          }
+          aggregate: {
+            args: Prisma.AutoTriageRuleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAutoTriageRule>
+          }
+          groupBy: {
+            args: Prisma.AutoTriageRuleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AutoTriageRuleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AutoTriageRuleCountArgs<ExtArgs>
+            result: $Utils.Optional<AutoTriageRuleCountAggregateOutputType> | number
           }
         }
       }
@@ -1737,6 +1831,7 @@ export namespace Prisma {
     categoryEtiquette?: CategoryEtiquetteOmit
     sLA?: SLAOmit
     ticketCategory?: TicketCategoryOmit
+    autoTriageRule?: AutoTriageRuleOmit
     ticket?: TicketOmit
     ticketImage?: TicketImageOmit
     ticketHistory?: TicketHistoryOmit
@@ -2059,6 +2154,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type AutoTriageRuleCountOutputType
+   */
+
+  export type AutoTriageRuleCountOutputType = {
+    Ticket: number
+  }
+
+  export type AutoTriageRuleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Ticket?: boolean | AutoTriageRuleCountOutputTypeCountTicketArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AutoTriageRuleCountOutputType without action
+   */
+  export type AutoTriageRuleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutoTriageRuleCountOutputType
+     */
+    select?: AutoTriageRuleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AutoTriageRuleCountOutputType without action
+   */
+  export type AutoTriageRuleCountOutputTypeCountTicketArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TicketWhereInput
+  }
+
+
+  /**
    * Count Type TicketCountOutputType
    */
 
@@ -2104,37 +2230,6 @@ export namespace Prisma {
    */
   export type TicketCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NotificationWhereInput
-  }
-
-
-  /**
-   * Count Type TicketHistoryCountOutputType
-   */
-
-  export type TicketHistoryCountOutputType = {
-    ticketHistoryObservations: number
-  }
-
-  export type TicketHistoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    ticketHistoryObservations?: boolean | TicketHistoryCountOutputTypeCountTicketHistoryObservationsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * TicketHistoryCountOutputType without action
-   */
-  export type TicketHistoryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TicketHistoryCountOutputType
-     */
-    select?: TicketHistoryCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * TicketHistoryCountOutputType without action
-   */
-  export type TicketHistoryCountOutputTypeCountTicketHistoryObservationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TicketHistoryObservationWhereInput
   }
 
 
@@ -8437,6 +8532,1014 @@ export namespace Prisma {
 
 
   /**
+   * Model AutoTriageRule
+   */
+
+  export type AggregateAutoTriageRule = {
+    _count: AutoTriageRuleCountAggregateOutputType | null
+    _avg: AutoTriageRuleAvgAggregateOutputType | null
+    _sum: AutoTriageRuleSumAggregateOutputType | null
+    _min: AutoTriageRuleMinAggregateOutputType | null
+    _max: AutoTriageRuleMaxAggregateOutputType | null
+  }
+
+  export type AutoTriageRuleAvgAggregateOutputType = {
+    id: number | null
+    timeRemainingSLA: number | null
+    technicianSpecialityId: number | null
+  }
+
+  export type AutoTriageRuleSumAggregateOutputType = {
+    id: number | null
+    timeRemainingSLA: number | null
+    technicianSpecialityId: number | null
+  }
+
+  export type AutoTriageRuleMinAggregateOutputType = {
+    id: number | null
+    timeRemainingSLA: number | null
+    ticketPriority: $Enums.E_TicketPriority | null
+    technicianSpecialityId: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AutoTriageRuleMaxAggregateOutputType = {
+    id: number | null
+    timeRemainingSLA: number | null
+    ticketPriority: $Enums.E_TicketPriority | null
+    technicianSpecialityId: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AutoTriageRuleCountAggregateOutputType = {
+    id: number
+    timeRemainingSLA: number
+    ticketPriority: number
+    technicianSpecialityId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AutoTriageRuleAvgAggregateInputType = {
+    id?: true
+    timeRemainingSLA?: true
+    technicianSpecialityId?: true
+  }
+
+  export type AutoTriageRuleSumAggregateInputType = {
+    id?: true
+    timeRemainingSLA?: true
+    technicianSpecialityId?: true
+  }
+
+  export type AutoTriageRuleMinAggregateInputType = {
+    id?: true
+    timeRemainingSLA?: true
+    ticketPriority?: true
+    technicianSpecialityId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AutoTriageRuleMaxAggregateInputType = {
+    id?: true
+    timeRemainingSLA?: true
+    ticketPriority?: true
+    technicianSpecialityId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AutoTriageRuleCountAggregateInputType = {
+    id?: true
+    timeRemainingSLA?: true
+    ticketPriority?: true
+    technicianSpecialityId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AutoTriageRuleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AutoTriageRule to aggregate.
+     */
+    where?: AutoTriageRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AutoTriageRules to fetch.
+     */
+    orderBy?: AutoTriageRuleOrderByWithRelationInput | AutoTriageRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AutoTriageRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AutoTriageRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AutoTriageRules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AutoTriageRules
+    **/
+    _count?: true | AutoTriageRuleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AutoTriageRuleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AutoTriageRuleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AutoTriageRuleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AutoTriageRuleMaxAggregateInputType
+  }
+
+  export type GetAutoTriageRuleAggregateType<T extends AutoTriageRuleAggregateArgs> = {
+        [P in keyof T & keyof AggregateAutoTriageRule]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAutoTriageRule[P]>
+      : GetScalarType<T[P], AggregateAutoTriageRule[P]>
+  }
+
+
+
+
+  export type AutoTriageRuleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AutoTriageRuleWhereInput
+    orderBy?: AutoTriageRuleOrderByWithAggregationInput | AutoTriageRuleOrderByWithAggregationInput[]
+    by: AutoTriageRuleScalarFieldEnum[] | AutoTriageRuleScalarFieldEnum
+    having?: AutoTriageRuleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AutoTriageRuleCountAggregateInputType | true
+    _avg?: AutoTriageRuleAvgAggregateInputType
+    _sum?: AutoTriageRuleSumAggregateInputType
+    _min?: AutoTriageRuleMinAggregateInputType
+    _max?: AutoTriageRuleMaxAggregateInputType
+  }
+
+  export type AutoTriageRuleGroupByOutputType = {
+    id: number
+    timeRemainingSLA: number
+    ticketPriority: $Enums.E_TicketPriority
+    technicianSpecialityId: number
+    createdAt: Date
+    updatedAt: Date
+    _count: AutoTriageRuleCountAggregateOutputType | null
+    _avg: AutoTriageRuleAvgAggregateOutputType | null
+    _sum: AutoTriageRuleSumAggregateOutputType | null
+    _min: AutoTriageRuleMinAggregateOutputType | null
+    _max: AutoTriageRuleMaxAggregateOutputType | null
+  }
+
+  type GetAutoTriageRuleGroupByPayload<T extends AutoTriageRuleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AutoTriageRuleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AutoTriageRuleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AutoTriageRuleGroupByOutputType[P]>
+            : GetScalarType<T[P], AutoTriageRuleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AutoTriageRuleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    timeRemainingSLA?: boolean
+    ticketPriority?: boolean
+    technicianSpecialityId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    Ticket?: boolean | AutoTriageRule$TicketArgs<ExtArgs>
+    _count?: boolean | AutoTriageRuleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["autoTriageRule"]>
+
+
+
+  export type AutoTriageRuleSelectScalar = {
+    id?: boolean
+    timeRemainingSLA?: boolean
+    ticketPriority?: boolean
+    technicianSpecialityId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AutoTriageRuleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "timeRemainingSLA" | "ticketPriority" | "technicianSpecialityId" | "createdAt" | "updatedAt", ExtArgs["result"]["autoTriageRule"]>
+  export type AutoTriageRuleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Ticket?: boolean | AutoTriageRule$TicketArgs<ExtArgs>
+    _count?: boolean | AutoTriageRuleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $AutoTriageRulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AutoTriageRule"
+    objects: {
+      Ticket: Prisma.$TicketPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      timeRemainingSLA: number
+      ticketPriority: $Enums.E_TicketPriority
+      technicianSpecialityId: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["autoTriageRule"]>
+    composites: {}
+  }
+
+  type AutoTriageRuleGetPayload<S extends boolean | null | undefined | AutoTriageRuleDefaultArgs> = $Result.GetResult<Prisma.$AutoTriageRulePayload, S>
+
+  type AutoTriageRuleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AutoTriageRuleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AutoTriageRuleCountAggregateInputType | true
+    }
+
+  export interface AutoTriageRuleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AutoTriageRule'], meta: { name: 'AutoTriageRule' } }
+    /**
+     * Find zero or one AutoTriageRule that matches the filter.
+     * @param {AutoTriageRuleFindUniqueArgs} args - Arguments to find a AutoTriageRule
+     * @example
+     * // Get one AutoTriageRule
+     * const autoTriageRule = await prisma.autoTriageRule.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AutoTriageRuleFindUniqueArgs>(args: SelectSubset<T, AutoTriageRuleFindUniqueArgs<ExtArgs>>): Prisma__AutoTriageRuleClient<$Result.GetResult<Prisma.$AutoTriageRulePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AutoTriageRule that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AutoTriageRuleFindUniqueOrThrowArgs} args - Arguments to find a AutoTriageRule
+     * @example
+     * // Get one AutoTriageRule
+     * const autoTriageRule = await prisma.autoTriageRule.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AutoTriageRuleFindUniqueOrThrowArgs>(args: SelectSubset<T, AutoTriageRuleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AutoTriageRuleClient<$Result.GetResult<Prisma.$AutoTriageRulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AutoTriageRule that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AutoTriageRuleFindFirstArgs} args - Arguments to find a AutoTriageRule
+     * @example
+     * // Get one AutoTriageRule
+     * const autoTriageRule = await prisma.autoTriageRule.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AutoTriageRuleFindFirstArgs>(args?: SelectSubset<T, AutoTriageRuleFindFirstArgs<ExtArgs>>): Prisma__AutoTriageRuleClient<$Result.GetResult<Prisma.$AutoTriageRulePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AutoTriageRule that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AutoTriageRuleFindFirstOrThrowArgs} args - Arguments to find a AutoTriageRule
+     * @example
+     * // Get one AutoTriageRule
+     * const autoTriageRule = await prisma.autoTriageRule.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AutoTriageRuleFindFirstOrThrowArgs>(args?: SelectSubset<T, AutoTriageRuleFindFirstOrThrowArgs<ExtArgs>>): Prisma__AutoTriageRuleClient<$Result.GetResult<Prisma.$AutoTriageRulePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AutoTriageRules that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AutoTriageRuleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AutoTriageRules
+     * const autoTriageRules = await prisma.autoTriageRule.findMany()
+     * 
+     * // Get first 10 AutoTriageRules
+     * const autoTriageRules = await prisma.autoTriageRule.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const autoTriageRuleWithIdOnly = await prisma.autoTriageRule.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AutoTriageRuleFindManyArgs>(args?: SelectSubset<T, AutoTriageRuleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutoTriageRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AutoTriageRule.
+     * @param {AutoTriageRuleCreateArgs} args - Arguments to create a AutoTriageRule.
+     * @example
+     * // Create one AutoTriageRule
+     * const AutoTriageRule = await prisma.autoTriageRule.create({
+     *   data: {
+     *     // ... data to create a AutoTriageRule
+     *   }
+     * })
+     * 
+     */
+    create<T extends AutoTriageRuleCreateArgs>(args: SelectSubset<T, AutoTriageRuleCreateArgs<ExtArgs>>): Prisma__AutoTriageRuleClient<$Result.GetResult<Prisma.$AutoTriageRulePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AutoTriageRules.
+     * @param {AutoTriageRuleCreateManyArgs} args - Arguments to create many AutoTriageRules.
+     * @example
+     * // Create many AutoTriageRules
+     * const autoTriageRule = await prisma.autoTriageRule.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AutoTriageRuleCreateManyArgs>(args?: SelectSubset<T, AutoTriageRuleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a AutoTriageRule.
+     * @param {AutoTriageRuleDeleteArgs} args - Arguments to delete one AutoTriageRule.
+     * @example
+     * // Delete one AutoTriageRule
+     * const AutoTriageRule = await prisma.autoTriageRule.delete({
+     *   where: {
+     *     // ... filter to delete one AutoTriageRule
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AutoTriageRuleDeleteArgs>(args: SelectSubset<T, AutoTriageRuleDeleteArgs<ExtArgs>>): Prisma__AutoTriageRuleClient<$Result.GetResult<Prisma.$AutoTriageRulePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AutoTriageRule.
+     * @param {AutoTriageRuleUpdateArgs} args - Arguments to update one AutoTriageRule.
+     * @example
+     * // Update one AutoTriageRule
+     * const autoTriageRule = await prisma.autoTriageRule.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AutoTriageRuleUpdateArgs>(args: SelectSubset<T, AutoTriageRuleUpdateArgs<ExtArgs>>): Prisma__AutoTriageRuleClient<$Result.GetResult<Prisma.$AutoTriageRulePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AutoTriageRules.
+     * @param {AutoTriageRuleDeleteManyArgs} args - Arguments to filter AutoTriageRules to delete.
+     * @example
+     * // Delete a few AutoTriageRules
+     * const { count } = await prisma.autoTriageRule.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AutoTriageRuleDeleteManyArgs>(args?: SelectSubset<T, AutoTriageRuleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AutoTriageRules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AutoTriageRuleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AutoTriageRules
+     * const autoTriageRule = await prisma.autoTriageRule.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AutoTriageRuleUpdateManyArgs>(args: SelectSubset<T, AutoTriageRuleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AutoTriageRule.
+     * @param {AutoTriageRuleUpsertArgs} args - Arguments to update or create a AutoTriageRule.
+     * @example
+     * // Update or create a AutoTriageRule
+     * const autoTriageRule = await prisma.autoTriageRule.upsert({
+     *   create: {
+     *     // ... data to create a AutoTriageRule
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AutoTriageRule we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AutoTriageRuleUpsertArgs>(args: SelectSubset<T, AutoTriageRuleUpsertArgs<ExtArgs>>): Prisma__AutoTriageRuleClient<$Result.GetResult<Prisma.$AutoTriageRulePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AutoTriageRules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AutoTriageRuleCountArgs} args - Arguments to filter AutoTriageRules to count.
+     * @example
+     * // Count the number of AutoTriageRules
+     * const count = await prisma.autoTriageRule.count({
+     *   where: {
+     *     // ... the filter for the AutoTriageRules we want to count
+     *   }
+     * })
+    **/
+    count<T extends AutoTriageRuleCountArgs>(
+      args?: Subset<T, AutoTriageRuleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AutoTriageRuleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AutoTriageRule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AutoTriageRuleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AutoTriageRuleAggregateArgs>(args: Subset<T, AutoTriageRuleAggregateArgs>): Prisma.PrismaPromise<GetAutoTriageRuleAggregateType<T>>
+
+    /**
+     * Group by AutoTriageRule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AutoTriageRuleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AutoTriageRuleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AutoTriageRuleGroupByArgs['orderBy'] }
+        : { orderBy?: AutoTriageRuleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AutoTriageRuleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAutoTriageRuleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AutoTriageRule model
+   */
+  readonly fields: AutoTriageRuleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AutoTriageRule.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AutoTriageRuleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    Ticket<T extends AutoTriageRule$TicketArgs<ExtArgs> = {}>(args?: Subset<T, AutoTriageRule$TicketArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AutoTriageRule model
+   */
+  interface AutoTriageRuleFieldRefs {
+    readonly id: FieldRef<"AutoTriageRule", 'Int'>
+    readonly timeRemainingSLA: FieldRef<"AutoTriageRule", 'Int'>
+    readonly ticketPriority: FieldRef<"AutoTriageRule", 'E_TicketPriority'>
+    readonly technicianSpecialityId: FieldRef<"AutoTriageRule", 'Int'>
+    readonly createdAt: FieldRef<"AutoTriageRule", 'DateTime'>
+    readonly updatedAt: FieldRef<"AutoTriageRule", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AutoTriageRule findUnique
+   */
+  export type AutoTriageRuleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutoTriageRule
+     */
+    select?: AutoTriageRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutoTriageRule
+     */
+    omit?: AutoTriageRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AutoTriageRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which AutoTriageRule to fetch.
+     */
+    where: AutoTriageRuleWhereUniqueInput
+  }
+
+  /**
+   * AutoTriageRule findUniqueOrThrow
+   */
+  export type AutoTriageRuleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutoTriageRule
+     */
+    select?: AutoTriageRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutoTriageRule
+     */
+    omit?: AutoTriageRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AutoTriageRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which AutoTriageRule to fetch.
+     */
+    where: AutoTriageRuleWhereUniqueInput
+  }
+
+  /**
+   * AutoTriageRule findFirst
+   */
+  export type AutoTriageRuleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutoTriageRule
+     */
+    select?: AutoTriageRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutoTriageRule
+     */
+    omit?: AutoTriageRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AutoTriageRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which AutoTriageRule to fetch.
+     */
+    where?: AutoTriageRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AutoTriageRules to fetch.
+     */
+    orderBy?: AutoTriageRuleOrderByWithRelationInput | AutoTriageRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AutoTriageRules.
+     */
+    cursor?: AutoTriageRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AutoTriageRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AutoTriageRules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AutoTriageRules.
+     */
+    distinct?: AutoTriageRuleScalarFieldEnum | AutoTriageRuleScalarFieldEnum[]
+  }
+
+  /**
+   * AutoTriageRule findFirstOrThrow
+   */
+  export type AutoTriageRuleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutoTriageRule
+     */
+    select?: AutoTriageRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutoTriageRule
+     */
+    omit?: AutoTriageRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AutoTriageRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which AutoTriageRule to fetch.
+     */
+    where?: AutoTriageRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AutoTriageRules to fetch.
+     */
+    orderBy?: AutoTriageRuleOrderByWithRelationInput | AutoTriageRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AutoTriageRules.
+     */
+    cursor?: AutoTriageRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AutoTriageRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AutoTriageRules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AutoTriageRules.
+     */
+    distinct?: AutoTriageRuleScalarFieldEnum | AutoTriageRuleScalarFieldEnum[]
+  }
+
+  /**
+   * AutoTriageRule findMany
+   */
+  export type AutoTriageRuleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutoTriageRule
+     */
+    select?: AutoTriageRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutoTriageRule
+     */
+    omit?: AutoTriageRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AutoTriageRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which AutoTriageRules to fetch.
+     */
+    where?: AutoTriageRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AutoTriageRules to fetch.
+     */
+    orderBy?: AutoTriageRuleOrderByWithRelationInput | AutoTriageRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AutoTriageRules.
+     */
+    cursor?: AutoTriageRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AutoTriageRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AutoTriageRules.
+     */
+    skip?: number
+    distinct?: AutoTriageRuleScalarFieldEnum | AutoTriageRuleScalarFieldEnum[]
+  }
+
+  /**
+   * AutoTriageRule create
+   */
+  export type AutoTriageRuleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutoTriageRule
+     */
+    select?: AutoTriageRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutoTriageRule
+     */
+    omit?: AutoTriageRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AutoTriageRuleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AutoTriageRule.
+     */
+    data: XOR<AutoTriageRuleCreateInput, AutoTriageRuleUncheckedCreateInput>
+  }
+
+  /**
+   * AutoTriageRule createMany
+   */
+  export type AutoTriageRuleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AutoTriageRules.
+     */
+    data: AutoTriageRuleCreateManyInput | AutoTriageRuleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AutoTriageRule update
+   */
+  export type AutoTriageRuleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutoTriageRule
+     */
+    select?: AutoTriageRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutoTriageRule
+     */
+    omit?: AutoTriageRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AutoTriageRuleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AutoTriageRule.
+     */
+    data: XOR<AutoTriageRuleUpdateInput, AutoTriageRuleUncheckedUpdateInput>
+    /**
+     * Choose, which AutoTriageRule to update.
+     */
+    where: AutoTriageRuleWhereUniqueInput
+  }
+
+  /**
+   * AutoTriageRule updateMany
+   */
+  export type AutoTriageRuleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AutoTriageRules.
+     */
+    data: XOR<AutoTriageRuleUpdateManyMutationInput, AutoTriageRuleUncheckedUpdateManyInput>
+    /**
+     * Filter which AutoTriageRules to update
+     */
+    where?: AutoTriageRuleWhereInput
+    /**
+     * Limit how many AutoTriageRules to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AutoTriageRule upsert
+   */
+  export type AutoTriageRuleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutoTriageRule
+     */
+    select?: AutoTriageRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutoTriageRule
+     */
+    omit?: AutoTriageRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AutoTriageRuleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AutoTriageRule to update in case it exists.
+     */
+    where: AutoTriageRuleWhereUniqueInput
+    /**
+     * In case the AutoTriageRule found by the `where` argument doesn't exist, create a new AutoTriageRule with this data.
+     */
+    create: XOR<AutoTriageRuleCreateInput, AutoTriageRuleUncheckedCreateInput>
+    /**
+     * In case the AutoTriageRule was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AutoTriageRuleUpdateInput, AutoTriageRuleUncheckedUpdateInput>
+  }
+
+  /**
+   * AutoTriageRule delete
+   */
+  export type AutoTriageRuleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutoTriageRule
+     */
+    select?: AutoTriageRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutoTriageRule
+     */
+    omit?: AutoTriageRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AutoTriageRuleInclude<ExtArgs> | null
+    /**
+     * Filter which AutoTriageRule to delete.
+     */
+    where: AutoTriageRuleWhereUniqueInput
+  }
+
+  /**
+   * AutoTriageRule deleteMany
+   */
+  export type AutoTriageRuleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AutoTriageRules to delete
+     */
+    where?: AutoTriageRuleWhereInput
+    /**
+     * Limit how many AutoTriageRules to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AutoTriageRule.Ticket
+   */
+  export type AutoTriageRule$TicketArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ticket
+     */
+    select?: TicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ticket
+     */
+    omit?: TicketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TicketInclude<ExtArgs> | null
+    where?: TicketWhereInput
+    orderBy?: TicketOrderByWithRelationInput | TicketOrderByWithRelationInput[]
+    cursor?: TicketWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TicketScalarFieldEnum | TicketScalarFieldEnum[]
+  }
+
+  /**
+   * AutoTriageRule without action
+   */
+  export type AutoTriageRuleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutoTriageRule
+     */
+    select?: AutoTriageRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutoTriageRule
+     */
+    omit?: AutoTriageRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AutoTriageRuleInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Ticket
    */
 
@@ -8458,6 +9561,7 @@ export namespace Prisma {
     slaReply: number | null
     slaResolution: number | null
     ticketValorationId: number | null
+    automaticTriageRuleId: number | null
   }
 
   export type TicketSumAggregateOutputType = {
@@ -8470,6 +9574,7 @@ export namespace Prisma {
     slaReply: number | null
     slaResolution: number | null
     ticketValorationId: number | null
+    automaticTriageRuleId: number | null
   }
 
   export type TicketMinAggregateOutputType = {
@@ -8493,6 +9598,9 @@ export namespace Prisma {
     closedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
+    assignedAt: Date | null
+    assignedMethod: $Enums.E_AssignedMethod | null
+    automaticTriageRuleId: number | null
   }
 
   export type TicketMaxAggregateOutputType = {
@@ -8516,6 +9624,9 @@ export namespace Prisma {
     closedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
+    assignedAt: Date | null
+    assignedMethod: $Enums.E_AssignedMethod | null
+    automaticTriageRuleId: number | null
   }
 
   export type TicketCountAggregateOutputType = {
@@ -8539,6 +9650,9 @@ export namespace Prisma {
     closedAt: number
     createdAt: number
     updatedAt: number
+    assignedAt: number
+    assignedMethod: number
+    automaticTriageRuleId: number
     _all: number
   }
 
@@ -8553,6 +9667,7 @@ export namespace Prisma {
     slaReply?: true
     slaResolution?: true
     ticketValorationId?: true
+    automaticTriageRuleId?: true
   }
 
   export type TicketSumAggregateInputType = {
@@ -8565,6 +9680,7 @@ export namespace Prisma {
     slaReply?: true
     slaResolution?: true
     ticketValorationId?: true
+    automaticTriageRuleId?: true
   }
 
   export type TicketMinAggregateInputType = {
@@ -8588,6 +9704,9 @@ export namespace Prisma {
     closedAt?: true
     createdAt?: true
     updatedAt?: true
+    assignedAt?: true
+    assignedMethod?: true
+    automaticTriageRuleId?: true
   }
 
   export type TicketMaxAggregateInputType = {
@@ -8611,6 +9730,9 @@ export namespace Prisma {
     closedAt?: true
     createdAt?: true
     updatedAt?: true
+    assignedAt?: true
+    assignedMethod?: true
+    automaticTriageRuleId?: true
   }
 
   export type TicketCountAggregateInputType = {
@@ -8634,6 +9756,9 @@ export namespace Prisma {
     closedAt?: true
     createdAt?: true
     updatedAt?: true
+    assignedAt?: true
+    assignedMethod?: true
+    automaticTriageRuleId?: true
     _all?: true
   }
 
@@ -8744,6 +9869,9 @@ export namespace Prisma {
     closedAt: Date | null
     createdAt: Date
     updatedAt: Date
+    assignedAt: Date | null
+    assignedMethod: $Enums.E_AssignedMethod | null
+    automaticTriageRuleId: number | null
     _count: TicketCountAggregateOutputType | null
     _avg: TicketAvgAggregateOutputType | null
     _sum: TicketSumAggregateOutputType | null
@@ -8786,6 +9914,9 @@ export namespace Prisma {
     closedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    assignedAt?: boolean
+    assignedMethod?: boolean
+    automaticTriageRuleId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     technician?: boolean | Ticket$technicianArgs<ExtArgs>
     ticketImages?: boolean | Ticket$ticketImagesArgs<ExtArgs>
@@ -8793,6 +9924,7 @@ export namespace Prisma {
     ticketCategory?: boolean | TicketCategoryDefaultArgs<ExtArgs>
     notifications?: boolean | Ticket$notificationsArgs<ExtArgs>
     ticketValoration?: boolean | Ticket$ticketValorationArgs<ExtArgs>
+    automaticTriageRule?: boolean | Ticket$automaticTriageRuleArgs<ExtArgs>
     _count?: boolean | TicketCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ticket"]>
 
@@ -8819,9 +9951,12 @@ export namespace Prisma {
     closedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    assignedAt?: boolean
+    assignedMethod?: boolean
+    automaticTriageRuleId?: boolean
   }
 
-  export type TicketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "technicianId" | "ticketCategoryId" | "title" | "description" | "status" | "priority" | "storyPoints" | "aceptanceCriteria" | "comments" | "resolutionDays" | "slaReply" | "slaResolution" | "replyAchieved" | "resolutionAchieved" | "ticketValorationId" | "closedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["ticket"]>
+  export type TicketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "technicianId" | "ticketCategoryId" | "title" | "description" | "status" | "priority" | "storyPoints" | "aceptanceCriteria" | "comments" | "resolutionDays" | "slaReply" | "slaResolution" | "replyAchieved" | "resolutionAchieved" | "ticketValorationId" | "closedAt" | "createdAt" | "updatedAt" | "assignedAt" | "assignedMethod" | "automaticTriageRuleId", ExtArgs["result"]["ticket"]>
   export type TicketInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     technician?: boolean | Ticket$technicianArgs<ExtArgs>
@@ -8830,6 +9965,7 @@ export namespace Prisma {
     ticketCategory?: boolean | TicketCategoryDefaultArgs<ExtArgs>
     notifications?: boolean | Ticket$notificationsArgs<ExtArgs>
     ticketValoration?: boolean | Ticket$ticketValorationArgs<ExtArgs>
+    automaticTriageRule?: boolean | Ticket$automaticTriageRuleArgs<ExtArgs>
     _count?: boolean | TicketCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -8843,6 +9979,7 @@ export namespace Prisma {
       ticketCategory: Prisma.$TicketCategoryPayload<ExtArgs>
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
       ticketValoration: Prisma.$TicketValorationPayload<ExtArgs> | null
+      automaticTriageRule: Prisma.$AutoTriageRulePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -8865,6 +10002,9 @@ export namespace Prisma {
       closedAt: Date | null
       createdAt: Date
       updatedAt: Date
+      assignedAt: Date | null
+      assignedMethod: $Enums.E_AssignedMethod | null
+      automaticTriageRuleId: number | null
     }, ExtArgs["result"]["ticket"]>
     composites: {}
   }
@@ -9212,6 +10352,7 @@ export namespace Prisma {
     ticketCategory<T extends TicketCategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TicketCategoryDefaultArgs<ExtArgs>>): Prisma__TicketCategoryClient<$Result.GetResult<Prisma.$TicketCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     notifications<T extends Ticket$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, Ticket$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ticketValoration<T extends Ticket$ticketValorationArgs<ExtArgs> = {}>(args?: Subset<T, Ticket$ticketValorationArgs<ExtArgs>>): Prisma__TicketValorationClient<$Result.GetResult<Prisma.$TicketValorationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    automaticTriageRule<T extends Ticket$automaticTriageRuleArgs<ExtArgs> = {}>(args?: Subset<T, Ticket$automaticTriageRuleArgs<ExtArgs>>): Prisma__AutoTriageRuleClient<$Result.GetResult<Prisma.$AutoTriageRulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9261,6 +10402,9 @@ export namespace Prisma {
     readonly closedAt: FieldRef<"Ticket", 'DateTime'>
     readonly createdAt: FieldRef<"Ticket", 'DateTime'>
     readonly updatedAt: FieldRef<"Ticket", 'DateTime'>
+    readonly assignedAt: FieldRef<"Ticket", 'DateTime'>
+    readonly assignedMethod: FieldRef<"Ticket", 'E_AssignedMethod'>
+    readonly automaticTriageRuleId: FieldRef<"Ticket", 'Int'>
   }
     
 
@@ -9711,6 +10855,25 @@ export namespace Prisma {
      */
     include?: TicketValorationInclude<ExtArgs> | null
     where?: TicketValorationWhereInput
+  }
+
+  /**
+   * Ticket.automaticTriageRule
+   */
+  export type Ticket$automaticTriageRuleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutoTriageRule
+     */
+    select?: AutoTriageRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutoTriageRule
+     */
+    omit?: AutoTriageRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AutoTriageRuleInclude<ExtArgs> | null
+    where?: AutoTriageRuleWhereInput
   }
 
   /**
@@ -10964,8 +12127,7 @@ export namespace Prisma {
     changedAt?: boolean
     ticket?: boolean | TicketDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-    ticketHistoryObservations?: boolean | TicketHistory$ticketHistoryObservationsArgs<ExtArgs>
-    _count?: boolean | TicketHistoryCountOutputTypeDefaultArgs<ExtArgs>
+    TicketObservation?: boolean | TicketHistory$TicketObservationArgs<ExtArgs>
   }, ExtArgs["result"]["ticketHistory"]>
 
 
@@ -10982,8 +12144,7 @@ export namespace Prisma {
   export type TicketHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ticket?: boolean | TicketDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-    ticketHistoryObservations?: boolean | TicketHistory$ticketHistoryObservationsArgs<ExtArgs>
-    _count?: boolean | TicketHistoryCountOutputTypeDefaultArgs<ExtArgs>
+    TicketObservation?: boolean | TicketHistory$TicketObservationArgs<ExtArgs>
   }
 
   export type $TicketHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10991,7 +12152,7 @@ export namespace Prisma {
     objects: {
       ticket: Prisma.$TicketPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs>
-      ticketHistoryObservations: Prisma.$TicketHistoryObservationPayload<ExtArgs>[]
+      TicketObservation: Prisma.$TicketHistoryObservationPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -11341,7 +12502,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     ticket<T extends TicketDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TicketDefaultArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    ticketHistoryObservations<T extends TicketHistory$ticketHistoryObservationsArgs<ExtArgs> = {}>(args?: Subset<T, TicketHistory$ticketHistoryObservationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketHistoryObservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    TicketObservation<T extends TicketHistory$TicketObservationArgs<ExtArgs> = {}>(args?: Subset<T, TicketHistory$TicketObservationArgs<ExtArgs>>): Prisma__TicketHistoryObservationClient<$Result.GetResult<Prisma.$TicketHistoryObservationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11719,9 +12880,9 @@ export namespace Prisma {
   }
 
   /**
-   * TicketHistory.ticketHistoryObservations
+   * TicketHistory.TicketObservation
    */
-  export type TicketHistory$ticketHistoryObservationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketHistory$TicketObservationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TicketHistoryObservation
      */
@@ -11735,11 +12896,6 @@ export namespace Prisma {
      */
     include?: TicketHistoryObservationInclude<ExtArgs> | null
     where?: TicketHistoryObservationWhereInput
-    orderBy?: TicketHistoryObservationOrderByWithRelationInput | TicketHistoryObservationOrderByWithRelationInput[]
-    cursor?: TicketHistoryObservationWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: TicketHistoryObservationScalarFieldEnum | TicketHistoryObservationScalarFieldEnum[]
   }
 
   /**
@@ -14846,6 +16002,18 @@ export namespace Prisma {
   export type TicketCategoryScalarFieldEnum = (typeof TicketCategoryScalarFieldEnum)[keyof typeof TicketCategoryScalarFieldEnum]
 
 
+  export const AutoTriageRuleScalarFieldEnum: {
+    id: 'id',
+    timeRemainingSLA: 'timeRemainingSLA',
+    ticketPriority: 'ticketPriority',
+    technicianSpecialityId: 'technicianSpecialityId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AutoTriageRuleScalarFieldEnum = (typeof AutoTriageRuleScalarFieldEnum)[keyof typeof AutoTriageRuleScalarFieldEnum]
+
+
   export const TicketScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -14866,7 +16034,10 @@ export namespace Prisma {
     ticketValorationId: 'ticketValorationId',
     closedAt: 'closedAt',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    assignedAt: 'assignedAt',
+    assignedMethod: 'assignedMethod',
+    automaticTriageRuleId: 'automaticTriageRuleId'
   };
 
   export type TicketScalarFieldEnum = (typeof TicketScalarFieldEnum)[keyof typeof TicketScalarFieldEnum]
@@ -15076,6 +16247,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'E_TicketPriority'
+   */
+  export type EnumE_TicketPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'E_TicketPriority'>
+    
+
+
+  /**
    * Reference to a field of type 'E_TicketStatus'
    */
   export type EnumE_TicketStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'E_TicketStatus'>
@@ -15083,9 +16261,9 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'E_TicketPriority'
+   * Reference to a field of type 'E_AssignedMethod'
    */
-  export type EnumE_TicketPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'E_TicketPriority'>
+  export type EnumE_AssignedMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'E_AssignedMethod'>
     
 
 
@@ -15523,6 +16701,68 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"TicketCategory"> | Date | string
   }
 
+  export type AutoTriageRuleWhereInput = {
+    AND?: AutoTriageRuleWhereInput | AutoTriageRuleWhereInput[]
+    OR?: AutoTriageRuleWhereInput[]
+    NOT?: AutoTriageRuleWhereInput | AutoTriageRuleWhereInput[]
+    id?: IntFilter<"AutoTriageRule"> | number
+    timeRemainingSLA?: IntFilter<"AutoTriageRule"> | number
+    ticketPriority?: EnumE_TicketPriorityFilter<"AutoTriageRule"> | $Enums.E_TicketPriority
+    technicianSpecialityId?: IntFilter<"AutoTriageRule"> | number
+    createdAt?: DateTimeFilter<"AutoTriageRule"> | Date | string
+    updatedAt?: DateTimeFilter<"AutoTriageRule"> | Date | string
+    Ticket?: TicketListRelationFilter
+  }
+
+  export type AutoTriageRuleOrderByWithRelationInput = {
+    id?: SortOrder
+    timeRemainingSLA?: SortOrder
+    ticketPriority?: SortOrder
+    technicianSpecialityId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    Ticket?: TicketOrderByRelationAggregateInput
+  }
+
+  export type AutoTriageRuleWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: AutoTriageRuleWhereInput | AutoTriageRuleWhereInput[]
+    OR?: AutoTriageRuleWhereInput[]
+    NOT?: AutoTriageRuleWhereInput | AutoTriageRuleWhereInput[]
+    timeRemainingSLA?: IntFilter<"AutoTriageRule"> | number
+    ticketPriority?: EnumE_TicketPriorityFilter<"AutoTriageRule"> | $Enums.E_TicketPriority
+    technicianSpecialityId?: IntFilter<"AutoTriageRule"> | number
+    createdAt?: DateTimeFilter<"AutoTriageRule"> | Date | string
+    updatedAt?: DateTimeFilter<"AutoTriageRule"> | Date | string
+    Ticket?: TicketListRelationFilter
+  }, "id">
+
+  export type AutoTriageRuleOrderByWithAggregationInput = {
+    id?: SortOrder
+    timeRemainingSLA?: SortOrder
+    ticketPriority?: SortOrder
+    technicianSpecialityId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AutoTriageRuleCountOrderByAggregateInput
+    _avg?: AutoTriageRuleAvgOrderByAggregateInput
+    _max?: AutoTriageRuleMaxOrderByAggregateInput
+    _min?: AutoTriageRuleMinOrderByAggregateInput
+    _sum?: AutoTriageRuleSumOrderByAggregateInput
+  }
+
+  export type AutoTriageRuleScalarWhereWithAggregatesInput = {
+    AND?: AutoTriageRuleScalarWhereWithAggregatesInput | AutoTriageRuleScalarWhereWithAggregatesInput[]
+    OR?: AutoTriageRuleScalarWhereWithAggregatesInput[]
+    NOT?: AutoTriageRuleScalarWhereWithAggregatesInput | AutoTriageRuleScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"AutoTriageRule"> | number
+    timeRemainingSLA?: IntWithAggregatesFilter<"AutoTriageRule"> | number
+    ticketPriority?: EnumE_TicketPriorityWithAggregatesFilter<"AutoTriageRule"> | $Enums.E_TicketPriority
+    technicianSpecialityId?: IntWithAggregatesFilter<"AutoTriageRule"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"AutoTriageRule"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AutoTriageRule"> | Date | string
+  }
+
   export type TicketWhereInput = {
     AND?: TicketWhereInput | TicketWhereInput[]
     OR?: TicketWhereInput[]
@@ -15547,6 +16787,9 @@ export namespace Prisma {
     closedAt?: DateTimeNullableFilter<"Ticket"> | Date | string | null
     createdAt?: DateTimeFilter<"Ticket"> | Date | string
     updatedAt?: DateTimeFilter<"Ticket"> | Date | string
+    assignedAt?: DateTimeNullableFilter<"Ticket"> | Date | string | null
+    assignedMethod?: EnumE_AssignedMethodNullableFilter<"Ticket"> | $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: IntNullableFilter<"Ticket"> | number | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     technician?: XOR<UserTechnicianNullableScalarRelationFilter, UserTechnicianWhereInput> | null
     ticketImages?: TicketImageListRelationFilter
@@ -15554,6 +16797,7 @@ export namespace Prisma {
     ticketCategory?: XOR<TicketCategoryScalarRelationFilter, TicketCategoryWhereInput>
     notifications?: NotificationListRelationFilter
     ticketValoration?: XOR<TicketValorationNullableScalarRelationFilter, TicketValorationWhereInput> | null
+    automaticTriageRule?: XOR<AutoTriageRuleNullableScalarRelationFilter, AutoTriageRuleWhereInput> | null
   }
 
   export type TicketOrderByWithRelationInput = {
@@ -15577,6 +16821,9 @@ export namespace Prisma {
     closedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    assignedAt?: SortOrderInput | SortOrder
+    assignedMethod?: SortOrderInput | SortOrder
+    automaticTriageRuleId?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     technician?: UserTechnicianOrderByWithRelationInput
     ticketImages?: TicketImageOrderByRelationAggregateInput
@@ -15584,6 +16831,7 @@ export namespace Prisma {
     ticketCategory?: TicketCategoryOrderByWithRelationInput
     notifications?: NotificationOrderByRelationAggregateInput
     ticketValoration?: TicketValorationOrderByWithRelationInput
+    automaticTriageRule?: AutoTriageRuleOrderByWithRelationInput
     _relevance?: TicketOrderByRelevanceInput
   }
 
@@ -15611,6 +16859,9 @@ export namespace Prisma {
     closedAt?: DateTimeNullableFilter<"Ticket"> | Date | string | null
     createdAt?: DateTimeFilter<"Ticket"> | Date | string
     updatedAt?: DateTimeFilter<"Ticket"> | Date | string
+    assignedAt?: DateTimeNullableFilter<"Ticket"> | Date | string | null
+    assignedMethod?: EnumE_AssignedMethodNullableFilter<"Ticket"> | $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: IntNullableFilter<"Ticket"> | number | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     technician?: XOR<UserTechnicianNullableScalarRelationFilter, UserTechnicianWhereInput> | null
     ticketImages?: TicketImageListRelationFilter
@@ -15618,6 +16869,7 @@ export namespace Prisma {
     ticketCategory?: XOR<TicketCategoryScalarRelationFilter, TicketCategoryWhereInput>
     notifications?: NotificationListRelationFilter
     ticketValoration?: XOR<TicketValorationNullableScalarRelationFilter, TicketValorationWhereInput> | null
+    automaticTriageRule?: XOR<AutoTriageRuleNullableScalarRelationFilter, AutoTriageRuleWhereInput> | null
   }, "id">
 
   export type TicketOrderByWithAggregationInput = {
@@ -15641,6 +16893,9 @@ export namespace Prisma {
     closedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    assignedAt?: SortOrderInput | SortOrder
+    assignedMethod?: SortOrderInput | SortOrder
+    automaticTriageRuleId?: SortOrderInput | SortOrder
     _count?: TicketCountOrderByAggregateInput
     _avg?: TicketAvgOrderByAggregateInput
     _max?: TicketMaxOrderByAggregateInput
@@ -15672,6 +16927,9 @@ export namespace Prisma {
     closedAt?: DateTimeNullableWithAggregatesFilter<"Ticket"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Ticket"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Ticket"> | Date | string
+    assignedAt?: DateTimeNullableWithAggregatesFilter<"Ticket"> | Date | string | null
+    assignedMethod?: EnumE_AssignedMethodNullableWithAggregatesFilter<"Ticket"> | $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: IntNullableWithAggregatesFilter<"Ticket"> | number | null
   }
 
   export type TicketImageWhereInput = {
@@ -15751,7 +17009,7 @@ export namespace Prisma {
     changedAt?: DateTimeFilter<"TicketHistory"> | Date | string
     ticket?: XOR<TicketScalarRelationFilter, TicketWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    ticketHistoryObservations?: TicketHistoryObservationListRelationFilter
+    TicketObservation?: XOR<TicketHistoryObservationNullableScalarRelationFilter, TicketHistoryObservationWhereInput> | null
   }
 
   export type TicketHistoryOrderByWithRelationInput = {
@@ -15762,7 +17020,7 @@ export namespace Prisma {
     changedAt?: SortOrder
     ticket?: TicketOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
-    ticketHistoryObservations?: TicketHistoryObservationOrderByRelationAggregateInput
+    TicketObservation?: TicketHistoryObservationOrderByWithRelationInput
   }
 
   export type TicketHistoryWhereUniqueInput = Prisma.AtLeast<{
@@ -15776,7 +17034,7 @@ export namespace Prisma {
     changedAt?: DateTimeFilter<"TicketHistory"> | Date | string
     ticket?: XOR<TicketScalarRelationFilter, TicketWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    ticketHistoryObservations?: TicketHistoryObservationListRelationFilter
+    TicketObservation?: XOR<TicketHistoryObservationNullableScalarRelationFilter, TicketHistoryObservationWhereInput> | null
   }, "id">
 
   export type TicketHistoryOrderByWithAggregationInput = {
@@ -15829,16 +17087,16 @@ export namespace Prisma {
 
   export type TicketHistoryObservationWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    ticketHistoryId?: number
     AND?: TicketHistoryObservationWhereInput | TicketHistoryObservationWhereInput[]
     OR?: TicketHistoryObservationWhereInput[]
     NOT?: TicketHistoryObservationWhereInput | TicketHistoryObservationWhereInput[]
-    ticketHistoryId?: IntFilter<"TicketHistoryObservation"> | number
     observation?: StringFilter<"TicketHistoryObservation"> | string
     createdAt?: DateTimeFilter<"TicketHistoryObservation"> | Date | string
     updatedAt?: DateTimeFilter<"TicketHistoryObservation"> | Date | string
     ticketHistory?: XOR<TicketHistoryScalarRelationFilter, TicketHistoryWhereInput>
     ticketImages?: TicketImageListRelationFilter
-  }, "id">
+  }, "id" | "ticketHistoryId">
 
   export type TicketHistoryObservationOrderByWithAggregationInput = {
     id?: SortOrder
@@ -16436,6 +17694,70 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AutoTriageRuleCreateInput = {
+    timeRemainingSLA: number
+    ticketPriority: $Enums.E_TicketPriority
+    technicianSpecialityId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Ticket?: TicketCreateNestedManyWithoutAutomaticTriageRuleInput
+  }
+
+  export type AutoTriageRuleUncheckedCreateInput = {
+    id?: number
+    timeRemainingSLA: number
+    ticketPriority: $Enums.E_TicketPriority
+    technicianSpecialityId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Ticket?: TicketUncheckedCreateNestedManyWithoutAutomaticTriageRuleInput
+  }
+
+  export type AutoTriageRuleUpdateInput = {
+    timeRemainingSLA?: IntFieldUpdateOperationsInput | number
+    ticketPriority?: EnumE_TicketPriorityFieldUpdateOperationsInput | $Enums.E_TicketPriority
+    technicianSpecialityId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Ticket?: TicketUpdateManyWithoutAutomaticTriageRuleNestedInput
+  }
+
+  export type AutoTriageRuleUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    timeRemainingSLA?: IntFieldUpdateOperationsInput | number
+    ticketPriority?: EnumE_TicketPriorityFieldUpdateOperationsInput | $Enums.E_TicketPriority
+    technicianSpecialityId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Ticket?: TicketUncheckedUpdateManyWithoutAutomaticTriageRuleNestedInput
+  }
+
+  export type AutoTriageRuleCreateManyInput = {
+    id?: number
+    timeRemainingSLA: number
+    ticketPriority: $Enums.E_TicketPriority
+    technicianSpecialityId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AutoTriageRuleUpdateManyMutationInput = {
+    timeRemainingSLA?: IntFieldUpdateOperationsInput | number
+    ticketPriority?: EnumE_TicketPriorityFieldUpdateOperationsInput | $Enums.E_TicketPriority
+    technicianSpecialityId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AutoTriageRuleUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    timeRemainingSLA?: IntFieldUpdateOperationsInput | number
+    ticketPriority?: EnumE_TicketPriorityFieldUpdateOperationsInput | $Enums.E_TicketPriority
+    technicianSpecialityId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TicketCreateInput = {
     title: string
     description?: string | null
@@ -16453,6 +17775,8 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
     user: UserCreateNestedOneWithoutTicketsInput
     technician?: UserTechnicianCreateNestedOneWithoutTicketsInput
     ticketImages?: TicketImageCreateNestedManyWithoutTicketInput
@@ -16460,6 +17784,7 @@ export namespace Prisma {
     ticketCategory: TicketCategoryCreateNestedOneWithoutTicketsInput
     notifications?: NotificationCreateNestedManyWithoutTicketInput
     ticketValoration?: TicketValorationCreateNestedOneWithoutTicketInput
+    automaticTriageRule?: AutoTriageRuleCreateNestedOneWithoutTicketInput
   }
 
   export type TicketUncheckedCreateInput = {
@@ -16483,6 +17808,9 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: number | null
     ticketImages?: TicketImageUncheckedCreateNestedManyWithoutTicketInput
     ticketHistory?: TicketHistoryUncheckedCreateNestedManyWithoutTicketInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTicketInput
@@ -16506,6 +17834,8 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
     user?: UserUpdateOneRequiredWithoutTicketsNestedInput
     technician?: UserTechnicianUpdateOneWithoutTicketsNestedInput
     ticketImages?: TicketImageUpdateManyWithoutTicketNestedInput
@@ -16513,6 +17843,7 @@ export namespace Prisma {
     ticketCategory?: TicketCategoryUpdateOneRequiredWithoutTicketsNestedInput
     notifications?: NotificationUpdateManyWithoutTicketNestedInput
     ticketValoration?: TicketValorationUpdateOneWithoutTicketNestedInput
+    automaticTriageRule?: AutoTriageRuleUpdateOneWithoutTicketNestedInput
   }
 
   export type TicketUncheckedUpdateInput = {
@@ -16536,6 +17867,9 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: NullableIntFieldUpdateOperationsInput | number | null
     ticketImages?: TicketImageUncheckedUpdateManyWithoutTicketNestedInput
     ticketHistory?: TicketHistoryUncheckedUpdateManyWithoutTicketNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTicketNestedInput
@@ -16563,6 +17897,9 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: number | null
   }
 
   export type TicketUpdateManyMutationInput = {
@@ -16582,6 +17919,8 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
   }
 
   export type TicketUncheckedUpdateManyInput = {
@@ -16605,6 +17944,9 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type TicketImageCreateInput = {
@@ -16670,7 +18012,7 @@ export namespace Prisma {
     changedAt?: Date | string
     ticket: TicketCreateNestedOneWithoutTicketHistoryInput
     user: UserCreateNestedOneWithoutTicketHistoryInput
-    ticketHistoryObservations?: TicketHistoryObservationCreateNestedManyWithoutTicketHistoryInput
+    TicketObservation?: TicketHistoryObservationCreateNestedOneWithoutTicketHistoryInput
   }
 
   export type TicketHistoryUncheckedCreateInput = {
@@ -16679,7 +18021,7 @@ export namespace Prisma {
     status: $Enums.E_TicketStatus
     changedBy: number
     changedAt?: Date | string
-    ticketHistoryObservations?: TicketHistoryObservationUncheckedCreateNestedManyWithoutTicketHistoryInput
+    TicketObservation?: TicketHistoryObservationUncheckedCreateNestedOneWithoutTicketHistoryInput
   }
 
   export type TicketHistoryUpdateInput = {
@@ -16687,7 +18029,7 @@ export namespace Prisma {
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ticket?: TicketUpdateOneRequiredWithoutTicketHistoryNestedInput
     user?: UserUpdateOneRequiredWithoutTicketHistoryNestedInput
-    ticketHistoryObservations?: TicketHistoryObservationUpdateManyWithoutTicketHistoryNestedInput
+    TicketObservation?: TicketHistoryObservationUpdateOneWithoutTicketHistoryNestedInput
   }
 
   export type TicketHistoryUncheckedUpdateInput = {
@@ -16696,7 +18038,7 @@ export namespace Prisma {
     status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
     changedBy?: IntFieldUpdateOperationsInput | number
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ticketHistoryObservations?: TicketHistoryObservationUncheckedUpdateManyWithoutTicketHistoryNestedInput
+    TicketObservation?: TicketHistoryObservationUncheckedUpdateOneWithoutTicketHistoryNestedInput
   }
 
   export type TicketHistoryCreateManyInput = {
@@ -16724,7 +18066,7 @@ export namespace Prisma {
     observation: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    ticketHistory: TicketHistoryCreateNestedOneWithoutTicketHistoryObservationsInput
+    ticketHistory: TicketHistoryCreateNestedOneWithoutTicketObservationInput
     ticketImages?: TicketImageCreateNestedManyWithoutTicketHistoryObservationInput
   }
 
@@ -16741,7 +18083,7 @@ export namespace Prisma {
     observation?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ticketHistory?: TicketHistoryUpdateOneRequiredWithoutTicketHistoryObservationsNestedInput
+    ticketHistory?: TicketHistoryUpdateOneRequiredWithoutTicketObservationNestedInput
     ticketImages?: TicketImageUpdateManyWithoutTicketHistoryObservationNestedInput
   }
 
@@ -17442,6 +18784,62 @@ export namespace Prisma {
     slaId?: SortOrder
   }
 
+  export type EnumE_TicketPriorityFilter<$PrismaModel = never> = {
+    equals?: $Enums.E_TicketPriority | EnumE_TicketPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.E_TicketPriority[]
+    notIn?: $Enums.E_TicketPriority[]
+    not?: NestedEnumE_TicketPriorityFilter<$PrismaModel> | $Enums.E_TicketPriority
+  }
+
+  export type AutoTriageRuleCountOrderByAggregateInput = {
+    id?: SortOrder
+    timeRemainingSLA?: SortOrder
+    ticketPriority?: SortOrder
+    technicianSpecialityId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AutoTriageRuleAvgOrderByAggregateInput = {
+    id?: SortOrder
+    timeRemainingSLA?: SortOrder
+    technicianSpecialityId?: SortOrder
+  }
+
+  export type AutoTriageRuleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    timeRemainingSLA?: SortOrder
+    ticketPriority?: SortOrder
+    technicianSpecialityId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AutoTriageRuleMinOrderByAggregateInput = {
+    id?: SortOrder
+    timeRemainingSLA?: SortOrder
+    ticketPriority?: SortOrder
+    technicianSpecialityId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AutoTriageRuleSumOrderByAggregateInput = {
+    id?: SortOrder
+    timeRemainingSLA?: SortOrder
+    technicianSpecialityId?: SortOrder
+  }
+
+  export type EnumE_TicketPriorityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.E_TicketPriority | EnumE_TicketPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.E_TicketPriority[]
+    notIn?: $Enums.E_TicketPriority[]
+    not?: NestedEnumE_TicketPriorityWithAggregatesFilter<$PrismaModel> | $Enums.E_TicketPriority
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumE_TicketPriorityFilter<$PrismaModel>
+    _max?: NestedEnumE_TicketPriorityFilter<$PrismaModel>
+  }
+
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -17460,11 +18858,11 @@ export namespace Prisma {
     not?: NestedEnumE_TicketStatusFilter<$PrismaModel> | $Enums.E_TicketStatus
   }
 
-  export type EnumE_TicketPriorityFilter<$PrismaModel = never> = {
-    equals?: $Enums.E_TicketPriority | EnumE_TicketPriorityFieldRefInput<$PrismaModel>
-    in?: $Enums.E_TicketPriority[]
-    notIn?: $Enums.E_TicketPriority[]
-    not?: NestedEnumE_TicketPriorityFilter<$PrismaModel> | $Enums.E_TicketPriority
+  export type EnumE_AssignedMethodNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.E_AssignedMethod | EnumE_AssignedMethodFieldRefInput<$PrismaModel> | null
+    in?: $Enums.E_AssignedMethod[] | null
+    notIn?: $Enums.E_AssignedMethod[] | null
+    not?: NestedEnumE_AssignedMethodNullableFilter<$PrismaModel> | $Enums.E_AssignedMethod | null
   }
 
   export type TicketImageListRelationFilter = {
@@ -17481,6 +18879,11 @@ export namespace Prisma {
   export type TicketValorationNullableScalarRelationFilter = {
     is?: TicketValorationWhereInput | null
     isNot?: TicketValorationWhereInput | null
+  }
+
+  export type AutoTriageRuleNullableScalarRelationFilter = {
+    is?: AutoTriageRuleWhereInput | null
+    isNot?: AutoTriageRuleWhereInput | null
   }
 
   export type TicketImageOrderByRelationAggregateInput = {
@@ -17514,6 +18917,9 @@ export namespace Prisma {
     closedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    assignedAt?: SortOrder
+    assignedMethod?: SortOrder
+    automaticTriageRuleId?: SortOrder
   }
 
   export type TicketAvgOrderByAggregateInput = {
@@ -17526,6 +18932,7 @@ export namespace Prisma {
     slaReply?: SortOrder
     slaResolution?: SortOrder
     ticketValorationId?: SortOrder
+    automaticTriageRuleId?: SortOrder
   }
 
   export type TicketMaxOrderByAggregateInput = {
@@ -17549,6 +18956,9 @@ export namespace Prisma {
     closedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    assignedAt?: SortOrder
+    assignedMethod?: SortOrder
+    automaticTriageRuleId?: SortOrder
   }
 
   export type TicketMinOrderByAggregateInput = {
@@ -17572,6 +18982,9 @@ export namespace Prisma {
     closedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    assignedAt?: SortOrder
+    assignedMethod?: SortOrder
+    automaticTriageRuleId?: SortOrder
   }
 
   export type TicketSumOrderByAggregateInput = {
@@ -17584,6 +18997,7 @@ export namespace Prisma {
     slaReply?: SortOrder
     slaResolution?: SortOrder
     ticketValorationId?: SortOrder
+    automaticTriageRuleId?: SortOrder
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -17612,14 +19026,14 @@ export namespace Prisma {
     _max?: NestedEnumE_TicketStatusFilter<$PrismaModel>
   }
 
-  export type EnumE_TicketPriorityWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.E_TicketPriority | EnumE_TicketPriorityFieldRefInput<$PrismaModel>
-    in?: $Enums.E_TicketPriority[]
-    notIn?: $Enums.E_TicketPriority[]
-    not?: NestedEnumE_TicketPriorityWithAggregatesFilter<$PrismaModel> | $Enums.E_TicketPriority
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumE_TicketPriorityFilter<$PrismaModel>
-    _max?: NestedEnumE_TicketPriorityFilter<$PrismaModel>
+  export type EnumE_AssignedMethodNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.E_AssignedMethod | EnumE_AssignedMethodFieldRefInput<$PrismaModel> | null
+    in?: $Enums.E_AssignedMethod[] | null
+    notIn?: $Enums.E_AssignedMethod[] | null
+    not?: NestedEnumE_AssignedMethodNullableWithAggregatesFilter<$PrismaModel> | $Enums.E_AssignedMethod | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumE_AssignedMethodNullableFilter<$PrismaModel>
+    _max?: NestedEnumE_AssignedMethodNullableFilter<$PrismaModel>
   }
 
   export type TicketNullableScalarRelationFilter = {
@@ -17680,16 +19094,6 @@ export namespace Prisma {
   export type TicketScalarRelationFilter = {
     is?: TicketWhereInput
     isNot?: TicketWhereInput
-  }
-
-  export type TicketHistoryObservationListRelationFilter = {
-    every?: TicketHistoryObservationWhereInput
-    some?: TicketHistoryObservationWhereInput
-    none?: TicketHistoryObservationWhereInput
-  }
-
-  export type TicketHistoryObservationOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type TicketHistoryCountOrderByAggregateInput = {
@@ -18442,6 +19846,52 @@ export namespace Prisma {
     deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
   }
 
+  export type TicketCreateNestedManyWithoutAutomaticTriageRuleInput = {
+    create?: XOR<TicketCreateWithoutAutomaticTriageRuleInput, TicketUncheckedCreateWithoutAutomaticTriageRuleInput> | TicketCreateWithoutAutomaticTriageRuleInput[] | TicketUncheckedCreateWithoutAutomaticTriageRuleInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutAutomaticTriageRuleInput | TicketCreateOrConnectWithoutAutomaticTriageRuleInput[]
+    createMany?: TicketCreateManyAutomaticTriageRuleInputEnvelope
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+  }
+
+  export type TicketUncheckedCreateNestedManyWithoutAutomaticTriageRuleInput = {
+    create?: XOR<TicketCreateWithoutAutomaticTriageRuleInput, TicketUncheckedCreateWithoutAutomaticTriageRuleInput> | TicketCreateWithoutAutomaticTriageRuleInput[] | TicketUncheckedCreateWithoutAutomaticTriageRuleInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutAutomaticTriageRuleInput | TicketCreateOrConnectWithoutAutomaticTriageRuleInput[]
+    createMany?: TicketCreateManyAutomaticTriageRuleInputEnvelope
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+  }
+
+  export type EnumE_TicketPriorityFieldUpdateOperationsInput = {
+    set?: $Enums.E_TicketPriority
+  }
+
+  export type TicketUpdateManyWithoutAutomaticTriageRuleNestedInput = {
+    create?: XOR<TicketCreateWithoutAutomaticTriageRuleInput, TicketUncheckedCreateWithoutAutomaticTriageRuleInput> | TicketCreateWithoutAutomaticTriageRuleInput[] | TicketUncheckedCreateWithoutAutomaticTriageRuleInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutAutomaticTriageRuleInput | TicketCreateOrConnectWithoutAutomaticTriageRuleInput[]
+    upsert?: TicketUpsertWithWhereUniqueWithoutAutomaticTriageRuleInput | TicketUpsertWithWhereUniqueWithoutAutomaticTriageRuleInput[]
+    createMany?: TicketCreateManyAutomaticTriageRuleInputEnvelope
+    set?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    disconnect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    delete?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    update?: TicketUpdateWithWhereUniqueWithoutAutomaticTriageRuleInput | TicketUpdateWithWhereUniqueWithoutAutomaticTriageRuleInput[]
+    updateMany?: TicketUpdateManyWithWhereWithoutAutomaticTriageRuleInput | TicketUpdateManyWithWhereWithoutAutomaticTriageRuleInput[]
+    deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
+  }
+
+  export type TicketUncheckedUpdateManyWithoutAutomaticTriageRuleNestedInput = {
+    create?: XOR<TicketCreateWithoutAutomaticTriageRuleInput, TicketUncheckedCreateWithoutAutomaticTriageRuleInput> | TicketCreateWithoutAutomaticTriageRuleInput[] | TicketUncheckedCreateWithoutAutomaticTriageRuleInput[]
+    connectOrCreate?: TicketCreateOrConnectWithoutAutomaticTriageRuleInput | TicketCreateOrConnectWithoutAutomaticTriageRuleInput[]
+    upsert?: TicketUpsertWithWhereUniqueWithoutAutomaticTriageRuleInput | TicketUpsertWithWhereUniqueWithoutAutomaticTriageRuleInput[]
+    createMany?: TicketCreateManyAutomaticTriageRuleInputEnvelope
+    set?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    disconnect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    delete?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
+    update?: TicketUpdateWithWhereUniqueWithoutAutomaticTriageRuleInput | TicketUpdateWithWhereUniqueWithoutAutomaticTriageRuleInput[]
+    updateMany?: TicketUpdateManyWithWhereWithoutAutomaticTriageRuleInput | TicketUpdateManyWithWhereWithoutAutomaticTriageRuleInput[]
+    deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutTicketsInput = {
     create?: XOR<UserCreateWithoutTicketsInput, UserUncheckedCreateWithoutTicketsInput>
     connectOrCreate?: UserCreateOrConnectWithoutTicketsInput
@@ -18487,6 +19937,12 @@ export namespace Prisma {
     connect?: TicketValorationWhereUniqueInput
   }
 
+  export type AutoTriageRuleCreateNestedOneWithoutTicketInput = {
+    create?: XOR<AutoTriageRuleCreateWithoutTicketInput, AutoTriageRuleUncheckedCreateWithoutTicketInput>
+    connectOrCreate?: AutoTriageRuleCreateOrConnectWithoutTicketInput
+    connect?: AutoTriageRuleWhereUniqueInput
+  }
+
   export type TicketImageUncheckedCreateNestedManyWithoutTicketInput = {
     create?: XOR<TicketImageCreateWithoutTicketInput, TicketImageUncheckedCreateWithoutTicketInput> | TicketImageCreateWithoutTicketInput[] | TicketImageUncheckedCreateWithoutTicketInput[]
     connectOrCreate?: TicketImageCreateOrConnectWithoutTicketInput | TicketImageCreateOrConnectWithoutTicketInput[]
@@ -18518,16 +19974,16 @@ export namespace Prisma {
     set?: $Enums.E_TicketStatus
   }
 
-  export type EnumE_TicketPriorityFieldUpdateOperationsInput = {
-    set?: $Enums.E_TicketPriority
-  }
-
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type NullableEnumE_AssignedMethodFieldUpdateOperationsInput = {
+    set?: $Enums.E_AssignedMethod | null
   }
 
   export type UserUpdateOneRequiredWithoutTicketsNestedInput = {
@@ -18606,6 +20062,16 @@ export namespace Prisma {
     delete?: TicketValorationWhereInput | boolean
     connect?: TicketValorationWhereUniqueInput
     update?: XOR<XOR<TicketValorationUpdateToOneWithWhereWithoutTicketInput, TicketValorationUpdateWithoutTicketInput>, TicketValorationUncheckedUpdateWithoutTicketInput>
+  }
+
+  export type AutoTriageRuleUpdateOneWithoutTicketNestedInput = {
+    create?: XOR<AutoTriageRuleCreateWithoutTicketInput, AutoTriageRuleUncheckedCreateWithoutTicketInput>
+    connectOrCreate?: AutoTriageRuleCreateOrConnectWithoutTicketInput
+    upsert?: AutoTriageRuleUpsertWithoutTicketInput
+    disconnect?: AutoTriageRuleWhereInput | boolean
+    delete?: AutoTriageRuleWhereInput | boolean
+    connect?: AutoTriageRuleWhereUniqueInput
+    update?: XOR<XOR<AutoTriageRuleUpdateToOneWithWhereWithoutTicketInput, AutoTriageRuleUpdateWithoutTicketInput>, AutoTriageRuleUncheckedUpdateWithoutTicketInput>
   }
 
   export type TicketImageUncheckedUpdateManyWithoutTicketNestedInput = {
@@ -18704,18 +20170,16 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type TicketHistoryObservationCreateNestedManyWithoutTicketHistoryInput = {
-    create?: XOR<TicketHistoryObservationCreateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput> | TicketHistoryObservationCreateWithoutTicketHistoryInput[] | TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput[]
-    connectOrCreate?: TicketHistoryObservationCreateOrConnectWithoutTicketHistoryInput | TicketHistoryObservationCreateOrConnectWithoutTicketHistoryInput[]
-    createMany?: TicketHistoryObservationCreateManyTicketHistoryInputEnvelope
-    connect?: TicketHistoryObservationWhereUniqueInput | TicketHistoryObservationWhereUniqueInput[]
+  export type TicketHistoryObservationCreateNestedOneWithoutTicketHistoryInput = {
+    create?: XOR<TicketHistoryObservationCreateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput>
+    connectOrCreate?: TicketHistoryObservationCreateOrConnectWithoutTicketHistoryInput
+    connect?: TicketHistoryObservationWhereUniqueInput
   }
 
-  export type TicketHistoryObservationUncheckedCreateNestedManyWithoutTicketHistoryInput = {
-    create?: XOR<TicketHistoryObservationCreateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput> | TicketHistoryObservationCreateWithoutTicketHistoryInput[] | TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput[]
-    connectOrCreate?: TicketHistoryObservationCreateOrConnectWithoutTicketHistoryInput | TicketHistoryObservationCreateOrConnectWithoutTicketHistoryInput[]
-    createMany?: TicketHistoryObservationCreateManyTicketHistoryInputEnvelope
-    connect?: TicketHistoryObservationWhereUniqueInput | TicketHistoryObservationWhereUniqueInput[]
+  export type TicketHistoryObservationUncheckedCreateNestedOneWithoutTicketHistoryInput = {
+    create?: XOR<TicketHistoryObservationCreateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput>
+    connectOrCreate?: TicketHistoryObservationCreateOrConnectWithoutTicketHistoryInput
+    connect?: TicketHistoryObservationWhereUniqueInput
   }
 
   export type TicketUpdateOneRequiredWithoutTicketHistoryNestedInput = {
@@ -18734,37 +20198,29 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTicketHistoryInput, UserUpdateWithoutTicketHistoryInput>, UserUncheckedUpdateWithoutTicketHistoryInput>
   }
 
-  export type TicketHistoryObservationUpdateManyWithoutTicketHistoryNestedInput = {
-    create?: XOR<TicketHistoryObservationCreateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput> | TicketHistoryObservationCreateWithoutTicketHistoryInput[] | TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput[]
-    connectOrCreate?: TicketHistoryObservationCreateOrConnectWithoutTicketHistoryInput | TicketHistoryObservationCreateOrConnectWithoutTicketHistoryInput[]
-    upsert?: TicketHistoryObservationUpsertWithWhereUniqueWithoutTicketHistoryInput | TicketHistoryObservationUpsertWithWhereUniqueWithoutTicketHistoryInput[]
-    createMany?: TicketHistoryObservationCreateManyTicketHistoryInputEnvelope
-    set?: TicketHistoryObservationWhereUniqueInput | TicketHistoryObservationWhereUniqueInput[]
-    disconnect?: TicketHistoryObservationWhereUniqueInput | TicketHistoryObservationWhereUniqueInput[]
-    delete?: TicketHistoryObservationWhereUniqueInput | TicketHistoryObservationWhereUniqueInput[]
-    connect?: TicketHistoryObservationWhereUniqueInput | TicketHistoryObservationWhereUniqueInput[]
-    update?: TicketHistoryObservationUpdateWithWhereUniqueWithoutTicketHistoryInput | TicketHistoryObservationUpdateWithWhereUniqueWithoutTicketHistoryInput[]
-    updateMany?: TicketHistoryObservationUpdateManyWithWhereWithoutTicketHistoryInput | TicketHistoryObservationUpdateManyWithWhereWithoutTicketHistoryInput[]
-    deleteMany?: TicketHistoryObservationScalarWhereInput | TicketHistoryObservationScalarWhereInput[]
+  export type TicketHistoryObservationUpdateOneWithoutTicketHistoryNestedInput = {
+    create?: XOR<TicketHistoryObservationCreateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput>
+    connectOrCreate?: TicketHistoryObservationCreateOrConnectWithoutTicketHistoryInput
+    upsert?: TicketHistoryObservationUpsertWithoutTicketHistoryInput
+    disconnect?: TicketHistoryObservationWhereInput | boolean
+    delete?: TicketHistoryObservationWhereInput | boolean
+    connect?: TicketHistoryObservationWhereUniqueInput
+    update?: XOR<XOR<TicketHistoryObservationUpdateToOneWithWhereWithoutTicketHistoryInput, TicketHistoryObservationUpdateWithoutTicketHistoryInput>, TicketHistoryObservationUncheckedUpdateWithoutTicketHistoryInput>
   }
 
-  export type TicketHistoryObservationUncheckedUpdateManyWithoutTicketHistoryNestedInput = {
-    create?: XOR<TicketHistoryObservationCreateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput> | TicketHistoryObservationCreateWithoutTicketHistoryInput[] | TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput[]
-    connectOrCreate?: TicketHistoryObservationCreateOrConnectWithoutTicketHistoryInput | TicketHistoryObservationCreateOrConnectWithoutTicketHistoryInput[]
-    upsert?: TicketHistoryObservationUpsertWithWhereUniqueWithoutTicketHistoryInput | TicketHistoryObservationUpsertWithWhereUniqueWithoutTicketHistoryInput[]
-    createMany?: TicketHistoryObservationCreateManyTicketHistoryInputEnvelope
-    set?: TicketHistoryObservationWhereUniqueInput | TicketHistoryObservationWhereUniqueInput[]
-    disconnect?: TicketHistoryObservationWhereUniqueInput | TicketHistoryObservationWhereUniqueInput[]
-    delete?: TicketHistoryObservationWhereUniqueInput | TicketHistoryObservationWhereUniqueInput[]
-    connect?: TicketHistoryObservationWhereUniqueInput | TicketHistoryObservationWhereUniqueInput[]
-    update?: TicketHistoryObservationUpdateWithWhereUniqueWithoutTicketHistoryInput | TicketHistoryObservationUpdateWithWhereUniqueWithoutTicketHistoryInput[]
-    updateMany?: TicketHistoryObservationUpdateManyWithWhereWithoutTicketHistoryInput | TicketHistoryObservationUpdateManyWithWhereWithoutTicketHistoryInput[]
-    deleteMany?: TicketHistoryObservationScalarWhereInput | TicketHistoryObservationScalarWhereInput[]
+  export type TicketHistoryObservationUncheckedUpdateOneWithoutTicketHistoryNestedInput = {
+    create?: XOR<TicketHistoryObservationCreateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput>
+    connectOrCreate?: TicketHistoryObservationCreateOrConnectWithoutTicketHistoryInput
+    upsert?: TicketHistoryObservationUpsertWithoutTicketHistoryInput
+    disconnect?: TicketHistoryObservationWhereInput | boolean
+    delete?: TicketHistoryObservationWhereInput | boolean
+    connect?: TicketHistoryObservationWhereUniqueInput
+    update?: XOR<XOR<TicketHistoryObservationUpdateToOneWithWhereWithoutTicketHistoryInput, TicketHistoryObservationUpdateWithoutTicketHistoryInput>, TicketHistoryObservationUncheckedUpdateWithoutTicketHistoryInput>
   }
 
-  export type TicketHistoryCreateNestedOneWithoutTicketHistoryObservationsInput = {
-    create?: XOR<TicketHistoryCreateWithoutTicketHistoryObservationsInput, TicketHistoryUncheckedCreateWithoutTicketHistoryObservationsInput>
-    connectOrCreate?: TicketHistoryCreateOrConnectWithoutTicketHistoryObservationsInput
+  export type TicketHistoryCreateNestedOneWithoutTicketObservationInput = {
+    create?: XOR<TicketHistoryCreateWithoutTicketObservationInput, TicketHistoryUncheckedCreateWithoutTicketObservationInput>
+    connectOrCreate?: TicketHistoryCreateOrConnectWithoutTicketObservationInput
     connect?: TicketHistoryWhereUniqueInput
   }
 
@@ -18782,12 +20238,12 @@ export namespace Prisma {
     connect?: TicketImageWhereUniqueInput | TicketImageWhereUniqueInput[]
   }
 
-  export type TicketHistoryUpdateOneRequiredWithoutTicketHistoryObservationsNestedInput = {
-    create?: XOR<TicketHistoryCreateWithoutTicketHistoryObservationsInput, TicketHistoryUncheckedCreateWithoutTicketHistoryObservationsInput>
-    connectOrCreate?: TicketHistoryCreateOrConnectWithoutTicketHistoryObservationsInput
-    upsert?: TicketHistoryUpsertWithoutTicketHistoryObservationsInput
+  export type TicketHistoryUpdateOneRequiredWithoutTicketObservationNestedInput = {
+    create?: XOR<TicketHistoryCreateWithoutTicketObservationInput, TicketHistoryUncheckedCreateWithoutTicketObservationInput>
+    connectOrCreate?: TicketHistoryCreateOrConnectWithoutTicketObservationInput
+    upsert?: TicketHistoryUpsertWithoutTicketObservationInput
     connect?: TicketHistoryWhereUniqueInput
-    update?: XOR<XOR<TicketHistoryUpdateToOneWithWhereWithoutTicketHistoryObservationsInput, TicketHistoryUpdateWithoutTicketHistoryObservationsInput>, TicketHistoryUncheckedUpdateWithoutTicketHistoryObservationsInput>
+    update?: XOR<XOR<TicketHistoryUpdateToOneWithWhereWithoutTicketObservationInput, TicketHistoryUpdateWithoutTicketObservationInput>, TicketHistoryUncheckedUpdateWithoutTicketObservationInput>
   }
 
   export type TicketImageUpdateManyWithoutTicketHistoryObservationNestedInput = {
@@ -19074,6 +20530,23 @@ export namespace Prisma {
     _max?: NestedEnumE_TechnicianStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumE_TicketPriorityFilter<$PrismaModel = never> = {
+    equals?: $Enums.E_TicketPriority | EnumE_TicketPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.E_TicketPriority[]
+    notIn?: $Enums.E_TicketPriority[]
+    not?: NestedEnumE_TicketPriorityFilter<$PrismaModel> | $Enums.E_TicketPriority
+  }
+
+  export type NestedEnumE_TicketPriorityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.E_TicketPriority | EnumE_TicketPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.E_TicketPriority[]
+    notIn?: $Enums.E_TicketPriority[]
+    not?: NestedEnumE_TicketPriorityWithAggregatesFilter<$PrismaModel> | $Enums.E_TicketPriority
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumE_TicketPriorityFilter<$PrismaModel>
+    _max?: NestedEnumE_TicketPriorityFilter<$PrismaModel>
+  }
+
   export type NestedEnumE_TicketStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.E_TicketStatus | EnumE_TicketStatusFieldRefInput<$PrismaModel>
     in?: $Enums.E_TicketStatus[]
@@ -19081,11 +20554,11 @@ export namespace Prisma {
     not?: NestedEnumE_TicketStatusFilter<$PrismaModel> | $Enums.E_TicketStatus
   }
 
-  export type NestedEnumE_TicketPriorityFilter<$PrismaModel = never> = {
-    equals?: $Enums.E_TicketPriority | EnumE_TicketPriorityFieldRefInput<$PrismaModel>
-    in?: $Enums.E_TicketPriority[]
-    notIn?: $Enums.E_TicketPriority[]
-    not?: NestedEnumE_TicketPriorityFilter<$PrismaModel> | $Enums.E_TicketPriority
+  export type NestedEnumE_AssignedMethodNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.E_AssignedMethod | EnumE_AssignedMethodFieldRefInput<$PrismaModel> | null
+    in?: $Enums.E_AssignedMethod[] | null
+    notIn?: $Enums.E_AssignedMethod[] | null
+    not?: NestedEnumE_AssignedMethodNullableFilter<$PrismaModel> | $Enums.E_AssignedMethod | null
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -19125,14 +20598,14 @@ export namespace Prisma {
     _max?: NestedEnumE_TicketStatusFilter<$PrismaModel>
   }
 
-  export type NestedEnumE_TicketPriorityWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.E_TicketPriority | EnumE_TicketPriorityFieldRefInput<$PrismaModel>
-    in?: $Enums.E_TicketPriority[]
-    notIn?: $Enums.E_TicketPriority[]
-    not?: NestedEnumE_TicketPriorityWithAggregatesFilter<$PrismaModel> | $Enums.E_TicketPriority
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumE_TicketPriorityFilter<$PrismaModel>
-    _max?: NestedEnumE_TicketPriorityFilter<$PrismaModel>
+  export type NestedEnumE_AssignedMethodNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.E_AssignedMethod | EnumE_AssignedMethodFieldRefInput<$PrismaModel> | null
+    in?: $Enums.E_AssignedMethod[] | null
+    notIn?: $Enums.E_AssignedMethod[] | null
+    not?: NestedEnumE_AssignedMethodNullableWithAggregatesFilter<$PrismaModel> | $Enums.E_AssignedMethod | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumE_AssignedMethodNullableFilter<$PrismaModel>
+    _max?: NestedEnumE_AssignedMethodNullableFilter<$PrismaModel>
   }
 
   export type UserTechnicianCreateWithoutUserInput = {
@@ -19176,12 +20649,15 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
     technician?: UserTechnicianCreateNestedOneWithoutTicketsInput
     ticketImages?: TicketImageCreateNestedManyWithoutTicketInput
     ticketHistory?: TicketHistoryCreateNestedManyWithoutTicketInput
     ticketCategory: TicketCategoryCreateNestedOneWithoutTicketsInput
     notifications?: NotificationCreateNestedManyWithoutTicketInput
     ticketValoration?: TicketValorationCreateNestedOneWithoutTicketInput
+    automaticTriageRule?: AutoTriageRuleCreateNestedOneWithoutTicketInput
   }
 
   export type TicketUncheckedCreateWithoutUserInput = {
@@ -19204,6 +20680,9 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: number | null
     ticketImages?: TicketImageUncheckedCreateNestedManyWithoutTicketInput
     ticketHistory?: TicketHistoryUncheckedCreateNestedManyWithoutTicketInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTicketInput
@@ -19224,7 +20703,7 @@ export namespace Prisma {
     status: $Enums.E_TicketStatus
     changedAt?: Date | string
     ticket: TicketCreateNestedOneWithoutTicketHistoryInput
-    ticketHistoryObservations?: TicketHistoryObservationCreateNestedManyWithoutTicketHistoryInput
+    TicketObservation?: TicketHistoryObservationCreateNestedOneWithoutTicketHistoryInput
   }
 
   export type TicketHistoryUncheckedCreateWithoutUserInput = {
@@ -19232,7 +20711,7 @@ export namespace Prisma {
     ticketId: number
     status: $Enums.E_TicketStatus
     changedAt?: Date | string
-    ticketHistoryObservations?: TicketHistoryObservationUncheckedCreateNestedManyWithoutTicketHistoryInput
+    TicketObservation?: TicketHistoryObservationUncheckedCreateNestedOneWithoutTicketHistoryInput
   }
 
   export type TicketHistoryCreateOrConnectWithoutUserInput = {
@@ -19342,6 +20821,9 @@ export namespace Prisma {
     closedAt?: DateTimeNullableFilter<"Ticket"> | Date | string | null
     createdAt?: DateTimeFilter<"Ticket"> | Date | string
     updatedAt?: DateTimeFilter<"Ticket"> | Date | string
+    assignedAt?: DateTimeNullableFilter<"Ticket"> | Date | string | null
+    assignedMethod?: EnumE_AssignedMethodNullableFilter<"Ticket"> | $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: IntNullableFilter<"Ticket"> | number | null
   }
 
   export type TicketHistoryUpsertWithWhereUniqueWithoutUserInput = {
@@ -19477,12 +20959,15 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
     user: UserCreateNestedOneWithoutTicketsInput
     ticketImages?: TicketImageCreateNestedManyWithoutTicketInput
     ticketHistory?: TicketHistoryCreateNestedManyWithoutTicketInput
     ticketCategory: TicketCategoryCreateNestedOneWithoutTicketsInput
     notifications?: NotificationCreateNestedManyWithoutTicketInput
     ticketValoration?: TicketValorationCreateNestedOneWithoutTicketInput
+    automaticTriageRule?: AutoTriageRuleCreateNestedOneWithoutTicketInput
   }
 
   export type TicketUncheckedCreateWithoutTechnicianInput = {
@@ -19505,6 +20990,9 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: number | null
     ticketImages?: TicketImageUncheckedCreateNestedManyWithoutTicketInput
     ticketHistory?: TicketHistoryUncheckedCreateNestedManyWithoutTicketInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTicketInput
@@ -19886,12 +21374,15 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
     user: UserCreateNestedOneWithoutTicketsInput
     technician?: UserTechnicianCreateNestedOneWithoutTicketsInput
     ticketImages?: TicketImageCreateNestedManyWithoutTicketInput
     ticketHistory?: TicketHistoryCreateNestedManyWithoutTicketInput
     notifications?: NotificationCreateNestedManyWithoutTicketInput
     ticketValoration?: TicketValorationCreateNestedOneWithoutTicketInput
+    automaticTriageRule?: AutoTriageRuleCreateNestedOneWithoutTicketInput
   }
 
   export type TicketUncheckedCreateWithoutTicketCategoryInput = {
@@ -19914,6 +21405,9 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: number | null
     ticketImages?: TicketImageUncheckedCreateNestedManyWithoutTicketInput
     ticketHistory?: TicketHistoryUncheckedCreateNestedManyWithoutTicketInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTicketInput
@@ -20019,6 +21513,89 @@ export namespace Prisma {
     data: XOR<TicketUpdateManyMutationInput, TicketUncheckedUpdateManyWithoutTicketCategoryInput>
   }
 
+  export type TicketCreateWithoutAutomaticTriageRuleInput = {
+    title: string
+    description?: string | null
+    status?: $Enums.E_TicketStatus
+    priority?: $Enums.E_TicketPriority
+    storyPoints?: number | null
+    aceptanceCriteria?: string | null
+    comments?: string | null
+    resolutionDays?: number | null
+    slaReply?: number | null
+    slaResolution?: number | null
+    replyAchieved?: boolean
+    resolutionAchieved?: boolean
+    ticketValorationId?: number | null
+    closedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
+    user: UserCreateNestedOneWithoutTicketsInput
+    technician?: UserTechnicianCreateNestedOneWithoutTicketsInput
+    ticketImages?: TicketImageCreateNestedManyWithoutTicketInput
+    ticketHistory?: TicketHistoryCreateNestedManyWithoutTicketInput
+    ticketCategory: TicketCategoryCreateNestedOneWithoutTicketsInput
+    notifications?: NotificationCreateNestedManyWithoutTicketInput
+    ticketValoration?: TicketValorationCreateNestedOneWithoutTicketInput
+  }
+
+  export type TicketUncheckedCreateWithoutAutomaticTriageRuleInput = {
+    id?: number
+    userId: number
+    technicianId?: number | null
+    ticketCategoryId: number
+    title: string
+    description?: string | null
+    status?: $Enums.E_TicketStatus
+    priority?: $Enums.E_TicketPriority
+    storyPoints?: number | null
+    aceptanceCriteria?: string | null
+    comments?: string | null
+    resolutionDays?: number | null
+    slaReply?: number | null
+    slaResolution?: number | null
+    replyAchieved?: boolean
+    resolutionAchieved?: boolean
+    ticketValorationId?: number | null
+    closedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
+    ticketImages?: TicketImageUncheckedCreateNestedManyWithoutTicketInput
+    ticketHistory?: TicketHistoryUncheckedCreateNestedManyWithoutTicketInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTicketInput
+    ticketValoration?: TicketValorationUncheckedCreateNestedOneWithoutTicketInput
+  }
+
+  export type TicketCreateOrConnectWithoutAutomaticTriageRuleInput = {
+    where: TicketWhereUniqueInput
+    create: XOR<TicketCreateWithoutAutomaticTriageRuleInput, TicketUncheckedCreateWithoutAutomaticTriageRuleInput>
+  }
+
+  export type TicketCreateManyAutomaticTriageRuleInputEnvelope = {
+    data: TicketCreateManyAutomaticTriageRuleInput | TicketCreateManyAutomaticTriageRuleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TicketUpsertWithWhereUniqueWithoutAutomaticTriageRuleInput = {
+    where: TicketWhereUniqueInput
+    update: XOR<TicketUpdateWithoutAutomaticTriageRuleInput, TicketUncheckedUpdateWithoutAutomaticTriageRuleInput>
+    create: XOR<TicketCreateWithoutAutomaticTriageRuleInput, TicketUncheckedCreateWithoutAutomaticTriageRuleInput>
+  }
+
+  export type TicketUpdateWithWhereUniqueWithoutAutomaticTriageRuleInput = {
+    where: TicketWhereUniqueInput
+    data: XOR<TicketUpdateWithoutAutomaticTriageRuleInput, TicketUncheckedUpdateWithoutAutomaticTriageRuleInput>
+  }
+
+  export type TicketUpdateManyWithWhereWithoutAutomaticTriageRuleInput = {
+    where: TicketScalarWhereInput
+    data: XOR<TicketUpdateManyMutationInput, TicketUncheckedUpdateManyWithoutAutomaticTriageRuleInput>
+  }
+
   export type UserCreateWithoutTicketsInput = {
     name: string
     lastName: string
@@ -20110,7 +21687,7 @@ export namespace Prisma {
     status: $Enums.E_TicketStatus
     changedAt?: Date | string
     user: UserCreateNestedOneWithoutTicketHistoryInput
-    ticketHistoryObservations?: TicketHistoryObservationCreateNestedManyWithoutTicketHistoryInput
+    TicketObservation?: TicketHistoryObservationCreateNestedOneWithoutTicketHistoryInput
   }
 
   export type TicketHistoryUncheckedCreateWithoutTicketInput = {
@@ -20118,7 +21695,7 @@ export namespace Prisma {
     status: $Enums.E_TicketStatus
     changedBy: number
     changedAt?: Date | string
-    ticketHistoryObservations?: TicketHistoryObservationUncheckedCreateNestedManyWithoutTicketHistoryInput
+    TicketObservation?: TicketHistoryObservationUncheckedCreateNestedOneWithoutTicketHistoryInput
   }
 
   export type TicketHistoryCreateOrConnectWithoutTicketInput = {
@@ -20202,6 +21779,28 @@ export namespace Prisma {
   export type TicketValorationCreateOrConnectWithoutTicketInput = {
     where: TicketValorationWhereUniqueInput
     create: XOR<TicketValorationCreateWithoutTicketInput, TicketValorationUncheckedCreateWithoutTicketInput>
+  }
+
+  export type AutoTriageRuleCreateWithoutTicketInput = {
+    timeRemainingSLA: number
+    ticketPriority: $Enums.E_TicketPriority
+    technicianSpecialityId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AutoTriageRuleUncheckedCreateWithoutTicketInput = {
+    id?: number
+    timeRemainingSLA: number
+    ticketPriority: $Enums.E_TicketPriority
+    technicianSpecialityId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AutoTriageRuleCreateOrConnectWithoutTicketInput = {
+    where: AutoTriageRuleWhereUniqueInput
+    create: XOR<AutoTriageRuleCreateWithoutTicketInput, AutoTriageRuleUncheckedCreateWithoutTicketInput>
   }
 
   export type UserUpsertWithoutTicketsInput = {
@@ -20396,6 +21995,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AutoTriageRuleUpsertWithoutTicketInput = {
+    update: XOR<AutoTriageRuleUpdateWithoutTicketInput, AutoTriageRuleUncheckedUpdateWithoutTicketInput>
+    create: XOR<AutoTriageRuleCreateWithoutTicketInput, AutoTriageRuleUncheckedCreateWithoutTicketInput>
+    where?: AutoTriageRuleWhereInput
+  }
+
+  export type AutoTriageRuleUpdateToOneWithWhereWithoutTicketInput = {
+    where?: AutoTriageRuleWhereInput
+    data: XOR<AutoTriageRuleUpdateWithoutTicketInput, AutoTriageRuleUncheckedUpdateWithoutTicketInput>
+  }
+
+  export type AutoTriageRuleUpdateWithoutTicketInput = {
+    timeRemainingSLA?: IntFieldUpdateOperationsInput | number
+    ticketPriority?: EnumE_TicketPriorityFieldUpdateOperationsInput | $Enums.E_TicketPriority
+    technicianSpecialityId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AutoTriageRuleUncheckedUpdateWithoutTicketInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    timeRemainingSLA?: IntFieldUpdateOperationsInput | number
+    ticketPriority?: EnumE_TicketPriorityFieldUpdateOperationsInput | $Enums.E_TicketPriority
+    technicianSpecialityId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TicketCreateWithoutTicketImagesInput = {
     title: string
     description?: string | null
@@ -20413,12 +22040,15 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
     user: UserCreateNestedOneWithoutTicketsInput
     technician?: UserTechnicianCreateNestedOneWithoutTicketsInput
     ticketHistory?: TicketHistoryCreateNestedManyWithoutTicketInput
     ticketCategory: TicketCategoryCreateNestedOneWithoutTicketsInput
     notifications?: NotificationCreateNestedManyWithoutTicketInput
     ticketValoration?: TicketValorationCreateNestedOneWithoutTicketInput
+    automaticTriageRule?: AutoTriageRuleCreateNestedOneWithoutTicketInput
   }
 
   export type TicketUncheckedCreateWithoutTicketImagesInput = {
@@ -20442,6 +22072,9 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: number | null
     ticketHistory?: TicketHistoryUncheckedCreateNestedManyWithoutTicketInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTicketInput
     ticketValoration?: TicketValorationUncheckedCreateNestedOneWithoutTicketInput
@@ -20456,7 +22089,7 @@ export namespace Prisma {
     observation: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    ticketHistory: TicketHistoryCreateNestedOneWithoutTicketHistoryObservationsInput
+    ticketHistory: TicketHistoryCreateNestedOneWithoutTicketObservationInput
   }
 
   export type TicketHistoryObservationUncheckedCreateWithoutTicketImagesInput = {
@@ -20500,12 +22133,15 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
     user?: UserUpdateOneRequiredWithoutTicketsNestedInput
     technician?: UserTechnicianUpdateOneWithoutTicketsNestedInput
     ticketHistory?: TicketHistoryUpdateManyWithoutTicketNestedInput
     ticketCategory?: TicketCategoryUpdateOneRequiredWithoutTicketsNestedInput
     notifications?: NotificationUpdateManyWithoutTicketNestedInput
     ticketValoration?: TicketValorationUpdateOneWithoutTicketNestedInput
+    automaticTriageRule?: AutoTriageRuleUpdateOneWithoutTicketNestedInput
   }
 
   export type TicketUncheckedUpdateWithoutTicketImagesInput = {
@@ -20529,6 +22165,9 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: NullableIntFieldUpdateOperationsInput | number | null
     ticketHistory?: TicketHistoryUncheckedUpdateManyWithoutTicketNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTicketNestedInput
     ticketValoration?: TicketValorationUncheckedUpdateOneWithoutTicketNestedInput
@@ -20549,7 +22188,7 @@ export namespace Prisma {
     observation?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ticketHistory?: TicketHistoryUpdateOneRequiredWithoutTicketHistoryObservationsNestedInput
+    ticketHistory?: TicketHistoryUpdateOneRequiredWithoutTicketObservationNestedInput
   }
 
   export type TicketHistoryObservationUncheckedUpdateWithoutTicketImagesInput = {
@@ -20577,12 +22216,15 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
     user: UserCreateNestedOneWithoutTicketsInput
     technician?: UserTechnicianCreateNestedOneWithoutTicketsInput
     ticketImages?: TicketImageCreateNestedManyWithoutTicketInput
     ticketCategory: TicketCategoryCreateNestedOneWithoutTicketsInput
     notifications?: NotificationCreateNestedManyWithoutTicketInput
     ticketValoration?: TicketValorationCreateNestedOneWithoutTicketInput
+    automaticTriageRule?: AutoTriageRuleCreateNestedOneWithoutTicketInput
   }
 
   export type TicketUncheckedCreateWithoutTicketHistoryInput = {
@@ -20606,6 +22248,9 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: number | null
     ticketImages?: TicketImageUncheckedCreateNestedManyWithoutTicketInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTicketInput
     ticketValoration?: TicketValorationUncheckedCreateNestedOneWithoutTicketInput
@@ -20674,11 +22319,6 @@ export namespace Prisma {
     create: XOR<TicketHistoryObservationCreateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput>
   }
 
-  export type TicketHistoryObservationCreateManyTicketHistoryInputEnvelope = {
-    data: TicketHistoryObservationCreateManyTicketHistoryInput | TicketHistoryObservationCreateManyTicketHistoryInput[]
-    skipDuplicates?: boolean
-  }
-
   export type TicketUpsertWithoutTicketHistoryInput = {
     update: XOR<TicketUpdateWithoutTicketHistoryInput, TicketUncheckedUpdateWithoutTicketHistoryInput>
     create: XOR<TicketCreateWithoutTicketHistoryInput, TicketUncheckedCreateWithoutTicketHistoryInput>
@@ -20707,12 +22347,15 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
     user?: UserUpdateOneRequiredWithoutTicketsNestedInput
     technician?: UserTechnicianUpdateOneWithoutTicketsNestedInput
     ticketImages?: TicketImageUpdateManyWithoutTicketNestedInput
     ticketCategory?: TicketCategoryUpdateOneRequiredWithoutTicketsNestedInput
     notifications?: NotificationUpdateManyWithoutTicketNestedInput
     ticketValoration?: TicketValorationUpdateOneWithoutTicketNestedInput
+    automaticTriageRule?: AutoTriageRuleUpdateOneWithoutTicketNestedInput
   }
 
   export type TicketUncheckedUpdateWithoutTicketHistoryInput = {
@@ -20736,6 +22379,9 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: NullableIntFieldUpdateOperationsInput | number | null
     ticketImages?: TicketImageUncheckedUpdateManyWithoutTicketNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTicketNestedInput
     ticketValoration?: TicketValorationUncheckedUpdateOneWithoutTicketNestedInput
@@ -20785,41 +22431,40 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type TicketHistoryObservationUpsertWithWhereUniqueWithoutTicketHistoryInput = {
-    where: TicketHistoryObservationWhereUniqueInput
+  export type TicketHistoryObservationUpsertWithoutTicketHistoryInput = {
     update: XOR<TicketHistoryObservationUpdateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedUpdateWithoutTicketHistoryInput>
     create: XOR<TicketHistoryObservationCreateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput>
+    where?: TicketHistoryObservationWhereInput
   }
 
-  export type TicketHistoryObservationUpdateWithWhereUniqueWithoutTicketHistoryInput = {
-    where: TicketHistoryObservationWhereUniqueInput
+  export type TicketHistoryObservationUpdateToOneWithWhereWithoutTicketHistoryInput = {
+    where?: TicketHistoryObservationWhereInput
     data: XOR<TicketHistoryObservationUpdateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedUpdateWithoutTicketHistoryInput>
   }
 
-  export type TicketHistoryObservationUpdateManyWithWhereWithoutTicketHistoryInput = {
-    where: TicketHistoryObservationScalarWhereInput
-    data: XOR<TicketHistoryObservationUpdateManyMutationInput, TicketHistoryObservationUncheckedUpdateManyWithoutTicketHistoryInput>
+  export type TicketHistoryObservationUpdateWithoutTicketHistoryInput = {
+    observation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ticketImages?: TicketImageUpdateManyWithoutTicketHistoryObservationNestedInput
   }
 
-  export type TicketHistoryObservationScalarWhereInput = {
-    AND?: TicketHistoryObservationScalarWhereInput | TicketHistoryObservationScalarWhereInput[]
-    OR?: TicketHistoryObservationScalarWhereInput[]
-    NOT?: TicketHistoryObservationScalarWhereInput | TicketHistoryObservationScalarWhereInput[]
-    id?: IntFilter<"TicketHistoryObservation"> | number
-    ticketHistoryId?: IntFilter<"TicketHistoryObservation"> | number
-    observation?: StringFilter<"TicketHistoryObservation"> | string
-    createdAt?: DateTimeFilter<"TicketHistoryObservation"> | Date | string
-    updatedAt?: DateTimeFilter<"TicketHistoryObservation"> | Date | string
+  export type TicketHistoryObservationUncheckedUpdateWithoutTicketHistoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    observation?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ticketImages?: TicketImageUncheckedUpdateManyWithoutTicketHistoryObservationNestedInput
   }
 
-  export type TicketHistoryCreateWithoutTicketHistoryObservationsInput = {
+  export type TicketHistoryCreateWithoutTicketObservationInput = {
     status: $Enums.E_TicketStatus
     changedAt?: Date | string
     ticket: TicketCreateNestedOneWithoutTicketHistoryInput
     user: UserCreateNestedOneWithoutTicketHistoryInput
   }
 
-  export type TicketHistoryUncheckedCreateWithoutTicketHistoryObservationsInput = {
+  export type TicketHistoryUncheckedCreateWithoutTicketObservationInput = {
     id?: number
     ticketId: number
     status: $Enums.E_TicketStatus
@@ -20827,9 +22472,9 @@ export namespace Prisma {
     changedAt?: Date | string
   }
 
-  export type TicketHistoryCreateOrConnectWithoutTicketHistoryObservationsInput = {
+  export type TicketHistoryCreateOrConnectWithoutTicketObservationInput = {
     where: TicketHistoryWhereUniqueInput
-    create: XOR<TicketHistoryCreateWithoutTicketHistoryObservationsInput, TicketHistoryUncheckedCreateWithoutTicketHistoryObservationsInput>
+    create: XOR<TicketHistoryCreateWithoutTicketObservationInput, TicketHistoryUncheckedCreateWithoutTicketObservationInput>
   }
 
   export type TicketImageCreateWithoutTicketHistoryObservationInput = {
@@ -20857,25 +22502,25 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type TicketHistoryUpsertWithoutTicketHistoryObservationsInput = {
-    update: XOR<TicketHistoryUpdateWithoutTicketHistoryObservationsInput, TicketHistoryUncheckedUpdateWithoutTicketHistoryObservationsInput>
-    create: XOR<TicketHistoryCreateWithoutTicketHistoryObservationsInput, TicketHistoryUncheckedCreateWithoutTicketHistoryObservationsInput>
+  export type TicketHistoryUpsertWithoutTicketObservationInput = {
+    update: XOR<TicketHistoryUpdateWithoutTicketObservationInput, TicketHistoryUncheckedUpdateWithoutTicketObservationInput>
+    create: XOR<TicketHistoryCreateWithoutTicketObservationInput, TicketHistoryUncheckedCreateWithoutTicketObservationInput>
     where?: TicketHistoryWhereInput
   }
 
-  export type TicketHistoryUpdateToOneWithWhereWithoutTicketHistoryObservationsInput = {
+  export type TicketHistoryUpdateToOneWithWhereWithoutTicketObservationInput = {
     where?: TicketHistoryWhereInput
-    data: XOR<TicketHistoryUpdateWithoutTicketHistoryObservationsInput, TicketHistoryUncheckedUpdateWithoutTicketHistoryObservationsInput>
+    data: XOR<TicketHistoryUpdateWithoutTicketObservationInput, TicketHistoryUncheckedUpdateWithoutTicketObservationInput>
   }
 
-  export type TicketHistoryUpdateWithoutTicketHistoryObservationsInput = {
+  export type TicketHistoryUpdateWithoutTicketObservationInput = {
     status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ticket?: TicketUpdateOneRequiredWithoutTicketHistoryNestedInput
     user?: UserUpdateOneRequiredWithoutTicketHistoryNestedInput
   }
 
-  export type TicketHistoryUncheckedUpdateWithoutTicketHistoryObservationsInput = {
+  export type TicketHistoryUncheckedUpdateWithoutTicketObservationInput = {
     id?: IntFieldUpdateOperationsInput | number
     ticketId?: IntFieldUpdateOperationsInput | number
     status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
@@ -20954,12 +22599,15 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
     user: UserCreateNestedOneWithoutTicketsInput
     technician?: UserTechnicianCreateNestedOneWithoutTicketsInput
     ticketImages?: TicketImageCreateNestedManyWithoutTicketInput
     ticketHistory?: TicketHistoryCreateNestedManyWithoutTicketInput
     ticketCategory: TicketCategoryCreateNestedOneWithoutTicketsInput
     ticketValoration?: TicketValorationCreateNestedOneWithoutTicketInput
+    automaticTriageRule?: AutoTriageRuleCreateNestedOneWithoutTicketInput
   }
 
   export type TicketUncheckedCreateWithoutNotificationsInput = {
@@ -20983,6 +22631,9 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: number | null
     ticketImages?: TicketImageUncheckedCreateNestedManyWithoutTicketInput
     ticketHistory?: TicketHistoryUncheckedCreateNestedManyWithoutTicketInput
     ticketValoration?: TicketValorationUncheckedCreateNestedOneWithoutTicketInput
@@ -21065,12 +22716,15 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
     user?: UserUpdateOneRequiredWithoutTicketsNestedInput
     technician?: UserTechnicianUpdateOneWithoutTicketsNestedInput
     ticketImages?: TicketImageUpdateManyWithoutTicketNestedInput
     ticketHistory?: TicketHistoryUpdateManyWithoutTicketNestedInput
     ticketCategory?: TicketCategoryUpdateOneRequiredWithoutTicketsNestedInput
     ticketValoration?: TicketValorationUpdateOneWithoutTicketNestedInput
+    automaticTriageRule?: AutoTriageRuleUpdateOneWithoutTicketNestedInput
   }
 
   export type TicketUncheckedUpdateWithoutNotificationsInput = {
@@ -21094,6 +22748,9 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: NullableIntFieldUpdateOperationsInput | number | null
     ticketImages?: TicketImageUncheckedUpdateManyWithoutTicketNestedInput
     ticketHistory?: TicketHistoryUncheckedUpdateManyWithoutTicketNestedInput
     ticketValoration?: TicketValorationUncheckedUpdateOneWithoutTicketNestedInput
@@ -21116,12 +22773,15 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
     user: UserCreateNestedOneWithoutTicketsInput
     technician?: UserTechnicianCreateNestedOneWithoutTicketsInput
     ticketImages?: TicketImageCreateNestedManyWithoutTicketInput
     ticketHistory?: TicketHistoryCreateNestedManyWithoutTicketInput
     ticketCategory: TicketCategoryCreateNestedOneWithoutTicketsInput
     notifications?: NotificationCreateNestedManyWithoutTicketInput
+    automaticTriageRule?: AutoTriageRuleCreateNestedOneWithoutTicketInput
   }
 
   export type TicketUncheckedCreateWithoutTicketValorationInput = {
@@ -21145,6 +22805,9 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: number | null
     ticketImages?: TicketImageUncheckedCreateNestedManyWithoutTicketInput
     ticketHistory?: TicketHistoryUncheckedCreateNestedManyWithoutTicketInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutTicketInput
@@ -21183,12 +22846,15 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
     user?: UserUpdateOneRequiredWithoutTicketsNestedInput
     technician?: UserTechnicianUpdateOneWithoutTicketsNestedInput
     ticketImages?: TicketImageUpdateManyWithoutTicketNestedInput
     ticketHistory?: TicketHistoryUpdateManyWithoutTicketNestedInput
     ticketCategory?: TicketCategoryUpdateOneRequiredWithoutTicketsNestedInput
     notifications?: NotificationUpdateManyWithoutTicketNestedInput
+    automaticTriageRule?: AutoTriageRuleUpdateOneWithoutTicketNestedInput
   }
 
   export type TicketUncheckedUpdateWithoutTicketValorationInput = {
@@ -21212,6 +22878,9 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: NullableIntFieldUpdateOperationsInput | number | null
     ticketImages?: TicketImageUncheckedUpdateManyWithoutTicketNestedInput
     ticketHistory?: TicketHistoryUncheckedUpdateManyWithoutTicketNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTicketNestedInput
@@ -21237,6 +22906,9 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: number | null
   }
 
   export type TicketHistoryCreateManyUserInput = {
@@ -21272,12 +22944,15 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
     technician?: UserTechnicianUpdateOneWithoutTicketsNestedInput
     ticketImages?: TicketImageUpdateManyWithoutTicketNestedInput
     ticketHistory?: TicketHistoryUpdateManyWithoutTicketNestedInput
     ticketCategory?: TicketCategoryUpdateOneRequiredWithoutTicketsNestedInput
     notifications?: NotificationUpdateManyWithoutTicketNestedInput
     ticketValoration?: TicketValorationUpdateOneWithoutTicketNestedInput
+    automaticTriageRule?: AutoTriageRuleUpdateOneWithoutTicketNestedInput
   }
 
   export type TicketUncheckedUpdateWithoutUserInput = {
@@ -21300,6 +22975,9 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: NullableIntFieldUpdateOperationsInput | number | null
     ticketImages?: TicketImageUncheckedUpdateManyWithoutTicketNestedInput
     ticketHistory?: TicketHistoryUncheckedUpdateManyWithoutTicketNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTicketNestedInput
@@ -21326,13 +23004,16 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type TicketHistoryUpdateWithoutUserInput = {
     status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ticket?: TicketUpdateOneRequiredWithoutTicketHistoryNestedInput
-    ticketHistoryObservations?: TicketHistoryObservationUpdateManyWithoutTicketHistoryNestedInput
+    TicketObservation?: TicketHistoryObservationUpdateOneWithoutTicketHistoryNestedInput
   }
 
   export type TicketHistoryUncheckedUpdateWithoutUserInput = {
@@ -21340,7 +23021,7 @@ export namespace Prisma {
     ticketId?: IntFieldUpdateOperationsInput | number
     status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ticketHistoryObservations?: TicketHistoryObservationUncheckedUpdateManyWithoutTicketHistoryNestedInput
+    TicketObservation?: TicketHistoryObservationUncheckedUpdateOneWithoutTicketHistoryNestedInput
   }
 
   export type TicketHistoryUncheckedUpdateManyWithoutUserInput = {
@@ -21396,6 +23077,9 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: number | null
   }
 
   export type SpecialityAreaUpdateWithoutTechniciansInput = {
@@ -21440,12 +23124,15 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
     user?: UserUpdateOneRequiredWithoutTicketsNestedInput
     ticketImages?: TicketImageUpdateManyWithoutTicketNestedInput
     ticketHistory?: TicketHistoryUpdateManyWithoutTicketNestedInput
     ticketCategory?: TicketCategoryUpdateOneRequiredWithoutTicketsNestedInput
     notifications?: NotificationUpdateManyWithoutTicketNestedInput
     ticketValoration?: TicketValorationUpdateOneWithoutTicketNestedInput
+    automaticTriageRule?: AutoTriageRuleUpdateOneWithoutTicketNestedInput
   }
 
   export type TicketUncheckedUpdateWithoutTechnicianInput = {
@@ -21468,6 +23155,9 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: NullableIntFieldUpdateOperationsInput | number | null
     ticketImages?: TicketImageUncheckedUpdateManyWithoutTicketNestedInput
     ticketHistory?: TicketHistoryUncheckedUpdateManyWithoutTicketNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTicketNestedInput
@@ -21494,6 +23184,9 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type UserTechnicianUpdateWithoutSpecialitiesInput = {
@@ -21641,6 +23334,9 @@ export namespace Prisma {
     closedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: number | null
   }
 
   export type SpecialityAreaUpdateWithoutTicketCategoriesInput = {
@@ -21708,12 +23404,15 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
     user?: UserUpdateOneRequiredWithoutTicketsNestedInput
     technician?: UserTechnicianUpdateOneWithoutTicketsNestedInput
     ticketImages?: TicketImageUpdateManyWithoutTicketNestedInput
     ticketHistory?: TicketHistoryUpdateManyWithoutTicketNestedInput
     notifications?: NotificationUpdateManyWithoutTicketNestedInput
     ticketValoration?: TicketValorationUpdateOneWithoutTicketNestedInput
+    automaticTriageRule?: AutoTriageRuleUpdateOneWithoutTicketNestedInput
   }
 
   export type TicketUncheckedUpdateWithoutTicketCategoryInput = {
@@ -21736,6 +23435,9 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: NullableIntFieldUpdateOperationsInput | number | null
     ticketImages?: TicketImageUncheckedUpdateManyWithoutTicketNestedInput
     ticketHistory?: TicketHistoryUncheckedUpdateManyWithoutTicketNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutTicketNestedInput
@@ -21762,6 +23464,116 @@ export namespace Prisma {
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
+    automaticTriageRuleId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type TicketCreateManyAutomaticTriageRuleInput = {
+    id?: number
+    userId: number
+    technicianId?: number | null
+    ticketCategoryId: number
+    title: string
+    description?: string | null
+    status?: $Enums.E_TicketStatus
+    priority?: $Enums.E_TicketPriority
+    storyPoints?: number | null
+    aceptanceCriteria?: string | null
+    comments?: string | null
+    resolutionDays?: number | null
+    slaReply?: number | null
+    slaResolution?: number | null
+    replyAchieved?: boolean
+    resolutionAchieved?: boolean
+    ticketValorationId?: number | null
+    closedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignedAt?: Date | string | null
+    assignedMethod?: $Enums.E_AssignedMethod | null
+  }
+
+  export type TicketUpdateWithoutAutomaticTriageRuleInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
+    priority?: EnumE_TicketPriorityFieldUpdateOperationsInput | $Enums.E_TicketPriority
+    storyPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
+    comments?: NullableStringFieldUpdateOperationsInput | string | null
+    resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
+    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
+    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
+    user?: UserUpdateOneRequiredWithoutTicketsNestedInput
+    technician?: UserTechnicianUpdateOneWithoutTicketsNestedInput
+    ticketImages?: TicketImageUpdateManyWithoutTicketNestedInput
+    ticketHistory?: TicketHistoryUpdateManyWithoutTicketNestedInput
+    ticketCategory?: TicketCategoryUpdateOneRequiredWithoutTicketsNestedInput
+    notifications?: NotificationUpdateManyWithoutTicketNestedInput
+    ticketValoration?: TicketValorationUpdateOneWithoutTicketNestedInput
+  }
+
+  export type TicketUncheckedUpdateWithoutAutomaticTriageRuleInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    technicianId?: NullableIntFieldUpdateOperationsInput | number | null
+    ticketCategoryId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
+    priority?: EnumE_TicketPriorityFieldUpdateOperationsInput | $Enums.E_TicketPriority
+    storyPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
+    comments?: NullableStringFieldUpdateOperationsInput | string | null
+    resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
+    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
+    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
+    ticketImages?: TicketImageUncheckedUpdateManyWithoutTicketNestedInput
+    ticketHistory?: TicketHistoryUncheckedUpdateManyWithoutTicketNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTicketNestedInput
+    ticketValoration?: TicketValorationUncheckedUpdateOneWithoutTicketNestedInput
+  }
+
+  export type TicketUncheckedUpdateManyWithoutAutomaticTriageRuleInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    technicianId?: NullableIntFieldUpdateOperationsInput | number | null
+    ticketCategoryId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
+    priority?: EnumE_TicketPriorityFieldUpdateOperationsInput | $Enums.E_TicketPriority
+    storyPoints?: NullableIntFieldUpdateOperationsInput | number | null
+    aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
+    comments?: NullableStringFieldUpdateOperationsInput | string | null
+    resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
+    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
+    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedMethod?: NullableEnumE_AssignedMethodFieldUpdateOperationsInput | $Enums.E_AssignedMethod | null
   }
 
   export type TicketImageCreateManyTicketInput = {
@@ -21815,7 +23627,7 @@ export namespace Prisma {
     status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutTicketHistoryNestedInput
-    ticketHistoryObservations?: TicketHistoryObservationUpdateManyWithoutTicketHistoryNestedInput
+    TicketObservation?: TicketHistoryObservationUpdateOneWithoutTicketHistoryNestedInput
   }
 
   export type TicketHistoryUncheckedUpdateWithoutTicketInput = {
@@ -21823,7 +23635,7 @@ export namespace Prisma {
     status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
     changedBy?: IntFieldUpdateOperationsInput | number
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ticketHistoryObservations?: TicketHistoryObservationUncheckedUpdateManyWithoutTicketHistoryNestedInput
+    TicketObservation?: TicketHistoryObservationUncheckedUpdateOneWithoutTicketHistoryNestedInput
   }
 
   export type TicketHistoryUncheckedUpdateManyWithoutTicketInput = {
@@ -21855,35 +23667,6 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TicketHistoryObservationCreateManyTicketHistoryInput = {
-    id?: number
-    observation: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type TicketHistoryObservationUpdateWithoutTicketHistoryInput = {
-    observation?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ticketImages?: TicketImageUpdateManyWithoutTicketHistoryObservationNestedInput
-  }
-
-  export type TicketHistoryObservationUncheckedUpdateWithoutTicketHistoryInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    observation?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ticketImages?: TicketImageUncheckedUpdateManyWithoutTicketHistoryObservationNestedInput
-  }
-
-  export type TicketHistoryObservationUncheckedUpdateManyWithoutTicketHistoryInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    observation?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.16.2
- * Query Engine version: 1c57fdcd7e44b29b9313256c76699e91c3ac3c43
+ * Prisma Client JS version: 6.16.3
+ * Query Engine version: bb420e667c1820a8c05a38023385f6cc7ef8e83a
  */
 Prisma.prismaVersion = {
-  client: "6.16.2",
-  engine: "1c57fdcd7e44b29b9313256c76699e91c3ac3c43"
+  client: "6.16.3",
+  engine: "bb420e667c1820a8c05a38023385f6cc7ef8e83a"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -178,6 +178,15 @@ exports.Prisma.TicketCategoryScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AutoTriageRuleScalarFieldEnum = {
+  id: 'id',
+  timeRemainingSLA: 'timeRemainingSLA',
+  ticketPriority: 'ticketPriority',
+  technicianSpecialityId: 'technicianSpecialityId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.TicketScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -198,7 +207,10 @@ exports.Prisma.TicketScalarFieldEnum = {
   ticketValorationId: 'ticketValorationId',
   closedAt: 'closedAt',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  assignedAt: 'assignedAt',
+  assignedMethod: 'assignedMethod',
+  automaticTriageRuleId: 'automaticTriageRuleId'
 };
 
 exports.Prisma.TicketImageScalarFieldEnum = {
@@ -316,6 +328,12 @@ exports.E_TechnicianStatus = exports.$Enums.E_TechnicianStatus = {
   BUSY: 'BUSY'
 };
 
+exports.E_TicketPriority = exports.$Enums.E_TicketPriority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH'
+};
+
 exports.E_TicketStatus = exports.$Enums.E_TicketStatus = {
   PENDING: 'PENDING',
   ASSIGNED: 'ASSIGNED',
@@ -324,10 +342,9 @@ exports.E_TicketStatus = exports.$Enums.E_TicketStatus = {
   CLOSED: 'CLOSED'
 };
 
-exports.E_TicketPriority = exports.$Enums.E_TicketPriority = {
-  LOW: 'LOW',
-  MEDIUM: 'MEDIUM',
-  HIGH: 'HIGH'
+exports.E_AssignedMethod = exports.$Enums.E_AssignedMethod = {
+  AUTOMATIC: 'AUTOMATIC',
+  MANUAL: 'MANUAL'
 };
 
 exports.Prisma.ModelName = {
@@ -337,6 +354,7 @@ exports.Prisma.ModelName = {
   CategoryEtiquette: 'CategoryEtiquette',
   SLA: 'SLA',
   TicketCategory: 'TicketCategory',
+  AutoTriageRule: 'AutoTriageRule',
   Ticket: 'Ticket',
   TicketImage: 'TicketImage',
   TicketHistory: 'TicketHistory',

@@ -81,6 +81,18 @@ CREATE TABLE `TicketCategory` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `AutoTriageRule` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `timeRemainingSLA` INTEGER NOT NULL,
+    `ticketPriority` ENUM('LOW', 'MEDIUM', 'HIGH') NOT NULL,
+    `technicianSpecialityId` INTEGER NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `Ticket` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `userId` INTEGER NOT NULL,
@@ -102,6 +114,9 @@ CREATE TABLE `Ticket` (
     `closedAt` DATETIME(3) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
+    `assignedAt` DATETIME(3) NULL,
+    `assignedMethod` ENUM('AUTOMATIC', 'MANUAL') NULL,
+    `automaticTriageRuleId` INTEGER NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -137,6 +152,7 @@ CREATE TABLE `TicketHistoryObservation` (
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
+    UNIQUE INDEX `TicketHistoryObservation_ticketHistoryId_key`(`ticketHistoryId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -207,6 +223,9 @@ ALTER TABLE `Ticket` ADD CONSTRAINT `Ticket_technicianId_fkey` FOREIGN KEY (`tec
 
 -- AddForeignKey
 ALTER TABLE `Ticket` ADD CONSTRAINT `Ticket_ticketCategoryId_fkey` FOREIGN KEY (`ticketCategoryId`) REFERENCES `TicketCategory`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Ticket` ADD CONSTRAINT `Ticket_automaticTriageRuleId_fkey` FOREIGN KEY (`automaticTriageRuleId`) REFERENCES `AutoTriageRule`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `TicketImage` ADD CONSTRAINT `TicketImage_ticketId_fkey` FOREIGN KEY (`ticketId`) REFERENCES `Ticket`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

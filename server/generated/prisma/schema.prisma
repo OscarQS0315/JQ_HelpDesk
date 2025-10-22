@@ -15,6 +15,11 @@ datasource db {
 }
 
 //Models
+enum E_AssignedMethod {
+  AUTOMATIC
+  MANUAL
+}
+
 enum E_Role {
   ADMIN
   USER
@@ -125,36 +130,50 @@ model TicketCategory {
   tickets            Ticket[]
 }
 
-model Ticket {
-  id                 Int              @id @default(autoincrement())
-  userId             Int
-  technicianId       Int?
-  ticketCategoryId   Int
-  title              String
-  description        String?
-  status             E_TicketStatus   @default(PENDING) // PENDING, ASSIGNED, IN_PROGRESS, RESOLVED, CLOSED
-  priority           E_TicketPriority @default(MEDIUM) // LOW, MEDIUM, HIGH
-  storyPoints        Int?
-  aceptanceCriteria  String?
-  comments           String?
-  resolutionDays     Int?
-  slaReply           Int?
-  slaResolution      Int?
-  replyAchieved      Boolean          @default(false)
-  resolutionAchieved Boolean          @default(false)
-  ticketValorationId Int?
-  closedAt           DateTime?
-  createdAt          DateTime         @default(now())
-  updatedAt          DateTime         @updatedAt
-
+model AutoTriageRule {
+  id                     Int              @id @default(autoincrement())
+  timeRemainingSLA       Int
+  ticketPriority         E_TicketPriority
+  technicianSpecialityId Int
+  createdAt              DateTime         @default(now())
+  updatedAt              DateTime         @updatedAt
   // Relations
-  user             User              @relation(fields: [userId], references: [id])
-  technician       UserTechnician?   @relation(fields: [technicianId], references: [id])
-  ticketImages     TicketImage[]
-  ticketHistory    TicketHistory[]
-  ticketCategory   TicketCategory    @relation(fields: [ticketCategoryId], references: [id])
-  notifications    Notification[]
-  ticketValoration TicketValoration?
+  Ticket                 Ticket[]
+}
+
+model Ticket {
+  id                    Int               @id @default(autoincrement())
+  userId                Int
+  technicianId          Int?
+  ticketCategoryId      Int
+  title                 String
+  description           String?
+  status                E_TicketStatus    @default(PENDING) // PENDING, ASSIGNED, IN_PROGRESS, RESOLVED, CLOSED
+  priority              E_TicketPriority  @default(MEDIUM) // LOW, MEDIUM, HIGH
+  storyPoints           Int?
+  aceptanceCriteria     String?
+  comments              String?
+  resolutionDays        Int?
+  slaReply              Int?
+  slaResolution         Int?
+  replyAchieved         Boolean           @default(false)
+  resolutionAchieved    Boolean           @default(false)
+  ticketValorationId    Int?
+  closedAt              DateTime?
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+  assignedAt            DateTime?
+  assignedMethod        E_AssignedMethod?
+  automaticTriageRuleId Int?
+  // Relations
+  user                  User              @relation(fields: [userId], references: [id])
+  technician            UserTechnician?   @relation(fields: [technicianId], references: [id])
+  ticketImages          TicketImage[]
+  ticketHistory         TicketHistory[]
+  ticketCategory        TicketCategory    @relation(fields: [ticketCategoryId], references: [id])
+  notifications         Notification[]
+  ticketValoration      TicketValoration?
+  automaticTriageRule   AutoTriageRule?   @relation(fields: [automaticTriageRuleId], references: [id])
 }
 
 model TicketImage {
@@ -178,14 +197,14 @@ model TicketHistory {
   changedAt DateTime       @default(now())
 
   // Relations
-  ticket                    Ticket                     @relation(fields: [ticketId], references: [id])
-  user                      User                       @relation(fields: [changedBy], references: [id])
-  ticketHistoryObservations TicketHistoryObservation[]
+  ticket            Ticket                    @relation(fields: [ticketId], references: [id])
+  user              User                      @relation(fields: [changedBy], references: [id])
+  TicketObservation TicketHistoryObservation?
 }
 
 model TicketHistoryObservation {
   id              Int      @id @default(autoincrement())
-  ticketHistoryId Int
+  ticketHistoryId Int      @unique
   observation     String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
@@ -212,7 +231,7 @@ model Notification {
 model TicketValoration {
   id        Int      @id @default(autoincrement())
   ticketId  Int      @unique
-  rating    Int // e.g., 1 to 5
+  rating    Int
   comments  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
