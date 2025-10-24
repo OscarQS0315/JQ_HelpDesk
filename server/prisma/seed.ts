@@ -1,4 +1,5 @@
-import { PrismaClient } from "../generated/prisma";
+import { PrismaClient } from '@prisma/client';
+
 
 // Datos base
 import { slas } from "./seeds/sla";
