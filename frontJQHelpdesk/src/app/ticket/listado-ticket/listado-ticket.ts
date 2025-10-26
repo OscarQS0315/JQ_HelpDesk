@@ -88,7 +88,8 @@ export class ListadoTicket implements OnInit {
 
   loadSampleEvents() {
     this.events = [
-      { title: "Team Meeting", time: "09:00", date: new Date() },
+      { title: "Team Meeting", time: "09:00", date: new Date(new Date().setDate(new Date().getDate() + 1)) },
+      { title: "Lunch with Client", time: "12:30", date: new Date() },
       { title: "Lunch with Client", time: "12:30", date: new Date() }
     ];
   }
