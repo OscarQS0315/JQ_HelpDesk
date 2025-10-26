@@ -1,0 +1,35 @@
+<div class="current-plan-container">
+    <h2 class="title">Current Plan</h2>
+    <div class="plan-details-card">
+        <div class="plan-header">
+            <div class="plan-icon">
+                <img src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=500" alt="Plan Icon"
+                    class="plan-image">
+            </div>
+            <div class="plan-info">
+                <div class="detail-row">
+                    <span class="label">Plan Name:</span>
+                    <span class="value">{{planDetails.name}}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Price:</span>
+                </div>
+            </div>
+        </div>
+        <div class="plan-body">
+            <div class="detail-row">
+                <span class="label">Billing Cycle:</span>
+                <span class="value">{{planDetails.billingCycle}}</span>
+            </div>
+            <div class="features-section">
+                <span class="label">Features Included:</span>
+                <ul class="features-list">
+                    <li *ngFor="let feature of planDetails.features" class="feature-item">
+                        <span class="feature-check">✓</span>
+                        {{feature}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

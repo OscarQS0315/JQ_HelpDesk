@@ -1,0 +1,26 @@
+<div class="stack-list-container">
+    <div class="search-box">
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Search items..." class="search-input">
+    </div>
+    <div class="list-wrapper">
+        @for (item of filteredItems; track item) {
+        <div class="list-item" [class.active]="selectedItem === item" (click)="selectItem(item)" [routerLink]="['/Detalle', item.id]">
+            <div class="item-content">
+                <div class="icon-wrapper">
+                    <img [src]="item.icon" [alt]="item.title" class="item-icon">
+                </div>
+                <div class="text-content">
+                    <h3 class="item-title">{{ item.title }}</h3>
+                    <p class="item-description">{{ item.description }}</p>
+                    <div class="item-metadata">
+                        <span class="date">{{ item.date | date:'mediumDate' }}</span>
+                        <div class="tags">
+                            @for (tag of item.tags; track tag) {
+                            <span class="tag">{{ tag }}</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }

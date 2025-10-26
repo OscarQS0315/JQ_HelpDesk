@@ -19,9 +19,9 @@ export class Header implements OnInit {
   isDarkMode = false;
   menuItems: MenuItem[] = [
     { label: "Home", link: "/", active: true },
-    { label: "About", link: "/about" },
-    { label: "Services", link: "/services" },
-    { label: "Contact", link: "/contact" }
+    { label: "Técnicos", link: "/Listado" },
+    { label: "Categorías", link: "/ListadoCategoria" },
+    { label: "Ticket", link: "/ListadoTicket" }
   ];
 
   ngOnInit(): void {

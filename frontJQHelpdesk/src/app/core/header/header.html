@@ -14,7 +14,7 @@
         <ul class="nav-list">
             @for (item of menuItems; track item) {
             <li class="nav-item">
-                <a [href]="item.link" class="nav-link" [class.active]="item.active"
+                <a [routerLink]="item.link" class="nav-link" [class.active]="item.active"
                     (click)="handleNavClick($event, item)">
                     {{ item.label }}
                 </a>
