@@ -1,0 +1,218 @@
+.footer {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    padding: 4rem 0 0;
+    position: relative;
+}
+
+.footer__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+}
+
+.footer__section {
+    margin-bottom: 2rem;
+}
+
+/* Company Info Styles */
+.company-info__logo {
+    width: 150px;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+.company-info__description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: #e0e0e0;
+}
+
+.company-info__address {
+    font-style: normal;
+    font-size: 0.9rem;
+    color: #bbbbbb;
+}
+
+/* Quick Links Styles */
+.quick-links__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.quick-links__column h4 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.quick-links__column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.quick-links__column ul li {
+    margin-bottom: 0.5rem;
+}
+
+.quick-links__column ul li a {
+    color: #bbbbbb;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.quick-links__column ul li a:hover {
+    color: #ffffff;
+}
+
+/* Contact Info Styles */
+.contact-info__details p {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #bbbbbb;
+}
+
+.contact-info__details i {
+    color: #4a90e2;
+}
+
+/* Newsletter Styles */
+.newsletter__form {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.newsletter__form input {
+    flex: 1;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 4px;
+    background: #333333;
+    color: #ffffff;
+}
+
+.newsletter__form button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    background: #ebe825;
+    color: black;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.newsletter__form button:hover {
+    background: #4deb25;
+    color: rgb(255, 255, 255);
+}
+
+/* Social Media Styles */
+.footer__social {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-top: 1px solid #333333;
+    margin-top: 2rem;
+}
+
+.footer__social a {
+    color: #bbbbbb;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.footer__social a:hover {
+    color: #ebe825;
+}
+
+/* Copyright Styles */
+.footer__copyright {
+    background: #111111;
+    padding: 1.5rem 0;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.footer__legal {
+    margin-top: 1rem;
+}
+
+.footer__legal a {
+    color: #bbbbbb;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-size: 0.9rem;
+}
+
+.footer__legal a:hover {
+    color: #ffffff;
+}
+
+/* Scroll to Top Button */
+.scroll-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: #4a90e2;
+    color: #ffffff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.scroll-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .footer__container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .footer__container {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-links__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .newsletter__form {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .quick-links__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer__social {
+        gap: 1rem;
+    }
+
+    .footer__legal a {
+        display: block;
+        margin: 0.5rem 0;
+    }
+}

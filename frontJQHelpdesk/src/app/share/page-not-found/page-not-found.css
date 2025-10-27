@@ -1,0 +1,28 @@
+.image-container {
+  position: relative;
+  width: 100%;        /* El contenedor ocupa todo el ancho */
+  overflow: hidden;   /* Evita que algo sobresalga */
+}
+
+.image-container img {
+  width: 100%; /* Ajusta según tu diseño */
+  height: 100%;
+  display: block;
+  padding-top: 2%;
+
+}
+
+
+.btn-overlay {
+  position: absolute;
+  bottom: 1000px; /* distancia desde el borde inferior */
+  right: 50px;  /* distancia desde el borde derecho */
+  background-color: white; /* color del botón (puedes personalizarlo) */
+  color: black;
+  cursor: pointer;
+}
+
+.btn-overlay:hover{
+    color: black;
+    background-color: #ebe825;
+}

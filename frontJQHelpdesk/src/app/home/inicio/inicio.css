@@ -1,0 +1,11 @@
+.image-container {
+  position: relative;
+  width: 100%;        /* El contenedor ocupa todo el ancho */
+  overflow: hidden;   /* Evita que algo sobresalga */
+}
+
+.image-container img {
+  width: 100%; /* Ajusta según tu diseño */
+  display: block;
+  padding-top: 2%;
+}
