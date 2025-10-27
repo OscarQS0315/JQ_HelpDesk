@@ -7,7 +7,9 @@ import { CoreModule } from './core/core-module';
 import { ShareModule } from './share/share-module';
 import { HomeModule } from './home/home-module';
 import { AppRoutingModule } from './app-routing-module';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { NgxSonnerToaster } from 'ngx-sonner';
+import { HttpErrorInterceptorService } from './share/interceptor/http-error-interceptor.service';
 
 
 
@@ -17,6 +19,7 @@ import { provideHttpClient } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    NgxSonnerToaster,
     CoreModule,
     ShareModule,
     HomeModule,
@@ -25,7 +28,12 @@ import { provideHttpClient } from '@angular/common/http';
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient()
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [App]
 })

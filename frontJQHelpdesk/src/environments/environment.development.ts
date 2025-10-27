@@ -1,0 +1,7 @@
+export const environment = {
+    apiURL: 'http://localhost:3000',
+    endPointUsers: 'user',
+    endPointTickets: 'ticket',
+    endPointTechnicians: 'technician',
+    endPointTicketCategories: 'ticket-category',
+};

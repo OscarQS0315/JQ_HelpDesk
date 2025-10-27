@@ -1,22 +1,32 @@
 <div class="stack-list-container">
     <div class="search-box">
-        <input type="text" [(ngModel)]="searchQuery" placeholder="Search items..." class="search-input">
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Buscar técnicos..." class="search-input" />
     </div>
+
     <div class="list-wrapper">
-        @for (item of filteredItems; track item) {
-        <div class="list-item" [class.active]="selectedItem === item" (click)="selectItem(item)" [routerLink]="['/Detalle', item.id]">
+        @for (item of filteredData; track item.id) {
+        <div class="list-item" [class.active]="selectedItem?.id === item.id" (click)="selectItem(item)"
+            [routerLink]="['/Detalle', item.id]">
             <div class="item-content">
                 <div class="icon-wrapper">
-                    <img [src]="item.icon" [alt]="item.title" class="item-icon">
+                    <img [src]="'http://localhost:3000/images/' + item.user.profileImage || 'default-icon.png'" [alt]="item.user.name"
+                        class="item-icon" />
                 </div>
+
                 <div class="text-content">
-                    <h3 class="item-title">{{ item.title }}</h3>
-                    <p class="item-description">{{ item.description }}</p>
+                    <h3 class="item-title">
+                        {{ item.user.name }} {{ item.user.lastName }}
+                    </h3>
+                    <p class="item-description">{{ item.user.email }}</p>
+
                     <div class="item-metadata">
-                        <span class="date">{{ item.date | date:'mediumDate' }}</span>
+                        <span class="date">
+                            {{ item.createdAt | date: 'mediumDate' }}
+                        </span>
+
                         <div class="tags">
-                            @for (tag of item.tags; track tag) {
-                            <span class="tag">{{ tag }}</span>
+                            @for (tag of item.specialities; track tag.name) {
+                            <span class="tag">{{ tag.name }}</span>
                             }
                         </div>
                     </div>
@@ -24,3 +34,5 @@
             </div>
         </div>
         }
+    </div>
+</div>
