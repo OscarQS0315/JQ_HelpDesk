@@ -1,3 +1,4 @@
+import { profile } from "console";
 import { E_Role } from "../../generated/prisma";
 
 
@@ -8,6 +9,7 @@ export const users = [
     email: 'oscar@tech.com',
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.ADMIN,
+    profileImage: 'oscar-profile.jpg',
   },
   {
     name: 'Lucía',
@@ -15,6 +17,7 @@ export const users = [
     email: 'lucia@tech.com',
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.ADMIN,
+    profileImage: 'lucia-profile.jpg',
   },
   {
     name: 'Carlos',
@@ -22,6 +25,7 @@ export const users = [
     email: 'carlos@tech.com',
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.USER,
+    profileImage: 'carlos-profile.jpg',
   },
   {
     name: 'Ana',
@@ -29,13 +33,15 @@ export const users = [
     email: 'ana@tech.com',
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.USER,
+    profileImage: 'ana-profile.jpg',
   },
   {
     name: 'Roberto',
     lastName: 'Salas',
     email: 'roberto@tech.com',
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
-    role: E_Role.USER,
+    role: E_Role.USER,  
+    profileImage: 'roberto-profile.jpg',
   },
   {
     name: 'María',
@@ -43,6 +49,7 @@ export const users = [
     email: 'maria@tech.com',
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.TECHNICIAN,
+    profileImage: 'maria-profile.jpg',
   },
   {
     name: 'Jorge',
@@ -50,6 +57,7 @@ export const users = [
     email: 'jorge@tech.com',
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.TECHNICIAN,
+    profileImage: 'jorge-profile.jpg',
   },
   {
     name: 'Sofía',
@@ -57,6 +65,7 @@ export const users = [
     email: 'sofia@tech.com',
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.TECHNICIAN,
+    profileImage: 'sofia-profile.jpg',
   },
   {
     name: 'Luis',
@@ -64,6 +73,7 @@ export const users = [
     email: 'luis@tech.com',
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.TECHNICIAN,
+    profileImage: 'luis-profile.jpg',
   },
   {
     name: 'Andrea',
@@ -71,6 +81,7 @@ export const users = [
     email: 'andrea@tech.com',
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.TECHNICIAN,
+    profileImage: 'andrea-profile.jpg',
   },
 
 ];
