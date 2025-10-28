@@ -30,31 +30,48 @@ const main = async () => {
     await prisma.autoTriageRule.createMany({ data: autoTriageRules });
 
     // Relaciones: TicketCategory con SpecialityArea y CategoryEtiquette
+    function getRandomIds(total: number): { id: number }[] {
+      const count = Math.floor(Math.random() * 2) + 2;
+      const ids = Array.from({ length: total }, (_, i) => i + 1);
+      const shuffled = ids.sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, count).map(id => ({ id }));
+    }
+
     for (const category of ticketCategories) {
       await prisma.ticketCategory.update({
         where: { name: category.name },
         data: {
           specialities: {
-            connect: [{ id: 1 }, { id: 2 }],
+            connect: getRandomIds(20),
           },
           categoryEtiquettes: {
-            connect: [{ id: 1 }, { id: 3 }],
+            connect: getRandomIds(10),
           },
         },
       });
     }
 
+
     // Relaciones: UserTechnician con SpecialityArea
-    for (const [i, technician] of technicians.entries()) {
+    function getRandomSpecialities(): { id: number }[] {
+      const count = Math.floor(Math.random() * 2) + 2;
+      const ids = Array.from({ length: specialities.length }, (_, i) => i + 1);
+      const shuffled = ids.sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, count).map(id => ({ id }));
+    }
+
+    for (const technician of technicians) {
       await prisma.userTechnician.update({
         where: { userId: technician.userId },
         data: {
           specialities: {
-            connect: [{ id: (i % specialities.length) + 1 }],
+            connect: getRandomSpecialities(),
           },
         },
       });
     }
+
+
 
     // Tickets con relaciones
     for (const ticket of tickets) {
@@ -104,7 +121,7 @@ const main = async () => {
         });
       }
     }
-    
+
     for (const image of ticketImages) {
       const {
         ticketId,

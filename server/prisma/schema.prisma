@@ -112,6 +112,7 @@ model TicketCategory {
   name                        String                      @unique
   description                 String?
   slaId                       Int
+  imageUrl                    String?
   createdAt                   DateTime                    @default(now())
   updatedAt                   DateTime                    @updatedAt
 

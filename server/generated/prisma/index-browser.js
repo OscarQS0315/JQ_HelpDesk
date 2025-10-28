@@ -174,6 +174,7 @@ exports.Prisma.TicketCategoryScalarFieldEnum = {
   name: 'name',
   description: 'description',
   slaId: 'slaId',
+  imageUrl: 'imageUrl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -292,7 +293,8 @@ exports.Prisma.SLAOrderByRelevanceFieldEnum = {
 
 exports.Prisma.TicketCategoryOrderByRelevanceFieldEnum = {
   name: 'name',
-  description: 'description'
+  description: 'description',
+  imageUrl: 'imageUrl'
 };
 
 exports.Prisma.TicketOrderByRelevanceFieldEnum = {

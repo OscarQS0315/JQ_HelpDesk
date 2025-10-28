@@ -7495,6 +7495,7 @@ export namespace Prisma {
     name: string | null
     description: string | null
     slaId: number | null
+    imageUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7504,6 +7505,7 @@ export namespace Prisma {
     name: string | null
     description: string | null
     slaId: number | null
+    imageUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7513,6 +7515,7 @@ export namespace Prisma {
     name: number
     description: number
     slaId: number
+    imageUrl: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -7534,6 +7537,7 @@ export namespace Prisma {
     name?: true
     description?: true
     slaId?: true
+    imageUrl?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7543,6 +7547,7 @@ export namespace Prisma {
     name?: true
     description?: true
     slaId?: true
+    imageUrl?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7552,6 +7557,7 @@ export namespace Prisma {
     name?: true
     description?: true
     slaId?: true
+    imageUrl?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -7648,6 +7654,7 @@ export namespace Prisma {
     name: string
     description: string | null
     slaId: number
+    imageUrl: string | null
     createdAt: Date
     updatedAt: Date
     _count: TicketCategoryCountAggregateOutputType | null
@@ -7676,6 +7683,7 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     slaId?: boolean
+    imageUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     SLA?: boolean | SLADefaultArgs<ExtArgs>
@@ -7692,11 +7700,12 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     slaId?: boolean
+    imageUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TicketCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "slaId" | "createdAt" | "updatedAt", ExtArgs["result"]["ticketCategory"]>
+  export type TicketCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "slaId" | "imageUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["ticketCategory"]>
   export type TicketCategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     SLA?: boolean | SLADefaultArgs<ExtArgs>
     specialities?: boolean | TicketCategory$specialitiesArgs<ExtArgs>
@@ -7718,6 +7727,7 @@ export namespace Prisma {
       name: string
       description: string | null
       slaId: number
+      imageUrl: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["ticketCategory"]>
@@ -8097,6 +8107,7 @@ export namespace Prisma {
     readonly name: FieldRef<"TicketCategory", 'String'>
     readonly description: FieldRef<"TicketCategory", 'String'>
     readonly slaId: FieldRef<"TicketCategory", 'Int'>
+    readonly imageUrl: FieldRef<"TicketCategory", 'String'>
     readonly createdAt: FieldRef<"TicketCategory", 'DateTime'>
     readonly updatedAt: FieldRef<"TicketCategory", 'DateTime'>
   }
@@ -15996,6 +16007,7 @@ export namespace Prisma {
     name: 'name',
     description: 'description',
     slaId: 'slaId',
+    imageUrl: 'imageUrl',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -16156,7 +16168,8 @@ export namespace Prisma {
 
   export const TicketCategoryOrderByRelevanceFieldEnum: {
     name: 'name',
-    description: 'description'
+    description: 'description',
+    imageUrl: 'imageUrl'
   };
 
   export type TicketCategoryOrderByRelevanceFieldEnum = (typeof TicketCategoryOrderByRelevanceFieldEnum)[keyof typeof TicketCategoryOrderByRelevanceFieldEnum]
@@ -16638,6 +16651,7 @@ export namespace Prisma {
     name?: StringFilter<"TicketCategory"> | string
     description?: StringNullableFilter<"TicketCategory"> | string | null
     slaId?: IntFilter<"TicketCategory"> | number
+    imageUrl?: StringNullableFilter<"TicketCategory"> | string | null
     createdAt?: DateTimeFilter<"TicketCategory"> | Date | string
     updatedAt?: DateTimeFilter<"TicketCategory"> | Date | string
     SLA?: XOR<SLAScalarRelationFilter, SLAWhereInput>
@@ -16651,6 +16665,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     slaId?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     SLA?: SLAOrderByWithRelationInput
@@ -16668,6 +16683,7 @@ export namespace Prisma {
     NOT?: TicketCategoryWhereInput | TicketCategoryWhereInput[]
     description?: StringNullableFilter<"TicketCategory"> | string | null
     slaId?: IntFilter<"TicketCategory"> | number
+    imageUrl?: StringNullableFilter<"TicketCategory"> | string | null
     createdAt?: DateTimeFilter<"TicketCategory"> | Date | string
     updatedAt?: DateTimeFilter<"TicketCategory"> | Date | string
     SLA?: XOR<SLAScalarRelationFilter, SLAWhereInput>
@@ -16681,6 +16697,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     slaId?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TicketCategoryCountOrderByAggregateInput
@@ -16698,6 +16715,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"TicketCategory"> | string
     description?: StringNullableWithAggregatesFilter<"TicketCategory"> | string | null
     slaId?: IntWithAggregatesFilter<"TicketCategory"> | number
+    imageUrl?: StringNullableWithAggregatesFilter<"TicketCategory"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"TicketCategory"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"TicketCategory"> | Date | string
   }
@@ -17627,6 +17645,7 @@ export namespace Prisma {
   export type TicketCategoryCreateInput = {
     name: string
     description?: string | null
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     SLA: SLACreateNestedOneWithoutTicketCategoryInput
@@ -17640,6 +17659,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     slaId: number
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     specialities?: SpecialityAreaUncheckedCreateNestedManyWithoutTicketCategoriesInput
@@ -17650,6 +17670,7 @@ export namespace Prisma {
   export type TicketCategoryUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     SLA?: SLAUpdateOneRequiredWithoutTicketCategoryNestedInput
@@ -17663,6 +17684,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     slaId?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     specialities?: SpecialityAreaUncheckedUpdateManyWithoutTicketCategoriesNestedInput
@@ -17675,6 +17697,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     slaId: number
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17682,6 +17705,7 @@ export namespace Prisma {
   export type TicketCategoryUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17691,6 +17715,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     slaId?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18753,6 +18778,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     slaId?: SortOrder
+    imageUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18767,6 +18793,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     slaId?: SortOrder
+    imageUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18776,6 +18803,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     slaId?: SortOrder
+    imageUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -21124,6 +21152,7 @@ export namespace Prisma {
   export type TicketCategoryCreateWithoutSpecialitiesInput = {
     name: string
     description?: string | null
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     SLA: SLACreateNestedOneWithoutTicketCategoryInput
@@ -21136,6 +21165,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     slaId: number
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     categoryEtiquettes?: CategoryEtiquetteUncheckedCreateNestedManyWithoutTicketCategoriesInput
@@ -21199,6 +21229,7 @@ export namespace Prisma {
     name?: StringFilter<"TicketCategory"> | string
     description?: StringNullableFilter<"TicketCategory"> | string | null
     slaId?: IntFilter<"TicketCategory"> | number
+    imageUrl?: StringNullableFilter<"TicketCategory"> | string | null
     createdAt?: DateTimeFilter<"TicketCategory"> | Date | string
     updatedAt?: DateTimeFilter<"TicketCategory"> | Date | string
   }
@@ -21206,6 +21237,7 @@ export namespace Prisma {
   export type TicketCategoryCreateWithoutCategoryEtiquettesInput = {
     name: string
     description?: string | null
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     SLA: SLACreateNestedOneWithoutTicketCategoryInput
@@ -21218,6 +21250,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     slaId: number
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     specialities?: SpecialityAreaUncheckedCreateNestedManyWithoutTicketCategoriesInput
@@ -21248,6 +21281,7 @@ export namespace Prisma {
   export type TicketCategoryCreateWithoutSLAInput = {
     name: string
     description?: string | null
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     specialities?: SpecialityAreaCreateNestedManyWithoutTicketCategoriesInput
@@ -21259,6 +21293,7 @@ export namespace Prisma {
     id?: number
     name: string
     description?: string | null
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     specialities?: SpecialityAreaUncheckedCreateNestedManyWithoutTicketCategoriesInput
@@ -21712,6 +21747,7 @@ export namespace Prisma {
   export type TicketCategoryCreateWithoutTicketsInput = {
     name: string
     description?: string | null
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     SLA: SLACreateNestedOneWithoutTicketCategoryInput
@@ -21724,6 +21760,7 @@ export namespace Prisma {
     name: string
     description?: string | null
     slaId: number
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     specialities?: SpecialityAreaUncheckedCreateNestedManyWithoutTicketCategoriesInput
@@ -21936,6 +21973,7 @@ export namespace Prisma {
   export type TicketCategoryUpdateWithoutTicketsInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     SLA?: SLAUpdateOneRequiredWithoutTicketCategoryNestedInput
@@ -21948,6 +21986,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     slaId?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     specialities?: SpecialityAreaUncheckedUpdateManyWithoutTicketCategoriesNestedInput
@@ -23221,6 +23260,7 @@ export namespace Prisma {
   export type TicketCategoryUpdateWithoutSpecialitiesInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     SLA?: SLAUpdateOneRequiredWithoutTicketCategoryNestedInput
@@ -23233,6 +23273,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     slaId?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryEtiquettes?: CategoryEtiquetteUncheckedUpdateManyWithoutTicketCategoriesNestedInput
@@ -23244,6 +23285,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     slaId?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23251,6 +23293,7 @@ export namespace Prisma {
   export type TicketCategoryUpdateWithoutCategoryEtiquettesInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     SLA?: SLAUpdateOneRequiredWithoutTicketCategoryNestedInput
@@ -23263,6 +23306,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     slaId?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     specialities?: SpecialityAreaUncheckedUpdateManyWithoutTicketCategoriesNestedInput
@@ -23274,6 +23318,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     slaId?: IntFieldUpdateOperationsInput | number
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23282,6 +23327,7 @@ export namespace Prisma {
     id?: number
     name: string
     description?: string | null
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -23289,6 +23335,7 @@ export namespace Prisma {
   export type TicketCategoryUpdateWithoutSLAInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     specialities?: SpecialityAreaUpdateManyWithoutTicketCategoriesNestedInput
@@ -23300,6 +23347,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     specialities?: SpecialityAreaUncheckedUpdateManyWithoutTicketCategoriesNestedInput
@@ -23311,6 +23359,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
