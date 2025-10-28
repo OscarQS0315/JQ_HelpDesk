@@ -1,0 +1,44 @@
+<div class="status-card">
+    <h2 class="task-title">{{ taskTitle }}</h2>
+    <div class="status-updates">
+        @for(status of statuses;track status){
+        <button [class.active]="currentStatus === status" (click)="updateStatus(status)"
+            [attr.aria-pressed]="currentStatus === status" [attr.aria-label]="'Set status to ' + status">
+            <span class="status-icon" [ngClass]="status.toLowerCase()">
+                <i class="fas" [ngClass]="getIconClass(status)"></i>
+            </span>
+            {{ status }}
+        </button>
+        }
+    </div>
+    <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="progressPercentage" aria-valuemin="0"
+        aria-valuemax="100">
+        <div class="progress" [style.width.%]="progressPercentage"></div>
+    </div>
+    <p class="progress-text">{{ progressPercentage }}% Complete</p>
+</div>
+
+<div class="project-status-container">
+    <div class="status-card">
+        <h2 class="card-title">Project Status Overview</h2>
+        <div class="phases-container">
+            @for (phase of projectPhases; track phase) {<div class="phase-item" [attr.data-tooltip]="phase.description">
+                <div class="icon-container">
+                    <i [class]="phase.icon" aria-hidden="true"></i>
+                </div>
+                <div class="phase-details">
+                    <div class="phase-header">
+                        <h3>{{phase.name}}</h3>
+                        <span class="percentage">{{phase.completionPercentage}}%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" [style.width.%]="phase.completionPercentage"></div>
+                    </div>
+                    <button [routerLink]="['/DetalleTicket', phase.description]">
+                        Ver Ticket
+                    </button>
+                </div>
+            </div>}
+        </div>
+    </div>
+</div>

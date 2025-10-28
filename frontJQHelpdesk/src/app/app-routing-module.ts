@@ -8,6 +8,7 @@ import { ListadoCategoria } from './categoria/listado-categoria/listado-categori
 import { DetalleCategoria } from './categoria/detalle-categoria/detalle-categoria';
 import { ListadoTicket } from './ticket/listado-ticket/listado-ticket';
 import { DetalleTicket } from './ticket/detalle-ticket/detalle-ticket';
+import { VisualizacionTicket } from './ticket/visualizacion-ticket/visualizacion-ticket';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
 {path:'DetalleCategoria/:id', component: DetalleCategoria},
 {path:'ListadoTicket', component: ListadoTicket},
 {path:'DetalleTicket/:Title', component: DetalleTicket},
+{path:'VisualizacionTicket', component: VisualizacionTicket},
 { path: '', redirectTo: '/inicio', pathMatch: 'full' },
 { path: '**', component: PageNotFound }
 

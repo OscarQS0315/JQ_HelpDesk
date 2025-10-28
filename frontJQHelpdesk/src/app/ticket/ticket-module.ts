@@ -6,12 +6,14 @@ import { TicketRoutingModule } from './ticket-routing-module';
 import { ListadoTicket } from './listado-ticket/listado-ticket';
 import { DetalleTicket } from './detalle-ticket/detalle-ticket';
 import { A11yModule } from "@angular/cdk/a11y";
+import { VisualizacionTicket } from './visualizacion-ticket/visualizacion-ticket';
 
 
 @NgModule({
   declarations: [
     ListadoTicket,
-    DetalleTicket
+    DetalleTicket,
+    VisualizacionTicket
   ],
   imports: [
     CommonModule,

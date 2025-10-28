@@ -1,0 +1,258 @@
+.status-card {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    margin-top: 2%;
+}
+
+.task-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.status-updates {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+button:focus {
+    box-shadow: 0 0 0 2px greenyellow;
+}
+
+.status-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+    background-color: #ebe825;
+}
+
+.status-icon:hover {
+    transform: scale(1.1);
+    background-color: yellowgreen;
+}
+
+.TÉCNICO.status-icon {
+    background-color: #ff6b6b;
+
+}
+
+.ADMIN.status-icon {
+    background-color: #feca57;
+    color: white;
+}
+
+.CLIENTE.status-icon {
+    background-color: #48dbfb;
+    color: white;
+}
+
+button.active .status-icon {
+    transform: scale(1.1);
+}
+
+.progress-bar {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    height: 8px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress {
+    background-color: #48dbfb;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+@media (max-width: 480px) {
+    .status-card {
+        padding: 15px;
+    }
+
+    .task-title {
+        font-size: 1.2rem;
+    }
+
+    .status-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    button {
+        font-size: 0.8rem;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.in-progress .status-icon i {
+    animation: spin 2s linear infinite;
+}
+
+
+
+
+
+
+.project-status-container {
+    padding: 20px;
+    font-family: "Arial", sans-serif;
+}
+
+.status-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.card-title {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.phases-container {
+    display: grid;
+    gap: 20px;
+}
+
+.phase-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    color: white;
+}
+
+.phase-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.icon-container {
+    width: 50px;
+    height: 50px;
+    background: #ebe825;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px;
+}
+
+.icon-container i {
+    font-size: 24px;
+    color: #1976d2;
+}
+
+.phase-details {
+    flex: 1;
+}
+
+.phase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.phase-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: white;
+}
+
+.percentage {
+    font-weight: bold;
+    color: #ebe825;
+}
+
+.progress-bar {
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, black, #ebe825);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.phase-item[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 12px;
+    background: #333;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+@media (max-width: 600px) {
+    .status-card {
+        padding: 16px;
+    }
+
+    .phase-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .icon-container {
+        margin: 0 0 12px 0;
+    }
+
+    .phase-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
