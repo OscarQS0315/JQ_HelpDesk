@@ -1,150 +1,62 @@
-<div class="stepper-container" role="navigation" aria-label="Progress Steps">
-    <div class="steps-wrapper">
-        @for(step of steps; track step; let i = $index){
-        <div class="step" [class.active]="currentStep === i" [class.completed]="currentStep > i" role="button"
-            tabindex="0" (click)="goToStep(i)" [attr.aria-label]="'Step ' + (i + 1) + ': ' + step.label"
-            [attr.aria-current]="currentStep === i ? 'step' : null">
-            <div class="step-indicator">
-                <div class="circle">
-                    @if (currentStep <= i) {<span>{{i + 1}}</span>}
-                        @if (currentStep > i){<span class="check-icon">✓</span>}
-                </div>
-                @if(i !== steps.length - 1){<div class="connector"></div>}
-            </div>
-            <div class="step-label">{{step.label}}</div>
-        </div>}
-    </div>
-
-    <div class="navigation-buttons">
-        <button class="nav-button" (click)="previousStep()" [disabled]="currentStep === 0">
-            Previous
-        </button>
-        <button class="nav-button" (click)="nextStep()" [disabled]="currentStep === steps.length - 1">
-            Next
-        </button>
-    </div>
-</div>
-
-<div class="profile-container">
-    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-        <div class="profile-grid">
-            <div class="profile-info">
-                <h2>Personal Information</h2>
-
-                <div class="form-group">
-                    <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" formControlName="fullName" placeholder="Enter your full name">
-                    <div class="error"
-                        *ngIf="profileForm.get('fullName')?.touched && profileForm.get('fullName')?.invalid">
-                        <span *ngIf="profileForm.get('fullName')?.errors?.['required']">Name is required</span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" formControlName="email" placeholder="Enter your email">
-                    <div class="error" *ngIf="profileForm.get('email')?.touched && profileForm.get('email')?.invalid">
-                        <span *ngIf="profileForm.get('email')?.errors?.['required']">Email is required</span>
-                        <span *ngIf="profileForm.get('email')?.errors?.['email']">Invalid email format</span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" formControlName="phone" placeholder="Enter your phone number">
-                    <div class="error" *ngIf="profileForm.get('phone')?.touched && profileForm.get('phone')?.invalid">
-                        <span *ngIf="profileForm.get('phone')?.errors?.['required']">Phone number is required</span>
-                        <span *ngIf="profileForm.get('phone')?.errors?.['pattern']">Invalid phone number</span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="dob">Date of Birth</label>
-                    <input type="date" id="dob" formControlName="dob">
-                    <div class="error" *ngIf="profileForm.get('dob')?.touched && profileForm.get('dob')?.invalid">
-                        <span *ngIf="profileForm.get('dob')?.errors?.['required']">Date of birth is required</span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Gender</label>
-                    <div class="radio-group">
-                        <label>
-                            <input type="radio" formControlName="gender" value="male"> Male
-                        </label>
-                        <label>
-                            <input type="radio" formControlName="gender" value="female"> Female
-                        </label>
-                        <label>
-                            <input type="radio" formControlName="gender" value="other"> Other
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="address">Address</label>
-                    <textarea id="address" formControlName="address" rows="3"
-                        placeholder="Enter your address"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="occupation">Occupation</label>
-                    <input type="text" id="occupation" formControlName="occupation" placeholder="Enter your occupation">
-                </div>
-
-                <div class="completion-indicator">
-                    <div class="progress-bar" [style.width.%]="completionPercentage">
-                        <span>{{ completionPercentage }}% Complete</span>
-                    </div>
-                </div>
-
-                <div class="button-group">
-                    <button type="submit" [disabled]="!profileForm.valid || isLoading">Save Profile</button>
-                    <button type="button" (click)="resetForm()" class="reset-btn">Reset</button>
-                </div>
-            </div>
-
-            <div class="profile-image">
-                <h2>Profile Picture</h2>
-                <div class="image-upload-container" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
-                    (drop)="onDrop($event)">
-                    <div class="image-preview circular-preview" *ngIf="imagePreview">
-                        <img [src]="imagePreview" alt="Profile preview">
-                    </div>
-                    <div class="upload-placeholder circular-preview" *ngIf="!imagePreview">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Drag & Drop or Click to Upload</p>
-                        <span class="file-info">Max size: 5MB (JPEG, PNG, WebP)</span>
-                    </div>
-                    <input type="file" #fileInput (change)="onFileSelected($event)"
-                        accept="image/jpeg,image/png,image/webp" style="display: none">
-                    <button type="button" (click)="fileInput.click()" class="upload-btn">Select Image</button>
-                </div>
-                <div class="error" *ngIf="imageError">{{ imageError }}</div>
-
-                <div class="additional-fields">
-                    <div class="form-group">
-                        <label for="bio">Bio</label>
-                        <textarea id="bio" formControlName="bio" rows="3"
-                            placeholder="Tell us about yourself"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="website">Website</label>
-                        <input type="url" id="website" formControlName="website" placeholder="Your website URL">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="socialMedia">Social Media Handle</label>
-                        <input type="text" id="socialMedia" formControlName="socialMedia"
-                            placeholder="Your social media handle">
-                    </div>
-                </div>
-            </div>
+<div class="ticket-card">
+    <div class="header">
+        <img [src]="'http://localhost:3000/images/' + ticket()?.ticketCategory?.imageUrl" alt="Categoría" />
+        <div>
+            <h2>{{ ticket()?.title }}</h2>
+            <p class="category">{{ ticket()?.ticketCategory?.name }}</p>
         </div>
-    </form>
-</div>
+    </div>
 
-<div class="notification" *ngIf="notification.show" [@notificationAnimation]>
-    {{ notification.message }}
+    <div class="meta">
+        <p><strong>Estado:</strong> {{ ticket()?.status }}</p>
+        <p><strong>Prioridad:</strong> {{ ticket()?.priority }}</p>
+        <p><strong>Story Points:</strong> {{ ticket()?.storyPoints }}</p>
+        <p><strong>Asignado:</strong> {{ ticket()?.assignedAt }} ({{ ticket()?.assignedMethod }})</p>
+        <p><strong>Creado:</strong> {{ ticket()?.createdAt}}</p>
+        <p><strong>Cerrado:</strong> {{ ticket()?.closedAt}}</p>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress" [style.width.%]="progressTicketBar(ticket()?.status)"></div>
+    </div>
+
+    <div class="description">
+        <p><strong>Descripción:</strong> {{ ticket()?.description }}</p>
+        <p><strong>Criterio de aceptación:</strong> {{ ticket()?.aceptanceCriteria }}</p>
+        <p><strong>Comentarios:</strong> {{ ticket()?.comments }}</p>
+    </div>
+
+    <div class="sla">
+        <p><strong>SLA Respuesta:</strong> {{ ticket()?.slaReply }} hrs</p>
+        <p><strong>SLA Resolución:</strong> {{ ticket()?.slaResolution }} hrs</p>
+        <p><strong>¿Respondido a tiempo?:</strong> {{ ticket()?.replyAchieved ? 'Sí' : 'No' }}</p>
+        <p><strong>¿Resuelto a tiempo?:</strong> {{ ticket()?.resolutionAchieved ? 'Sí' : 'No' }}</p>
+    </div>
+
+    <div class="technician">
+        <p><strong>Técnico asignado:</strong> {{ ticket()?.technician?.user?.name }} {{
+            ticket()?.technician?.user?.lastName }}</p>
+        <img [src]="'http://localhost:3000/images/' + ticket()?.technician?.user?.profileImage" alt="Técnico" />
+    </div>
+
+    <div class="history">
+        <h3>Historial</h3>
+        @for (h of ticket()?.ticketHistory; track h) {
+        <div class="history-item">
+            <p><strong>{{ h.status }}</strong> — {{ h.changedAt }}</p>
+            <p>{{ h.observation }}</p>
+            <!--@for (img of h.ticketImages; track img) {
+            <img [src]="'http://localhost:3000/images/' + img.imageUrl" alt="Imagen historial" />
+            }-->
+        </div>
+        }
+    </div>
+
+    @if (ticket()?.ticketValoration) {
+    <div class="valoration">
+        <h3>Valoración del usuario</h3>
+        <p><strong>Calificación:</strong> {{ ticket()?.ticketValoration?.rating }}/5</p>
+        <p>{{ ticket()?.ticketValoration?.comments }}</p>
+    </div>
+    }
 </div>

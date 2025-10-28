@@ -18,7 +18,7 @@ const routes: Routes = [
 {path:'ListadoCategoria', component: ListadoCategoria},
 {path:'DetalleCategoria/:id', component: DetalleCategoria},
 {path:'ListadoTicket', component: ListadoTicket},
-{path:'DetalleTicket/:Title', component: DetalleTicket},
+{path:'DetalleTicket/:id', component: DetalleTicket},
 {path:'VisualizacionTicket', component: VisualizacionTicket},
 { path: '', redirectTo: '/inicio', pathMatch: 'full' },
 { path: '**', component: PageNotFound }

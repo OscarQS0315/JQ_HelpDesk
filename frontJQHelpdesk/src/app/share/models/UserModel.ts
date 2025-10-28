@@ -1,7 +1,7 @@
 import { E_Role } from "./enums/role.enum";
 import { NotificationModel } from "./NotificationModel";
 import { TechnicianModel } from "./TechnicianModel";
-import { TicketHistoryModel } from "./TicketHistoryModule";
+import { TicketHistoryModel } from "./TicketHistoryModel";
 import { TicketModel } from "./TicketModel";
 export interface UserModel {
     id: number;

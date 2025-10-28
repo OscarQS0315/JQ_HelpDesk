@@ -256,3 +256,19 @@ button.active .status-icon {
         gap: 8px;
     }
 }
+
+.category-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.assigned-technician {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ebe825;
+    margin-top: 12px;
+    text-align: left;
+    letter-spacing: 0.5px;
+}

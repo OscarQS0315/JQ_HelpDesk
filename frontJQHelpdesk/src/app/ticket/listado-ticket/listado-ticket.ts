@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router'; // 👈 necesario para routerLink
+
 
 interface StatusData {
   title: string;
@@ -23,9 +25,10 @@ interface Event {
 
 @Component({
   selector: 'app-status-card',
-  standalone: false,
+  standalone: true,
   templateUrl: './listado-ticket.html',
-  styleUrls: ['./listado-ticket.css']
+  styleUrls: ['./listado-ticket.css'],
+  imports: [CommonModule, RouterModule] 
 })
 export class ListadoTicket implements OnInit {
   isExpanded = false;

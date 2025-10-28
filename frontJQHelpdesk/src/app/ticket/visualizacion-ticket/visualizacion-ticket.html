@@ -1,4 +1,4 @@
-<div class="status-card">
+<!--<div class="status-card">
     <h2 class="task-title">{{ taskTitle }}</h2>
     <div class="status-updates">
         @for(status of statuses;track status){
@@ -15,28 +15,36 @@
         aria-valuemax="100">
         <div class="progress" [style.width.%]="progressPercentage"></div>
     </div>
-    <p class="progress-text">{{ progressPercentage }}% Complete</p>
-</div>
+
+</div>-->
 
 <div class="project-status-container">
     <div class="status-card">
-        <h2 class="card-title">Project Status Overview</h2>
+        <h2 class="card-title">Tickets</h2>
         <div class="phases-container">
-            @for (phase of projectPhases; track phase) {<div class="phase-item" [attr.data-tooltip]="phase.description">
+            @for (ticket of data(); track ticket) {
+            <div class="phase-item" [attr.data-tooltip]="ticket.description">
                 <div class="icon-container">
-                    <i [class]="phase.icon" aria-hidden="true"></i>
+                    <img [src]="'http://localhost:3000/images/' + ticket.ticketCategory.imageUrl"
+                        alt="Ícono de categoría" class="category-icon" />
                 </div>
+
                 <div class="phase-details">
                     <div class="phase-header">
-                        <h3>{{phase.name}}</h3>
-                        <span class="percentage">{{phase.completionPercentage}}%</span>
+                        <h3>{{ticket.title}}</h3>
+                        <span class="percentage">{{ticketStatusString(ticket.status)}}
+                            {{progressTicketBar(ticket.status)}}%</span>
                     </div>
                     <div class="progress-bar">
-                        <div class="progress" [style.width.%]="phase.completionPercentage"></div>
+                        <div class="progress" [style.width.%]="progressTicketBar(ticket.status)"></div>
                     </div>
-                    <button [routerLink]="['/DetalleTicket', phase.description]">
-                        Ver Ticket
+                    <span class="assigned-technician">
+                        {{"Técnico: "}} {{ ticket.technician?.user?.name }} {{ ticket.technician?.user?.lastName }}
+                    </span>
+                    <button class="btn-action" [routerLink]="['/DetalleTicket', ticket.id]" aria-label="View Details">
+                        <i class="fas fa-eye"></i> Ver Detalles
                     </button>
+
                 </div>
             </div>}
         </div>

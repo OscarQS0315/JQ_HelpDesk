@@ -1,160 +1,57 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-interface Step {
-  label: string;
-  completed: boolean;
-}
+import { Component, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TicketService } from '../../share/services/api/ticket.service';
+import { TicketModel } from '../../share/models/TicketModel';
+import { E_TicketStatus } from '../../share/models/enums/ticketStatus.enum';
 
 @Component({
   selector: "app-stepper",
-  standalone: false,
+  standalone: true,
   templateUrl: "./detalle-ticket.html",
-  styleUrls: ["./detalle-ticket.css"]
+  styleUrls: ["./detalle-ticket.css"],
+  imports: []
 })
 export class DetalleTicket {
-  steps: Step[] = [
-    { label: "Personal Information", completed: false },
-    { label: "Contact Details", completed: false },
-    { label: "Review", completed: false },
-    { label: "Confirmation", completed: false }
-  ];
+  ticket = signal<TicketModel | null>(null);
 
-  currentStep = 0;
+  constructor(private route: ActivatedRoute, private ticketService: TicketService) {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.ticketService.getById(id).subscribe((data) => this.ticket.set(data));
+  }
 
-  goToStep(index: number): void {
-    if (index <= this.currentStep || this.steps[index - 1]?.completed) {
-      this.currentStep = index;
+  formatDate(date?: string): string {
+    return date ? new Date(date).toLocaleString() : '—';
+  }
+
+  progress(status: string): number {
+    switch (status) {
+      case 'PENDING': return 0;
+      case 'ASSIGNED': return 25;
+      case 'IN_PROGRESS': return 50;
+      case 'RESOLVED': return 75;
+      case 'CLOSED': return 100;
+      default: return 0;
     }
   }
 
-  nextStep(): void {
-    if (this.currentStep < this.steps.length - 1) {
-      this.steps[this.currentStep].completed = true;
-      this.currentStep++;
+  progressTicketBar(status?: E_TicketStatus): number {
+    switch (status) {
+      case E_TicketStatus.PENDING:
+        return 20;
+      case E_TicketStatus.ASSIGNED:
+        return 40;
+      case E_TicketStatus.IN_PROGRESS:
+        return 60;
+      case E_TicketStatus.RESOLVED:
+        return 80;
+      case E_TicketStatus.CLOSED:
+        return 100;
+      default:
+        return 0;
     }
-  }
-
-  previousStep(): void {
-    if (this.currentStep > 0) {
-      this.currentStep--;
-    }
-  }
-
-  @ViewChild("fileInput") fileInput!: ElementRef;
-
-  profileForm!: FormGroup;
-  imagePreview: string | null = null;
-  imageError: string | null = null;
-  isLoading = false;
-  completionPercentage = 0;
-  notification = { show: false, message: "" };
-
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit() {
-    this.initForm();
-    this.watchFormChanges();
-  }
-
-  initForm() {
-    this.profileForm = this.fb.group({
-      fullName: ["", [Validators.required]],
-      email: ["", [Validators.required, Validators.email]],
-      phone: ["", [Validators.required, Validators.pattern("^[0-9]{10}$")]],
-      dob: ["", [Validators.required]],
-      gender: ["", [Validators.required]],
-      address: [""],
-      occupation: [""],
-      bio: [""],
-      website: ["", Validators.pattern("https?://.+")],
-      socialMedia: [""]
-    });
-  }
-
-  watchFormChanges() {
-    this.profileForm.valueChanges.subscribe(() => {
-      this.calculateCompletion();
-    });
-  }
-
-  calculateCompletion() {
-    const controls = Object.keys(this.profileForm.controls);
-    const filledControls = controls.filter(key => {
-      const control = this.profileForm.get(key);
-      return control?.value && !control.errors;
-    });
-
-    this.completionPercentage = Math.round((filledControls.length / controls.length) * 100);
-  }
-
-  onFileSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    this.handleFile(file);
-  }
-
-  onDragOver(event: DragEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-
-  onDragLeave(event: DragEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-
-  onDrop(event: DragEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-    const file = event.dataTransfer?.files[0];
-    this.handleFile(file);
-  }
-
-  handleFile(file: File | undefined) {
-    if (!file) return;
-
-    if (!file.type.match(/image\/(jpeg|png|webp)/)) {
-      this.imageError = "Only JPEG, PNG and WebP images are allowed";
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      this.imageError = "Image size should not exceed 5MB";
-      return;
-    }
-
-    this.imageError = null;
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imagePreview = reader.result as string;
-    };
-    reader.readAsDataURL(file);
-  }
-
-  resetForm() {
-    this.profileForm.reset();
-    this.imagePreview = null;
-    this.imageError = null;
-    this.showNotification("Form has been reset");
-  }
-
-  onSubmit() {
-    if (this.profileForm.valid) {
-      this.isLoading = true;
-      // Simulate API call
-      setTimeout(() => {
-        this.isLoading = false;
-        this.showNotification("Profile updated successfully");
-      }, 1500);
-    }
-  }
-
-  showNotification(message: string) {
-    this.notification = { show: true, message };
-    setTimeout(() => {
-      this.notification = { show: false, message: "" };
-    }, 3000);
   }
 }
+
 
 

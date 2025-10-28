@@ -11,15 +11,16 @@ import { VisualizacionTicket } from './visualizacion-ticket/visualizacion-ticket
 
 @NgModule({
   declarations: [
-    ListadoTicket,
-    DetalleTicket,
-    VisualizacionTicket
+    
   ],
   imports: [
     CommonModule,
     TicketRoutingModule,
     ReactiveFormsModule,
-    A11yModule
+    A11yModule,
+    ListadoTicket,
+    DetalleTicket,
+    VisualizacionTicket
 ]
 })
 export class TicketModule { }

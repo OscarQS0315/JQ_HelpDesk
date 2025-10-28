@@ -1,14 +1,14 @@
-import { TicketHistoryObservationModel } from "./TicketHistoryObservationModel";
-import { TicketModel } from "./TicketModel";
 
+import { TicketModel } from "./TicketModel";
+import { TicketHistoryModel } from "./TicketHistoryModel";
 export interface TicketImageModel {
     id: number;
     ticketId: number;
-    ticketHistoryObservationId?: string;
+    ticketHistoryId?: number;
     imageUrl: string;
     createdAt: Date;
     updatedAt: Date;
 
     ticket: TicketModel;
-    ticketHistoryObservation?: TicketHistoryObservationModel;
+    ticketHistory: TicketHistoryModel;
 }

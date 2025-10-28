@@ -6,7 +6,7 @@ import { VisualizacionTicket } from './visualizacion-ticket/visualizacion-ticket
 
 const routes: Routes = [
   {path:'ListadoTicket', component: ListadoTicket},
-  {path:'DetalleTicket/:Title', component: DetalleTicket},
+  {path:'DetalleTicket/:id', component: DetalleTicket},
   {path:'VisualizacionTicket', component: VisualizacionTicket}
 ];
 

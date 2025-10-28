@@ -8,7 +8,7 @@ import { AutoTriageRuleModel } from "./AutoTriageRuleModel";
 import { TicketValorationModel } from "./TicketValorationModel";
 import { NotificationModel } from "./NotificationModel";
 import { TicketImageModel } from "./TicketImageModel";
-import { TicketHistoryModel } from "./TicketHistoryModule";
+import { TicketHistoryModel } from "./TicketHistoryModel";
 export interface TicketModel {
     id: number;
     userId: number;
@@ -42,6 +42,6 @@ export interface TicketModel {
     ticketValoration?: TicketValorationModel;
     notifications?: NotificationModel[];
     ticketImages?: TicketImageModel[];
-    ticketHistories?: TicketHistoryModel[];
+    ticketHistory?: TicketHistoryModel[];
 
 }

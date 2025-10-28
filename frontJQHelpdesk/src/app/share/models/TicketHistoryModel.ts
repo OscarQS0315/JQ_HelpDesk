@@ -1,5 +1,5 @@
 import { E_TicketStatus } from "./enums/ticketStatus.enum";
-import { TicketHistoryObservationModel } from "./TicketHistoryObservationModel";
+import { TicketImageModel } from "./TicketImageModel";
 import { TicketModel } from "./TicketModel";
 import { UserModel } from "./UserModel";
 export interface TicketHistoryModel {
@@ -8,8 +8,8 @@ export interface TicketHistoryModel {
     status: E_TicketStatus;
     changedBy: number;
     changedAt: Date;
-
+    observation: string;
     ticket: TicketModel;
     user: UserModel;
-    TicketHistoryObservations: TicketHistoryObservationModel;
+    ticketImages: TicketImageModel[];
 }

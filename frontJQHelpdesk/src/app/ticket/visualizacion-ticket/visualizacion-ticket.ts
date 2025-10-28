@@ -1,31 +1,58 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TicketModel } from '../../share/models/TicketModel';
+import { Router } from '@angular/router';
+import { TicketService } from '../../share/services/api/ticket.service';
+import { UserService } from '../../share/services/api/user.service';
+import { UserModel } from '../../share/models/UserModel';
+import { RouterModule } from '@angular/router';
 
-interface ProjectPhase {
-  name: string;
-  icon: string;
-  completionPercentage: number;
-  description: string;
-}
 
 @Component({
   selector: 'app-status-card',
-  standalone: false,
+  standalone: true,
   templateUrl: './visualizacion-ticket.html',
-  styleUrls: ['./visualizacion-ticket.css']
+  styleUrls: ['./visualizacion-ticket.css'],
+  imports: [CommonModule, RouterModule]
 })
 
 
 export class VisualizacionTicket implements OnInit {
+
+  authUser = 2;
+  data = signal<TicketModel[]>([]);
+
+  constructor(
+    private router: Router,
+    private TService: TicketService,
+    private UService: UserService
+  ) { }
+
+  ngOnInit(): void {
+    this.listTickets(this.authUser);
+    this.updateProgressPercentage();
+  }
+
+
+  
+
+  listTickets(userId: number): void {
+    this.TService.getMethod(`by-role/${userId}`).subscribe((response: TicketModel | TicketModel[]) => {
+      const tickets = Array.isArray(response) ? response : [response];
+      this.data.set(tickets);
+    });
+  }
+
+
+
+
   @Input() taskTitle: string = 'ROLES';
 
   statuses: string[] = ['TÉCNICO', 'ADMIN', 'CLIENTE'];
   currentStatus: string = 'Not Started';
   progressPercentage: number = 0;
 
-  ngOnInit() {
-    this.updateProgressPercentage();
-  }
+
 
   updateStatus(status: string) {
     this.currentStatus = status;
@@ -48,6 +75,39 @@ export class VisualizacionTicket implements OnInit {
     }
   }
 
+  progressTicketBar(status: string): number {
+    switch (status) {
+      case 'PENDING':
+        return 20;
+      case 'ASSIGNED':
+        return 40;
+      case 'IN_PROGRESS':
+        return 60;
+      case 'RESOLVED':
+        return 80;
+      case 'CLOSED':
+        return 100;
+      default:
+        return 0;
+    }
+  }
+
+  ticketStatusString(status: string): string {
+    switch (status) {
+      case 'PENDING':
+        return 'PENDIENTE';
+      case 'ASSIGNED':
+        return 'ASIGNADO';
+      case 'IN_PROGRESS':
+        return 'EN PROGRESO';
+      case 'RESOLVED':
+        return 'RESUELTO';
+      case 'CLOSED':
+        return 'CERRADO';
+      default:
+        return 'DESCONOCIDO';
+    }
+  }
   getIconClass(status: string): string {
     switch (status) {
       case 'Not Started':
@@ -61,32 +121,7 @@ export class VisualizacionTicket implements OnInit {
     }
   }
 
-  projectPhases: ProjectPhase[] = [
-    {
-      name: "Planning",
-      icon: "fas fa-tasks",
-      completionPercentage: 100,
-      description: "Project planning and requirement gathering phase"
-    },
-    {
-      name: "Development",
-      icon: "fas fa-code",
-      completionPercentage: 75,
-      description: "Active development and implementation phase"
-    },
-    {
-      name: "Testing",
-      icon: "fas fa-vial",
-      completionPercentage: 45,
-      description: "Quality assurance and testing procedures"
-    },
-    {
-      name: "Deployment",
-      icon: "fas fa-rocket",
-      completionPercentage: 20,
-      description: "Production deployment and release management"
-    }
-  ];
 
-  constructor() {}
+
+
 }
