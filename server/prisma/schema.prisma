@@ -164,7 +164,7 @@ model Ticket {
   ticketCategory              TicketCategory              @relation(fields: [ticketCategoryId], references: [id])
   notifications               Notification[]
   ticketValoration            TicketValoration?
-  automaticTriageRule        AutoTriageRule?             @relation(fields: [automaticTriageRuleId], references: [id])
+  automaticTriageRule         AutoTriageRule?             @relation(fields: [automaticTriageRuleId], references: [id])
 }
 
 model TicketImage{

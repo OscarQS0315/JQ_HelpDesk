@@ -12,7 +12,11 @@ export class TicketController {
             const tickets = await this.prisma.ticket.findMany({
                 include: {
                     user: true,
-                    technician: true,
+                    technician: {
+                        include: {
+                            user: true,
+                        },
+                    },
                     ticketHistory: {
                         include: {
                             ticketImages: true,
@@ -38,7 +42,11 @@ export class TicketController {
                 where: { id: ticketId },
                 include: {
                     user: true,
-                    technician: true,
+                    technician: {
+                        include: {
+                            user: true,
+                        },
+                    },
                     ticketHistory: {
                         include: {
                             ticketImages: true,
@@ -59,25 +67,64 @@ export class TicketController {
 
     getByRole = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            let param = req.params.role;
-            param = param.toUpperCase();
-            if (!Object.values(E_Role).includes(param as E_Role)) {
-                return next(AppError.badRequest('El role proporcionado no es válido'));
-            }
+            let tickets = null;
+            let param = req.params.userId;
 
-            let userRole = param as E_Role;
-            if (!userRole) {
-                return next(AppError.badRequest('Parametro role es requerido'));
+
+            if (!param) {
+                return next(AppError.badRequest('El ID de usuario es requerido'));
             }
-            const tickets = await this.prisma.ticket.findMany({
+            const userId = parseInt(param);
+            if (isNaN(userId)) {
+                return next(AppError.badRequest('El ID de usuario no es válido'));
+            }
+            const user = await this.prisma.user.findFirst({
                 where: {
-                    user: {
-                        role: userRole
+                    id: userId
+                },
+                include: {
+                    tickets: true,
+                    userTechnician: true,
+                    ticketHistory: true,
+                    notifications: true
+                }
+            });
+            if (!user) {
+                next(AppError.notFound("Usuario no encontrado"));
+            }
+            const userRole = user?.role as E_Role;
+            if (userRole === E_Role.ADMIN) {
+            tickets = await this.prisma.ticket.findMany({
+                include: {
+                    user: true,
+                    technician: {
+                        include: {
+                            user: true,
+                        },
+                    },
+                    ticketHistory: {
+                        include: {
+                            ticketImages: true,
+                        },
+                    },
+                    ticketCategory: true,
+                    ticketValoration: true,
+                }
+            });
+            } else if (userRole === E_Role.TECHNICIAN) {
+            tickets = await this.prisma.ticket.findMany({
+                where: {
+                    technician: {
+                        userId: userId
                     }
                 },
                 include: {
                     user: true,
-                    technician: true,
+                    technician: {
+                        include: {
+                            user: true,
+                        },
+                    },
                     ticketHistory: {
                         include: {
                             ticketImages: true,
@@ -87,10 +134,35 @@ export class TicketController {
                     ticketValoration: true
                 }
             });
-            res.status(200).json(tickets);
+        }else{
+            tickets = await this.prisma.ticket.findMany({
+                where: {
+                    user:{
+                        id: userId
+                    }
+                },
+                include: {
+                    user: true,
+                    technician: {
+                        include: {
+                            user: true,
+                        },
+                    },
+                    ticketHistory: {
+                        include: {
+                            ticketImages: true,
+                        },
+                    },
+                    ticketCategory: true,
+                    ticketValoration: true
+                }
+            });
         }
-        catch (error) {
-            next(error);
-        }
-    };
+
+        res.status(200).json(tickets);
+    }
+    catch(error) {
+        next(error);
+    }
+};
 }

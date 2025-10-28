@@ -8,7 +8,7 @@ export class TicketRoutes{
         router.get('/', controller.get);
         
         router.get('/:id', controller.getById);
-        router.get('/by-role/:role', controller.getByRole);
+        router.get('/by-role/:userId', controller.getByRole);
         return router;
     }
 }
