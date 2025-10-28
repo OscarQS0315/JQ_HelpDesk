@@ -8,12 +8,14 @@ export interface TicketCategoryModel {
     name: string;
     description: string;
     slaId: number;
+    imageUrl: string;
     createdAt: Date;
     updatedAt: Date;
 
-    SLA: SLAModel;
-    speciality: SpecialityAreaModel[];
     categoryEtiquettes: CategoryEtiquetteModel[];
+    SLA: SLAModel;
+    specialities: SpecialityAreaModel[];
+    
 
     
     tickets: TicketModel[];
