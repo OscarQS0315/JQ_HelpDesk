@@ -64,11 +64,6 @@ export type TicketImage = $Result.DefaultSelection<Prisma.$TicketImagePayload>
  */
 export type TicketHistory = $Result.DefaultSelection<Prisma.$TicketHistoryPayload>
 /**
- * Model TicketHistoryObservation
- * 
- */
-export type TicketHistoryObservation = $Result.DefaultSelection<Prisma.$TicketHistoryObservationPayload>
-/**
  * Model Notification
  * 
  */
@@ -366,16 +361,6 @@ export class PrismaClient<
     * ```
     */
   get ticketHistory(): Prisma.TicketHistoryDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.ticketHistoryObservation`: Exposes CRUD operations for the **TicketHistoryObservation** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more TicketHistoryObservations
-    * const ticketHistoryObservations = await prisma.ticketHistoryObservation.findMany()
-    * ```
-    */
-  get ticketHistoryObservation(): Prisma.TicketHistoryObservationDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
@@ -847,7 +832,6 @@ export namespace Prisma {
     Ticket: 'Ticket',
     TicketImage: 'TicketImage',
     TicketHistory: 'TicketHistory',
-    TicketHistoryObservation: 'TicketHistoryObservation',
     Notification: 'Notification',
     TicketValoration: 'TicketValoration'
   };
@@ -868,7 +852,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userTechnician" | "specialityArea" | "categoryEtiquette" | "sLA" | "ticketCategory" | "autoTriageRule" | "ticket" | "ticketImage" | "ticketHistory" | "ticketHistoryObservation" | "notification" | "ticketValoration"
+      modelProps: "user" | "userTechnician" | "specialityArea" | "categoryEtiquette" | "sLA" | "ticketCategory" | "autoTriageRule" | "ticket" | "ticketImage" | "ticketHistory" | "notification" | "ticketValoration"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1532,72 +1516,6 @@ export namespace Prisma {
           }
         }
       }
-      TicketHistoryObservation: {
-        payload: Prisma.$TicketHistoryObservationPayload<ExtArgs>
-        fields: Prisma.TicketHistoryObservationFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.TicketHistoryObservationFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TicketHistoryObservationPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.TicketHistoryObservationFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TicketHistoryObservationPayload>
-          }
-          findFirst: {
-            args: Prisma.TicketHistoryObservationFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TicketHistoryObservationPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.TicketHistoryObservationFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TicketHistoryObservationPayload>
-          }
-          findMany: {
-            args: Prisma.TicketHistoryObservationFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TicketHistoryObservationPayload>[]
-          }
-          create: {
-            args: Prisma.TicketHistoryObservationCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TicketHistoryObservationPayload>
-          }
-          createMany: {
-            args: Prisma.TicketHistoryObservationCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.TicketHistoryObservationDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TicketHistoryObservationPayload>
-          }
-          update: {
-            args: Prisma.TicketHistoryObservationUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TicketHistoryObservationPayload>
-          }
-          deleteMany: {
-            args: Prisma.TicketHistoryObservationDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.TicketHistoryObservationUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.TicketHistoryObservationUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TicketHistoryObservationPayload>
-          }
-          aggregate: {
-            args: Prisma.TicketHistoryObservationAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateTicketHistoryObservation>
-          }
-          groupBy: {
-            args: Prisma.TicketHistoryObservationGroupByArgs<ExtArgs>
-            result: $Utils.Optional<TicketHistoryObservationGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.TicketHistoryObservationCountArgs<ExtArgs>
-            result: $Utils.Optional<TicketHistoryObservationCountAggregateOutputType> | number
-          }
-        }
-      }
       Notification: {
         payload: Prisma.$NotificationPayload<ExtArgs>
         fields: Prisma.NotificationFieldRefs
@@ -1836,7 +1754,6 @@ export namespace Prisma {
     ticket?: TicketOmit
     ticketImage?: TicketImageOmit
     ticketHistory?: TicketHistoryOmit
-    ticketHistoryObservation?: TicketHistoryObservationOmit
     notification?: NotificationOmit
     ticketValoration?: TicketValorationOmit
   }
@@ -2235,32 +2152,32 @@ export namespace Prisma {
 
 
   /**
-   * Count Type TicketHistoryObservationCountOutputType
+   * Count Type TicketHistoryCountOutputType
    */
 
-  export type TicketHistoryObservationCountOutputType = {
+  export type TicketHistoryCountOutputType = {
     ticketImages: number
   }
 
-  export type TicketHistoryObservationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    ticketImages?: boolean | TicketHistoryObservationCountOutputTypeCountTicketImagesArgs
+  export type TicketHistoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ticketImages?: boolean | TicketHistoryCountOutputTypeCountTicketImagesArgs
   }
 
   // Custom InputTypes
   /**
-   * TicketHistoryObservationCountOutputType without action
+   * TicketHistoryCountOutputType without action
    */
-  export type TicketHistoryObservationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketHistoryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TicketHistoryObservationCountOutputType
+     * Select specific fields to fetch from the TicketHistoryCountOutputType
      */
-    select?: TicketHistoryObservationCountOutputTypeSelect<ExtArgs> | null
+    select?: TicketHistoryCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * TicketHistoryObservationCountOutputType without action
+   * TicketHistoryCountOutputType without action
    */
-  export type TicketHistoryObservationCountOutputTypeCountTicketImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketHistoryCountOutputTypeCountTicketImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TicketImageWhereInput
   }
 
@@ -9875,8 +9792,8 @@ export namespace Prisma {
     resolutionDays: number | null
     slaReply: number | null
     slaResolution: number | null
-    replyAchieved: boolean
-    resolutionAchieved: boolean
+    replyAchieved: boolean | null
+    resolutionAchieved: boolean | null
     ticketValorationId: number | null
     closedAt: Date | null
     createdAt: Date
@@ -10008,8 +9925,8 @@ export namespace Prisma {
       resolutionDays: number | null
       slaReply: number | null
       slaResolution: number | null
-      replyAchieved: boolean
-      resolutionAchieved: boolean
+      replyAchieved: boolean | null
+      resolutionAchieved: boolean | null
       ticketValorationId: number | null
       closedAt: Date | null
       createdAt: Date
@@ -11122,7 +11039,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     ticket?: boolean | TicketImage$ticketArgs<ExtArgs>
-    ticketHistoryObservation?: boolean | TicketImage$ticketHistoryObservationArgs<ExtArgs>
+    ticketHistory?: boolean | TicketImage$ticketHistoryArgs<ExtArgs>
   }, ExtArgs["result"]["ticketImage"]>
 
 
@@ -11139,14 +11056,14 @@ export namespace Prisma {
   export type TicketImageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ticketId" | "ticketHistoryObservationId" | "imageUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["ticketImage"]>
   export type TicketImageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ticket?: boolean | TicketImage$ticketArgs<ExtArgs>
-    ticketHistoryObservation?: boolean | TicketImage$ticketHistoryObservationArgs<ExtArgs>
+    ticketHistory?: boolean | TicketImage$ticketHistoryArgs<ExtArgs>
   }
 
   export type $TicketImagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TicketImage"
     objects: {
       ticket: Prisma.$TicketPayload<ExtArgs> | null
-      ticketHistoryObservation: Prisma.$TicketHistoryObservationPayload<ExtArgs> | null
+      ticketHistory: Prisma.$TicketHistoryPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -11496,7 +11413,7 @@ export namespace Prisma {
   export interface Prisma__TicketImageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     ticket<T extends TicketImage$ticketArgs<ExtArgs> = {}>(args?: Subset<T, TicketImage$ticketArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    ticketHistoryObservation<T extends TicketImage$ticketHistoryObservationArgs<ExtArgs> = {}>(args?: Subset<T, TicketImage$ticketHistoryObservationArgs<ExtArgs>>): Prisma__TicketHistoryObservationClient<$Result.GetResult<Prisma.$TicketHistoryObservationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    ticketHistory<T extends TicketImage$ticketHistoryArgs<ExtArgs> = {}>(args?: Subset<T, TicketImage$ticketHistoryArgs<ExtArgs>>): Prisma__TicketHistoryClient<$Result.GetResult<Prisma.$TicketHistoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11894,22 +11811,22 @@ export namespace Prisma {
   }
 
   /**
-   * TicketImage.ticketHistoryObservation
+   * TicketImage.ticketHistory
    */
-  export type TicketImage$ticketHistoryObservationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketImage$ticketHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TicketHistoryObservation
+     * Select specific fields to fetch from the TicketHistory
      */
-    select?: TicketHistoryObservationSelect<ExtArgs> | null
+    select?: TicketHistorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TicketHistoryObservation
+     * Omit specific fields from the TicketHistory
      */
-    omit?: TicketHistoryObservationOmit<ExtArgs> | null
+    omit?: TicketHistoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TicketHistoryObservationInclude<ExtArgs> | null
-    where?: TicketHistoryObservationWhereInput
+    include?: TicketHistoryInclude<ExtArgs> | null
+    where?: TicketHistoryWhereInput
   }
 
   /**
@@ -11961,6 +11878,7 @@ export namespace Prisma {
     status: $Enums.E_TicketStatus | null
     changedBy: number | null
     changedAt: Date | null
+    observation: string | null
   }
 
   export type TicketHistoryMaxAggregateOutputType = {
@@ -11969,6 +11887,7 @@ export namespace Prisma {
     status: $Enums.E_TicketStatus | null
     changedBy: number | null
     changedAt: Date | null
+    observation: string | null
   }
 
   export type TicketHistoryCountAggregateOutputType = {
@@ -11977,6 +11896,7 @@ export namespace Prisma {
     status: number
     changedBy: number
     changedAt: number
+    observation: number
     _all: number
   }
 
@@ -11999,6 +11919,7 @@ export namespace Prisma {
     status?: true
     changedBy?: true
     changedAt?: true
+    observation?: true
   }
 
   export type TicketHistoryMaxAggregateInputType = {
@@ -12007,6 +11928,7 @@ export namespace Prisma {
     status?: true
     changedBy?: true
     changedAt?: true
+    observation?: true
   }
 
   export type TicketHistoryCountAggregateInputType = {
@@ -12015,6 +11937,7 @@ export namespace Prisma {
     status?: true
     changedBy?: true
     changedAt?: true
+    observation?: true
     _all?: true
   }
 
@@ -12110,6 +12033,7 @@ export namespace Prisma {
     status: $Enums.E_TicketStatus
     changedBy: number
     changedAt: Date
+    observation: string
     _count: TicketHistoryCountAggregateOutputType | null
     _avg: TicketHistoryAvgAggregateOutputType | null
     _sum: TicketHistorySumAggregateOutputType | null
@@ -12137,9 +12061,11 @@ export namespace Prisma {
     status?: boolean
     changedBy?: boolean
     changedAt?: boolean
+    observation?: boolean
     ticket?: boolean | TicketDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-    TicketObservation?: boolean | TicketHistory$TicketObservationArgs<ExtArgs>
+    ticketImages?: boolean | TicketHistory$ticketImagesArgs<ExtArgs>
+    _count?: boolean | TicketHistoryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ticketHistory"]>
 
 
@@ -12150,13 +12076,15 @@ export namespace Prisma {
     status?: boolean
     changedBy?: boolean
     changedAt?: boolean
+    observation?: boolean
   }
 
-  export type TicketHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ticketId" | "status" | "changedBy" | "changedAt", ExtArgs["result"]["ticketHistory"]>
+  export type TicketHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ticketId" | "status" | "changedBy" | "changedAt" | "observation", ExtArgs["result"]["ticketHistory"]>
   export type TicketHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ticket?: boolean | TicketDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-    TicketObservation?: boolean | TicketHistory$TicketObservationArgs<ExtArgs>
+    ticketImages?: boolean | TicketHistory$ticketImagesArgs<ExtArgs>
+    _count?: boolean | TicketHistoryCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $TicketHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12164,7 +12092,7 @@ export namespace Prisma {
     objects: {
       ticket: Prisma.$TicketPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs>
-      TicketObservation: Prisma.$TicketHistoryObservationPayload<ExtArgs> | null
+      ticketImages: Prisma.$TicketImagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -12172,6 +12100,7 @@ export namespace Prisma {
       status: $Enums.E_TicketStatus
       changedBy: number
       changedAt: Date
+      observation: string
     }, ExtArgs["result"]["ticketHistory"]>
     composites: {}
   }
@@ -12514,7 +12443,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     ticket<T extends TicketDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TicketDefaultArgs<ExtArgs>>): Prisma__TicketClient<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    TicketObservation<T extends TicketHistory$TicketObservationArgs<ExtArgs> = {}>(args?: Subset<T, TicketHistory$TicketObservationArgs<ExtArgs>>): Prisma__TicketHistoryObservationClient<$Result.GetResult<Prisma.$TicketHistoryObservationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    ticketImages<T extends TicketHistory$ticketImagesArgs<ExtArgs> = {}>(args?: Subset<T, TicketHistory$ticketImagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12549,6 +12478,7 @@ export namespace Prisma {
     readonly status: FieldRef<"TicketHistory", 'E_TicketStatus'>
     readonly changedBy: FieldRef<"TicketHistory", 'Int'>
     readonly changedAt: FieldRef<"TicketHistory", 'DateTime'>
+    readonly observation: FieldRef<"TicketHistory", 'String'>
   }
     
 
@@ -12892,1001 +12822,9 @@ export namespace Prisma {
   }
 
   /**
-   * TicketHistory.TicketObservation
+   * TicketHistory.ticketImages
    */
-  export type TicketHistory$TicketObservationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TicketHistoryObservation
-     */
-    select?: TicketHistoryObservationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TicketHistoryObservation
-     */
-    omit?: TicketHistoryObservationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketHistoryObservationInclude<ExtArgs> | null
-    where?: TicketHistoryObservationWhereInput
-  }
-
-  /**
-   * TicketHistory without action
-   */
-  export type TicketHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TicketHistory
-     */
-    select?: TicketHistorySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TicketHistory
-     */
-    omit?: TicketHistoryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketHistoryInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model TicketHistoryObservation
-   */
-
-  export type AggregateTicketHistoryObservation = {
-    _count: TicketHistoryObservationCountAggregateOutputType | null
-    _avg: TicketHistoryObservationAvgAggregateOutputType | null
-    _sum: TicketHistoryObservationSumAggregateOutputType | null
-    _min: TicketHistoryObservationMinAggregateOutputType | null
-    _max: TicketHistoryObservationMaxAggregateOutputType | null
-  }
-
-  export type TicketHistoryObservationAvgAggregateOutputType = {
-    id: number | null
-    ticketHistoryId: number | null
-  }
-
-  export type TicketHistoryObservationSumAggregateOutputType = {
-    id: number | null
-    ticketHistoryId: number | null
-  }
-
-  export type TicketHistoryObservationMinAggregateOutputType = {
-    id: number | null
-    ticketHistoryId: number | null
-    observation: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type TicketHistoryObservationMaxAggregateOutputType = {
-    id: number | null
-    ticketHistoryId: number | null
-    observation: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type TicketHistoryObservationCountAggregateOutputType = {
-    id: number
-    ticketHistoryId: number
-    observation: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type TicketHistoryObservationAvgAggregateInputType = {
-    id?: true
-    ticketHistoryId?: true
-  }
-
-  export type TicketHistoryObservationSumAggregateInputType = {
-    id?: true
-    ticketHistoryId?: true
-  }
-
-  export type TicketHistoryObservationMinAggregateInputType = {
-    id?: true
-    ticketHistoryId?: true
-    observation?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type TicketHistoryObservationMaxAggregateInputType = {
-    id?: true
-    ticketHistoryId?: true
-    observation?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type TicketHistoryObservationCountAggregateInputType = {
-    id?: true
-    ticketHistoryId?: true
-    observation?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type TicketHistoryObservationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which TicketHistoryObservation to aggregate.
-     */
-    where?: TicketHistoryObservationWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of TicketHistoryObservations to fetch.
-     */
-    orderBy?: TicketHistoryObservationOrderByWithRelationInput | TicketHistoryObservationOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: TicketHistoryObservationWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` TicketHistoryObservations from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` TicketHistoryObservations.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned TicketHistoryObservations
-    **/
-    _count?: true | TicketHistoryObservationCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: TicketHistoryObservationAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: TicketHistoryObservationSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: TicketHistoryObservationMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: TicketHistoryObservationMaxAggregateInputType
-  }
-
-  export type GetTicketHistoryObservationAggregateType<T extends TicketHistoryObservationAggregateArgs> = {
-        [P in keyof T & keyof AggregateTicketHistoryObservation]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateTicketHistoryObservation[P]>
-      : GetScalarType<T[P], AggregateTicketHistoryObservation[P]>
-  }
-
-
-
-
-  export type TicketHistoryObservationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TicketHistoryObservationWhereInput
-    orderBy?: TicketHistoryObservationOrderByWithAggregationInput | TicketHistoryObservationOrderByWithAggregationInput[]
-    by: TicketHistoryObservationScalarFieldEnum[] | TicketHistoryObservationScalarFieldEnum
-    having?: TicketHistoryObservationScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: TicketHistoryObservationCountAggregateInputType | true
-    _avg?: TicketHistoryObservationAvgAggregateInputType
-    _sum?: TicketHistoryObservationSumAggregateInputType
-    _min?: TicketHistoryObservationMinAggregateInputType
-    _max?: TicketHistoryObservationMaxAggregateInputType
-  }
-
-  export type TicketHistoryObservationGroupByOutputType = {
-    id: number
-    ticketHistoryId: number
-    observation: string
-    createdAt: Date
-    updatedAt: Date
-    _count: TicketHistoryObservationCountAggregateOutputType | null
-    _avg: TicketHistoryObservationAvgAggregateOutputType | null
-    _sum: TicketHistoryObservationSumAggregateOutputType | null
-    _min: TicketHistoryObservationMinAggregateOutputType | null
-    _max: TicketHistoryObservationMaxAggregateOutputType | null
-  }
-
-  type GetTicketHistoryObservationGroupByPayload<T extends TicketHistoryObservationGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<TicketHistoryObservationGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof TicketHistoryObservationGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], TicketHistoryObservationGroupByOutputType[P]>
-            : GetScalarType<T[P], TicketHistoryObservationGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type TicketHistoryObservationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    ticketHistoryId?: boolean
-    observation?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    ticketHistory?: boolean | TicketHistoryDefaultArgs<ExtArgs>
-    ticketImages?: boolean | TicketHistoryObservation$ticketImagesArgs<ExtArgs>
-    _count?: boolean | TicketHistoryObservationCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["ticketHistoryObservation"]>
-
-
-
-  export type TicketHistoryObservationSelectScalar = {
-    id?: boolean
-    ticketHistoryId?: boolean
-    observation?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type TicketHistoryObservationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ticketHistoryId" | "observation" | "createdAt" | "updatedAt", ExtArgs["result"]["ticketHistoryObservation"]>
-  export type TicketHistoryObservationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    ticketHistory?: boolean | TicketHistoryDefaultArgs<ExtArgs>
-    ticketImages?: boolean | TicketHistoryObservation$ticketImagesArgs<ExtArgs>
-    _count?: boolean | TicketHistoryObservationCountOutputTypeDefaultArgs<ExtArgs>
-  }
-
-  export type $TicketHistoryObservationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "TicketHistoryObservation"
-    objects: {
-      ticketHistory: Prisma.$TicketHistoryPayload<ExtArgs>
-      ticketImages: Prisma.$TicketImagePayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      ticketHistoryId: number
-      observation: string
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["ticketHistoryObservation"]>
-    composites: {}
-  }
-
-  type TicketHistoryObservationGetPayload<S extends boolean | null | undefined | TicketHistoryObservationDefaultArgs> = $Result.GetResult<Prisma.$TicketHistoryObservationPayload, S>
-
-  type TicketHistoryObservationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<TicketHistoryObservationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: TicketHistoryObservationCountAggregateInputType | true
-    }
-
-  export interface TicketHistoryObservationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TicketHistoryObservation'], meta: { name: 'TicketHistoryObservation' } }
-    /**
-     * Find zero or one TicketHistoryObservation that matches the filter.
-     * @param {TicketHistoryObservationFindUniqueArgs} args - Arguments to find a TicketHistoryObservation
-     * @example
-     * // Get one TicketHistoryObservation
-     * const ticketHistoryObservation = await prisma.ticketHistoryObservation.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends TicketHistoryObservationFindUniqueArgs>(args: SelectSubset<T, TicketHistoryObservationFindUniqueArgs<ExtArgs>>): Prisma__TicketHistoryObservationClient<$Result.GetResult<Prisma.$TicketHistoryObservationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one TicketHistoryObservation that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {TicketHistoryObservationFindUniqueOrThrowArgs} args - Arguments to find a TicketHistoryObservation
-     * @example
-     * // Get one TicketHistoryObservation
-     * const ticketHistoryObservation = await prisma.ticketHistoryObservation.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends TicketHistoryObservationFindUniqueOrThrowArgs>(args: SelectSubset<T, TicketHistoryObservationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TicketHistoryObservationClient<$Result.GetResult<Prisma.$TicketHistoryObservationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first TicketHistoryObservation that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TicketHistoryObservationFindFirstArgs} args - Arguments to find a TicketHistoryObservation
-     * @example
-     * // Get one TicketHistoryObservation
-     * const ticketHistoryObservation = await prisma.ticketHistoryObservation.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends TicketHistoryObservationFindFirstArgs>(args?: SelectSubset<T, TicketHistoryObservationFindFirstArgs<ExtArgs>>): Prisma__TicketHistoryObservationClient<$Result.GetResult<Prisma.$TicketHistoryObservationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first TicketHistoryObservation that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TicketHistoryObservationFindFirstOrThrowArgs} args - Arguments to find a TicketHistoryObservation
-     * @example
-     * // Get one TicketHistoryObservation
-     * const ticketHistoryObservation = await prisma.ticketHistoryObservation.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends TicketHistoryObservationFindFirstOrThrowArgs>(args?: SelectSubset<T, TicketHistoryObservationFindFirstOrThrowArgs<ExtArgs>>): Prisma__TicketHistoryObservationClient<$Result.GetResult<Prisma.$TicketHistoryObservationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more TicketHistoryObservations that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TicketHistoryObservationFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all TicketHistoryObservations
-     * const ticketHistoryObservations = await prisma.ticketHistoryObservation.findMany()
-     * 
-     * // Get first 10 TicketHistoryObservations
-     * const ticketHistoryObservations = await prisma.ticketHistoryObservation.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const ticketHistoryObservationWithIdOnly = await prisma.ticketHistoryObservation.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends TicketHistoryObservationFindManyArgs>(args?: SelectSubset<T, TicketHistoryObservationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketHistoryObservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a TicketHistoryObservation.
-     * @param {TicketHistoryObservationCreateArgs} args - Arguments to create a TicketHistoryObservation.
-     * @example
-     * // Create one TicketHistoryObservation
-     * const TicketHistoryObservation = await prisma.ticketHistoryObservation.create({
-     *   data: {
-     *     // ... data to create a TicketHistoryObservation
-     *   }
-     * })
-     * 
-     */
-    create<T extends TicketHistoryObservationCreateArgs>(args: SelectSubset<T, TicketHistoryObservationCreateArgs<ExtArgs>>): Prisma__TicketHistoryObservationClient<$Result.GetResult<Prisma.$TicketHistoryObservationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many TicketHistoryObservations.
-     * @param {TicketHistoryObservationCreateManyArgs} args - Arguments to create many TicketHistoryObservations.
-     * @example
-     * // Create many TicketHistoryObservations
-     * const ticketHistoryObservation = await prisma.ticketHistoryObservation.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends TicketHistoryObservationCreateManyArgs>(args?: SelectSubset<T, TicketHistoryObservationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a TicketHistoryObservation.
-     * @param {TicketHistoryObservationDeleteArgs} args - Arguments to delete one TicketHistoryObservation.
-     * @example
-     * // Delete one TicketHistoryObservation
-     * const TicketHistoryObservation = await prisma.ticketHistoryObservation.delete({
-     *   where: {
-     *     // ... filter to delete one TicketHistoryObservation
-     *   }
-     * })
-     * 
-     */
-    delete<T extends TicketHistoryObservationDeleteArgs>(args: SelectSubset<T, TicketHistoryObservationDeleteArgs<ExtArgs>>): Prisma__TicketHistoryObservationClient<$Result.GetResult<Prisma.$TicketHistoryObservationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one TicketHistoryObservation.
-     * @param {TicketHistoryObservationUpdateArgs} args - Arguments to update one TicketHistoryObservation.
-     * @example
-     * // Update one TicketHistoryObservation
-     * const ticketHistoryObservation = await prisma.ticketHistoryObservation.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends TicketHistoryObservationUpdateArgs>(args: SelectSubset<T, TicketHistoryObservationUpdateArgs<ExtArgs>>): Prisma__TicketHistoryObservationClient<$Result.GetResult<Prisma.$TicketHistoryObservationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more TicketHistoryObservations.
-     * @param {TicketHistoryObservationDeleteManyArgs} args - Arguments to filter TicketHistoryObservations to delete.
-     * @example
-     * // Delete a few TicketHistoryObservations
-     * const { count } = await prisma.ticketHistoryObservation.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends TicketHistoryObservationDeleteManyArgs>(args?: SelectSubset<T, TicketHistoryObservationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more TicketHistoryObservations.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TicketHistoryObservationUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many TicketHistoryObservations
-     * const ticketHistoryObservation = await prisma.ticketHistoryObservation.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends TicketHistoryObservationUpdateManyArgs>(args: SelectSubset<T, TicketHistoryObservationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one TicketHistoryObservation.
-     * @param {TicketHistoryObservationUpsertArgs} args - Arguments to update or create a TicketHistoryObservation.
-     * @example
-     * // Update or create a TicketHistoryObservation
-     * const ticketHistoryObservation = await prisma.ticketHistoryObservation.upsert({
-     *   create: {
-     *     // ... data to create a TicketHistoryObservation
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the TicketHistoryObservation we want to update
-     *   }
-     * })
-     */
-    upsert<T extends TicketHistoryObservationUpsertArgs>(args: SelectSubset<T, TicketHistoryObservationUpsertArgs<ExtArgs>>): Prisma__TicketHistoryObservationClient<$Result.GetResult<Prisma.$TicketHistoryObservationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of TicketHistoryObservations.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TicketHistoryObservationCountArgs} args - Arguments to filter TicketHistoryObservations to count.
-     * @example
-     * // Count the number of TicketHistoryObservations
-     * const count = await prisma.ticketHistoryObservation.count({
-     *   where: {
-     *     // ... the filter for the TicketHistoryObservations we want to count
-     *   }
-     * })
-    **/
-    count<T extends TicketHistoryObservationCountArgs>(
-      args?: Subset<T, TicketHistoryObservationCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], TicketHistoryObservationCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a TicketHistoryObservation.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TicketHistoryObservationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends TicketHistoryObservationAggregateArgs>(args: Subset<T, TicketHistoryObservationAggregateArgs>): Prisma.PrismaPromise<GetTicketHistoryObservationAggregateType<T>>
-
-    /**
-     * Group by TicketHistoryObservation.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TicketHistoryObservationGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends TicketHistoryObservationGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: TicketHistoryObservationGroupByArgs['orderBy'] }
-        : { orderBy?: TicketHistoryObservationGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, TicketHistoryObservationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTicketHistoryObservationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the TicketHistoryObservation model
-   */
-  readonly fields: TicketHistoryObservationFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for TicketHistoryObservation.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__TicketHistoryObservationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    ticketHistory<T extends TicketHistoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TicketHistoryDefaultArgs<ExtArgs>>): Prisma__TicketHistoryClient<$Result.GetResult<Prisma.$TicketHistoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    ticketImages<T extends TicketHistoryObservation$ticketImagesArgs<ExtArgs> = {}>(args?: Subset<T, TicketHistoryObservation$ticketImagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the TicketHistoryObservation model
-   */
-  interface TicketHistoryObservationFieldRefs {
-    readonly id: FieldRef<"TicketHistoryObservation", 'Int'>
-    readonly ticketHistoryId: FieldRef<"TicketHistoryObservation", 'Int'>
-    readonly observation: FieldRef<"TicketHistoryObservation", 'String'>
-    readonly createdAt: FieldRef<"TicketHistoryObservation", 'DateTime'>
-    readonly updatedAt: FieldRef<"TicketHistoryObservation", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * TicketHistoryObservation findUnique
-   */
-  export type TicketHistoryObservationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TicketHistoryObservation
-     */
-    select?: TicketHistoryObservationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TicketHistoryObservation
-     */
-    omit?: TicketHistoryObservationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketHistoryObservationInclude<ExtArgs> | null
-    /**
-     * Filter, which TicketHistoryObservation to fetch.
-     */
-    where: TicketHistoryObservationWhereUniqueInput
-  }
-
-  /**
-   * TicketHistoryObservation findUniqueOrThrow
-   */
-  export type TicketHistoryObservationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TicketHistoryObservation
-     */
-    select?: TicketHistoryObservationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TicketHistoryObservation
-     */
-    omit?: TicketHistoryObservationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketHistoryObservationInclude<ExtArgs> | null
-    /**
-     * Filter, which TicketHistoryObservation to fetch.
-     */
-    where: TicketHistoryObservationWhereUniqueInput
-  }
-
-  /**
-   * TicketHistoryObservation findFirst
-   */
-  export type TicketHistoryObservationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TicketHistoryObservation
-     */
-    select?: TicketHistoryObservationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TicketHistoryObservation
-     */
-    omit?: TicketHistoryObservationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketHistoryObservationInclude<ExtArgs> | null
-    /**
-     * Filter, which TicketHistoryObservation to fetch.
-     */
-    where?: TicketHistoryObservationWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of TicketHistoryObservations to fetch.
-     */
-    orderBy?: TicketHistoryObservationOrderByWithRelationInput | TicketHistoryObservationOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for TicketHistoryObservations.
-     */
-    cursor?: TicketHistoryObservationWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` TicketHistoryObservations from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` TicketHistoryObservations.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of TicketHistoryObservations.
-     */
-    distinct?: TicketHistoryObservationScalarFieldEnum | TicketHistoryObservationScalarFieldEnum[]
-  }
-
-  /**
-   * TicketHistoryObservation findFirstOrThrow
-   */
-  export type TicketHistoryObservationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TicketHistoryObservation
-     */
-    select?: TicketHistoryObservationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TicketHistoryObservation
-     */
-    omit?: TicketHistoryObservationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketHistoryObservationInclude<ExtArgs> | null
-    /**
-     * Filter, which TicketHistoryObservation to fetch.
-     */
-    where?: TicketHistoryObservationWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of TicketHistoryObservations to fetch.
-     */
-    orderBy?: TicketHistoryObservationOrderByWithRelationInput | TicketHistoryObservationOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for TicketHistoryObservations.
-     */
-    cursor?: TicketHistoryObservationWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` TicketHistoryObservations from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` TicketHistoryObservations.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of TicketHistoryObservations.
-     */
-    distinct?: TicketHistoryObservationScalarFieldEnum | TicketHistoryObservationScalarFieldEnum[]
-  }
-
-  /**
-   * TicketHistoryObservation findMany
-   */
-  export type TicketHistoryObservationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TicketHistoryObservation
-     */
-    select?: TicketHistoryObservationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TicketHistoryObservation
-     */
-    omit?: TicketHistoryObservationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketHistoryObservationInclude<ExtArgs> | null
-    /**
-     * Filter, which TicketHistoryObservations to fetch.
-     */
-    where?: TicketHistoryObservationWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of TicketHistoryObservations to fetch.
-     */
-    orderBy?: TicketHistoryObservationOrderByWithRelationInput | TicketHistoryObservationOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing TicketHistoryObservations.
-     */
-    cursor?: TicketHistoryObservationWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` TicketHistoryObservations from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` TicketHistoryObservations.
-     */
-    skip?: number
-    distinct?: TicketHistoryObservationScalarFieldEnum | TicketHistoryObservationScalarFieldEnum[]
-  }
-
-  /**
-   * TicketHistoryObservation create
-   */
-  export type TicketHistoryObservationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TicketHistoryObservation
-     */
-    select?: TicketHistoryObservationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TicketHistoryObservation
-     */
-    omit?: TicketHistoryObservationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketHistoryObservationInclude<ExtArgs> | null
-    /**
-     * The data needed to create a TicketHistoryObservation.
-     */
-    data: XOR<TicketHistoryObservationCreateInput, TicketHistoryObservationUncheckedCreateInput>
-  }
-
-  /**
-   * TicketHistoryObservation createMany
-   */
-  export type TicketHistoryObservationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many TicketHistoryObservations.
-     */
-    data: TicketHistoryObservationCreateManyInput | TicketHistoryObservationCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * TicketHistoryObservation update
-   */
-  export type TicketHistoryObservationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TicketHistoryObservation
-     */
-    select?: TicketHistoryObservationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TicketHistoryObservation
-     */
-    omit?: TicketHistoryObservationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketHistoryObservationInclude<ExtArgs> | null
-    /**
-     * The data needed to update a TicketHistoryObservation.
-     */
-    data: XOR<TicketHistoryObservationUpdateInput, TicketHistoryObservationUncheckedUpdateInput>
-    /**
-     * Choose, which TicketHistoryObservation to update.
-     */
-    where: TicketHistoryObservationWhereUniqueInput
-  }
-
-  /**
-   * TicketHistoryObservation updateMany
-   */
-  export type TicketHistoryObservationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update TicketHistoryObservations.
-     */
-    data: XOR<TicketHistoryObservationUpdateManyMutationInput, TicketHistoryObservationUncheckedUpdateManyInput>
-    /**
-     * Filter which TicketHistoryObservations to update
-     */
-    where?: TicketHistoryObservationWhereInput
-    /**
-     * Limit how many TicketHistoryObservations to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * TicketHistoryObservation upsert
-   */
-  export type TicketHistoryObservationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TicketHistoryObservation
-     */
-    select?: TicketHistoryObservationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TicketHistoryObservation
-     */
-    omit?: TicketHistoryObservationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketHistoryObservationInclude<ExtArgs> | null
-    /**
-     * The filter to search for the TicketHistoryObservation to update in case it exists.
-     */
-    where: TicketHistoryObservationWhereUniqueInput
-    /**
-     * In case the TicketHistoryObservation found by the `where` argument doesn't exist, create a new TicketHistoryObservation with this data.
-     */
-    create: XOR<TicketHistoryObservationCreateInput, TicketHistoryObservationUncheckedCreateInput>
-    /**
-     * In case the TicketHistoryObservation was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<TicketHistoryObservationUpdateInput, TicketHistoryObservationUncheckedUpdateInput>
-  }
-
-  /**
-   * TicketHistoryObservation delete
-   */
-  export type TicketHistoryObservationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TicketHistoryObservation
-     */
-    select?: TicketHistoryObservationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the TicketHistoryObservation
-     */
-    omit?: TicketHistoryObservationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketHistoryObservationInclude<ExtArgs> | null
-    /**
-     * Filter which TicketHistoryObservation to delete.
-     */
-    where: TicketHistoryObservationWhereUniqueInput
-  }
-
-  /**
-   * TicketHistoryObservation deleteMany
-   */
-  export type TicketHistoryObservationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which TicketHistoryObservations to delete
-     */
-    where?: TicketHistoryObservationWhereInput
-    /**
-     * Limit how many TicketHistoryObservations to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * TicketHistoryObservation.ticketImages
-   */
-  export type TicketHistoryObservation$ticketImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketHistory$ticketImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the TicketImage
      */
@@ -13908,21 +12846,21 @@ export namespace Prisma {
   }
 
   /**
-   * TicketHistoryObservation without action
+   * TicketHistory without action
    */
-  export type TicketHistoryObservationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TicketHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TicketHistoryObservation
+     * Select specific fields to fetch from the TicketHistory
      */
-    select?: TicketHistoryObservationSelect<ExtArgs> | null
+    select?: TicketHistorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TicketHistoryObservation
+     * Omit specific fields from the TicketHistory
      */
-    omit?: TicketHistoryObservationOmit<ExtArgs> | null
+    omit?: TicketHistoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TicketHistoryObservationInclude<ExtArgs> | null
+    include?: TicketHistoryInclude<ExtArgs> | null
   }
 
 
@@ -16073,21 +15011,11 @@ export namespace Prisma {
     ticketId: 'ticketId',
     status: 'status',
     changedBy: 'changedBy',
-    changedAt: 'changedAt'
+    changedAt: 'changedAt',
+    observation: 'observation'
   };
 
   export type TicketHistoryScalarFieldEnum = (typeof TicketHistoryScalarFieldEnum)[keyof typeof TicketHistoryScalarFieldEnum]
-
-
-  export const TicketHistoryObservationScalarFieldEnum: {
-    id: 'id',
-    ticketHistoryId: 'ticketHistoryId',
-    observation: 'observation',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type TicketHistoryObservationScalarFieldEnum = (typeof TicketHistoryObservationScalarFieldEnum)[keyof typeof TicketHistoryObservationScalarFieldEnum]
 
 
   export const NotificationScalarFieldEnum: {
@@ -16192,11 +15120,11 @@ export namespace Prisma {
   export type TicketImageOrderByRelevanceFieldEnum = (typeof TicketImageOrderByRelevanceFieldEnum)[keyof typeof TicketImageOrderByRelevanceFieldEnum]
 
 
-  export const TicketHistoryObservationOrderByRelevanceFieldEnum: {
+  export const TicketHistoryOrderByRelevanceFieldEnum: {
     observation: 'observation'
   };
 
-  export type TicketHistoryObservationOrderByRelevanceFieldEnum = (typeof TicketHistoryObservationOrderByRelevanceFieldEnum)[keyof typeof TicketHistoryObservationOrderByRelevanceFieldEnum]
+  export type TicketHistoryOrderByRelevanceFieldEnum = (typeof TicketHistoryOrderByRelevanceFieldEnum)[keyof typeof TicketHistoryOrderByRelevanceFieldEnum]
 
 
   export const NotificationOrderByRelevanceFieldEnum: {
@@ -16800,8 +15728,8 @@ export namespace Prisma {
     resolutionDays?: IntNullableFilter<"Ticket"> | number | null
     slaReply?: IntNullableFilter<"Ticket"> | number | null
     slaResolution?: IntNullableFilter<"Ticket"> | number | null
-    replyAchieved?: BoolFilter<"Ticket"> | boolean
-    resolutionAchieved?: BoolFilter<"Ticket"> | boolean
+    replyAchieved?: BoolNullableFilter<"Ticket"> | boolean | null
+    resolutionAchieved?: BoolNullableFilter<"Ticket"> | boolean | null
     ticketValorationId?: IntNullableFilter<"Ticket"> | number | null
     closedAt?: DateTimeNullableFilter<"Ticket"> | Date | string | null
     createdAt?: DateTimeFilter<"Ticket"> | Date | string
@@ -16834,8 +15762,8 @@ export namespace Prisma {
     resolutionDays?: SortOrderInput | SortOrder
     slaReply?: SortOrderInput | SortOrder
     slaResolution?: SortOrderInput | SortOrder
-    replyAchieved?: SortOrder
-    resolutionAchieved?: SortOrder
+    replyAchieved?: SortOrderInput | SortOrder
+    resolutionAchieved?: SortOrderInput | SortOrder
     ticketValorationId?: SortOrderInput | SortOrder
     closedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -16872,8 +15800,8 @@ export namespace Prisma {
     resolutionDays?: IntNullableFilter<"Ticket"> | number | null
     slaReply?: IntNullableFilter<"Ticket"> | number | null
     slaResolution?: IntNullableFilter<"Ticket"> | number | null
-    replyAchieved?: BoolFilter<"Ticket"> | boolean
-    resolutionAchieved?: BoolFilter<"Ticket"> | boolean
+    replyAchieved?: BoolNullableFilter<"Ticket"> | boolean | null
+    resolutionAchieved?: BoolNullableFilter<"Ticket"> | boolean | null
     ticketValorationId?: IntNullableFilter<"Ticket"> | number | null
     closedAt?: DateTimeNullableFilter<"Ticket"> | Date | string | null
     createdAt?: DateTimeFilter<"Ticket"> | Date | string
@@ -16906,8 +15834,8 @@ export namespace Prisma {
     resolutionDays?: SortOrderInput | SortOrder
     slaReply?: SortOrderInput | SortOrder
     slaResolution?: SortOrderInput | SortOrder
-    replyAchieved?: SortOrder
-    resolutionAchieved?: SortOrder
+    replyAchieved?: SortOrderInput | SortOrder
+    resolutionAchieved?: SortOrderInput | SortOrder
     ticketValorationId?: SortOrderInput | SortOrder
     closedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -16940,8 +15868,8 @@ export namespace Prisma {
     resolutionDays?: IntNullableWithAggregatesFilter<"Ticket"> | number | null
     slaReply?: IntNullableWithAggregatesFilter<"Ticket"> | number | null
     slaResolution?: IntNullableWithAggregatesFilter<"Ticket"> | number | null
-    replyAchieved?: BoolWithAggregatesFilter<"Ticket"> | boolean
-    resolutionAchieved?: BoolWithAggregatesFilter<"Ticket"> | boolean
+    replyAchieved?: BoolNullableWithAggregatesFilter<"Ticket"> | boolean | null
+    resolutionAchieved?: BoolNullableWithAggregatesFilter<"Ticket"> | boolean | null
     ticketValorationId?: IntNullableWithAggregatesFilter<"Ticket"> | number | null
     closedAt?: DateTimeNullableWithAggregatesFilter<"Ticket"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Ticket"> | Date | string
@@ -16962,7 +15890,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"TicketImage"> | Date | string
     updatedAt?: DateTimeFilter<"TicketImage"> | Date | string
     ticket?: XOR<TicketNullableScalarRelationFilter, TicketWhereInput> | null
-    ticketHistoryObservation?: XOR<TicketHistoryObservationNullableScalarRelationFilter, TicketHistoryObservationWhereInput> | null
+    ticketHistory?: XOR<TicketHistoryNullableScalarRelationFilter, TicketHistoryWhereInput> | null
   }
 
   export type TicketImageOrderByWithRelationInput = {
@@ -16973,7 +15901,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ticket?: TicketOrderByWithRelationInput
-    ticketHistoryObservation?: TicketHistoryObservationOrderByWithRelationInput
+    ticketHistory?: TicketHistoryOrderByWithRelationInput
     _relevance?: TicketImageOrderByRelevanceInput
   }
 
@@ -16988,7 +15916,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"TicketImage"> | Date | string
     updatedAt?: DateTimeFilter<"TicketImage"> | Date | string
     ticket?: XOR<TicketNullableScalarRelationFilter, TicketWhereInput> | null
-    ticketHistoryObservation?: XOR<TicketHistoryObservationNullableScalarRelationFilter, TicketHistoryObservationWhereInput> | null
+    ticketHistory?: XOR<TicketHistoryNullableScalarRelationFilter, TicketHistoryWhereInput> | null
   }, "id">
 
   export type TicketImageOrderByWithAggregationInput = {
@@ -17026,9 +15954,10 @@ export namespace Prisma {
     status?: EnumE_TicketStatusFilter<"TicketHistory"> | $Enums.E_TicketStatus
     changedBy?: IntFilter<"TicketHistory"> | number
     changedAt?: DateTimeFilter<"TicketHistory"> | Date | string
+    observation?: StringFilter<"TicketHistory"> | string
     ticket?: XOR<TicketScalarRelationFilter, TicketWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    TicketObservation?: XOR<TicketHistoryObservationNullableScalarRelationFilter, TicketHistoryObservationWhereInput> | null
+    ticketImages?: TicketImageListRelationFilter
   }
 
   export type TicketHistoryOrderByWithRelationInput = {
@@ -17037,9 +15966,11 @@ export namespace Prisma {
     status?: SortOrder
     changedBy?: SortOrder
     changedAt?: SortOrder
+    observation?: SortOrder
     ticket?: TicketOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
-    TicketObservation?: TicketHistoryObservationOrderByWithRelationInput
+    ticketImages?: TicketImageOrderByRelationAggregateInput
+    _relevance?: TicketHistoryOrderByRelevanceInput
   }
 
   export type TicketHistoryWhereUniqueInput = Prisma.AtLeast<{
@@ -17051,9 +15982,10 @@ export namespace Prisma {
     status?: EnumE_TicketStatusFilter<"TicketHistory"> | $Enums.E_TicketStatus
     changedBy?: IntFilter<"TicketHistory"> | number
     changedAt?: DateTimeFilter<"TicketHistory"> | Date | string
+    observation?: StringFilter<"TicketHistory"> | string
     ticket?: XOR<TicketScalarRelationFilter, TicketWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    TicketObservation?: XOR<TicketHistoryObservationNullableScalarRelationFilter, TicketHistoryObservationWhereInput> | null
+    ticketImages?: TicketImageListRelationFilter
   }, "id">
 
   export type TicketHistoryOrderByWithAggregationInput = {
@@ -17062,6 +15994,7 @@ export namespace Prisma {
     status?: SortOrder
     changedBy?: SortOrder
     changedAt?: SortOrder
+    observation?: SortOrder
     _count?: TicketHistoryCountOrderByAggregateInput
     _avg?: TicketHistoryAvgOrderByAggregateInput
     _max?: TicketHistoryMaxOrderByAggregateInput
@@ -17078,67 +16011,7 @@ export namespace Prisma {
     status?: EnumE_TicketStatusWithAggregatesFilter<"TicketHistory"> | $Enums.E_TicketStatus
     changedBy?: IntWithAggregatesFilter<"TicketHistory"> | number
     changedAt?: DateTimeWithAggregatesFilter<"TicketHistory"> | Date | string
-  }
-
-  export type TicketHistoryObservationWhereInput = {
-    AND?: TicketHistoryObservationWhereInput | TicketHistoryObservationWhereInput[]
-    OR?: TicketHistoryObservationWhereInput[]
-    NOT?: TicketHistoryObservationWhereInput | TicketHistoryObservationWhereInput[]
-    id?: IntFilter<"TicketHistoryObservation"> | number
-    ticketHistoryId?: IntFilter<"TicketHistoryObservation"> | number
-    observation?: StringFilter<"TicketHistoryObservation"> | string
-    createdAt?: DateTimeFilter<"TicketHistoryObservation"> | Date | string
-    updatedAt?: DateTimeFilter<"TicketHistoryObservation"> | Date | string
-    ticketHistory?: XOR<TicketHistoryScalarRelationFilter, TicketHistoryWhereInput>
-    ticketImages?: TicketImageListRelationFilter
-  }
-
-  export type TicketHistoryObservationOrderByWithRelationInput = {
-    id?: SortOrder
-    ticketHistoryId?: SortOrder
-    observation?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    ticketHistory?: TicketHistoryOrderByWithRelationInput
-    ticketImages?: TicketImageOrderByRelationAggregateInput
-    _relevance?: TicketHistoryObservationOrderByRelevanceInput
-  }
-
-  export type TicketHistoryObservationWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    ticketHistoryId?: number
-    AND?: TicketHistoryObservationWhereInput | TicketHistoryObservationWhereInput[]
-    OR?: TicketHistoryObservationWhereInput[]
-    NOT?: TicketHistoryObservationWhereInput | TicketHistoryObservationWhereInput[]
-    observation?: StringFilter<"TicketHistoryObservation"> | string
-    createdAt?: DateTimeFilter<"TicketHistoryObservation"> | Date | string
-    updatedAt?: DateTimeFilter<"TicketHistoryObservation"> | Date | string
-    ticketHistory?: XOR<TicketHistoryScalarRelationFilter, TicketHistoryWhereInput>
-    ticketImages?: TicketImageListRelationFilter
-  }, "id" | "ticketHistoryId">
-
-  export type TicketHistoryObservationOrderByWithAggregationInput = {
-    id?: SortOrder
-    ticketHistoryId?: SortOrder
-    observation?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: TicketHistoryObservationCountOrderByAggregateInput
-    _avg?: TicketHistoryObservationAvgOrderByAggregateInput
-    _max?: TicketHistoryObservationMaxOrderByAggregateInput
-    _min?: TicketHistoryObservationMinOrderByAggregateInput
-    _sum?: TicketHistoryObservationSumOrderByAggregateInput
-  }
-
-  export type TicketHistoryObservationScalarWhereWithAggregatesInput = {
-    AND?: TicketHistoryObservationScalarWhereWithAggregatesInput | TicketHistoryObservationScalarWhereWithAggregatesInput[]
-    OR?: TicketHistoryObservationScalarWhereWithAggregatesInput[]
-    NOT?: TicketHistoryObservationScalarWhereWithAggregatesInput | TicketHistoryObservationScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"TicketHistoryObservation"> | number
-    ticketHistoryId?: IntWithAggregatesFilter<"TicketHistoryObservation"> | number
-    observation?: StringWithAggregatesFilter<"TicketHistoryObservation"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"TicketHistoryObservation"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"TicketHistoryObservation"> | Date | string
+    observation?: StringWithAggregatesFilter<"TicketHistory"> | string
   }
 
   export type NotificationWhereInput = {
@@ -17795,8 +16668,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -17828,8 +16701,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -17854,8 +16727,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17887,8 +16760,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17917,8 +16790,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -17939,8 +16812,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17964,8 +16837,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17980,7 +16853,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     ticket?: TicketCreateNestedOneWithoutTicketImagesInput
-    ticketHistoryObservation?: TicketHistoryObservationCreateNestedOneWithoutTicketImagesInput
+    ticketHistory?: TicketHistoryCreateNestedOneWithoutTicketImagesInput
   }
 
   export type TicketImageUncheckedCreateInput = {
@@ -17997,7 +16870,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ticket?: TicketUpdateOneWithoutTicketImagesNestedInput
-    ticketHistoryObservation?: TicketHistoryObservationUpdateOneWithoutTicketImagesNestedInput
+    ticketHistory?: TicketHistoryUpdateOneWithoutTicketImagesNestedInput
   }
 
   export type TicketImageUncheckedUpdateInput = {
@@ -18036,9 +16909,10 @@ export namespace Prisma {
   export type TicketHistoryCreateInput = {
     status: $Enums.E_TicketStatus
     changedAt?: Date | string
+    observation: string
     ticket: TicketCreateNestedOneWithoutTicketHistoryInput
     user: UserCreateNestedOneWithoutTicketHistoryInput
-    TicketObservation?: TicketHistoryObservationCreateNestedOneWithoutTicketHistoryInput
+    ticketImages?: TicketImageCreateNestedManyWithoutTicketHistoryInput
   }
 
   export type TicketHistoryUncheckedCreateInput = {
@@ -18047,15 +16921,17 @@ export namespace Prisma {
     status: $Enums.E_TicketStatus
     changedBy: number
     changedAt?: Date | string
-    TicketObservation?: TicketHistoryObservationUncheckedCreateNestedOneWithoutTicketHistoryInput
+    observation: string
+    ticketImages?: TicketImageUncheckedCreateNestedManyWithoutTicketHistoryInput
   }
 
   export type TicketHistoryUpdateInput = {
     status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    observation?: StringFieldUpdateOperationsInput | string
     ticket?: TicketUpdateOneRequiredWithoutTicketHistoryNestedInput
     user?: UserUpdateOneRequiredWithoutTicketHistoryNestedInput
-    TicketObservation?: TicketHistoryObservationUpdateOneWithoutTicketHistoryNestedInput
+    ticketImages?: TicketImageUpdateManyWithoutTicketHistoryNestedInput
   }
 
   export type TicketHistoryUncheckedUpdateInput = {
@@ -18064,7 +16940,8 @@ export namespace Prisma {
     status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
     changedBy?: IntFieldUpdateOperationsInput | number
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    TicketObservation?: TicketHistoryObservationUncheckedUpdateOneWithoutTicketHistoryNestedInput
+    observation?: StringFieldUpdateOperationsInput | string
+    ticketImages?: TicketImageUncheckedUpdateManyWithoutTicketHistoryNestedInput
   }
 
   export type TicketHistoryCreateManyInput = {
@@ -18073,11 +16950,13 @@ export namespace Prisma {
     status: $Enums.E_TicketStatus
     changedBy: number
     changedAt?: Date | string
+    observation: string
   }
 
   export type TicketHistoryUpdateManyMutationInput = {
     status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    observation?: StringFieldUpdateOperationsInput | string
   }
 
   export type TicketHistoryUncheckedUpdateManyInput = {
@@ -18086,62 +16965,7 @@ export namespace Prisma {
     status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
     changedBy?: IntFieldUpdateOperationsInput | number
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TicketHistoryObservationCreateInput = {
-    observation: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    ticketHistory: TicketHistoryCreateNestedOneWithoutTicketObservationInput
-    ticketImages?: TicketImageCreateNestedManyWithoutTicketHistoryObservationInput
-  }
-
-  export type TicketHistoryObservationUncheckedCreateInput = {
-    id?: number
-    ticketHistoryId: number
-    observation: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    ticketImages?: TicketImageUncheckedCreateNestedManyWithoutTicketHistoryObservationInput
-  }
-
-  export type TicketHistoryObservationUpdateInput = {
     observation?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ticketHistory?: TicketHistoryUpdateOneRequiredWithoutTicketObservationNestedInput
-    ticketImages?: TicketImageUpdateManyWithoutTicketHistoryObservationNestedInput
-  }
-
-  export type TicketHistoryObservationUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    ticketHistoryId?: IntFieldUpdateOperationsInput | number
-    observation?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ticketImages?: TicketImageUncheckedUpdateManyWithoutTicketHistoryObservationNestedInput
-  }
-
-  export type TicketHistoryObservationCreateManyInput = {
-    id?: number
-    ticketHistoryId: number
-    observation: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type TicketHistoryObservationUpdateManyMutationInput = {
-    observation?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TicketHistoryObservationUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    ticketHistoryId?: IntFieldUpdateOperationsInput | number
-    observation?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotificationCreateInput = {
@@ -18887,6 +17711,11 @@ export namespace Prisma {
     not?: NestedEnumE_TicketStatusFilter<$PrismaModel> | $Enums.E_TicketStatus
   }
 
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
   export type EnumE_AssignedMethodNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.E_AssignedMethod | EnumE_AssignedMethodFieldRefInput<$PrismaModel> | null
     in?: $Enums.E_AssignedMethod[] | null
@@ -19055,6 +17884,14 @@ export namespace Prisma {
     _max?: NestedEnumE_TicketStatusFilter<$PrismaModel>
   }
 
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
   export type EnumE_AssignedMethodNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.E_AssignedMethod | EnumE_AssignedMethodFieldRefInput<$PrismaModel> | null
     in?: $Enums.E_AssignedMethod[] | null
@@ -19070,9 +17907,9 @@ export namespace Prisma {
     isNot?: TicketWhereInput | null
   }
 
-  export type TicketHistoryObservationNullableScalarRelationFilter = {
-    is?: TicketHistoryObservationWhereInput | null
-    isNot?: TicketHistoryObservationWhereInput | null
+  export type TicketHistoryNullableScalarRelationFilter = {
+    is?: TicketHistoryWhereInput | null
+    isNot?: TicketHistoryWhereInput | null
   }
 
   export type TicketImageOrderByRelevanceInput = {
@@ -19125,12 +17962,19 @@ export namespace Prisma {
     isNot?: TicketWhereInput
   }
 
+  export type TicketHistoryOrderByRelevanceInput = {
+    fields: TicketHistoryOrderByRelevanceFieldEnum | TicketHistoryOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
   export type TicketHistoryCountOrderByAggregateInput = {
     id?: SortOrder
     ticketId?: SortOrder
     status?: SortOrder
     changedBy?: SortOrder
     changedAt?: SortOrder
+    observation?: SortOrder
   }
 
   export type TicketHistoryAvgOrderByAggregateInput = {
@@ -19145,6 +17989,7 @@ export namespace Prisma {
     status?: SortOrder
     changedBy?: SortOrder
     changedAt?: SortOrder
+    observation?: SortOrder
   }
 
   export type TicketHistoryMinOrderByAggregateInput = {
@@ -19153,57 +17998,13 @@ export namespace Prisma {
     status?: SortOrder
     changedBy?: SortOrder
     changedAt?: SortOrder
+    observation?: SortOrder
   }
 
   export type TicketHistorySumOrderByAggregateInput = {
     id?: SortOrder
     ticketId?: SortOrder
     changedBy?: SortOrder
-  }
-
-  export type TicketHistoryScalarRelationFilter = {
-    is?: TicketHistoryWhereInput
-    isNot?: TicketHistoryWhereInput
-  }
-
-  export type TicketHistoryObservationOrderByRelevanceInput = {
-    fields: TicketHistoryObservationOrderByRelevanceFieldEnum | TicketHistoryObservationOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type TicketHistoryObservationCountOrderByAggregateInput = {
-    id?: SortOrder
-    ticketHistoryId?: SortOrder
-    observation?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type TicketHistoryObservationAvgOrderByAggregateInput = {
-    id?: SortOrder
-    ticketHistoryId?: SortOrder
-  }
-
-  export type TicketHistoryObservationMaxOrderByAggregateInput = {
-    id?: SortOrder
-    ticketHistoryId?: SortOrder
-    observation?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type TicketHistoryObservationMinOrderByAggregateInput = {
-    id?: SortOrder
-    ticketHistoryId?: SortOrder
-    observation?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type TicketHistoryObservationSumOrderByAggregateInput = {
-    id?: SortOrder
-    ticketHistoryId?: SortOrder
   }
 
   export type NotificationOrderByRelevanceInput = {
@@ -20011,6 +18812,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
+  }
+
   export type NullableEnumE_AssignedMethodFieldUpdateOperationsInput = {
     set?: $Enums.E_AssignedMethod | null
   }
@@ -20161,10 +18966,10 @@ export namespace Prisma {
     connect?: TicketWhereUniqueInput
   }
 
-  export type TicketHistoryObservationCreateNestedOneWithoutTicketImagesInput = {
-    create?: XOR<TicketHistoryObservationCreateWithoutTicketImagesInput, TicketHistoryObservationUncheckedCreateWithoutTicketImagesInput>
-    connectOrCreate?: TicketHistoryObservationCreateOrConnectWithoutTicketImagesInput
-    connect?: TicketHistoryObservationWhereUniqueInput
+  export type TicketHistoryCreateNestedOneWithoutTicketImagesInput = {
+    create?: XOR<TicketHistoryCreateWithoutTicketImagesInput, TicketHistoryUncheckedCreateWithoutTicketImagesInput>
+    connectOrCreate?: TicketHistoryCreateOrConnectWithoutTicketImagesInput
+    connect?: TicketHistoryWhereUniqueInput
   }
 
   export type TicketUpdateOneWithoutTicketImagesNestedInput = {
@@ -20177,14 +18982,14 @@ export namespace Prisma {
     update?: XOR<XOR<TicketUpdateToOneWithWhereWithoutTicketImagesInput, TicketUpdateWithoutTicketImagesInput>, TicketUncheckedUpdateWithoutTicketImagesInput>
   }
 
-  export type TicketHistoryObservationUpdateOneWithoutTicketImagesNestedInput = {
-    create?: XOR<TicketHistoryObservationCreateWithoutTicketImagesInput, TicketHistoryObservationUncheckedCreateWithoutTicketImagesInput>
-    connectOrCreate?: TicketHistoryObservationCreateOrConnectWithoutTicketImagesInput
-    upsert?: TicketHistoryObservationUpsertWithoutTicketImagesInput
-    disconnect?: TicketHistoryObservationWhereInput | boolean
-    delete?: TicketHistoryObservationWhereInput | boolean
-    connect?: TicketHistoryObservationWhereUniqueInput
-    update?: XOR<XOR<TicketHistoryObservationUpdateToOneWithWhereWithoutTicketImagesInput, TicketHistoryObservationUpdateWithoutTicketImagesInput>, TicketHistoryObservationUncheckedUpdateWithoutTicketImagesInput>
+  export type TicketHistoryUpdateOneWithoutTicketImagesNestedInput = {
+    create?: XOR<TicketHistoryCreateWithoutTicketImagesInput, TicketHistoryUncheckedCreateWithoutTicketImagesInput>
+    connectOrCreate?: TicketHistoryCreateOrConnectWithoutTicketImagesInput
+    upsert?: TicketHistoryUpsertWithoutTicketImagesInput
+    disconnect?: TicketHistoryWhereInput | boolean
+    delete?: TicketHistoryWhereInput | boolean
+    connect?: TicketHistoryWhereUniqueInput
+    update?: XOR<XOR<TicketHistoryUpdateToOneWithWhereWithoutTicketImagesInput, TicketHistoryUpdateWithoutTicketImagesInput>, TicketHistoryUncheckedUpdateWithoutTicketImagesInput>
   }
 
   export type TicketCreateNestedOneWithoutTicketHistoryInput = {
@@ -20199,16 +19004,18 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type TicketHistoryObservationCreateNestedOneWithoutTicketHistoryInput = {
-    create?: XOR<TicketHistoryObservationCreateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput>
-    connectOrCreate?: TicketHistoryObservationCreateOrConnectWithoutTicketHistoryInput
-    connect?: TicketHistoryObservationWhereUniqueInput
+  export type TicketImageCreateNestedManyWithoutTicketHistoryInput = {
+    create?: XOR<TicketImageCreateWithoutTicketHistoryInput, TicketImageUncheckedCreateWithoutTicketHistoryInput> | TicketImageCreateWithoutTicketHistoryInput[] | TicketImageUncheckedCreateWithoutTicketHistoryInput[]
+    connectOrCreate?: TicketImageCreateOrConnectWithoutTicketHistoryInput | TicketImageCreateOrConnectWithoutTicketHistoryInput[]
+    createMany?: TicketImageCreateManyTicketHistoryInputEnvelope
+    connect?: TicketImageWhereUniqueInput | TicketImageWhereUniqueInput[]
   }
 
-  export type TicketHistoryObservationUncheckedCreateNestedOneWithoutTicketHistoryInput = {
-    create?: XOR<TicketHistoryObservationCreateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput>
-    connectOrCreate?: TicketHistoryObservationCreateOrConnectWithoutTicketHistoryInput
-    connect?: TicketHistoryObservationWhereUniqueInput
+  export type TicketImageUncheckedCreateNestedManyWithoutTicketHistoryInput = {
+    create?: XOR<TicketImageCreateWithoutTicketHistoryInput, TicketImageUncheckedCreateWithoutTicketHistoryInput> | TicketImageCreateWithoutTicketHistoryInput[] | TicketImageUncheckedCreateWithoutTicketHistoryInput[]
+    connectOrCreate?: TicketImageCreateOrConnectWithoutTicketHistoryInput | TicketImageCreateOrConnectWithoutTicketHistoryInput[]
+    createMany?: TicketImageCreateManyTicketHistoryInputEnvelope
+    connect?: TicketImageWhereUniqueInput | TicketImageWhereUniqueInput[]
   }
 
   export type TicketUpdateOneRequiredWithoutTicketHistoryNestedInput = {
@@ -20227,79 +19034,31 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTicketHistoryInput, UserUpdateWithoutTicketHistoryInput>, UserUncheckedUpdateWithoutTicketHistoryInput>
   }
 
-  export type TicketHistoryObservationUpdateOneWithoutTicketHistoryNestedInput = {
-    create?: XOR<TicketHistoryObservationCreateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput>
-    connectOrCreate?: TicketHistoryObservationCreateOrConnectWithoutTicketHistoryInput
-    upsert?: TicketHistoryObservationUpsertWithoutTicketHistoryInput
-    disconnect?: TicketHistoryObservationWhereInput | boolean
-    delete?: TicketHistoryObservationWhereInput | boolean
-    connect?: TicketHistoryObservationWhereUniqueInput
-    update?: XOR<XOR<TicketHistoryObservationUpdateToOneWithWhereWithoutTicketHistoryInput, TicketHistoryObservationUpdateWithoutTicketHistoryInput>, TicketHistoryObservationUncheckedUpdateWithoutTicketHistoryInput>
-  }
-
-  export type TicketHistoryObservationUncheckedUpdateOneWithoutTicketHistoryNestedInput = {
-    create?: XOR<TicketHistoryObservationCreateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput>
-    connectOrCreate?: TicketHistoryObservationCreateOrConnectWithoutTicketHistoryInput
-    upsert?: TicketHistoryObservationUpsertWithoutTicketHistoryInput
-    disconnect?: TicketHistoryObservationWhereInput | boolean
-    delete?: TicketHistoryObservationWhereInput | boolean
-    connect?: TicketHistoryObservationWhereUniqueInput
-    update?: XOR<XOR<TicketHistoryObservationUpdateToOneWithWhereWithoutTicketHistoryInput, TicketHistoryObservationUpdateWithoutTicketHistoryInput>, TicketHistoryObservationUncheckedUpdateWithoutTicketHistoryInput>
-  }
-
-  export type TicketHistoryCreateNestedOneWithoutTicketObservationInput = {
-    create?: XOR<TicketHistoryCreateWithoutTicketObservationInput, TicketHistoryUncheckedCreateWithoutTicketObservationInput>
-    connectOrCreate?: TicketHistoryCreateOrConnectWithoutTicketObservationInput
-    connect?: TicketHistoryWhereUniqueInput
-  }
-
-  export type TicketImageCreateNestedManyWithoutTicketHistoryObservationInput = {
-    create?: XOR<TicketImageCreateWithoutTicketHistoryObservationInput, TicketImageUncheckedCreateWithoutTicketHistoryObservationInput> | TicketImageCreateWithoutTicketHistoryObservationInput[] | TicketImageUncheckedCreateWithoutTicketHistoryObservationInput[]
-    connectOrCreate?: TicketImageCreateOrConnectWithoutTicketHistoryObservationInput | TicketImageCreateOrConnectWithoutTicketHistoryObservationInput[]
-    createMany?: TicketImageCreateManyTicketHistoryObservationInputEnvelope
-    connect?: TicketImageWhereUniqueInput | TicketImageWhereUniqueInput[]
-  }
-
-  export type TicketImageUncheckedCreateNestedManyWithoutTicketHistoryObservationInput = {
-    create?: XOR<TicketImageCreateWithoutTicketHistoryObservationInput, TicketImageUncheckedCreateWithoutTicketHistoryObservationInput> | TicketImageCreateWithoutTicketHistoryObservationInput[] | TicketImageUncheckedCreateWithoutTicketHistoryObservationInput[]
-    connectOrCreate?: TicketImageCreateOrConnectWithoutTicketHistoryObservationInput | TicketImageCreateOrConnectWithoutTicketHistoryObservationInput[]
-    createMany?: TicketImageCreateManyTicketHistoryObservationInputEnvelope
-    connect?: TicketImageWhereUniqueInput | TicketImageWhereUniqueInput[]
-  }
-
-  export type TicketHistoryUpdateOneRequiredWithoutTicketObservationNestedInput = {
-    create?: XOR<TicketHistoryCreateWithoutTicketObservationInput, TicketHistoryUncheckedCreateWithoutTicketObservationInput>
-    connectOrCreate?: TicketHistoryCreateOrConnectWithoutTicketObservationInput
-    upsert?: TicketHistoryUpsertWithoutTicketObservationInput
-    connect?: TicketHistoryWhereUniqueInput
-    update?: XOR<XOR<TicketHistoryUpdateToOneWithWhereWithoutTicketObservationInput, TicketHistoryUpdateWithoutTicketObservationInput>, TicketHistoryUncheckedUpdateWithoutTicketObservationInput>
-  }
-
-  export type TicketImageUpdateManyWithoutTicketHistoryObservationNestedInput = {
-    create?: XOR<TicketImageCreateWithoutTicketHistoryObservationInput, TicketImageUncheckedCreateWithoutTicketHistoryObservationInput> | TicketImageCreateWithoutTicketHistoryObservationInput[] | TicketImageUncheckedCreateWithoutTicketHistoryObservationInput[]
-    connectOrCreate?: TicketImageCreateOrConnectWithoutTicketHistoryObservationInput | TicketImageCreateOrConnectWithoutTicketHistoryObservationInput[]
-    upsert?: TicketImageUpsertWithWhereUniqueWithoutTicketHistoryObservationInput | TicketImageUpsertWithWhereUniqueWithoutTicketHistoryObservationInput[]
-    createMany?: TicketImageCreateManyTicketHistoryObservationInputEnvelope
+  export type TicketImageUpdateManyWithoutTicketHistoryNestedInput = {
+    create?: XOR<TicketImageCreateWithoutTicketHistoryInput, TicketImageUncheckedCreateWithoutTicketHistoryInput> | TicketImageCreateWithoutTicketHistoryInput[] | TicketImageUncheckedCreateWithoutTicketHistoryInput[]
+    connectOrCreate?: TicketImageCreateOrConnectWithoutTicketHistoryInput | TicketImageCreateOrConnectWithoutTicketHistoryInput[]
+    upsert?: TicketImageUpsertWithWhereUniqueWithoutTicketHistoryInput | TicketImageUpsertWithWhereUniqueWithoutTicketHistoryInput[]
+    createMany?: TicketImageCreateManyTicketHistoryInputEnvelope
     set?: TicketImageWhereUniqueInput | TicketImageWhereUniqueInput[]
     disconnect?: TicketImageWhereUniqueInput | TicketImageWhereUniqueInput[]
     delete?: TicketImageWhereUniqueInput | TicketImageWhereUniqueInput[]
     connect?: TicketImageWhereUniqueInput | TicketImageWhereUniqueInput[]
-    update?: TicketImageUpdateWithWhereUniqueWithoutTicketHistoryObservationInput | TicketImageUpdateWithWhereUniqueWithoutTicketHistoryObservationInput[]
-    updateMany?: TicketImageUpdateManyWithWhereWithoutTicketHistoryObservationInput | TicketImageUpdateManyWithWhereWithoutTicketHistoryObservationInput[]
+    update?: TicketImageUpdateWithWhereUniqueWithoutTicketHistoryInput | TicketImageUpdateWithWhereUniqueWithoutTicketHistoryInput[]
+    updateMany?: TicketImageUpdateManyWithWhereWithoutTicketHistoryInput | TicketImageUpdateManyWithWhereWithoutTicketHistoryInput[]
     deleteMany?: TicketImageScalarWhereInput | TicketImageScalarWhereInput[]
   }
 
-  export type TicketImageUncheckedUpdateManyWithoutTicketHistoryObservationNestedInput = {
-    create?: XOR<TicketImageCreateWithoutTicketHistoryObservationInput, TicketImageUncheckedCreateWithoutTicketHistoryObservationInput> | TicketImageCreateWithoutTicketHistoryObservationInput[] | TicketImageUncheckedCreateWithoutTicketHistoryObservationInput[]
-    connectOrCreate?: TicketImageCreateOrConnectWithoutTicketHistoryObservationInput | TicketImageCreateOrConnectWithoutTicketHistoryObservationInput[]
-    upsert?: TicketImageUpsertWithWhereUniqueWithoutTicketHistoryObservationInput | TicketImageUpsertWithWhereUniqueWithoutTicketHistoryObservationInput[]
-    createMany?: TicketImageCreateManyTicketHistoryObservationInputEnvelope
+  export type TicketImageUncheckedUpdateManyWithoutTicketHistoryNestedInput = {
+    create?: XOR<TicketImageCreateWithoutTicketHistoryInput, TicketImageUncheckedCreateWithoutTicketHistoryInput> | TicketImageCreateWithoutTicketHistoryInput[] | TicketImageUncheckedCreateWithoutTicketHistoryInput[]
+    connectOrCreate?: TicketImageCreateOrConnectWithoutTicketHistoryInput | TicketImageCreateOrConnectWithoutTicketHistoryInput[]
+    upsert?: TicketImageUpsertWithWhereUniqueWithoutTicketHistoryInput | TicketImageUpsertWithWhereUniqueWithoutTicketHistoryInput[]
+    createMany?: TicketImageCreateManyTicketHistoryInputEnvelope
     set?: TicketImageWhereUniqueInput | TicketImageWhereUniqueInput[]
     disconnect?: TicketImageWhereUniqueInput | TicketImageWhereUniqueInput[]
     delete?: TicketImageWhereUniqueInput | TicketImageWhereUniqueInput[]
     connect?: TicketImageWhereUniqueInput | TicketImageWhereUniqueInput[]
-    update?: TicketImageUpdateWithWhereUniqueWithoutTicketHistoryObservationInput | TicketImageUpdateWithWhereUniqueWithoutTicketHistoryObservationInput[]
-    updateMany?: TicketImageUpdateManyWithWhereWithoutTicketHistoryObservationInput | TicketImageUpdateManyWithWhereWithoutTicketHistoryObservationInput[]
+    update?: TicketImageUpdateWithWhereUniqueWithoutTicketHistoryInput | TicketImageUpdateWithWhereUniqueWithoutTicketHistoryInput[]
+    updateMany?: TicketImageUpdateManyWithWhereWithoutTicketHistoryInput | TicketImageUpdateManyWithWhereWithoutTicketHistoryInput[]
     deleteMany?: TicketImageScalarWhereInput | TicketImageScalarWhereInput[]
   }
 
@@ -20583,6 +19342,11 @@ export namespace Prisma {
     not?: NestedEnumE_TicketStatusFilter<$PrismaModel> | $Enums.E_TicketStatus
   }
 
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
   export type NestedEnumE_AssignedMethodNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.E_AssignedMethod | EnumE_AssignedMethodFieldRefInput<$PrismaModel> | null
     in?: $Enums.E_AssignedMethod[] | null
@@ -20625,6 +19389,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumE_TicketStatusFilter<$PrismaModel>
     _max?: NestedEnumE_TicketStatusFilter<$PrismaModel>
+  }
+
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumE_AssignedMethodNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -20672,8 +19444,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -20703,8 +19475,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -20731,8 +19503,9 @@ export namespace Prisma {
   export type TicketHistoryCreateWithoutUserInput = {
     status: $Enums.E_TicketStatus
     changedAt?: Date | string
+    observation: string
     ticket: TicketCreateNestedOneWithoutTicketHistoryInput
-    TicketObservation?: TicketHistoryObservationCreateNestedOneWithoutTicketHistoryInput
+    ticketImages?: TicketImageCreateNestedManyWithoutTicketHistoryInput
   }
 
   export type TicketHistoryUncheckedCreateWithoutUserInput = {
@@ -20740,7 +19513,8 @@ export namespace Prisma {
     ticketId: number
     status: $Enums.E_TicketStatus
     changedAt?: Date | string
-    TicketObservation?: TicketHistoryObservationUncheckedCreateNestedOneWithoutTicketHistoryInput
+    observation: string
+    ticketImages?: TicketImageUncheckedCreateNestedManyWithoutTicketHistoryInput
   }
 
   export type TicketHistoryCreateOrConnectWithoutUserInput = {
@@ -20844,8 +19618,8 @@ export namespace Prisma {
     resolutionDays?: IntNullableFilter<"Ticket"> | number | null
     slaReply?: IntNullableFilter<"Ticket"> | number | null
     slaResolution?: IntNullableFilter<"Ticket"> | number | null
-    replyAchieved?: BoolFilter<"Ticket"> | boolean
-    resolutionAchieved?: BoolFilter<"Ticket"> | boolean
+    replyAchieved?: BoolNullableFilter<"Ticket"> | boolean | null
+    resolutionAchieved?: BoolNullableFilter<"Ticket"> | boolean | null
     ticketValorationId?: IntNullableFilter<"Ticket"> | number | null
     closedAt?: DateTimeNullableFilter<"Ticket"> | Date | string | null
     createdAt?: DateTimeFilter<"Ticket"> | Date | string
@@ -20880,6 +19654,7 @@ export namespace Prisma {
     status?: EnumE_TicketStatusFilter<"TicketHistory"> | $Enums.E_TicketStatus
     changedBy?: IntFilter<"TicketHistory"> | number
     changedAt?: DateTimeFilter<"TicketHistory"> | Date | string
+    observation?: StringFilter<"TicketHistory"> | string
   }
 
   export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
@@ -20982,8 +19757,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -21013,8 +19788,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -21404,8 +20179,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -21435,8 +20210,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -21560,8 +20335,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -21592,8 +20367,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -21698,7 +20473,7 @@ export namespace Prisma {
     imageUrl: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    ticketHistoryObservation?: TicketHistoryObservationCreateNestedOneWithoutTicketImagesInput
+    ticketHistory?: TicketHistoryCreateNestedOneWithoutTicketImagesInput
   }
 
   export type TicketImageUncheckedCreateWithoutTicketInput = {
@@ -21722,8 +20497,9 @@ export namespace Prisma {
   export type TicketHistoryCreateWithoutTicketInput = {
     status: $Enums.E_TicketStatus
     changedAt?: Date | string
+    observation: string
     user: UserCreateNestedOneWithoutTicketHistoryInput
-    TicketObservation?: TicketHistoryObservationCreateNestedOneWithoutTicketHistoryInput
+    ticketImages?: TicketImageCreateNestedManyWithoutTicketHistoryInput
   }
 
   export type TicketHistoryUncheckedCreateWithoutTicketInput = {
@@ -21731,7 +20507,8 @@ export namespace Prisma {
     status: $Enums.E_TicketStatus
     changedBy: number
     changedAt?: Date | string
-    TicketObservation?: TicketHistoryObservationUncheckedCreateNestedOneWithoutTicketHistoryInput
+    observation: string
+    ticketImages?: TicketImageUncheckedCreateNestedManyWithoutTicketHistoryInput
   }
 
   export type TicketHistoryCreateOrConnectWithoutTicketInput = {
@@ -22074,8 +20851,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -22106,8 +20883,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -22125,24 +20902,26 @@ export namespace Prisma {
     create: XOR<TicketCreateWithoutTicketImagesInput, TicketUncheckedCreateWithoutTicketImagesInput>
   }
 
-  export type TicketHistoryObservationCreateWithoutTicketImagesInput = {
+  export type TicketHistoryCreateWithoutTicketImagesInput = {
+    status: $Enums.E_TicketStatus
+    changedAt?: Date | string
     observation: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    ticketHistory: TicketHistoryCreateNestedOneWithoutTicketObservationInput
+    ticket: TicketCreateNestedOneWithoutTicketHistoryInput
+    user: UserCreateNestedOneWithoutTicketHistoryInput
   }
 
-  export type TicketHistoryObservationUncheckedCreateWithoutTicketImagesInput = {
+  export type TicketHistoryUncheckedCreateWithoutTicketImagesInput = {
     id?: number
-    ticketHistoryId: number
+    ticketId: number
+    status: $Enums.E_TicketStatus
+    changedBy: number
+    changedAt?: Date | string
     observation: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
-  export type TicketHistoryObservationCreateOrConnectWithoutTicketImagesInput = {
-    where: TicketHistoryObservationWhereUniqueInput
-    create: XOR<TicketHistoryObservationCreateWithoutTicketImagesInput, TicketHistoryObservationUncheckedCreateWithoutTicketImagesInput>
+  export type TicketHistoryCreateOrConnectWithoutTicketImagesInput = {
+    where: TicketHistoryWhereUniqueInput
+    create: XOR<TicketHistoryCreateWithoutTicketImagesInput, TicketHistoryUncheckedCreateWithoutTicketImagesInput>
   }
 
   export type TicketUpsertWithoutTicketImagesInput = {
@@ -22167,8 +20946,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22199,8 +20978,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22213,30 +20992,32 @@ export namespace Prisma {
     ticketValoration?: TicketValorationUncheckedUpdateOneWithoutTicketNestedInput
   }
 
-  export type TicketHistoryObservationUpsertWithoutTicketImagesInput = {
-    update: XOR<TicketHistoryObservationUpdateWithoutTicketImagesInput, TicketHistoryObservationUncheckedUpdateWithoutTicketImagesInput>
-    create: XOR<TicketHistoryObservationCreateWithoutTicketImagesInput, TicketHistoryObservationUncheckedCreateWithoutTicketImagesInput>
-    where?: TicketHistoryObservationWhereInput
+  export type TicketHistoryUpsertWithoutTicketImagesInput = {
+    update: XOR<TicketHistoryUpdateWithoutTicketImagesInput, TicketHistoryUncheckedUpdateWithoutTicketImagesInput>
+    create: XOR<TicketHistoryCreateWithoutTicketImagesInput, TicketHistoryUncheckedCreateWithoutTicketImagesInput>
+    where?: TicketHistoryWhereInput
   }
 
-  export type TicketHistoryObservationUpdateToOneWithWhereWithoutTicketImagesInput = {
-    where?: TicketHistoryObservationWhereInput
-    data: XOR<TicketHistoryObservationUpdateWithoutTicketImagesInput, TicketHistoryObservationUncheckedUpdateWithoutTicketImagesInput>
+  export type TicketHistoryUpdateToOneWithWhereWithoutTicketImagesInput = {
+    where?: TicketHistoryWhereInput
+    data: XOR<TicketHistoryUpdateWithoutTicketImagesInput, TicketHistoryUncheckedUpdateWithoutTicketImagesInput>
   }
 
-  export type TicketHistoryObservationUpdateWithoutTicketImagesInput = {
+  export type TicketHistoryUpdateWithoutTicketImagesInput = {
+    status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     observation?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ticketHistory?: TicketHistoryUpdateOneRequiredWithoutTicketObservationNestedInput
+    ticket?: TicketUpdateOneRequiredWithoutTicketHistoryNestedInput
+    user?: UserUpdateOneRequiredWithoutTicketHistoryNestedInput
   }
 
-  export type TicketHistoryObservationUncheckedUpdateWithoutTicketImagesInput = {
+  export type TicketHistoryUncheckedUpdateWithoutTicketImagesInput = {
     id?: IntFieldUpdateOperationsInput | number
-    ticketHistoryId?: IntFieldUpdateOperationsInput | number
+    ticketId?: IntFieldUpdateOperationsInput | number
+    status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
+    changedBy?: IntFieldUpdateOperationsInput | number
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     observation?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TicketCreateWithoutTicketHistoryInput = {
@@ -22250,8 +21031,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -22282,8 +21063,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -22339,24 +21120,29 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutTicketHistoryInput, UserUncheckedCreateWithoutTicketHistoryInput>
   }
 
-  export type TicketHistoryObservationCreateWithoutTicketHistoryInput = {
-    observation: string
+  export type TicketImageCreateWithoutTicketHistoryInput = {
+    imageUrl: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    ticketImages?: TicketImageCreateNestedManyWithoutTicketHistoryObservationInput
+    ticket?: TicketCreateNestedOneWithoutTicketImagesInput
   }
 
-  export type TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput = {
+  export type TicketImageUncheckedCreateWithoutTicketHistoryInput = {
     id?: number
-    observation: string
+    ticketId?: number | null
+    imageUrl: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    ticketImages?: TicketImageUncheckedCreateNestedManyWithoutTicketHistoryObservationInput
   }
 
-  export type TicketHistoryObservationCreateOrConnectWithoutTicketHistoryInput = {
-    where: TicketHistoryObservationWhereUniqueInput
-    create: XOR<TicketHistoryObservationCreateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput>
+  export type TicketImageCreateOrConnectWithoutTicketHistoryInput = {
+    where: TicketImageWhereUniqueInput
+    create: XOR<TicketImageCreateWithoutTicketHistoryInput, TicketImageUncheckedCreateWithoutTicketHistoryInput>
+  }
+
+  export type TicketImageCreateManyTicketHistoryInputEnvelope = {
+    data: TicketImageCreateManyTicketHistoryInput | TicketImageCreateManyTicketHistoryInput[]
+    skipDuplicates?: boolean
   }
 
   export type TicketUpsertWithoutTicketHistoryInput = {
@@ -22381,8 +21167,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22413,8 +21199,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22471,117 +21257,20 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type TicketHistoryObservationUpsertWithoutTicketHistoryInput = {
-    update: XOR<TicketHistoryObservationUpdateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedUpdateWithoutTicketHistoryInput>
-    create: XOR<TicketHistoryObservationCreateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedCreateWithoutTicketHistoryInput>
-    where?: TicketHistoryObservationWhereInput
-  }
-
-  export type TicketHistoryObservationUpdateToOneWithWhereWithoutTicketHistoryInput = {
-    where?: TicketHistoryObservationWhereInput
-    data: XOR<TicketHistoryObservationUpdateWithoutTicketHistoryInput, TicketHistoryObservationUncheckedUpdateWithoutTicketHistoryInput>
-  }
-
-  export type TicketHistoryObservationUpdateWithoutTicketHistoryInput = {
-    observation?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ticketImages?: TicketImageUpdateManyWithoutTicketHistoryObservationNestedInput
-  }
-
-  export type TicketHistoryObservationUncheckedUpdateWithoutTicketHistoryInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    observation?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ticketImages?: TicketImageUncheckedUpdateManyWithoutTicketHistoryObservationNestedInput
-  }
-
-  export type TicketHistoryCreateWithoutTicketObservationInput = {
-    status: $Enums.E_TicketStatus
-    changedAt?: Date | string
-    ticket: TicketCreateNestedOneWithoutTicketHistoryInput
-    user: UserCreateNestedOneWithoutTicketHistoryInput
-  }
-
-  export type TicketHistoryUncheckedCreateWithoutTicketObservationInput = {
-    id?: number
-    ticketId: number
-    status: $Enums.E_TicketStatus
-    changedBy: number
-    changedAt?: Date | string
-  }
-
-  export type TicketHistoryCreateOrConnectWithoutTicketObservationInput = {
-    where: TicketHistoryWhereUniqueInput
-    create: XOR<TicketHistoryCreateWithoutTicketObservationInput, TicketHistoryUncheckedCreateWithoutTicketObservationInput>
-  }
-
-  export type TicketImageCreateWithoutTicketHistoryObservationInput = {
-    imageUrl: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    ticket?: TicketCreateNestedOneWithoutTicketImagesInput
-  }
-
-  export type TicketImageUncheckedCreateWithoutTicketHistoryObservationInput = {
-    id?: number
-    ticketId?: number | null
-    imageUrl: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type TicketImageCreateOrConnectWithoutTicketHistoryObservationInput = {
+  export type TicketImageUpsertWithWhereUniqueWithoutTicketHistoryInput = {
     where: TicketImageWhereUniqueInput
-    create: XOR<TicketImageCreateWithoutTicketHistoryObservationInput, TicketImageUncheckedCreateWithoutTicketHistoryObservationInput>
+    update: XOR<TicketImageUpdateWithoutTicketHistoryInput, TicketImageUncheckedUpdateWithoutTicketHistoryInput>
+    create: XOR<TicketImageCreateWithoutTicketHistoryInput, TicketImageUncheckedCreateWithoutTicketHistoryInput>
   }
 
-  export type TicketImageCreateManyTicketHistoryObservationInputEnvelope = {
-    data: TicketImageCreateManyTicketHistoryObservationInput | TicketImageCreateManyTicketHistoryObservationInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type TicketHistoryUpsertWithoutTicketObservationInput = {
-    update: XOR<TicketHistoryUpdateWithoutTicketObservationInput, TicketHistoryUncheckedUpdateWithoutTicketObservationInput>
-    create: XOR<TicketHistoryCreateWithoutTicketObservationInput, TicketHistoryUncheckedCreateWithoutTicketObservationInput>
-    where?: TicketHistoryWhereInput
-  }
-
-  export type TicketHistoryUpdateToOneWithWhereWithoutTicketObservationInput = {
-    where?: TicketHistoryWhereInput
-    data: XOR<TicketHistoryUpdateWithoutTicketObservationInput, TicketHistoryUncheckedUpdateWithoutTicketObservationInput>
-  }
-
-  export type TicketHistoryUpdateWithoutTicketObservationInput = {
-    status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
-    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ticket?: TicketUpdateOneRequiredWithoutTicketHistoryNestedInput
-    user?: UserUpdateOneRequiredWithoutTicketHistoryNestedInput
-  }
-
-  export type TicketHistoryUncheckedUpdateWithoutTicketObservationInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    ticketId?: IntFieldUpdateOperationsInput | number
-    status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
-    changedBy?: IntFieldUpdateOperationsInput | number
-    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TicketImageUpsertWithWhereUniqueWithoutTicketHistoryObservationInput = {
+  export type TicketImageUpdateWithWhereUniqueWithoutTicketHistoryInput = {
     where: TicketImageWhereUniqueInput
-    update: XOR<TicketImageUpdateWithoutTicketHistoryObservationInput, TicketImageUncheckedUpdateWithoutTicketHistoryObservationInput>
-    create: XOR<TicketImageCreateWithoutTicketHistoryObservationInput, TicketImageUncheckedCreateWithoutTicketHistoryObservationInput>
+    data: XOR<TicketImageUpdateWithoutTicketHistoryInput, TicketImageUncheckedUpdateWithoutTicketHistoryInput>
   }
 
-  export type TicketImageUpdateWithWhereUniqueWithoutTicketHistoryObservationInput = {
-    where: TicketImageWhereUniqueInput
-    data: XOR<TicketImageUpdateWithoutTicketHistoryObservationInput, TicketImageUncheckedUpdateWithoutTicketHistoryObservationInput>
-  }
-
-  export type TicketImageUpdateManyWithWhereWithoutTicketHistoryObservationInput = {
+  export type TicketImageUpdateManyWithWhereWithoutTicketHistoryInput = {
     where: TicketImageScalarWhereInput
-    data: XOR<TicketImageUpdateManyMutationInput, TicketImageUncheckedUpdateManyWithoutTicketHistoryObservationInput>
+    data: XOR<TicketImageUpdateManyMutationInput, TicketImageUncheckedUpdateManyWithoutTicketHistoryInput>
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -22633,8 +21322,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -22665,8 +21354,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -22750,8 +21439,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22782,8 +21471,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22807,8 +21496,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -22839,8 +21528,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -22880,8 +21569,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22912,8 +21601,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22940,8 +21629,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -22956,6 +21645,7 @@ export namespace Prisma {
     ticketId: number
     status: $Enums.E_TicketStatus
     changedAt?: Date | string
+    observation: string
   }
 
   export type NotificationCreateManyUserInput = {
@@ -22978,8 +21668,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23009,8 +21699,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23038,8 +21728,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23052,8 +21742,9 @@ export namespace Prisma {
   export type TicketHistoryUpdateWithoutUserInput = {
     status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    observation?: StringFieldUpdateOperationsInput | string
     ticket?: TicketUpdateOneRequiredWithoutTicketHistoryNestedInput
-    TicketObservation?: TicketHistoryObservationUpdateOneWithoutTicketHistoryNestedInput
+    ticketImages?: TicketImageUpdateManyWithoutTicketHistoryNestedInput
   }
 
   export type TicketHistoryUncheckedUpdateWithoutUserInput = {
@@ -23061,7 +21752,8 @@ export namespace Prisma {
     ticketId?: IntFieldUpdateOperationsInput | number
     status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    TicketObservation?: TicketHistoryObservationUncheckedUpdateOneWithoutTicketHistoryNestedInput
+    observation?: StringFieldUpdateOperationsInput | string
+    ticketImages?: TicketImageUncheckedUpdateManyWithoutTicketHistoryNestedInput
   }
 
   export type TicketHistoryUncheckedUpdateManyWithoutUserInput = {
@@ -23069,6 +21761,7 @@ export namespace Prisma {
     ticketId?: IntFieldUpdateOperationsInput | number
     status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    observation?: StringFieldUpdateOperationsInput | string
   }
 
   export type NotificationUpdateWithoutUserInput = {
@@ -23111,8 +21804,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -23158,8 +21851,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23189,8 +21882,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23218,8 +21911,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23378,8 +22071,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -23448,8 +22141,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23479,8 +22172,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23508,8 +22201,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23534,8 +22227,8 @@ export namespace Prisma {
     resolutionDays?: number | null
     slaReply?: number | null
     slaResolution?: number | null
-    replyAchieved?: boolean
-    resolutionAchieved?: boolean
+    replyAchieved?: boolean | null
+    resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
     closedAt?: Date | string | null
     createdAt?: Date | string
@@ -23555,8 +22248,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23587,8 +22280,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23616,8 +22309,8 @@ export namespace Prisma {
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
     slaReply?: NullableIntFieldUpdateOperationsInput | number | null
     slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
-    replyAchieved?: BoolFieldUpdateOperationsInput | boolean
-    resolutionAchieved?: BoolFieldUpdateOperationsInput | boolean
+    replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23639,6 +22332,7 @@ export namespace Prisma {
     status: $Enums.E_TicketStatus
     changedBy: number
     changedAt?: Date | string
+    observation: string
   }
 
   export type NotificationCreateManyTicketInput = {
@@ -23654,7 +22348,7 @@ export namespace Prisma {
     imageUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ticketHistoryObservation?: TicketHistoryObservationUpdateOneWithoutTicketImagesNestedInput
+    ticketHistory?: TicketHistoryUpdateOneWithoutTicketImagesNestedInput
   }
 
   export type TicketImageUncheckedUpdateWithoutTicketInput = {
@@ -23676,8 +22370,9 @@ export namespace Prisma {
   export type TicketHistoryUpdateWithoutTicketInput = {
     status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    observation?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneRequiredWithoutTicketHistoryNestedInput
-    TicketObservation?: TicketHistoryObservationUpdateOneWithoutTicketHistoryNestedInput
+    ticketImages?: TicketImageUpdateManyWithoutTicketHistoryNestedInput
   }
 
   export type TicketHistoryUncheckedUpdateWithoutTicketInput = {
@@ -23685,7 +22380,8 @@ export namespace Prisma {
     status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
     changedBy?: IntFieldUpdateOperationsInput | number
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    TicketObservation?: TicketHistoryObservationUncheckedUpdateOneWithoutTicketHistoryNestedInput
+    observation?: StringFieldUpdateOperationsInput | string
+    ticketImages?: TicketImageUncheckedUpdateManyWithoutTicketHistoryNestedInput
   }
 
   export type TicketHistoryUncheckedUpdateManyWithoutTicketInput = {
@@ -23693,6 +22389,7 @@ export namespace Prisma {
     status?: EnumE_TicketStatusFieldUpdateOperationsInput | $Enums.E_TicketStatus
     changedBy?: IntFieldUpdateOperationsInput | number
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    observation?: StringFieldUpdateOperationsInput | string
   }
 
   export type NotificationUpdateWithoutTicketInput = {
@@ -23721,7 +22418,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TicketImageCreateManyTicketHistoryObservationInput = {
+  export type TicketImageCreateManyTicketHistoryInput = {
     id?: number
     ticketId?: number | null
     imageUrl: string
@@ -23729,14 +22426,14 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type TicketImageUpdateWithoutTicketHistoryObservationInput = {
+  export type TicketImageUpdateWithoutTicketHistoryInput = {
     imageUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ticket?: TicketUpdateOneWithoutTicketImagesNestedInput
   }
 
-  export type TicketImageUncheckedUpdateWithoutTicketHistoryObservationInput = {
+  export type TicketImageUncheckedUpdateWithoutTicketHistoryInput = {
     id?: IntFieldUpdateOperationsInput | number
     ticketId?: NullableIntFieldUpdateOperationsInput | number | null
     imageUrl?: StringFieldUpdateOperationsInput | string
@@ -23744,7 +22441,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TicketImageUncheckedUpdateManyWithoutTicketHistoryObservationInput = {
+  export type TicketImageUncheckedUpdateManyWithoutTicketHistoryInput = {
     id?: IntFieldUpdateOperationsInput | number
     ticketId?: NullableIntFieldUpdateOperationsInput | number | null
     imageUrl?: StringFieldUpdateOperationsInput | string

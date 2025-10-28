@@ -11,8 +11,8 @@ import { categoryEtiquettes } from "./seeds/categoryEtiquettes";
 import { autoTriageRules } from "./seeds/autoTriageRules";
 import { tickets } from "./seeds/tickets";
 import { ticketImages } from "./seeds/ticketImages";
-import { ticketHistories } from "./seeds/ticketHistories";
-import { ticketHistoryObservations } from "./seeds/ticketHistoryObservations";
+import { ticketHistory } from "./seeds/ticketHistories";
+
 import { notifications } from "./seeds/notifications";
 import { ticketValorations } from "./seeds/ticketValorations";
 
@@ -100,45 +100,35 @@ const main = async () => {
 
 
     // TicketHistory + Observations
-    for (const history of ticketHistories) {
-      const { ticketId, changedBy, status } = history;
+    for (const history of ticketHistory) {
+      const { ticketId, changedBy, status, changedAt, observation } = history;
 
-      const created = await prisma.ticketHistory.create({
+      await prisma.ticketHistory.create({
         data: {
           status,
+          changedAt,
+          observation,
           ticket: { connect: { id: ticketId } },
           user: { connect: { id: changedBy } },
         },
       });
-
-      const observation = ticketHistoryObservations.find(o => o.ticketHistoryId === created.id);
-      if (observation) {
-        await prisma.ticketHistoryObservation.create({
-          data: {
-            observation: observation.observation,
-            ticketHistory: { connect: { id: created.id } },
-          },
-        });
-      }
     }
 
+
     for (const image of ticketImages) {
-      const {
-        ticketId,
-        ticketHistoryObservationId,
-        imageUrl,
-      } = image;
+      const { ticketId, ticketHistoryObservationId, imageUrl } = image;
 
       await prisma.ticketImage.create({
         data: {
           imageUrl,
           ticket: ticketId ? { connect: { id: ticketId } } : undefined,
-          ticketHistoryObservation: ticketHistoryObservationId
+          ticketHistory: ticketHistoryObservationId
             ? { connect: { id: ticketHistoryObservationId } }
             : undefined,
         },
       });
     }
+
 
     // Notifications
     for (const notification of notifications) {

@@ -157,8 +157,8 @@ model Ticket {
   resolutionDays        Int?
   slaReply              Int?
   slaResolution         Int?
-  replyAchieved         Boolean           @default(false)
-  resolutionAchieved    Boolean           @default(false)
+  replyAchieved         Boolean?          @default(false)
+  resolutionAchieved    Boolean?          @default(false)
   ticketValorationId    Int?
   closedAt              DateTime?
   createdAt             DateTime          @default(now())
@@ -186,33 +186,21 @@ model TicketImage {
   updatedAt                  DateTime @updatedAt
 
   // Relations
-  ticket                   Ticket?                   @relation(fields: [ticketId], references: [id])
-  ticketHistoryObservation TicketHistoryObservation? @relation(fields: [ticketHistoryObservationId], references: [id])
+  ticket        Ticket?        @relation(fields: [ticketId], references: [id])
+  ticketHistory TicketHistory? @relation(fields: [ticketHistoryObservationId], references: [id])
 }
 
 model TicketHistory {
-  id        Int            @id @default(autoincrement())
-  ticketId  Int
-  status    E_TicketStatus
-  changedBy Int
-  changedAt DateTime       @default(now())
+  id          Int            @id @default(autoincrement())
+  ticketId    Int
+  status      E_TicketStatus
+  changedBy   Int
+  changedAt   DateTime       @default(now())
+  observation String // ← agregado directamente aquí
 
-  // Relations
-  ticket            Ticket                    @relation(fields: [ticketId], references: [id])
-  user              User                      @relation(fields: [changedBy], references: [id])
-  TicketObservation TicketHistoryObservation?
-}
-
-model TicketHistoryObservation {
-  id              Int      @id @default(autoincrement())
-  ticketHistoryId Int      @unique
-  observation     String
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  // Relations
-  ticketHistory TicketHistory @relation(fields: [ticketHistoryId], references: [id])
-  ticketImages  TicketImage[]
+  ticket       Ticket        @relation(fields: [ticketId], references: [id])
+  user         User          @relation(fields: [changedBy], references: [id])
+  ticketImages TicketImage[]
 }
 
 model Notification {

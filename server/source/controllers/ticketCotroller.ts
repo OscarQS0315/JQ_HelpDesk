@@ -15,7 +15,7 @@ export class TicketController {
                     technician: true,
                     ticketHistory: {
                         include: {
-                            TicketObservation: true
+                            ticketImages: true,
                         },
                     },
                     ticketCategory: true,
@@ -41,7 +41,7 @@ export class TicketController {
                     technician: true,
                     ticketHistory: {
                         include: {
-                            TicketObservation: true
+                            ticketImages: true,
                         },
                     },
                     ticketCategory: true,
@@ -80,7 +80,7 @@ export class TicketController {
                     technician: true,
                     ticketHistory: {
                         include: {
-                            TicketObservation: true
+                            ticketImages: true,
                         },
                     },
                     ticketCategory: true,

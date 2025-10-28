@@ -228,15 +228,8 @@ exports.Prisma.TicketHistoryScalarFieldEnum = {
   ticketId: 'ticketId',
   status: 'status',
   changedBy: 'changedBy',
-  changedAt: 'changedAt'
-};
-
-exports.Prisma.TicketHistoryObservationScalarFieldEnum = {
-  id: 'id',
-  ticketHistoryId: 'ticketHistoryId',
-  observation: 'observation',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  changedAt: 'changedAt',
+  observation: 'observation'
 };
 
 exports.Prisma.NotificationScalarFieldEnum = {
@@ -308,7 +301,7 @@ exports.Prisma.TicketImageOrderByRelevanceFieldEnum = {
   imageUrl: 'imageUrl'
 };
 
-exports.Prisma.TicketHistoryObservationOrderByRelevanceFieldEnum = {
+exports.Prisma.TicketHistoryOrderByRelevanceFieldEnum = {
   observation: 'observation'
 };
 
@@ -360,7 +353,6 @@ exports.Prisma.ModelName = {
   Ticket: 'Ticket',
   TicketImage: 'TicketImage',
   TicketHistory: 'TicketHistory',
-  TicketHistoryObservation: 'TicketHistoryObservation',
   Notification: 'Notification',
   TicketValoration: 'TicketValoration'
 };

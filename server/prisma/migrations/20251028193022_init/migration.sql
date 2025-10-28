@@ -109,8 +109,8 @@ CREATE TABLE `Ticket` (
     `resolutionDays` INTEGER NULL,
     `slaReply` INTEGER NULL,
     `slaResolution` INTEGER NULL,
-    `replyAchieved` BOOLEAN NOT NULL DEFAULT false,
-    `resolutionAchieved` BOOLEAN NOT NULL DEFAULT false,
+    `replyAchieved` BOOLEAN NULL DEFAULT false,
+    `resolutionAchieved` BOOLEAN NULL DEFAULT false,
     `ticketValorationId` INTEGER NULL,
     `closedAt` DATETIME(3) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -141,19 +141,8 @@ CREATE TABLE `TicketHistory` (
     `status` ENUM('PENDING', 'ASSIGNED', 'IN_PROGRESS', 'RESOLVED', 'CLOSED') NOT NULL,
     `changedBy` INTEGER NOT NULL,
     `changedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `TicketHistoryObservation` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `ticketHistoryId` INTEGER NOT NULL,
     `observation` VARCHAR(191) NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updatedAt` DATETIME(3) NOT NULL,
 
-    UNIQUE INDEX `TicketHistoryObservation_ticketHistoryId_key`(`ticketHistoryId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -232,16 +221,13 @@ ALTER TABLE `Ticket` ADD CONSTRAINT `Ticket_automaticTriageRuleId_fkey` FOREIGN 
 ALTER TABLE `TicketImage` ADD CONSTRAINT `TicketImage_ticketId_fkey` FOREIGN KEY (`ticketId`) REFERENCES `Ticket`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `TicketImage` ADD CONSTRAINT `TicketImage_ticketHistoryObservationId_fkey` FOREIGN KEY (`ticketHistoryObservationId`) REFERENCES `TicketHistoryObservation`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `TicketImage` ADD CONSTRAINT `TicketImage_ticketHistoryObservationId_fkey` FOREIGN KEY (`ticketHistoryObservationId`) REFERENCES `TicketHistory`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `TicketHistory` ADD CONSTRAINT `TicketHistory_ticketId_fkey` FOREIGN KEY (`ticketId`) REFERENCES `Ticket`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `TicketHistory` ADD CONSTRAINT `TicketHistory_changedBy_fkey` FOREIGN KEY (`changedBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `TicketHistoryObservation` ADD CONSTRAINT `TicketHistoryObservation_ticketHistoryId_fkey` FOREIGN KEY (`ticketHistoryId`) REFERENCES `TicketHistory`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Notification` ADD CONSTRAINT `Notification_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
