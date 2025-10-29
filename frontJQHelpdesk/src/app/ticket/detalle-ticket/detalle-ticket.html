@@ -53,11 +53,16 @@
     <div class="section technician">
         <h3>Técnico asignado</h3>
 
+        @if (ticket()?.technician) {
         <a [routerLink]="['/Detalle', ticket()?.technician?.id]" class="tech-link">
             <p>{{ ticket()?.technician?.user?.name }} {{ ticket()?.technician?.user?.lastName }}</p>
             <img [src]="'http://localhost:3000/images/' + ticket()?.technician?.user?.profileImage" alt="Técnico" />
         </a>
+        } @else {
+        <p><strong>Técnico no asignado</strong></p>
+        }
     </div>
+
 
 
     <div class="section history">
@@ -66,8 +71,18 @@
         <div class="history-item">
             <p><strong>{{ formatStatus(h.status) }}</strong> — {{ formatDateShort(h.changedAt) }}</p>
             <p>{{ h.observation }}</p>
-            <!--@for (img of h.ticketImages; track img) {
-        <img [src]="'http://localhost:3000/images/' + img.imageUrl" alt="Imagen historial" />}-->
+            @for (img of h.ticketImages; track img) {
+            @if (!img.imageUrl.includes('PENDING')) {
+            <img [src]="'http://localhost:3000/images/' + img.imageUrl" alt="Imagen historial" class="thumbnail"
+                (click)="openImage('http://localhost:3000/images/' + img.imageUrl)" />
+            }
+            }
+
+
+
+
+
+
         </div>
         }
     </div>
@@ -81,3 +96,8 @@
     }
 
 </div>
+@if (selectedImageUrl) {
+<div class="image-modal" (click)="closeImage()">
+    <img [src]="selectedImageUrl" alt="Imagen ampliada" class="modal-image" />
+</div>
+}

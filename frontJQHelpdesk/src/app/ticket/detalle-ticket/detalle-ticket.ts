@@ -7,7 +7,7 @@ import { E_TicketStatus } from '../../share/models/enums/ticketStatus.enum';
 import { E_TicketPriority } from '../../share/models/enums/ticketPriority.enum';
 import { E_AssignedMethod } from '../../share/models/enums/assignedMethod.enum';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router'; 
+import { RouterModule } from '@angular/router';
 import { BreadcrumbBackComponent } from '../../share/components/breadcrumb-back/breadcrumb-back.component';
 
 @Component({
@@ -98,5 +98,16 @@ export class DetalleTicket {
         return 'No ha sido asignado';
     }
   }
+
+  selectedImageUrl: string | null = null;
+
+  openImage(url: string): void {
+    this.selectedImageUrl = url;
+  }
+
+  closeImage(): void {
+    this.selectedImageUrl = null;
+  }
+
 }
 
