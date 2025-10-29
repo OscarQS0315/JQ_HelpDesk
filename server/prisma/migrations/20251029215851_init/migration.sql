@@ -126,7 +126,7 @@ CREATE TABLE `Ticket` (
 CREATE TABLE `TicketImage` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `ticketId` INTEGER NULL,
-    `ticketHistoryObservationId` INTEGER NULL,
+    `ticketHistoryId` INTEGER NULL,
     `imageUrl` VARCHAR(191) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
@@ -221,7 +221,7 @@ ALTER TABLE `Ticket` ADD CONSTRAINT `Ticket_automaticTriageRuleId_fkey` FOREIGN 
 ALTER TABLE `TicketImage` ADD CONSTRAINT `TicketImage_ticketId_fkey` FOREIGN KEY (`ticketId`) REFERENCES `Ticket`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `TicketImage` ADD CONSTRAINT `TicketImage_ticketHistoryObservationId_fkey` FOREIGN KEY (`ticketHistoryObservationId`) REFERENCES `TicketHistory`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `TicketImage` ADD CONSTRAINT `TicketImage_ticketHistoryId_fkey` FOREIGN KEY (`ticketHistoryId`) REFERENCES `TicketHistory`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `TicketHistory` ADD CONSTRAINT `TicketHistory_ticketId_fkey` FOREIGN KEY (`ticketId`) REFERENCES `Ticket`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

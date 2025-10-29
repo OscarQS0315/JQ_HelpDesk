@@ -116,14 +116,14 @@ const main = async () => {
 
 
     for (const image of ticketImages) {
-      const { ticketId, ticketHistoryObservationId, imageUrl } = image;
+      const { ticketId, ticketHistoryId, imageUrl } = image;
 
       await prisma.ticketImage.create({
         data: {
           imageUrl,
           ticket: ticketId ? { connect: { id: ticketId } } : undefined,
-          ticketHistory: ticketHistoryObservationId
-            ? { connect: { id: ticketHistoryObservationId } }
+          ticketHistory: ticketHistoryId
+            ? { connect: { id: ticketHistoryId } }
             : undefined,
         },
       });

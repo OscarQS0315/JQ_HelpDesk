@@ -217,7 +217,7 @@ exports.Prisma.TicketScalarFieldEnum = {
 exports.Prisma.TicketImageScalarFieldEnum = {
   id: 'id',
   ticketId: 'ticketId',
-  ticketHistoryObservationId: 'ticketHistoryObservationId',
+  ticketHistoryId: 'ticketHistoryId',
   imageUrl: 'imageUrl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

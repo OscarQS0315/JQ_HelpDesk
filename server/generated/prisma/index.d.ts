@@ -10839,19 +10839,19 @@ export namespace Prisma {
   export type TicketImageAvgAggregateOutputType = {
     id: number | null
     ticketId: number | null
-    ticketHistoryObservationId: number | null
+    ticketHistoryId: number | null
   }
 
   export type TicketImageSumAggregateOutputType = {
     id: number | null
     ticketId: number | null
-    ticketHistoryObservationId: number | null
+    ticketHistoryId: number | null
   }
 
   export type TicketImageMinAggregateOutputType = {
     id: number | null
     ticketId: number | null
-    ticketHistoryObservationId: number | null
+    ticketHistoryId: number | null
     imageUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -10860,7 +10860,7 @@ export namespace Prisma {
   export type TicketImageMaxAggregateOutputType = {
     id: number | null
     ticketId: number | null
-    ticketHistoryObservationId: number | null
+    ticketHistoryId: number | null
     imageUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -10869,7 +10869,7 @@ export namespace Prisma {
   export type TicketImageCountAggregateOutputType = {
     id: number
     ticketId: number
-    ticketHistoryObservationId: number
+    ticketHistoryId: number
     imageUrl: number
     createdAt: number
     updatedAt: number
@@ -10880,19 +10880,19 @@ export namespace Prisma {
   export type TicketImageAvgAggregateInputType = {
     id?: true
     ticketId?: true
-    ticketHistoryObservationId?: true
+    ticketHistoryId?: true
   }
 
   export type TicketImageSumAggregateInputType = {
     id?: true
     ticketId?: true
-    ticketHistoryObservationId?: true
+    ticketHistoryId?: true
   }
 
   export type TicketImageMinAggregateInputType = {
     id?: true
     ticketId?: true
-    ticketHistoryObservationId?: true
+    ticketHistoryId?: true
     imageUrl?: true
     createdAt?: true
     updatedAt?: true
@@ -10901,7 +10901,7 @@ export namespace Prisma {
   export type TicketImageMaxAggregateInputType = {
     id?: true
     ticketId?: true
-    ticketHistoryObservationId?: true
+    ticketHistoryId?: true
     imageUrl?: true
     createdAt?: true
     updatedAt?: true
@@ -10910,7 +10910,7 @@ export namespace Prisma {
   export type TicketImageCountAggregateInputType = {
     id?: true
     ticketId?: true
-    ticketHistoryObservationId?: true
+    ticketHistoryId?: true
     imageUrl?: true
     createdAt?: true
     updatedAt?: true
@@ -11006,7 +11006,7 @@ export namespace Prisma {
   export type TicketImageGroupByOutputType = {
     id: number
     ticketId: number | null
-    ticketHistoryObservationId: number | null
+    ticketHistoryId: number | null
     imageUrl: string
     createdAt: Date
     updatedAt: Date
@@ -11034,7 +11034,7 @@ export namespace Prisma {
   export type TicketImageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     ticketId?: boolean
-    ticketHistoryObservationId?: boolean
+    ticketHistoryId?: boolean
     imageUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -11047,13 +11047,13 @@ export namespace Prisma {
   export type TicketImageSelectScalar = {
     id?: boolean
     ticketId?: boolean
-    ticketHistoryObservationId?: boolean
+    ticketHistoryId?: boolean
     imageUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TicketImageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ticketId" | "ticketHistoryObservationId" | "imageUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["ticketImage"]>
+  export type TicketImageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ticketId" | "ticketHistoryId" | "imageUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["ticketImage"]>
   export type TicketImageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ticket?: boolean | TicketImage$ticketArgs<ExtArgs>
     ticketHistory?: boolean | TicketImage$ticketHistoryArgs<ExtArgs>
@@ -11068,7 +11068,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       ticketId: number | null
-      ticketHistoryObservationId: number | null
+      ticketHistoryId: number | null
       imageUrl: string
       createdAt: Date
       updatedAt: Date
@@ -11445,7 +11445,7 @@ export namespace Prisma {
   interface TicketImageFieldRefs {
     readonly id: FieldRef<"TicketImage", 'Int'>
     readonly ticketId: FieldRef<"TicketImage", 'Int'>
-    readonly ticketHistoryObservationId: FieldRef<"TicketImage", 'Int'>
+    readonly ticketHistoryId: FieldRef<"TicketImage", 'Int'>
     readonly imageUrl: FieldRef<"TicketImage", 'String'>
     readonly createdAt: FieldRef<"TicketImage", 'DateTime'>
     readonly updatedAt: FieldRef<"TicketImage", 'DateTime'>
@@ -14997,7 +14997,7 @@ export namespace Prisma {
   export const TicketImageScalarFieldEnum: {
     id: 'id',
     ticketId: 'ticketId',
-    ticketHistoryObservationId: 'ticketHistoryObservationId',
+    ticketHistoryId: 'ticketHistoryId',
     imageUrl: 'imageUrl',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -15885,7 +15885,7 @@ export namespace Prisma {
     NOT?: TicketImageWhereInput | TicketImageWhereInput[]
     id?: IntFilter<"TicketImage"> | number
     ticketId?: IntNullableFilter<"TicketImage"> | number | null
-    ticketHistoryObservationId?: IntNullableFilter<"TicketImage"> | number | null
+    ticketHistoryId?: IntNullableFilter<"TicketImage"> | number | null
     imageUrl?: StringFilter<"TicketImage"> | string
     createdAt?: DateTimeFilter<"TicketImage"> | Date | string
     updatedAt?: DateTimeFilter<"TicketImage"> | Date | string
@@ -15896,7 +15896,7 @@ export namespace Prisma {
   export type TicketImageOrderByWithRelationInput = {
     id?: SortOrder
     ticketId?: SortOrderInput | SortOrder
-    ticketHistoryObservationId?: SortOrderInput | SortOrder
+    ticketHistoryId?: SortOrderInput | SortOrder
     imageUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15911,7 +15911,7 @@ export namespace Prisma {
     OR?: TicketImageWhereInput[]
     NOT?: TicketImageWhereInput | TicketImageWhereInput[]
     ticketId?: IntNullableFilter<"TicketImage"> | number | null
-    ticketHistoryObservationId?: IntNullableFilter<"TicketImage"> | number | null
+    ticketHistoryId?: IntNullableFilter<"TicketImage"> | number | null
     imageUrl?: StringFilter<"TicketImage"> | string
     createdAt?: DateTimeFilter<"TicketImage"> | Date | string
     updatedAt?: DateTimeFilter<"TicketImage"> | Date | string
@@ -15922,7 +15922,7 @@ export namespace Prisma {
   export type TicketImageOrderByWithAggregationInput = {
     id?: SortOrder
     ticketId?: SortOrderInput | SortOrder
-    ticketHistoryObservationId?: SortOrderInput | SortOrder
+    ticketHistoryId?: SortOrderInput | SortOrder
     imageUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15939,7 +15939,7 @@ export namespace Prisma {
     NOT?: TicketImageScalarWhereWithAggregatesInput | TicketImageScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"TicketImage"> | number
     ticketId?: IntNullableWithAggregatesFilter<"TicketImage"> | number | null
-    ticketHistoryObservationId?: IntNullableWithAggregatesFilter<"TicketImage"> | number | null
+    ticketHistoryId?: IntNullableWithAggregatesFilter<"TicketImage"> | number | null
     imageUrl?: StringWithAggregatesFilter<"TicketImage"> | string
     createdAt?: DateTimeWithAggregatesFilter<"TicketImage"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"TicketImage"> | Date | string
@@ -16859,7 +16859,7 @@ export namespace Prisma {
   export type TicketImageUncheckedCreateInput = {
     id?: number
     ticketId?: number | null
-    ticketHistoryObservationId?: number | null
+    ticketHistoryId?: number | null
     imageUrl: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16876,7 +16876,7 @@ export namespace Prisma {
   export type TicketImageUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     ticketId?: NullableIntFieldUpdateOperationsInput | number | null
-    ticketHistoryObservationId?: NullableIntFieldUpdateOperationsInput | number | null
+    ticketHistoryId?: NullableIntFieldUpdateOperationsInput | number | null
     imageUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16885,7 +16885,7 @@ export namespace Prisma {
   export type TicketImageCreateManyInput = {
     id?: number
     ticketId?: number | null
-    ticketHistoryObservationId?: number | null
+    ticketHistoryId?: number | null
     imageUrl: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16900,7 +16900,7 @@ export namespace Prisma {
   export type TicketImageUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     ticketId?: NullableIntFieldUpdateOperationsInput | number | null
-    ticketHistoryObservationId?: NullableIntFieldUpdateOperationsInput | number | null
+    ticketHistoryId?: NullableIntFieldUpdateOperationsInput | number | null
     imageUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17921,7 +17921,7 @@ export namespace Prisma {
   export type TicketImageCountOrderByAggregateInput = {
     id?: SortOrder
     ticketId?: SortOrder
-    ticketHistoryObservationId?: SortOrder
+    ticketHistoryId?: SortOrder
     imageUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -17930,13 +17930,13 @@ export namespace Prisma {
   export type TicketImageAvgOrderByAggregateInput = {
     id?: SortOrder
     ticketId?: SortOrder
-    ticketHistoryObservationId?: SortOrder
+    ticketHistoryId?: SortOrder
   }
 
   export type TicketImageMaxOrderByAggregateInput = {
     id?: SortOrder
     ticketId?: SortOrder
-    ticketHistoryObservationId?: SortOrder
+    ticketHistoryId?: SortOrder
     imageUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -17945,7 +17945,7 @@ export namespace Prisma {
   export type TicketImageMinOrderByAggregateInput = {
     id?: SortOrder
     ticketId?: SortOrder
-    ticketHistoryObservationId?: SortOrder
+    ticketHistoryId?: SortOrder
     imageUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -17954,7 +17954,7 @@ export namespace Prisma {
   export type TicketImageSumOrderByAggregateInput = {
     id?: SortOrder
     ticketId?: SortOrder
-    ticketHistoryObservationId?: SortOrder
+    ticketHistoryId?: SortOrder
   }
 
   export type TicketScalarRelationFilter = {
@@ -20478,7 +20478,7 @@ export namespace Prisma {
 
   export type TicketImageUncheckedCreateWithoutTicketInput = {
     id?: number
-    ticketHistoryObservationId?: number | null
+    ticketHistoryId?: number | null
     imageUrl: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20714,7 +20714,7 @@ export namespace Prisma {
     NOT?: TicketImageScalarWhereInput | TicketImageScalarWhereInput[]
     id?: IntFilter<"TicketImage"> | number
     ticketId?: IntNullableFilter<"TicketImage"> | number | null
-    ticketHistoryObservationId?: IntNullableFilter<"TicketImage"> | number | null
+    ticketHistoryId?: IntNullableFilter<"TicketImage"> | number | null
     imageUrl?: StringFilter<"TicketImage"> | string
     createdAt?: DateTimeFilter<"TicketImage"> | Date | string
     updatedAt?: DateTimeFilter<"TicketImage"> | Date | string
@@ -22321,7 +22321,7 @@ export namespace Prisma {
 
   export type TicketImageCreateManyTicketInput = {
     id?: number
-    ticketHistoryObservationId?: number | null
+    ticketHistoryId?: number | null
     imageUrl: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -22353,7 +22353,7 @@ export namespace Prisma {
 
   export type TicketImageUncheckedUpdateWithoutTicketInput = {
     id?: IntFieldUpdateOperationsInput | number
-    ticketHistoryObservationId?: NullableIntFieldUpdateOperationsInput | number | null
+    ticketHistoryId?: NullableIntFieldUpdateOperationsInput | number | null
     imageUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22361,7 +22361,7 @@ export namespace Prisma {
 
   export type TicketImageUncheckedUpdateManyWithoutTicketInput = {
     id?: IntFieldUpdateOperationsInput | number
-    ticketHistoryObservationId?: NullableIntFieldUpdateOperationsInput | number | null
+    ticketHistoryId?: NullableIntFieldUpdateOperationsInput | number | null
     imageUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

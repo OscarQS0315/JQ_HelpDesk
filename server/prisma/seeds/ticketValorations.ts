@@ -14,14 +14,14 @@ export const ticketValorations = [
     updatedAt: new Date('2025-10-02T17:00:00')
   },
   {
-    ticketId: 6, // VPN solucionada
+    ticketId: 12, // VPN solucionada
     rating: 5,
     comments: 'Conexión estable y rápida, excelente trabajo.',
     createdAt: new Date('2025-10-15T15:00:00'),
     updatedAt: new Date('2025-10-15T15:00:00')
   },
   {
-    ticketId: 7, // Amenaza eliminada
+    ticketId: 13, // Amenaza eliminada
     rating: 3,
     comments: 'Se resolvió el problema, pero tomó más tiempo del esperado.',
     createdAt: new Date('2025-10-18T16:00:00'),

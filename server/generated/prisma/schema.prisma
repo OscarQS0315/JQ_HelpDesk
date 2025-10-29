@@ -178,16 +178,16 @@ model Ticket {
 }
 
 model TicketImage {
-  id                         Int      @id @default(autoincrement())
-  ticketId                   Int?
-  ticketHistoryObservationId Int?
-  imageUrl                   String
-  createdAt                  DateTime @default(now())
-  updatedAt                  DateTime @updatedAt
+  id              Int      @id @default(autoincrement())
+  ticketId        Int?
+  ticketHistoryId Int?
+  imageUrl        String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   // Relations
   ticket        Ticket?        @relation(fields: [ticketId], references: [id])
-  ticketHistory TicketHistory? @relation(fields: [ticketHistoryObservationId], references: [id])
+  ticketHistory TicketHistory? @relation(fields: [ticketHistoryId], references: [id])
 }
 
 model TicketHistory {
@@ -196,7 +196,7 @@ model TicketHistory {
   status      E_TicketStatus
   changedBy   Int
   changedAt   DateTime       @default(now())
-  observation String // ← agregado directamente aquí
+  observation String
 
   ticket       Ticket        @relation(fields: [ticketId], references: [id])
   user         User          @relation(fields: [changedBy], references: [id])

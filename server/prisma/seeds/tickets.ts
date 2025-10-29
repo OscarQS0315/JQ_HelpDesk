@@ -3,6 +3,7 @@ import { E_TicketStatus } from "../../generated/prisma";
 import { E_AssignedMethod } from "../../generated/prisma";
 export const tickets = [
   {
+    //1
     userId: 3,
     technicianId: 1,
     ticketCategoryId: 1, // Redes internas → SLA Básico
@@ -27,6 +28,7 @@ export const tickets = [
     updatedAt: new Date('2025-10-13T10:00:00')
   },
   {
+    //2
     userId: 4,
     technicianId: 2,
     ticketCategoryId: 2, // Correo electrónico → SLA Estándar
@@ -51,6 +53,7 @@ export const tickets = [
     updatedAt: new Date('2025-09-29T11:00:00')
   },
   {
+    //3
     userId: 5,
     technicianId: 3,
     ticketCategoryId: 3, // Hardware dañado → SLA Premium
@@ -75,6 +78,7 @@ export const tickets = [
     updatedAt: new Date('2025-10-07T14:00:00')
   },
   {
+    //4
     userId: 6,
     technicianId: 4,
     ticketCategoryId: 4, // Acceso remoto → SLA Crítico
@@ -99,6 +103,7 @@ export const tickets = [
     updatedAt: new Date('2025-10-14T11:00:00')
   },
   {
+    //5
     userId: 7,
     technicianId: 5,
     ticketCategoryId: 5, // Seguridad informática → SLA Flexible
@@ -123,6 +128,7 @@ export const tickets = [
     updatedAt: new Date('2025-10-02T16:00:00')
   },
   {
+    //6
     userId: 8,
     technicianId: null,
     ticketCategoryId: 2,
@@ -147,6 +153,7 @@ export const tickets = [
     updatedAt: new Date('2025-10-08T09:00:00')
   },
   {
+    //7
     userId: 9,
     technicianId: null,
     ticketCategoryId: 4,
@@ -170,9 +177,8 @@ export const tickets = [
     createdAt: new Date('2025-10-09T10:00:00'),
     updatedAt: new Date('2025-10-09T10:00:00')
   },
-
-  
   {
+    //8
     userId: 10,
     technicianId: 4,
     ticketCategoryId: 5,
@@ -197,6 +203,7 @@ export const tickets = [
     updatedAt: new Date('2025-10-10T11:00:00')
   },
   {
+    //9
     userId: 3,
     technicianId: 5,
     ticketCategoryId: 1,
@@ -220,9 +227,8 @@ export const tickets = [
     createdAt: new Date('2025-10-10T08:00:00'),
     updatedAt: new Date('2025-10-11T10:00:00')
   },
-
-  
   {
+    //10
     userId: 4,
     technicianId: 1,
     ticketCategoryId: 3,
@@ -246,9 +252,8 @@ export const tickets = [
     createdAt: new Date('2025-10-11T08:00:00'),
     updatedAt: new Date('2025-10-13T10:00:00')
   },
-
-  
   {
+    //11
     userId: 5,
     technicianId: 2,
     ticketCategoryId: 2,
@@ -272,9 +277,8 @@ export const tickets = [
     createdAt: new Date('2025-10-12T09:00:00'),
     updatedAt: new Date('2025-10-14T11:00:00')
   },
-
-  
   {
+    //12
     userId: 6,
     technicianId: 3,
     ticketCategoryId: 4,
@@ -299,6 +303,7 @@ export const tickets = [
     updatedAt: new Date('2025-10-15T14:00:00')
   },
   {
+    //13
     userId: 7,
     technicianId: 4,
     ticketCategoryId: 5,

@@ -1,6 +1,6 @@
-import express, {Express} from 'express'
+import express, { Express } from 'express'
 import morgan from 'morgan'
-import * as dotenv from 'dotenv' 
+import * as dotenv from 'dotenv'
 import cors from 'cors';
 import path from 'path'
 import { ErrorMiddleware } from './middleware/error.middleware';
@@ -8,7 +8,7 @@ import { AppRoutes } from './routes/routes';
 
 const rootDir = __dirname;
 
-const app: Express=express()
+const app: Express = express()
 
 // Acceder a la configuracion del archivo .env
 dotenv.config();
@@ -38,4 +38,4 @@ app.use("/images", express.static(path.join(path.resolve(), "assets/uploads")));
 app.listen(port, () => {
   console.log(`http://localhost:${port}`);
   console.log('Presione CTRL-C para deternerlo\n');
- });
+});
