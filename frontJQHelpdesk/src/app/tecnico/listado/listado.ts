@@ -2,12 +2,14 @@ import { Component, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TechnicianModel } from '../../share/models/TechnicianModel';
 import { TechnicianService } from '../../share/services/api/technician.service';
+import { BreadcrumbBackComponent } from '../../share/components/breadcrumb-back/breadcrumb-back.component';
 
 @Component({
   selector: 'app-listado',
   standalone: false,
   templateUrl: './listado.html',
-  styleUrl: './listado.css'
+  styleUrl: './listado.css',
+  
 })
 export class Listado implements OnInit {
 

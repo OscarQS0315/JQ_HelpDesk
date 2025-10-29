@@ -4,13 +4,18 @@ import { ActivatedRoute } from '@angular/router';
 import { TicketService } from '../../share/services/api/ticket.service';
 import { TicketModel } from '../../share/models/TicketModel';
 import { E_TicketStatus } from '../../share/models/enums/ticketStatus.enum';
+import { E_TicketPriority } from '../../share/models/enums/ticketPriority.enum';
+import { E_AssignedMethod } from '../../share/models/enums/assignedMethod.enum';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router'; 
+import { BreadcrumbBackComponent } from '../../share/components/breadcrumb-back/breadcrumb-back.component';
 
 @Component({
   selector: "app-stepper",
   standalone: true,
   templateUrl: "./detalle-ticket.html",
   styleUrls: ["./detalle-ticket.css"],
-  imports: []
+  imports: [CommonModule, RouterModule, BreadcrumbBackComponent]
 })
 export class DetalleTicket {
   ticket = signal<TicketModel | null>(null);
@@ -51,7 +56,47 @@ export class DetalleTicket {
         return 0;
     }
   }
+
+  formatDateShort(date?: Date): string {
+    return date ? new Date(date).toLocaleDateString() : '—';
+  }
+  formatStatus(status?: E_TicketStatus): string {
+    switch (status) {
+      case E_TicketStatus.PENDING:
+        return 'Pendiente';
+      case E_TicketStatus.ASSIGNED:
+        return 'Asignado';
+      case E_TicketStatus.IN_PROGRESS:
+        return 'En Progreso';
+      case E_TicketStatus.RESOLVED:
+        return 'Resuelto';
+      case E_TicketStatus.CLOSED:
+        return 'Cerrado';
+      default:
+        return 'Desconocido';
+    }
+  }
+  formatPriority(priority?: E_TicketPriority): string {
+    switch (priority) {
+      case E_TicketPriority.LOW:
+        return 'Baja';
+      case E_TicketPriority.MEDIUM:
+        return 'Media';
+      case E_TicketPriority.HIGH:
+        return 'Alta';
+      default:
+        return 'Desconocida';
+    }
+  }
+  formatAssignedMethod(method?: E_AssignedMethod): string {
+    switch (method) {
+      case E_AssignedMethod.MANUAL:
+        return 'Manualmente';
+      case E_AssignedMethod.AUTOMATIC:
+        return 'Automáticamente';
+      default:
+        return 'No ha sido asignado';
+    }
+  }
 }
-
-
 

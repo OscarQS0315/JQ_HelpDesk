@@ -21,8 +21,9 @@ export class Header implements OnInit {
     { label: "Home", link: "/", active: true },
     { label: "Técnicos", link: "/Listado" },
     { label: "Categorías", link: "/ListadoCategoria" },
-    { label: "Ticket", link: "/ListadoTicket" },
-    { label: "Visualización Tickets", link: "/VisualizacionTicket" }
+    { label: "Tickets", link: "/VisualizacionTicket" },
+    { label: "Asignaciones", link: "/ListadoTicket" },
+    
   ];
 
   ngOnInit(): void {

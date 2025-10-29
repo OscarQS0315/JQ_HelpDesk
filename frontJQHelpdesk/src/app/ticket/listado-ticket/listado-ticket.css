@@ -182,7 +182,7 @@
     cursor: pointer;
     font-size: 12px;
     transition: all 0.3s ease;
-    
+
 }
 
 .nav-btn {
@@ -192,7 +192,7 @@
 .today-btn {
     background: #ebe825;
     color: black;
-    
+
 }
 
 .view-toggle button {
@@ -224,7 +224,7 @@
     text-align: center;
     font-weight: bold;
     margin-bottom: 8px;
-    
+
 }
 
 .weekday {
@@ -240,18 +240,31 @@
 }
 
 .day-cell {
-    aspect-ratio: 1;
-    padding: 6px;
-    cursor: pointer;
-    position: relative;
-    background: black;
-    font-size: 11px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 8px;
+    margin: 2px;
+    background-color: #1f1f1f;
+    transition: background-color 0.2s ease;
+    min-height: 120px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    color: white;
-    max-width: 200px;
+    justify-content: flex-start;
 }
+
+.day-cell.selected {
+    box-shadow: 0 0 0 2px #f5c518;
+}
+
+.day-cell.other-month {
+    opacity: 0.5;
+}
+
+.day-cell.current-day {
+    border: 2px solid #48dbfb;
+    background-color: #262626;
+}
+
 
 .date-number {
     display: flex;
@@ -263,11 +276,27 @@
 }
 
 .week-day {
-    background: black;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* delineado sutil */
     border-radius: 6px;
     padding: 8px;
+    margin: 2px;
+    background-color: #1f1f1f;
+    transition: background-color 0.2s ease;
     min-height: 150px;
     font-size: 11px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.week-day.selected {
+    box-shadow: 0 0 0 2px #f5c518;
+}
+
+.week-day.current-day {
+    border: 2px solid #48dbfb;
+    background-color: #262626;
 }
 
 .event-panel {
@@ -309,6 +338,19 @@
     font-size: 11px;
 }
 
+.add-event-btn-week {
+    width: 30%;
+    padding: 8px;
+    background: #101724;
+    color: #ebe825;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 8px;
+    font-size: 11px;
+
+}
+
 .modal-content {
     background: black;
     padding: 15px;
@@ -331,14 +373,15 @@
 }
 
 .week-event {
-    background: #ebe825;
     padding: 3px 6px;
     border-radius: 3px;
     margin-bottom: 3px;
     font-size: 15px;
-    color: black;
     text-align: center;
+    font-weight: 500;
+
 }
+
 
 @media (max-width: 768px) {
     .calendar-container {
@@ -353,4 +396,83 @@
     .event-panel {
         width: 100%;
     }
+}
+
+.priority-low {
+    /*background-color: #DBEAFE;*/
+    border-left: 4px solid #3B82F6;
+    padding-left: 5%;
+    
+}
+
+.priority-medium {
+    /*background-color: #FEF3C7;*/
+    border-left: 4px solid #F59E0B;
+    padding-left: 5%;
+    
+}
+
+.priority-high {
+    /*background-color: #FEE2E2;*/
+    border-left: 4px solid #EF4444;
+    padding-left: 5%;
+    
+}
+
+.priority-tag {
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.week-event.priority-low {
+    color: black;
+    background-color: #DBEAFE;
+    border-left: 4px solid #3B82F6;
+}
+
+.week-event.priority-medium {
+    color: black;
+    background-color: #FEF3C7;
+    border-left: 4px solid #F59E0B;
+}
+
+.week-event.priority-high {
+    color: black;
+    background-color: #FCA5A5;
+    border-left: 4px solid #EF4444;
+}
+
+.priority-legend {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 16px;
+    font-size: 11px;
+}
+
+.legend-item {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    color: black;
+}
+
+.legend-item.priority-low {
+    background-color: #DBEAFE;
+    border-left: 4px solid #3B82F6;
+}
+
+.legend-item.priority-medium {
+    background-color: #FEF3C7;
+    border-left: 4px solid #F59E0B;
+}
+
+.legend-item.priority-high {
+    background-color: #FEE2E2;
+    border-left: 4px solid #EF4444;
 }

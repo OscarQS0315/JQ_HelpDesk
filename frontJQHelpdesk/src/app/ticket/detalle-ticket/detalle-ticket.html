@@ -1,62 +1,83 @@
+<h1></h1>
 <div class="ticket-card">
-    <div class="header">
+    <app-breadcrumb-back />
+    <div class="section header">
         <img [src]="'http://localhost:3000/images/' + ticket()?.ticketCategory?.imageUrl" alt="Categoría" />
         <div>
             <h2>{{ ticket()?.title }}</h2>
+            <p><strong>Descripción:</strong> {{ ticket()?.description }}</p>
             <p class="category">{{ ticket()?.ticketCategory?.name }}</p>
         </div>
     </div>
 
-    <div class="meta">
-        <p><strong>Estado:</strong> {{ ticket()?.status }}</p>
-        <p><strong>Prioridad:</strong> {{ ticket()?.priority }}</p>
+    <div class="section user">
+        <h3>Usuario que reportó</h3>
+        <p><strong>Nombre:</strong> {{ ticket()?.user?.name }} {{ ticket()?.user?.lastName }}</p>
+        <p><strong>Email:</strong> {{ ticket()?.user?.email }}</p>
+        <!--<img [src]="'http://localhost:3000/images/' + ticket()?.user?.profileImage" alt="Usuario" />-->
+        <img [src]="'http://localhost:3000/images/image-no-found.jpg'" alt="Usuario" />
+    </div>
+
+    <div class="section meta">
+        <h3>Información general</h3>
+        <p><strong>Estado:</strong> {{ formatStatus(ticket()?.status) }}</p>
+        <p><strong>Prioridad:</strong> {{ formatPriority(ticket()?.priority) }}</p>
         <p><strong>Story Points:</strong> {{ ticket()?.storyPoints }}</p>
-        <p><strong>Asignado:</strong> {{ ticket()?.assignedAt }} ({{ ticket()?.assignedMethod }})</p>
-        <p><strong>Creado:</strong> {{ ticket()?.createdAt}}</p>
-        <p><strong>Cerrado:</strong> {{ ticket()?.closedAt}}</p>
+        <p><strong>Asignado:</strong> {{ formatDateShort(ticket()?.assignedAt) }} ({{
+            formatAssignedMethod(ticket()?.assignedMethod) }})</p>
+        <p><strong>Creado:</strong> {{ formatDateShort(ticket()?.createdAt) }}</p>
+        <p><strong>Cerrado:</strong> {{ formatDateShort(ticket()?.closedAt) }}</p>
+        <div class="progress-label">
+            {{ progressTicketBar(ticket()?.status) }}%
+        </div>
+        <div class="progress-track">
+            <div class="progress" [style.width.%]="progressTicketBar(ticket()?.status)"></div>
+        </div>
     </div>
 
-    <div class="progress-bar">
-        <div class="progress" [style.width.%]="progressTicketBar(ticket()?.status)"></div>
-    </div>
 
-    <div class="description">
-        <p><strong>Descripción:</strong> {{ ticket()?.description }}</p>
+    <div class="section description">
+        <h3>Detalles técnicos</h3>
         <p><strong>Criterio de aceptación:</strong> {{ ticket()?.aceptanceCriteria }}</p>
         <p><strong>Comentarios:</strong> {{ ticket()?.comments }}</p>
     </div>
 
-    <div class="sla">
+    <div class="section sla">
+        <h3>Indicadores SLA</h3>
         <p><strong>SLA Respuesta:</strong> {{ ticket()?.slaReply }} hrs</p>
         <p><strong>SLA Resolución:</strong> {{ ticket()?.slaResolution }} hrs</p>
         <p><strong>¿Respondido a tiempo?:</strong> {{ ticket()?.replyAchieved ? 'Sí' : 'No' }}</p>
         <p><strong>¿Resuelto a tiempo?:</strong> {{ ticket()?.resolutionAchieved ? 'Sí' : 'No' }}</p>
     </div>
 
-    <div class="technician">
-        <p><strong>Técnico asignado:</strong> {{ ticket()?.technician?.user?.name }} {{
-            ticket()?.technician?.user?.lastName }}</p>
-        <img [src]="'http://localhost:3000/images/' + ticket()?.technician?.user?.profileImage" alt="Técnico" />
+    <div class="section technician">
+        <h3>Técnico asignado</h3>
+
+        <a [routerLink]="['/Detalle', ticket()?.technician?.id]" class="tech-link">
+            <p>{{ ticket()?.technician?.user?.name }} {{ ticket()?.technician?.user?.lastName }}</p>
+            <img [src]="'http://localhost:3000/images/' + ticket()?.technician?.user?.profileImage" alt="Técnico" />
+        </a>
     </div>
 
-    <div class="history">
+
+    <div class="section history">
         <h3>Historial</h3>
         @for (h of ticket()?.ticketHistory; track h) {
         <div class="history-item">
-            <p><strong>{{ h.status }}</strong> — {{ h.changedAt }}</p>
+            <p><strong>{{ formatStatus(h.status) }}</strong> — {{ formatDateShort(h.changedAt) }}</p>
             <p>{{ h.observation }}</p>
             <!--@for (img of h.ticketImages; track img) {
-            <img [src]="'http://localhost:3000/images/' + img.imageUrl" alt="Imagen historial" />
-            }-->
+        <img [src]="'http://localhost:3000/images/' + img.imageUrl" alt="Imagen historial" />}-->
         </div>
         }
     </div>
 
     @if (ticket()?.ticketValoration) {
-    <div class="valoration">
+    <div class="section valoration">
         <h3>Valoración del usuario</h3>
         <p><strong>Calificación:</strong> {{ ticket()?.ticketValoration?.rating }}/5</p>
         <p>{{ ticket()?.ticketValoration?.comments }}</p>
     </div>
     }
+
 </div>

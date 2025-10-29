@@ -19,34 +19,39 @@
 </div>-->
 
 <div class="project-status-container">
+    <app-breadcrumb-back />
     <div class="status-card">
         <h2 class="card-title">Tickets</h2>
         <div class="phases-container">
             @for (ticket of data(); track ticket) {
-            <div class="phase-item" [attr.data-tooltip]="ticket.description">
-                <div class="icon-container">
-                    <img [src]="'http://localhost:3000/images/' + ticket.ticketCategory.imageUrl"
-                        alt="Ícono de categoría" class="category-icon" />
-                </div>
-
-                <div class="phase-details">
-                    <div class="phase-header">
-                        <h3>{{ticket.title}}</h3>
-                        <span class="percentage">{{ticketStatusString(ticket.status)}}
-                            {{progressTicketBar(ticket.status)}}%</span>
+            <a class="phase-item-link" [routerLink]="['/DetalleTicket', ticket.id]"
+                [attr.data-tooltip]="ticket.description">
+                <div class="phase-item">
+                    <div class="icon-container">
+                        <img [src]="'http://localhost:3000/images/' + ticket.ticketCategory.imageUrl"
+                            alt="Ícono de categoría" class="category-icon" />
                     </div>
-                    <div class="progress-bar">
-                        <div class="progress" [style.width.%]="progressTicketBar(ticket.status)"></div>
-                    </div>
-                    <span class="assigned-technician">
-                        {{"Técnico: "}} {{ ticket.technician?.user?.name }} {{ ticket.technician?.user?.lastName }}
-                    </span>
-                    <button class="btn-action" [routerLink]="['/DetalleTicket', ticket.id]" aria-label="View Details">
-                        <i class="fas fa-eye"></i> Ver Detalles
-                    </button>
 
+                    <div class="phase-details">
+                        <div class="phase-header">
+                            <h3>{{ ticket.title }}</h3>
+                            <span class="percentage">{{ ticketStatusString(ticket.status) }} {{
+                                progressTicketBar(ticket.status) }}%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" [style.width.%]="progressTicketBar(ticket.status)"></div>
+                        </div>
+                        <span class="assigned-technician">
+                            Técnico: {{ ticket.technician?.user?.name }} {{ ticket.technician?.user?.lastName }}
+                        </span>
+                        <button class="btn-action" aria-label="View Details">
+                            <i class="fas fa-eye"></i> Ver Detalles
+                        </button>
+                    </div>
                 </div>
-            </div>}
+            </a>
+
+            }
         </div>
     </div>
 </div>

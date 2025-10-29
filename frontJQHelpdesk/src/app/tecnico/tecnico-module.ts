@@ -6,17 +6,20 @@ import { TecnicoRoutingModule } from './tecnico-routing-module';
 import { Listado } from './listado/listado';
 import { Detalle } from './detalle/detalle';
 import { CommonModule } from '@angular/common';
-
+import { BreadcrumbBackComponent } from '../share/components/breadcrumb-back/breadcrumb-back.component';
 
 @NgModule({
   declarations: [
     Listado,
-    Detalle
+    
+    
   ],
   imports: [
     CommonModule,
     TecnicoRoutingModule,
-    FormsModule
+    FormsModule,
+    Detalle,
+    BreadcrumbBackComponent
   ]
 })
 export class TecnicoModule { }

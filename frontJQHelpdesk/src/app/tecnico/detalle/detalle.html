@@ -1,31 +1,42 @@
-<div class="contact-card" (click)="flipCard()">
-    <div class="contact-card-inner" [class.flip]="isFlipped">
-        <div class="contact-card-front">
-            <div class="profile-container">
-                <h1></h1>
-                <img [src]="'http://localhost:3000/images/' + data()?.user?.profileImage" alt="profile"
-                    class="profile-image">
-                <h2 class="name">{{ data()?.user?.name }} {{ data()?.user?.lastName }}</h2>
-                <p class="title">{{"Especialidades: "}}{{ specialitiesList() }}</p>
-                <p class="status">Estado: {{ statusLabel() }}</p>
+<div>
+    <div class="breadcrumb-wrapper">
+        <app-breadcrumb-back />
+    </div>
+    <div class="contact-card" (click)="flipCard()">
+        <h1></h1>
+        <div class="contact-card-inner" [class.flip]="isFlipped">
+            <div class="contact-card-front">
+                <div class="profile-container">
+                    <h1></h1>
+                    <img [src]="'http://localhost:3000/images/' + data()?.user?.profileImage" alt="profile"
+                        class="profile-image">
+                    <h2 class="name">{{ data()?.user?.name }} {{ data()?.user?.lastName }}</h2>
+                    <p class="title">{{"Especialidades: "}}{{ specialitiesList() }}</p>
+                    <p class="status">Estado: {{ statusLabel() }}</p>
 
-                <p class="workload">Tickets activos: {{ data()?.tickets?.length || 0 }}</p>
+                    <p class="workload">Tickets activos: {{ activeTicketsCount() }}</p>
+                </div>
+                <img src="/Images/Logo_JQHelpdesk1.png" alt="">
             </div>
-            <img src="/Images/Logo_JQHelpdesk1.png" alt="">
-        </div>
 
-        <div class="contact-card-back">
-            <div class="contact-info">
-                <h3>Contacto</h3>
-                <div class="info-item"><i class="fas fa-envelope"></i> <span>{{ data()?.user?.email }}</span></div>
-                <div class="info-item"><i class="fas fa-user-tag"></i> <span>{{ role() }}</span></div>
-                
+            <div class="contact-card-back">
+                <div class="contact-info">
+                    <h2 class="name">{{ data()?.user?.name }} {{ data()?.user?.lastName }}</h2>
+                    <p class="title">{{"Especialidades: "}}{{ specialitiesList() }}</p>
+                    <p class="status">Estado: {{ statusLabel() }}</p>
 
-                <h3>Tickets asignados</h3>
-                <div class="ticket-list" [innerHTML]="ticketHtml()"></div>
+                    <p class="workload">Tickets activos: {{ activeTicketsCount() }}</p>
+                    <h3>Contacto</h3>
+                    <div class="info-item"><i class="fas fa-envelope"></i> <span>{{ data()?.user?.email }}</span></div>
+                    <div class="info-item"><i class="fas fa-user-tag"></i> <span>{{ role() }}</span></div>
 
+
+                    <h3>Tickets asignados (activos)</h3>
+                    <div class="ticket-list" [innerHTML]="ticketHtml()"></div>
+
+                </div>
             </div>
-        </div>
 
+        </div>
     </div>
 </div>

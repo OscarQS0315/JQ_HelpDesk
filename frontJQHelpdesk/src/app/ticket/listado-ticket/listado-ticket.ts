@@ -1,26 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router'; // 👈 necesario para routerLink
-
-
-interface StatusData {
-  title: string;
-  description: string;
-  status: 'completed' | 'pending' | 'error';
-  progress: number;
-  lastUpdated: Date;
-  priority: string;
-}
+import { RouterModule } from '@angular/router';
+import { BreadcrumbBackComponent } from '../../share/components/breadcrumb-back/breadcrumb-back.component';
+import { TicketService } from '../../share/services/api/ticket.service';
+import { TicketModel } from '../../share/models/TicketModel';
+import { E_TicketStatus } from '../../share/models/enums/ticketStatus.enum';
+import { E_TicketPriority } from '../../share/models/enums/ticketPriority.enum';
 
 interface CalendarDay {
   date: Date;
   isCurrentMonth: boolean;
-}
-
-interface Event {
-  title: string;
-  time: string;
-  date: Date;
 }
 
 @Component({
@@ -28,78 +17,70 @@ interface Event {
   standalone: true,
   templateUrl: './listado-ticket.html',
   styleUrls: ['./listado-ticket.css'],
-  imports: [CommonModule, RouterModule] 
+  imports: [CommonModule, RouterModule, BreadcrumbBackComponent]
 })
 export class ListadoTicket implements OnInit {
   isExpanded = false;
-  status: StatusData = {
-    title: 'Project Deployment',
-    description: 'Current status of the project deployment pipeline',
-    status: 'completed',
-    progress: 100,
-    lastUpdated: new Date(),
-    priority: 'High'
-  };
 
-  get statusClass(): string {
-    return `status-${this.status.status}`;
-  }
+  readonly tickets = signal<TicketModel[]>([]);
+  readonly currentDate = signal(new Date());
+  readonly selectedDate = signal(new Date());
+  readonly currentView = signal<'month' | 'week'>('month');
+  readonly expandedTickets = signal(new Map<number, boolean>());
 
-  get statusIcon(): string {
-    const icons = {
-      completed: 'fa-check-circle',
-      pending: 'fa-clock',
-      error: 'fa-exclamation-circle'
-    };
-    return icons[this.status.status];
-  }
-
-  constructor() { }
-
-  toggleExpand(): void {
-    this.isExpanded = !this.isExpanded;
-  }
-
-  viewDetails(event: PointerEvent): void {
-    console.log('Viewing details...', event);
-  }
-
-  takeAction(event: PointerEvent): void {
-    console.log('Taking action...', event);
-    // Add your action logic here
-  }
-
-  weekDays: string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  weekDays: string[] = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
   calendarDays: CalendarDay[] = [];
   weekViewDays: CalendarDay[] = [];
-  currentDate: Date = new Date();
-  selectedDate: Date = new Date();
-  currentView: "month" | "week" = "month";
-  showEventModal: boolean = false;
-  events: Event[] = [];
-  newEvent: Event = {
-    title: "",
-    time: "",
-    date: new Date()
-  };
+
+  constructor(private ticketService: TicketService) { }
 
   ngOnInit() {
     this.generateCalendarDays();
     this.generateWeekViewDays();
-    this.loadSampleEvents();
+    this.ticketService.get().subscribe((response: TicketModel[]) => {
+      this.tickets.set(
+        response.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+      );
+    });
   }
 
-  loadSampleEvents() {
-    this.events = [
-      { title: "Team Meeting", time: "09:00", date: new Date(new Date().setDate(new Date().getDate() + 1)) },
-      { title: "Lunch with Client", time: "12:30", date: new Date() },
-      { title: "Lunch with Client", time: "12:30", date: new Date() }
-    ];
+  getTicketsForDate(date: Date): TicketModel[] {
+    return this.tickets().filter(ticket => {
+      const created = new Date(ticket.createdAt);
+      return created.getDate() === date.getDate() &&
+        created.getMonth() === date.getMonth() &&
+        created.getFullYear() === date.getFullYear();
+    });
+  }
+
+  getSlaRemaining(ticket: TicketModel): number {
+    const created = new Date(ticket.createdAt);
+    const now = new Date();
+    const diffDays = Math.floor((now.getTime() - created.getTime()) / (1000 * 60 * 60 * 24));
+    return Math.max(ticket.slaResolution - diffDays, 0);
+  }
+
+  toggleExpand(ticketId: number): void {
+    const current = this.expandedTickets();
+    const updated = new Map(current);
+    updated.set(ticketId, !current.get(ticketId));
+    this.expandedTickets.set(updated);
+  }
+
+  isTicketExpanded(ticketId: number): boolean {
+    return this.expandedTickets().get(ticketId) ?? false;
+  }
+
+  viewDetails(ticketId: number): void {
+    console.log('Viewing details...', ticketId);
+  }
+
+  takeAction(ticketId: number): void {
+    console.log('Taking action...', ticketId);
   }
 
   generateCalendarDays() {
-    const firstDayOfMonth = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
-    const lastDayOfMonth = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0);
+    const firstDayOfMonth = new Date(this.currentDate().getFullYear(), this.currentDate().getMonth(), 1);
     const startDate = new Date(firstDayOfMonth);
     startDate.setDate(startDate.getDate() - startDate.getDay());
 
@@ -109,14 +90,14 @@ export class ListadoTicket implements OnInit {
       date.setDate(date.getDate() + i);
       this.calendarDays.push({
         date: date,
-        isCurrentMonth: date.getMonth() === this.currentDate.getMonth()
+        isCurrentMonth: date.getMonth() === this.currentDate().getMonth()
       });
     }
   }
 
   generateWeekViewDays() {
-    const startOfWeek = new Date(this.currentDate);
-    startOfWeek.setDate(this.currentDate.getDate() - this.currentDate.getDay());
+    const startOfWeek = new Date(this.currentDate());
+    startOfWeek.setDate(this.currentDate().getDate() - this.currentDate().getDay());
 
     this.weekViewDays = [];
     for (let i = 0; i < 7; i++) {
@@ -124,37 +105,37 @@ export class ListadoTicket implements OnInit {
       date.setDate(date.getDate() + i);
       this.weekViewDays.push({
         date: date,
-        isCurrentMonth: date.getMonth() === this.currentDate.getMonth()
+        isCurrentMonth: date.getMonth() === this.currentDate().getMonth()
       });
     }
   }
 
   previousView() {
-    if (this.currentView === "month") {
-      this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+    if (this.currentView() === "month") {
+      this.currentDate().setMonth(this.currentDate().getMonth() - 1);
     } else {
-      this.currentDate.setDate(this.currentDate.getDate() - 7);
+      this.currentDate().setDate(this.currentDate().getDate() - 7);
     }
     this.updateView();
   }
 
   nextView() {
-    if (this.currentView === "month") {
-      this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+    if (this.currentView() === "month") {
+      this.currentDate().setMonth(this.currentDate().getMonth() + 1);
     } else {
-      this.currentDate.setDate(this.currentDate.getDate() + 7);
+      this.currentDate().setDate(this.currentDate().getDate() + 7);
     }
     this.updateView();
   }
 
   goToToday() {
-    this.currentDate = new Date();
-    this.selectedDate = new Date();
+    this.currentDate.set(new Date());
+    this.selectedDate.set(new Date());
     this.updateView();
   }
 
   updateView() {
-    if (this.currentView === "month") {
+    if (this.currentView() === "month") {
       this.generateCalendarDays();
     } else {
       this.generateWeekViewDays();
@@ -162,12 +143,12 @@ export class ListadoTicket implements OnInit {
   }
 
   switchView(view: "month" | "week") {
-    this.currentView = view;
+    this.currentView.set(view);
     this.updateView();
   }
 
   selectDate(date: Date) {
-    this.selectedDate = date;
+    this.selectedDate.set(date);
   }
 
   isCurrentDay(date: Date): boolean {
@@ -178,40 +159,38 @@ export class ListadoTicket implements OnInit {
   }
 
   isSelectedDate(date: Date): boolean {
-    return date.getDate() === this.selectedDate.getDate() &&
-      date.getMonth() === this.selectedDate.getMonth() &&
-      date.getFullYear() === this.selectedDate.getFullYear();
+    return date.getDate() === this.selectedDate().getDate() &&
+      date.getMonth() === this.selectedDate().getMonth() &&
+      date.getFullYear() === this.selectedDate().getFullYear();
   }
 
-  getEventsForDate(date: Date): Event[] {
-    return this.events.filter(event =>
-      event.date.getDate() === date.getDate() &&
-      event.date.getMonth() === date.getMonth() &&
-      event.date.getFullYear() === date.getFullYear()
-    );
+  getPriorityLabel(priority: E_TicketPriority): string {
+    switch (priority) {
+      case E_TicketPriority.LOW:
+        return 'Baja';
+      case E_TicketPriority.MEDIUM:
+        return 'Media';
+      case E_TicketPriority.HIGH:
+        return 'Alta';
+      default:
+        return 'Desconocida';
+    }
   }
-
-  get selectedDateEvents(): Event[] {
-    return this.getEventsForDate(this.selectedDate);
-  }
-
-  addNewEvent() {
-    this.newEvent = {
-      title: "",
-      time: "",
-      date: this.selectedDate
-    };
-    this.showEventModal = true;
-  }
-
-  saveEvent() {
-    if (this.newEvent.title && this.newEvent.time) {
-      this.events.push({ ...this.newEvent });
-      this.closeModal();
+  getStatusLabel(status: E_TicketStatus): string {
+    switch (status) {
+      case E_TicketStatus.PENDING:
+        return 'Pendiente';
+      case E_TicketStatus.ASSIGNED:
+        return 'Asignado';
+      case E_TicketStatus.IN_PROGRESS:
+        return 'En progreso';
+      case E_TicketStatus.RESOLVED:
+        return 'Resuelto';
+      case E_TicketStatus.CLOSED:
+        return 'Cerrado';
+      default:
+        return 'Desconocido';
     }
   }
 
-  closeModal() {
-    this.showEventModal = false;
-  }
 }

@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { TicketCategoryModel } from "../../share/models/TicketCategoryModel";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TicketCategoryService } from "../../share/services/api/ticketCategory.service";
-
+import { BreadcrumbBackComponent } from "../../share/components/breadcrumb-back/breadcrumb-back.component";
 interface PlanDetails {
   name: string;
   price: number;
@@ -15,7 +15,8 @@ interface PlanDetails {
   selector: "app-current-plan-details",
   templateUrl: "./detalle-categoria.html",
   styleUrls: ["./detalle-categoria.css"],
-  standalone: false,
+  standalone: true,
+  imports:[BreadcrumbBackComponent]
 })
 export class DetalleCategoria implements OnInit {
 

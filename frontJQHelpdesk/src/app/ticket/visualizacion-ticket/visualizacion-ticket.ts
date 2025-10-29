@@ -6,20 +6,20 @@ import { TicketService } from '../../share/services/api/ticket.service';
 import { UserService } from '../../share/services/api/user.service';
 import { UserModel } from '../../share/models/UserModel';
 import { RouterModule } from '@angular/router';
-
+import { BreadcrumbBackComponent } from '../../share/components/breadcrumb-back/breadcrumb-back.component';
 
 @Component({
   selector: 'app-status-card',
   standalone: true,
   templateUrl: './visualizacion-ticket.html',
   styleUrls: ['./visualizacion-ticket.css'],
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule, RouterModule, BreadcrumbBackComponent]
 })
 
 
 export class VisualizacionTicket implements OnInit {
 
-  authUser = 2;
+  authUser = 1;
   data = signal<TicketModel[]>([]);
 
   constructor(

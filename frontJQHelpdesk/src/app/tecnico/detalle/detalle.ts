@@ -7,12 +7,14 @@ import { ActivatedRoute } from "@angular/router";
 import { computed } from '@angular/core';
 import { E_TechnicianStatus } from "../../share/models/enums/technicianStatus.enum";
 import { E_Role } from "../../share/models/enums/role.enum";
+import { BreadcrumbBackComponent } from "../../share/components/breadcrumb-back/breadcrumb-back.component";
 
 @Component({
   selector: "app-contact-card",
-  standalone: false,
+  standalone: true,
   templateUrl: "./detalle.html",
-  styleUrls: ["./detalle.css"]
+  styleUrls: ["./detalle.css"],
+  imports:[BreadcrumbBackComponent]
 })
 export class Detalle implements OnInit {
 
@@ -86,7 +88,13 @@ readonly role = computed(() => {
     this.data()?.specialities?.map(s => s.name).join(', ') || ''
   );
 
-
+  activeTicketsCount(): number {
+    const tickets = this.data()?.tickets || [];
+    return tickets.filter(ticket =>
+      ticket.status !== 'RESOLVED' && ticket.status !== 'CLOSED'
+    ).length;
+  }
+  
   isFlipped: boolean = false;
 
   flipCard(): void {

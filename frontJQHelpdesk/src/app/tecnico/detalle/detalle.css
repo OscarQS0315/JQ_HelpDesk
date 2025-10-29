@@ -1,29 +1,28 @@
 .contact-card {
     width: 500px;
     height: 700px;
-    perspective: 1000px;
+    perspective: 1200px;
     position: absolute;
-    top: 12%;
-    left: 40%;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
     cursor: pointer;
-
+    z-index: 10;
 }
 
 .contact-card-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    text-align: center;
-    transition: transform 0.8s;
+    transition: transform 0.8s ease;
     transform-style: preserve-3d;
-
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .contact-card-inner.flip {
     transform: rotateY(180deg);
 }
-
-
 
 .contact-card-front,
 .contact-card-back {
@@ -32,135 +31,54 @@
     height: 100%;
     backface-visibility: hidden;
     border-radius: 15px;
-    padding: 20px;
+    padding: 24px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background: linear-gradient(135deg, #030303, #ebe825);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .contact-card-front {
-    color: #FFFFFF;
-    text-align: left;
+    color: #fff;
+    text-align: center;
 }
 
 .contact-card-back {
     transform: rotateY(180deg);
     background: linear-gradient(135deg, #ebe825, #030303);
+    color: #fff;
+    overflow-y: auto;
 }
 
 .profile-container {
-    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
 }
 
 .profile-image {
-    width: 190px;
-    height: 190px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
     border: 4px solid #fff;
+    object-fit: cover;
     margin-bottom: 15px;
-    margin-left: 135px;
-    margin-top: -25px;
 }
 
 .name {
-    color: #fff;
-    font-size: 24px;
-    margin: 0;
-    margin-bottom: 5px;
-    margin-left: 180px;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 8px;
 }
 
-.title {
-    color: #ecf0f1;
+.title,
+.status,
+.workload {
     font-size: 16px;
-    margin: 0;
+    margin-bottom: 6px;
     opacity: 0.9;
-    margin-left: 160px;
-}
-
-.social-links {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 30px;
-}
-
-.social-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: #fff;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.social-link:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-}
-
-.contact-info {
-    color: #fff;
-    text-align: left;
-    padding: 20px;
-}
-
-.contact-info h3 {
-    margin-bottom: 20px;
-    font-size: 20px;
-}
-
-.info-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
-    font-size: 16px;
-}
-
-.info-item i {
-    width: 20px;
-}
-
-img {
-    margin-top: -100px;
-}
-
-@media (max-width: 400px) {
-    .contact-card {
-        width: 290px;
-        height: 350px;
-    }
-
-    .name {
-        font-size: 20px;
-    }
-
-    .title {
-        font-size: 14px;
-    }
-}
-
-.status span.available {
-    color: #2ecc71;
-    font-weight: bold;
-}
-
-.ticket-item {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    color: #fff;
-}
-
-.status {
-    font-weight: bold;
-    color: #fff;
 }
 
 .status.disponible {
@@ -169,4 +87,99 @@ img {
 
 .status.ocupado {
     color: #e74c3c;
+}
+
+.contact-info {
+    padding: 12px;
+}
+
+.contact-info h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 4px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.info-item i {
+    width: 20px;
+    text-align: center;
+}
+
+.ticket-list {
+    margin-top: 12px;
+}
+
+.ticket-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+}
+
+img[src="/Images/Logo_JQHelpdesk1.png"] {
+    width: 120px;
+    margin: 0 auto;
+    margin-bottom: 12px;
+}
+
+@media (max-width: 600px) {
+    .contact-card {
+        width: 90%;
+        height: 600px;
+        top: 5%;
+    }
+
+    .profile-image {
+        width: 120px;
+        height: 120px;
+    }
+
+    .name {
+        font-size: 22px;
+    }
+
+    .title,
+    .status,
+    .workload {
+        font-size: 14px;
+    }
+
+    .contact-info h3 {
+        font-size: 18px;
+    }
+
+    .info-item {
+        font-size: 14px;
+    }
+}
+
+.breadcrumb-wrapper {
+    
+    z-index: 2;
+    display: block;
+    padding: 8px;
+    min-height: 40px;
+    margin-top: 2%;
+    margin-left: 5%;
+}
+
+.breadcrumb-back {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 14px;
+    background: transparent;
+    color: #ebe825;
+    border: none;
+    z-index: 10;
+    position: relative;
 }
