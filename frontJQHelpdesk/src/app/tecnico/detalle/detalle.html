@@ -1,8 +1,28 @@
+<div class="timeline-container">
+    <h1>Tickets Abiertos ({{ activeTicketsCount() }})</h1>
+    <div class="timeline">
+        @for(ticket of ticketsOpen(); track ticket){
+        <ng-container>
+            <div class="timeline-item">
+                <div class="timeline-icon">
+                    <i class="fas"></i>
+                </div>
+                <div class="timeline-content" (click)="$event.stopPropagation()"
+                    [routerLink]="['/DetalleTicket', ticket.id]" aria-label="Ver detalles">
+                    <h3 class="timeline-title">{{ ticket.title }}</h3>
+                    <p class="timeline-description">{{ ticket.description }}</p>
+                </div>
+            </div>
+        </ng-container>
+        }
+    </div>
+</div>
+
 <div>
     <div class="breadcrumb-wrapper">
         <app-breadcrumb-back />
     </div>
-    <div class="contact-card" (click)="flipCard()">
+    <div class="contact-card">
         <h1></h1>
         <div class="contact-card-inner" [class.flip]="isFlipped">
             <div class="contact-card-front">
@@ -11,32 +31,22 @@
                     <img [src]="'http://localhost:3000/images/' + data()?.user?.profileImage" alt="profile"
                         class="profile-image">
                     <h2 class="name">{{ data()?.user?.name }} {{ data()?.user?.lastName }}</h2>
-                    <p class="title">{{"Especialidades: "}}{{ specialitiesList() }}</p>
-                    <p class="status">Estado: {{ statusLabel() }}</p>
 
-                    <p class="workload">Tickets activos: {{ activeTicketsCount() }}</p>
-                </div>
-                <img src="/Images/Logo_JQHelpdesk1.png" alt="">
-            </div>
-
-            <div class="contact-card-back">
-                <div class="contact-info">
-                    <h2 class="name">{{ data()?.user?.name }} {{ data()?.user?.lastName }}</h2>
-                    <p class="title">{{"Especialidades: "}}{{ specialitiesList() }}</p>
-                    <p class="status">Estado: {{ statusLabel() }}</p>
-
-                    <p class="workload">Tickets activos: {{ activeTicketsCount() }}</p>
-                    <h3>Contacto</h3>
-                    <div class="info-item"><i class="fas fa-envelope"></i> <span>{{ data()?.user?.email }}</span></div>
-                    <div class="info-item"><i class="fas fa-user-tag"></i> <span>{{ role() }}</span></div>
-
-
-                    <h3>Tickets asignados (activos)</h3>
-                    <div class="ticket-list" [innerHTML]="ticketHtml()"></div>
-
+                    <div class="section">
+                        <h3>Especialidades</h3>
+                        @for(specialist of specialitiesList(); track specialist){
+                        <div class="roles-container">
+                            <span class="role-tag">{{specialist.name}}</span>
+                        </div>
+                        }
+                        <h4>Contacto</h4>
+                        <h5>{{ data()?.user?.email }}</h5>
+                        <h4>Estado</h4>
+                        <h5>{{ statusLabel() }}</h5>
+                    </div>
+                    <img src="/Images/Logo_JQHelpdesk1.png" alt="">
                 </div>
             </div>
-
         </div>
     </div>
 </div>

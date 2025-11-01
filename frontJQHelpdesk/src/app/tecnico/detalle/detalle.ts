@@ -2,7 +2,7 @@ import { Component, Input, OnInit, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { TechnicianModel } from "../../share/models/TechnicianModel";
 import { TechnicianService } from "../../share/services/api/technician.service";
-import { Router } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { ActivatedRoute } from "@angular/router";
 import { computed } from '@angular/core';
 import { E_TechnicianStatus } from "../../share/models/enums/technicianStatus.enum";
@@ -14,7 +14,7 @@ import { BreadcrumbBackComponent } from "../../share/components/breadcrumb-back/
   standalone: true,
   templateUrl: "./detalle.html",
   styleUrls: ["./detalle.css"],
-  imports:[BreadcrumbBackComponent]
+  imports: [BreadcrumbBackComponent, RouterLink]
 })
 export class Detalle implements OnInit {
 
@@ -52,18 +52,12 @@ formatDate(date: string | null): string {
     minute: '2-digit'
   });
 }
-readonly ticketHtml = computed(() => {
+
+readonly ticketsOpen = computed(() => {
   const tickets = this.data()?.tickets ?? [];
-  const abiertos = tickets.filter(ticket =>
+  return tickets.filter(ticket =>
     ticket.status !== 'RESOLVED' && ticket.status !== 'CLOSED'
   );
-
-  return abiertos.map(ticket => `
-    <div class="ticket-item">
-      <h4>${ticket.title}</h4>
-      <p>${ticket.description}</p>
-    </div>
-  `).join('');
 });
 
 readonly statusLabel = computed(() => {
@@ -84,9 +78,13 @@ readonly role = computed(() => {
     : 'Usuario';
 })
 
+  //readonly specialitiesList = computed(() =>
+    //this.data()?.specialities?.map(s => s.name).join(', ') || ''
+  //);
+
   readonly specialitiesList = computed(() =>
-    this.data()?.specialities?.map(s => s.name).join(', ') || ''
-  );
+  this.data()?.specialities ?? []
+);
 
   activeTicketsCount(): number {
     const tickets = this.data()?.tickets || [];
