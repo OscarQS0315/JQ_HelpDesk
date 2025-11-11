@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Listado } from './listado/listado';
 import { Detalle } from './detalle/detalle';
+import { CreateUpdateTecnico } from './create-update-tecnico/create-update-tecnico';
 
 const routes: Routes = [
   {path:'Listado', component: Listado},
-  {path:'Detalle/:id', component: Detalle}
+  {path:'Detalle/:id', component: Detalle},
+  {path:'Crear-UpdateTecnico', component: CreateUpdateTecnico}
 ];
 
 @NgModule({

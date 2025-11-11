@@ -39,6 +39,10 @@
                             <span class="role-tag">{{specialist.name}}</span>
                         </div>
                         }
+                        <div class="roles-container">
+                            <span class="role-tag" (click)="$event.stopPropagation()"
+                    [routerLink]="['/Crear-UpdateTecnico']">Actualizar Técnico</span>
+                        </div>
                         <h4>Contacto</h4>
                         <h5>{{ data()?.user?.email }}</h5>
                         <h4>Estado</h4>
@@ -46,6 +50,7 @@
                     </div>
                     <img src="/Images/Logo_JQHelpdesk1.png" alt="">
                 </div>
+                
             </div>
         </div>
     </div>

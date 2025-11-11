@@ -1,0 +1,154 @@
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="registration-form">
+    <div class="avatar-container">
+        <div class="avatar-wrapper" (click)="fileInput.click()">
+            <div class="avatar">
+                @if(!imagePreview){<i class="fas fa-user"></i>}
+            </div>
+            <img [src]="imagePreview" alt="User avatar" class="avatar-image">
+            @if(imagePreview){<div class="edit-overlay">
+                <i class="fas fa-pencil-alt"></i>
+            </div>}
+        </div>
+        <input #fileInput type="file" (change)="onFileChange($event)" accept=".png,.jpg,.jpeg" style="display: none">
+    </div>
+
+    <div class="form-grid">
+        <div class="form-group">
+            <label>Username <span class="required">*</span></label>
+            <input type="text" formControlName="username" [readonly]="isEditMode">
+            <div class="error">
+                @if(registrationForm.get('username')?.touched && registrationForm.get('username')?.errors){
+                @if(registrationForm.get('username')?.errors?.['required']){<span>Username is required</span>}
+                @if(registrationForm.get('username')?.errors?.['maxlength']){<span>Maximum 20 characters allowed</span>}
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Nombre<span class="required">*</span></label>
+            <input type="text" formControlName="firstName">
+            @if(registrationForm.get('firstName')?.touched && registrationForm.get('firstName')?.errors){
+            <div class="error">
+                @if(registrationForm.get('firstName')?.errors?.['required']){<span>El nombre es requerido</span>}
+            </div>
+            }
+
+        </div>
+
+        <div class="form-group">
+            <label>Apellido</label>
+            <input type="text" formControlName="lastName">
+        </div>
+
+        <div class="form-group">
+            <label>Género</label>
+            <div class="radio-group">
+                <label><input type="radio" formControlName="gender" value="male"> Masculino</label>
+                <label><input type="radio" formControlName="gender" value="female"> Femenino</label>
+                <label><input type="radio" formControlName="gender" value="transgender"> Otro</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Fecha de Nacimiento</label>
+            <input type="date" formControlName="dob" [max]="maxDate">
+        </div>
+
+        <div class="form-group">
+            <label>Email <span class="required">*</span></label>
+            <input type="email" formControlName="email">
+            @if(registrationForm.get('email')?.touched && registrationForm.get('email')?.errors){
+            <div class="error">
+                @if(registrationForm.get('email')?.errors?.['required']){<span>Email es requerido</span>}
+                @if(registrationForm.get('email')?.errors?.['email']){<span>Formato de email inválido</span>}
+            </div>}
+        </div>
+
+        <div class="form-group">
+            <label>País <span class="required">*</span></label>
+            <select formControlName="country" (change)="onCountryChange()">
+                <option value="">Seleccionar País</option>
+                @for(country of countries; track country){
+                <option [value]="country.code">{{country.name}}</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Dirección<span class="required">*</span></label>
+            <input type="text" formControlName="address1">
+            @if(registrationForm.get('address1')?.touched && registrationForm.get('address1')?.errors?.['required']){
+            <div class="error">
+                Address is required
+            </div>
+            }
+        </div>
+
+        <div class="form-group mobile-group">
+            <label>Número de Teléfono <span class="required">*</span></label>
+            <div class="mobile-input">
+                <select formControlName="countryCode">
+                    <option value="+506">+506</option>
+                </select>
+                <input type="text" formControlName="mobile" maxlength="10">
+            </div>
+            @if(registrationForm.get('mobile')?.touched && registrationForm.get('mobile')?.errors){
+            <div class="error">
+                @if(registrationForm.get('mobile')?.errors?.['required']){<span>Número de teléfono es requerido</span>}
+                @if(registrationForm.get('mobile')?.errors?.['pattern']){<span>Número de teléfono inválido</span>}
+            </div>
+            }
+
+        </div>
+
+
+
+        <div class="form-group">
+            <label>Especialidades <span class="required">*</span></label>
+            <select formControlName="country" (change)="onCountryChange()">
+                <option value="">Seleccionar Especialidades</option>
+                @for(country of countries; track country){
+                <option [value]="country.code">{{country.name}}</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group password-group">
+            <label>Contraseña <span class="required">*</span></label>
+            <div class="password-input">
+                <input [type]="showPassword ? 'text' : 'password'" formControlName="password">
+                <button type="button" (click)="togglePassword()" class="toggle-password">
+                    <i class="fas" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+                </button>
+            </div>
+            @if(registrationForm.get('password')?.value){<div class="password-strength">
+                <div [class]="getPasswordStrengthClass()"></div>
+            </div>}
+        </div>
+
+        <div class="form-group">
+            <label>Confirmar Contraseña <span class="required">*</span></label>
+            <input type="password" formControlName="confirmPassword">
+            @if(registrationForm.errors?.['passwordMismatch']){<div class="error">
+                Las contraseñas no coinciden
+            </div>}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Foto de Perfil</label>
+        <div class="image-upload">
+            <input type="file" (change)="onFileChange($event)" accept=".png,.jpg,.jpeg">
+            @if(imagePreview){
+            <div class="preview">
+                <img [src]="imagePreview" alt="Preview">
+            </div>}
+            @if(!imagePreview){<div class="initials">{{userInitials}}</div>}
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" [disabled]="!registrationForm.valid || isSubmitting">Register</button>
+        <button type="button" (click)="resetForm()">Reset</button>
+    </div>
+</form>

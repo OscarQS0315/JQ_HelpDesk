@@ -1,9 +1,9 @@
 .contact-card {
     width: 500px;
-    height: 700px;
+    height: 720px;
     perspective: 1200px;
     position: absolute;
-    top: 10%;
+    top: 9%;
     left: 75%;
     transform: translateX(-50%);
     cursor: pointer;
@@ -55,7 +55,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
 }
 
 .profile-image {
@@ -369,17 +369,17 @@ img[src="/Images/Logo_JQHelpdesk1.png"] {
 .description {
     color: white;
     font-size: 1.1rem;
-    
+
 }
 
 .details {
     flex: 2;
-    
+
 }
 
 .section {
     margin-bottom: 1.5rem;
-    
+
 }
 
 .section h3 {
@@ -392,16 +392,16 @@ img[src="/Images/Logo_JQHelpdesk1.png"] {
 }
 
 .section h4 {
-   margin-right: 200px;
-   color: #000000;
-   
+    margin-right: 200px;
+    color: #000000;
+
 }
 
 .section h5 {
-   margin-right: 200px;
-   color:white;
-   margin-top: -10px;
-   border-bottom: 2px solid #e0e0e0;
+    margin-right: 200px;
+    color: white;
+    margin-top: -10px;
+    border-bottom: 2px solid #e0e0e0;
 }
 
 .roles-container {
@@ -494,6 +494,7 @@ img[src="/Images/Logo_JQHelpdesk1.png"] {
     border-color: #3498db;
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
+
 
 @media (max-width: 768px) {
     .profile-container {
