@@ -12,6 +12,8 @@ import { AppRoutingModule } from './app-routing-module';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgxSonnerToaster } from 'ngx-sonner';
 import { HttpErrorInterceptorService } from './share/interceptor/http-error-interceptor.service';
+import { BreadcrumbBackComponent } from './share/components/breadcrumb-back/breadcrumb-back.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 registerLocaleData(localeEs);
@@ -26,6 +28,9 @@ registerLocaleData(localeEs);
     ShareModule,
     HomeModule,
     AppRoutingModule,
+    BreadcrumbBackComponent,
+    FormsModule,
+    ReactiveFormsModule
 
   ],
   providers: [

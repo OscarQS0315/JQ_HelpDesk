@@ -1,0 +1,156 @@
+<div class="stepper-container" role="navigation" aria-label="Progress Steps">
+    <div class="steps-wrapper">
+        @for(step of steps; track step; let i = $index){
+        <div class="step" [class.active]="currentStep === i" [class.completed]="currentStep > i" role="button"
+            tabindex="0" (click)="goToStep(i)" [attr.aria-label]="'Step ' + (i + 1) + ': ' + step.label"
+            [attr.aria-current]="currentStep === i ? 'step' : null">
+
+            <div class="step-indicator">
+                <div class="circle">
+                    @if(currentStep <= i){ <span>{{ i + 1 }}</span>
+                        }
+                        @if(currentStep > i){
+                        <span class="check-icon">✓</span>
+                        }
+                </div>
+
+                @if(i !== steps.length - 1){
+                <div class="connector"></div>
+                }
+            </div>
+
+            <div class="step-label">{{ step.label }}</div>
+        </div>
+        }
+    </div>
+
+    <div class="navigation-buttons">
+        <button class="nav-button" (click)="previousStep()" [disabled]="currentStep === 0">Anterior</button>
+        <button class="nav-button" (click)="nextStep()" [disabled]="currentStep === steps.length - 1">Siguiente</button>
+    </div>
+</div>
+
+<div class="profile-container">
+    <form (ngSubmit)="onSubmit()">
+        <div class="profile-grid">
+
+            <div class="profile-info">
+                <h2>Ticket</h2>
+
+                <div class="form-group">
+                    <label for="fullName">Título</label>
+                    <input type="text" id="fullName" formControlName="titulo" placeholder="Ingrese un título">
+
+                    @if(profileForm.get('titulo')?.touched && profileForm.get('titulo')?.invalid){
+                    <div class="error">
+                        @if(profileForm.get('titulo')?.errors?.['required']){
+                        <span>El título es obligatorio</span>
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    <textarea id="descripcion" formControlName="descripcion"
+                        placeholder="Ingrese una descripción"></textarea>
+
+                    @if(profileForm.get('descripcion')?.touched && profileForm.get('descripcion')?.invalid){
+                    <div class="error">
+                        @if(profileForm.get('descripcion')?.errors?.['required']){
+                        <span>La descripción es obligatoria</span>
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="Fecha">Fecha de creación</label>
+                    <input type="date" id="Fecha" formControlName="Fecha">
+
+                    @if(profileForm.get('Fecha')?.touched && profileForm.get('Fecha')?.invalid){
+                    <div class="error">
+                        @if(profileForm.get('Fecha')?.errors?.['required']){
+                        <span>La fecha de creación es obligatoria</span>
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label>Prioridad</label>
+                    <div class="radio-group">
+                        <label><input type="radio" formControlName="prioridad" value="baja"> Baja</label>
+                        <label><input type="radio" formControlName="prioridad" value="media"> Media</label>
+                        <label><input type="radio" formControlName="prioridad" value="alta"> Alta</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Categorías <span class="required">*</span></label>
+                    <select formControlName="country">
+                        <option value="">Seleccionar País</option>
+                        <option [value]>categoría</option>
+                    </select>
+                </div>
+
+                <div class="completion-indicator">
+                    <div class="progress-bar" [style.width.%]="completionPercentage">
+                        <span>{{ completionPercentage }}% Complete</span>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" [disabled]="!profileForm.valid || isLoading">Crear Ticket</button>
+                    <button type="button" (click)="resetForm()" class="reset-btn">Limpiar campos</button>
+                </div>
+            </div>
+
+
+            <!-- PROFILE IMAGE -->
+            <div class="profile-image">
+                <h2>Imagen</h2>
+
+                <div class="image-upload-container" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
+                    (drop)="onDrop($event)">
+
+                    @if(imagePreview){
+                    <div class="image-preview circular-preview">
+                        <img [src]="imagePreview" alt="Profile preview">
+                    </div>
+                    }
+
+                    @if(!imagePreview){
+                    <div class="upload-placeholder circular-preview">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & Drop or Click to Upload</p>
+                        <span class="file-info">Max size: 5MB (JPEG, PNG, WebP)</span>
+                    </div>
+                    }
+
+                    <input type="file" #fileInput (change)="onFileSelected($event)"
+                        accept="image/jpeg,image/png,image/webp" style="display: none">
+
+                    <button type="button" (click)="fileInput.click()" class="upload-btn">Seleccionar imagen</button>
+                </div>
+
+                @if(imageError){
+                <div class="error">{{ imageError }}</div>
+                }
+
+                <div class="additional-fields">
+                    <div class="form-group">
+                        <label for="bio">Usuario</label>
+                        <textarea id="bio" formControlName="bio" rows="3" placeholder="Usuario"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@if(notification.show){
+<div class="notification" [@notificationAnimation]>
+    {{ notification.message }}
+</div>
+}

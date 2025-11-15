@@ -10,6 +10,7 @@ import { ListadoTicket } from './ticket/listado-ticket/listado-ticket';
 import { DetalleTicket } from './ticket/detalle-ticket/detalle-ticket';
 import { VisualizacionTicket } from './ticket/visualizacion-ticket/visualizacion-ticket';
 import { CreateUpdateTecnico } from './tecnico/create-update-tecnico/create-update-tecnico';
+import { CreateUpdateTicket } from './ticket/create-update-ticket/create-update-ticket';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
 {path:'DetalleTicket/:id', component: DetalleTicket},
 {path:'VisualizacionTicket', component: VisualizacionTicket},
 {path:'Crear-UpdateTecnico', component: CreateUpdateTecnico},
+{path:'CreateUpdateTicket', component: CreateUpdateTicket},
 { path: '', redirectTo: '/inicio', pathMatch: 'full' },
 { path: '**', component: PageNotFound }
 

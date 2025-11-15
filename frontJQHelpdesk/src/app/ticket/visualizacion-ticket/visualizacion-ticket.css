@@ -1,3 +1,8 @@
+h2:hover {
+    color: #f5c518;
+    cursor: pointer;
+}
+
 .project-status-container {
     padding: 20px;
     font-family: "Arial", sans-serif;

@@ -9,9 +9,9 @@ import { A11yModule } from "@angular/cdk/a11y";
 import { VisualizacionTicket } from './visualizacion-ticket/visualizacion-ticket';
 
 
+
 @NgModule({
   declarations: [
-    
   ],
   imports: [
     CommonModule,
@@ -21,6 +21,8 @@ import { VisualizacionTicket } from './visualizacion-ticket/visualizacion-ticket
     ListadoTicket,
     DetalleTicket,
     VisualizacionTicket
-]
+],
+  exports: [
+  ]
 })
 export class TicketModule { }
