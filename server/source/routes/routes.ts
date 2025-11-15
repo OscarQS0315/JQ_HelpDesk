@@ -3,6 +3,8 @@ import {UserRoutes} from './user.routes';
 import { TechnicianRoutes } from './technician.routes';
 import { TicketCategoryRoutes } from './tickectCategory.routes';
 import { TicketRoutes } from './ticket.routes';
+import { SpecialityRoutes } from './speciality.routes';
+import { EtiquetteRoutes } from './etiquette.routes';
 export class AppRoutes{
     static get routes(): Router{
         const router = Router();
@@ -11,8 +13,9 @@ export class AppRoutes{
         router.use('/technician', TechnicianRoutes.routes);
         router.use('/ticket-category', TicketCategoryRoutes.routes);
         router.use('/ticket', TicketRoutes.routes);
+        router.use('/speciality', SpecialityRoutes.routes);
+        router.use('/etiquette', EtiquetteRoutes.routes);
         return router;
     }
-
 }
     
