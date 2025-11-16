@@ -5,64 +5,28 @@ import { Router, RouterModule } from "@angular/router";
 import { BreadcrumbBackComponent } from "../../share/components/breadcrumb-back/breadcrumb-back.component";
 import { TicketCategoryModel } from "../../share/models/TicketCategoryModel";
 import { TicketCategoryService } from "../../share/services/api/ticketCategory.service";
+import { SpecialityAreaModel } from "../../share/models/SpecialityAreaModel";
+import { CategoryEtiquetteModel } from "../../share/models/CategoryEtiquetteModel";
+import { SpecialityService } from "../../share/services/api/Speciality.service";
+import { etiquetteService } from "../../share/services/api/etiquette.service";
 
-
-
-interface Step {
-  label: string;
-  completed: boolean;
-}
-
-interface Category {
-  id: number;
-  name: string;
-  parentCategory?: string;
-  parentId?: number;
-  description: string;
-  icon: string;
-}
 
 @Component({
   selector: "app-stepper",
   standalone: true,
-  templateUrl: "./create-update-ticket.html",
-  styleUrls: ["./create-update-ticket.css"],
-  imports: [CommonModule, RouterModule, BreadcrumbBackComponent,FormsModule, ReactiveFormsModule]
+  templateUrl: "./create-update-categoria.html",
+  styleUrls: ["./create-update-categoria.css"],
+  imports: [CommonModule, RouterModule, BreadcrumbBackComponent, FormsModule, ReactiveFormsModule]
 })
-export class CreateUpdateTicket {
+export class CreateUpdateCategoria {
+  dataSpeciality = signal<SpecialityAreaModel[]>([]);
+  selectedItemSpeciality: SpecialityAreaModel | null = null;
+  dataEtiquette = signal<CategoryEtiquetteModel[]>([]);
+  selectedItemEtiquette: CategoryEtiquetteModel | null = null;
+  searchQuerySpeciality = signal('');
+  searchQueryEtiquette = signal('');
+  today = new Date().toISOString().split('T')[0]; // yyyy-mm-dd
 
-  data = signal<TicketCategoryModel[]>([]);
-  selectedItem: TicketCategoryModel | null = null;
- searchQuery = signal('');
- today = new Date().toISOString().split('T')[0]; // yyyy-mm-dd
- 
-  steps: Step[] = [
-    { label: "Pendiente", completed: false },
-    { label: "En progreso", completed: false },
-    { label: "Completado", completed: false },
-    { label: "Confirmación", completed: false }
-  ];
-
-  currentStep = 0;
-
-  goToStep(index: number): void {
-    if (index <= this.currentStep || this.steps[index - 1]?.completed) {
-      this.currentStep = index;
-    }
-  }
-
-  nextStep(): void {
-    if (this.currentStep < this.steps.length - 1) {
-      this.steps[this.currentStep].completed = true;
-      this.currentStep++;
-    }
-  }
-
-  previousStep(): void {
-    if (this.currentStep > 0) {
-      this.currentStep--;
-    }
-  }
 
   @ViewChild("fileInput") fileInput!: ElementRef;
 
@@ -74,33 +38,33 @@ export class CreateUpdateTicket {
   notification = { show: false, message: "" };
 
   constructor(private fb: FormBuilder, private router: Router,
-    private TCService: TicketCategoryService) { }
+    private SPService: SpecialityService,
+    private ETService: etiquetteService) { }
 
   ngOnInit() {
     this.initForm();
     this.watchFormChanges();
-    this.listCategories();
+    this.listSpecialities();
+    this.listEtiquettes();
   }
 
-  listCategories(): void {
-    this.TCService.get().subscribe((response: TicketCategoryModel[]) => {
-      console.log('Categorías cargadas:', response);
-      this.data.set(response);
-      this.buildHierarchy();
+  listSpecialities(): void {
+    this.SPService.get().subscribe((response: SpecialityAreaModel[]) => {
+      console.log('Especialidades cargadas:', response);
+      this.dataSpeciality.set(response);
+    });
+  }
+
+  listEtiquettes(): void {
+    this.ETService.get().subscribe((response: CategoryEtiquetteModel[]) => {
+      console.log('Etiquetas cargadas:', response);
+      this.dataEtiquette.set(response);
     });
   }
 
   categoriesHierarchy: TicketCategoryModel[][] = [];
   hoveredIndex: number = -1;
 
-  buildHierarchy(): void {
-    this.categoriesHierarchy = [this.data()];
-  }
-
-
-  hasChildren(category: Category): boolean {
-    return this.data().some(c => c.id === category.id);
-  }
 
   onHover(id: number): void {
     this.hoveredIndex = id;
@@ -203,23 +167,32 @@ export class CreateUpdateTicket {
     }, 3000);
   }
 
-  
-filteredData = computed(() => {
-  const query = this.searchQuery().toLowerCase();
 
-  return this.data().filter(item =>
-    item.name.toLowerCase().includes(query) ||
-    item.description.toLowerCase().includes(query) ||
-    item.categoryEtiquettes?.some(tag =>
-      tag.name.toLowerCase().includes(query)
-    )
-  );
-});
+  filteredDataSpeciality = computed(() => {
+    const query = this.searchQuerySpeciality().toLowerCase();
+
+    return this.dataSpeciality().filter(item =>
+      item.name.toLowerCase().includes(query) ||
+      item.description.toLowerCase().includes(query)
+    );
+  });
+
+  filteredDataEtiquette = computed(() => {
+    const query = this.searchQueryEtiquette().toLowerCase();
+
+    return this.dataEtiquette().filter(item =>
+      item.name.toLowerCase().includes(query) ||
+      item.description.toLowerCase().includes(query)
+    );
+  });
 
 
-  selectItem(item: TicketCategoryModel): void {
-      this.selectedItem = item;
-    }
+  selectItemSpeciality(item: SpecialityAreaModel): void {
+    this.selectedItemSpeciality = item;
+  }
+  selectItemEtiquette(item: CategoryEtiquetteModel): void {
+    this.selectedItemEtiquette = item;
+  }
 }
 
 

@@ -2,39 +2,12 @@
 <br>
 <br>
 <app-breadcrumb-back />
-<div class="stepper-container" role="navigation" aria-label="Progress Steps">
-    <div class="steps-wrapper">
-        @for(step of steps; track step; let i = $index){
-        <div class="step" [class.active]="currentStep === i" [class.completed]="currentStep > i" role="button"
-            tabindex="0" (click)="goToStep(i)" [attr.aria-label]="'Step ' + (i + 1) + ': ' + step.label"
-            [attr.aria-current]="currentStep === i ? 'step' : null">
-
-            <div class="step-indicator">
-                <div class="circle">
-                    @if(currentStep <= i){ <span>{{ i + 1 }}</span>
-                        }
-                        @if(currentStep > i){
-                        <span class="check-icon">✓</span>
-                        }
-                </div>
-
-                @if(i !== steps.length - 1){
-                <div class="connector"></div>
-                }
-            </div>
-
-            <div class="step-label">{{ step.label }}</div>
-        </div>
-        }
-    </div>
-</div>
-
 <div class="profile-container">
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <div class="profile-grid">
 
             <div class="profile-info">
-                <h2>Ticket</h2>
+                <h2>Categoría</h2>
 
                 <div class="form-group">
                     <label for="fullName">Título</label>
@@ -48,6 +21,7 @@
                     </div>
                     }
                 </div>
+                
 
                 <div class="form-group">
                     <label for="descripcion">Descripción</label>
@@ -75,49 +49,24 @@
                     </div>
                     }
                 </div>
-                <div class="form-group">
-                    <label>Prioridad</label>
-                    <div class="radio-group">
-                        <label>
-                            <input type="radio" name="prioridad" formControlName="prioridad" value="baja"> Baja
-                        </label>
-                        <label>
-                            <input type="radio" name="prioridad" formControlName="prioridad" value="media"> Media
-                        </label>
-                        <label>
-                            <input type="radio" name="prioridad" formControlName="prioridad" value="alta"> Alta
-                        </label>
-                    </div>
-                </div>
-
                 <div class="stack-list-container">
+                    
+                    <h2>Especialidades</h2>
                     <div class="search-box">
-                        <input type="text" [(ngModel)]="searchQuery" [ngModelOptions]="{ standalone: true }"
+                        <input type="text" [(ngModel)]="searchQuerySpeciality" [ngModelOptions]="{ standalone: true }"
                             placeholder="Buscar categorías..." class="search-input" />
                     </div>
 
                     <div class="list-wrapper">
-                        @for (item of filteredData(); track item.id) {
-                        <div class="list-item" [class.active]="selectedItem?.id === item.id" (click)="selectItem(item)"
+                        @for (item of filteredDataSpeciality(); track item.id) {
+                        <div class="list-item" [class.active]="selectedItemSpeciality?.id === item.id" (click)="selectItemSpeciality(item)"
                             [routerLink]="['/DetalleCategoria', item.id]">
                             <div class="item-content">
-                                <div class="icon-wrapper">
-                                    <img [src]="'http://localhost:3000/images/' + item.imageUrl" class="item-icon" />
-                                </div>
-
                                 <div class="text-content">
                                     <h3 class="item-title">
                                         {{ item.name }}
                                     </h3>
                                     <p class="item-description">{{ item.description }}</p>
-
-                                    <div class="item-metadata">
-                                        <div class="tags">
-                                            @for (tag of item.categoryEtiquettes; track tag.name) {
-                                            <span class="tag">{{ tag.name }}</span>
-                                            }
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -163,8 +112,28 @@
                 <div class="error">{{ imageError }}</div>
                 }
 
-                <div class="additional-fields">
-                    <span>Usuario</span>
+                <div class="stack-list-container">
+                    <h2>Etiquetas</h2>
+                    <div class="search-box">
+                        <input type="text" [(ngModel)]="searchQueryEtiquette" [ngModelOptions]="{ standalone: true }"
+                            placeholder="Buscar categorías..." class="search-input" />
+                    </div>
+
+                    <div class="list-wrapper">
+                        @for (item of filteredDataEtiquette(); track item.id) {
+                        <div class="list-item" [class.active]="selectedItemEtiquette?.id === item.id" (click)="selectItemEtiquette(item)"
+                            [routerLink]="['/DetalleCategoria', item.id]">
+                            <div class="item-content">
+                                <div class="text-content">
+                                    <h3 class="item-title">
+                                        {{ item.name }}
+                                    </h3>
+                                    <p class="item-description">{{ item.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
