@@ -35,6 +35,7 @@ input, select {
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.3s;
+  background-color: transparent;
 }
 
 input:focus, select:focus {
@@ -233,6 +234,67 @@ button:disabled {
   font-size: 1.5rem;
 
 }
+.ng-select{
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  background-color: transparent;
+}
+.selected-tags {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  background: black;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  border: 1px solid #ebe825;
+}
+
+:host ::ng-deep .ng-select .ng-value-container .ng-value {
+  display: none !important;
+}
+
+:host ::ng-deep .ng-select .ng-value-container .ng-value-label {
+  display: none !important;
+}
+
+:host ::ng-deep .ng-select .ng-value-container .ng-value-icon {
+  display: none !important;
+}
+
+::ng-deep .ng-dropdown-panel {
+  background: black !important;
+  border-radius: 6px;
+}
+
+::ng-deep .ng-dropdown-panel .ng-option {
+  background: black !important;
+  padding: 10px;
+}
+
+::ng-deep .ng-dropdown-panel .ng-option:hover {
+  background: #ebe825 !important;
+  cursor: pointer;
+  color: black;
+
+}
+
+::ng-deep .ng-dropdown-panel .ng-option.ng-option-selected {
+  background:#ebe825 !important;
+  color: black;
+}
+
+
+
 
 @media (max-width: 768px) {
   .form-grid {
@@ -244,3 +306,77 @@ button:disabled {
     margin: 1rem;
   }
 }
+
+
+.profile-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+.profile-info,
+.profile-image {
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.circular-preview {
+    width: 5cm;
+    height: 5cm;
+    border-radius: 50%;
+    margin: 0 auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+}
+
+.image-preview.circular-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-placeholder.circular-preview {
+    border: 2px dashed #cbd5e0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.upload-placeholder.circular-preview i {
+    font-size: 2rem;
+    color: #4299e1;
+    margin-bottom: 0.5rem;
+}
+
+.upload-placeholder.circular-preview p {
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.image-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* espacio entre título, foto y botón */
+}
+
+.image-title {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+

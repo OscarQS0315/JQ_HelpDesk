@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
+import { SpecialityService } from '../../share/services/api/Speciality.service';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-user-registration',
   templateUrl: './create-update-tecnico.html',
   styleUrls: ['./create-update-tecnico.css'],
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    NgSelectModule
+  ],
   providers: [DatePipe]
 })
 export class CreateUpdateTecnico implements OnInit {
@@ -17,6 +24,8 @@ export class CreateUpdateTecnico implements OnInit {
   showPassword = false;
   maxDate!: string;
   userInitials = '';
+  imageError: string | null = null;
+  specialities: Array<{ id: number; name: string }> = [];
 
   countries = [
     { code: 'IN', name: 'India' },
@@ -25,35 +34,75 @@ export class CreateUpdateTecnico implements OnInit {
 
   states: { code: string, name: string }[] = [];
 
-  constructor(private fb: FormBuilder, private datePipe: DatePipe) {
+  constructor(private fb: FormBuilder, private datePipe: DatePipe, private specialityService: SpecialityService) {
     const today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.maxDate = today || '';
   }
 
   ngOnInit() {
-    this.initForm();
-    this.watchNameChanges();
-  }
+  this.initForm();
+  this.watchNameChanges();
+  this.loadSpecialities();
+  this.fixSpecialitiesType();
+}
 
   initForm() {
     this.registrationForm = this.fb.group({
       username: ['', [Validators.required, Validators.maxLength(20)]],
-      firstName: ['', [Validators.required, Validators.maxLength(30)]],
-      lastName: ['', Validators.maxLength(30)],
+      firstName: ['', [Validators.required]],
+      lastName: [''],
       gender: [''],
       dob: [''],
-      email: ['', [Validators.required, Validators.email, Validators.maxLength(100)]],
-      countryCode: ['+91'],
-      mobile: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-      address1: ['', [Validators.required, Validators.maxLength(100)]],
-      address2: ['', Validators.maxLength(100)],
+      email: ['', [Validators.required, Validators.email]],
+      countryCode: ['+506'],
+      mobile: ['', [Validators.required]],
+      address1: ['', Validators.required],
       country: ['', Validators.required],
-      state: [''],
-      zipCode: ['', Validators.maxLength(20)],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', Validators.required]
-    }, { validator: this.passwordMatchValidator });
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+      specialities: this.fb.control<number[]>([], { nonNullable: true }),
+    });
   }
+
+  fixSpecialitiesType() {
+  const ctrl = this.registrationForm.get('specialities');
+
+  ctrl?.valueChanges.subscribe(val => {
+    if (Array.isArray(val)) {
+      const converted = val.map(v => Number(v));
+      if (JSON.stringify(val) !== JSON.stringify(converted)) {
+        ctrl.setValue(converted, { emitEvent: false });
+      }
+    }
+  });
+}
+
+  loadSpecialities() {
+    this.specialityService.get().subscribe({
+      next: (data) => {
+        this.specialities = data;
+      },
+      error: (err) => {
+        console.error('Error loading specialities', err);
+      }
+    });
+  }
+
+  
+
+getSpecialityName(id: number) {
+  return this.specialities?.find(x => x.id === id)?.name || '';
+}
+
+removeSpeciality(id: number) {
+  const control = this.registrationForm.get('specialities');
+  const current = control?.value ?? [];
+
+  const updated = current.filter((x: number) => x !== id);
+
+  control?.setValue(updated);
+  control?.markAsDirty();
+}
 
   watchNameChanges() {
     this.registrationForm.get('firstName')?.valueChanges.subscribe(() => {
@@ -111,12 +160,12 @@ export class CreateUpdateTecnico implements OnInit {
   getPasswordStrengthClass() {
     const password = this.registrationForm.get('password')?.value || '';
     if (!password) return '';
-    
+
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
     const hasNumbers = /\d/.test(password);
     const hasSpecialChars = /[!@#$%^&*]/.test(password);
-    
+
     const strength = [hasUpperCase, hasLowerCase, hasNumbers, hasSpecialChars]
       .filter(Boolean).length;
 
@@ -135,6 +184,50 @@ export class CreateUpdateTecnico implements OnInit {
       console.log(this.registrationForm.value);
       this.resetForm();
     }
+  }
+
+
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    this.handleFile(file);
+  }
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  onDragLeave(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    const file = event.dataTransfer?.files[0];
+    this.handleFile(file);
+  }
+
+  handleFile(file: File | undefined) {
+    if (!file) return;
+
+    if (!file.type.match(/image\/(jpeg|png|webp)/)) {
+      this.imageError = "Only JPEG, PNG and WebP images are allowed";
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      this.imageError = "Image size should not exceed 5MB";
+      return;
+    }
+
+    this.imageError = null;
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 
   resetForm() {

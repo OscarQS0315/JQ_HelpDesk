@@ -1,15 +1,28 @@
 <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="registration-form">
-    <div class="avatar-container">
-        <div class="avatar-wrapper" (click)="fileInput.click()">
-            <div class="avatar">
-                @if(!imagePreview){<i class="fas fa-user"></i>}
+    <div class="profile-image">
+        <div class="image-upload-container" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
+            (drop)="onDrop($event)">
+            <h2 class="image-title">Foto de perfíl</h2>
+
+            @if(imagePreview){
+            <div class="image-preview circular-preview">
+                <img [src]="imagePreview" alt="Profile preview">
             </div>
-            <img [src]="imagePreview" alt="User avatar" class="avatar-image">
-            @if(imagePreview){<div class="edit-overlay">
-                <i class="fas fa-pencil-alt"></i>
-            </div>}
+            }
+
+            @if(!imagePreview){
+            <div class="upload-placeholder circular-preview">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Arrastrar y soltar o hacer clic para subir</p>
+                <span class="file-info">Tamaño máximo: 5MB (JPEG, PNG, WebP)</span>
+            </div>
+            }
+
+            <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/jpeg,image/png,image/webp"
+                style="display: none">
+
+            <button type="button" (click)="fileInput.click()" class="upload-btn">Seleccionar imagen</button>
         </div>
-        <input #fileInput type="file" (change)="onFileChange($event)" accept=".png,.jpg,.jpeg" style="display: none">
     </div>
 
     <div class="form-grid">
@@ -64,26 +77,6 @@
             </div>}
         </div>
 
-        <div class="form-group">
-            <label>País <span class="required">*</span></label>
-            <select formControlName="country" (change)="onCountryChange()">
-                <option value="">Seleccionar País</option>
-                @for(country of countries; track country){
-                <option [value]="country.code">{{country.name}}</option>
-                }
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Dirección<span class="required">*</span></label>
-            <input type="text" formControlName="address1">
-            @if(registrationForm.get('address1')?.touched && registrationForm.get('address1')?.errors?.['required']){
-            <div class="error">
-                Address is required
-            </div>
-            }
-        </div>
-
         <div class="form-group mobile-group">
             <label>Número de Teléfono <span class="required">*</span></label>
             <div class="mobile-input">
@@ -102,17 +95,6 @@
         </div>
 
 
-
-        <div class="form-group">
-            <label>Especialidades <span class="required">*</span></label>
-            <select formControlName="country" (change)="onCountryChange()">
-                <option value="">Seleccionar Especialidades</option>
-                @for(country of countries; track country){
-                <option [value]="country.code">{{country.name}}</option>
-                }
-            </select>
-        </div>
-
         <div class="form-group password-group">
             <label>Contraseña <span class="required">*</span></label>
             <div class="password-input">
@@ -126,24 +108,32 @@
             </div>}
         </div>
 
+
+        <div class="form-group">
+            <label>Especialidades <span class="required">*</span></label>
+
+            <ng-select [items]="specialities" bindLabel="name" bindValue="id" formControlName="specialities"
+                [multiple]="true" [closeOnSelect]="true" [searchable]="true" placeholder="Buscar especialidades">
+            </ng-select>
+
+            <div class="selected-tags">
+                @for(id of registrationForm.get('specialities')?.value ?? []; track id) {
+                <span class="tag">
+                    {{ getSpecialityName(id)}}
+                    <button type="button" class="remove-btn" (click)="removeSpeciality(id)">
+                        ×
+                    </button>
+                </span>
+                }
+            </div>
+        </div>
+
         <div class="form-group">
             <label>Confirmar Contraseña <span class="required">*</span></label>
             <input type="password" formControlName="confirmPassword">
             @if(registrationForm.errors?.['passwordMismatch']){<div class="error">
                 Las contraseñas no coinciden
             </div>}
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label>Foto de Perfil</label>
-        <div class="image-upload">
-            <input type="file" (change)="onFileChange($event)" accept=".png,.jpg,.jpeg">
-            @if(imagePreview){
-            <div class="preview">
-                <img [src]="imagePreview" alt="Preview">
-            </div>}
-            @if(!imagePreview){<div class="initials">{{userInitials}}</div>}
         </div>
     </div>
 

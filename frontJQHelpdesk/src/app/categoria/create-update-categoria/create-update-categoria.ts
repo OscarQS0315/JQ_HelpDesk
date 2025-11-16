@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit, ViewChild, ElementRef, signal, computed } from "@angular/core";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
-import { Router, RouterModule } from "@angular/router";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { BreadcrumbBackComponent } from "../../share/components/breadcrumb-back/breadcrumb-back.component";
 import { TicketCategoryModel } from "../../share/models/TicketCategoryModel";
 import { TicketCategoryService } from "../../share/services/api/ticketCategory.service";
@@ -19,10 +19,10 @@ import { etiquetteService } from "../../share/services/api/etiquette.service";
   imports: [CommonModule, RouterModule, BreadcrumbBackComponent, FormsModule, ReactiveFormsModule]
 })
 export class CreateUpdateCategoria {
+  selectedSpecialities: SpecialityAreaModel[] = [];
+  selectedEtiquettes: CategoryEtiquetteModel[] = [];
   dataSpeciality = signal<SpecialityAreaModel[]>([]);
-  selectedItemSpeciality: SpecialityAreaModel | null = null;
   dataEtiquette = signal<CategoryEtiquetteModel[]>([]);
-  selectedItemEtiquette: CategoryEtiquetteModel | null = null;
   searchQuerySpeciality = signal('');
   searchQueryEtiquette = signal('');
   today = new Date().toISOString().split('T')[0]; // yyyy-mm-dd
@@ -39,7 +39,7 @@ export class CreateUpdateCategoria {
 
   constructor(private fb: FormBuilder, private router: Router,
     private SPService: SpecialityService,
-    private ETService: etiquetteService) { }
+    private ETService: etiquetteService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.initForm();
@@ -142,12 +142,18 @@ export class CreateUpdateCategoria {
     reader.readAsDataURL(file);
   }
 
-  resetForm() {
-    this.profileForm.reset();
-    this.imagePreview = null;
-    this.imageError = null;
-    this.showNotification("Form has been reset");
-  }
+ resetForm() {
+  this.profileForm.reset({
+    Fecha: this.today
+  });
+  this.imagePreview = null;
+  this.imageError = null;
+  this.selectedSpecialities = [];
+  this.selectedEtiquettes = [];
+  this.searchQuerySpeciality.set('');
+  this.searchQueryEtiquette.set('');
+  this.showNotification("Formulario reiniciado");
+}
 
   onSubmit() {
     if (this.profileForm.valid) {
@@ -186,13 +192,41 @@ export class CreateUpdateCategoria {
     );
   });
 
+  toggleSpeciality(item: SpecialityAreaModel): void {
+  const exists = this.selectedSpecialities.some(s => s.id === item.id);
 
-  selectItemSpeciality(item: SpecialityAreaModel): void {
-    this.selectedItemSpeciality = item;
+  if (exists) {
+    this.selectedSpecialities = this.selectedSpecialities.filter(s => s.id !== item.id);
+  } else {
+    this.selectedSpecialities.push(item);
   }
-  selectItemEtiquette(item: CategoryEtiquetteModel): void {
-    this.selectedItemEtiquette = item;
+}
+
+isSpecialitySelected(item: SpecialityAreaModel): boolean {
+  return this.selectedSpecialities.some(s => s.id === item.id);
+}
+
+removeSpeciality(item: SpecialityAreaModel): void {
+  this.selectedSpecialities = this.selectedSpecialities.filter(s => s.id !== item.id);
+}
+
+toggleEtiquette(item: CategoryEtiquetteModel): void {
+  const exists = this.selectedEtiquettes.some(e => e.id === item.id);
+
+  if (exists) {
+    this.selectedEtiquettes = this.selectedEtiquettes.filter(e => e.id !== item.id);
+  } else {
+    this.selectedEtiquettes.push(item);
   }
+}
+
+isEtiquetteSelected(item: CategoryEtiquetteModel): boolean {
+  return this.selectedEtiquettes.some(e => e.id === item.id);
+}
+
+removeEtiquette(item: CategoryEtiquetteModel): void {
+  this.selectedEtiquettes = this.selectedEtiquettes.filter(e => e.id !== item.id);
+}
 }
 
 

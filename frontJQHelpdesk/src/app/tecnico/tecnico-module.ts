@@ -7,12 +7,11 @@ import { Listado } from './listado/listado';
 import { Detalle } from './detalle/detalle';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbBackComponent } from '../share/components/breadcrumb-back/breadcrumb-back.component';
-import { CreateUpdateTecnico } from './create-update-tecnico/create-update-tecnico';
+
 
 @NgModule({
   declarations: [
     Listado,
-    CreateUpdateTecnico,
   ],
   imports: [
     CommonModule,
@@ -23,7 +22,6 @@ import { CreateUpdateTecnico } from './create-update-tecnico/create-update-tecni
     ReactiveFormsModule
   ],
   exports: [
-    CreateUpdateTecnico
   ]
 })
 export class TecnicoModule { }

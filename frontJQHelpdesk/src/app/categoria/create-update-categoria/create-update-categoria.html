@@ -3,6 +3,10 @@
 <br>
 <app-breadcrumb-back />
 <div class="profile-container">
+                <div class="button-group">
+                    <button type="submit" [disabled]="!profileForm.valid || isLoading">Crear Ticket +</button>
+                    <button type="button" (click)="resetForm()" class="reset-btn">Limpiar campos</button>
+                </div>
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <div class="profile-grid">
 
@@ -21,7 +25,7 @@
                     </div>
                     }
                 </div>
-                
+
 
                 <div class="form-group">
                     <label for="descripcion">Descripción</label>
@@ -50,33 +54,36 @@
                     }
                 </div>
                 <div class="stack-list-container">
-                    
                     <h2>Especialidades</h2>
+
                     <div class="search-box">
                         <input type="text" [(ngModel)]="searchQuerySpeciality" [ngModelOptions]="{ standalone: true }"
-                            placeholder="Buscar categorías..." class="search-input" />
+                            placeholder="Buscar especialidades..." class="search-input" />
+                    </div>
+
+                    <!-- SELECCIONADAS -->
+                    <div class="selected-items">
+                        @for (item of selectedSpecialities; track item.id) {
+                        <span class="selected-chip">
+                            {{ item.name }}
+                            <button type="button" (click)="removeSpeciality(item)">×</button>
+                        </span>
+                        }
                     </div>
 
                     <div class="list-wrapper">
                         @for (item of filteredDataSpeciality(); track item.id) {
-                        <div class="list-item" [class.active]="selectedItemSpeciality?.id === item.id" (click)="selectItemSpeciality(item)"
-                            [routerLink]="['/DetalleCategoria', item.id]">
+                        <div class="list-item" [class.active]="isSpecialitySelected(item)"
+                            (click)="toggleSpeciality(item)">
                             <div class="item-content">
                                 <div class="text-content">
-                                    <h3 class="item-title">
-                                        {{ item.name }}
-                                    </h3>
+                                    <h3 class="item-title">{{ item.name }}</h3>
                                     <p class="item-description">{{ item.description }}</p>
                                 </div>
                             </div>
                         </div>
                         }
                     </div>
-                </div>
-
-                <div class="button-group">
-                    <button type="submit" [disabled]="!profileForm.valid || isLoading">Crear Ticket</button>
-                    <button type="button" (click)="resetForm()" class="reset-btn">Limpiar campos</button>
                 </div>
             </div>
 
@@ -114,20 +121,27 @@
 
                 <div class="stack-list-container">
                     <h2>Etiquetas</h2>
+
                     <div class="search-box">
                         <input type="text" [(ngModel)]="searchQueryEtiquette" [ngModelOptions]="{ standalone: true }"
-                            placeholder="Buscar categorías..." class="search-input" />
+                            placeholder="Buscar etiquetas..." class="search-input" />
+                    </div>
+                    <div class="selected-items">
+                        @for (item of selectedEtiquettes; track item.id) {
+                        <span class="selected-chip">
+                            {{ item.name }}
+                            <button type="button" (click)="removeEtiquette(item)">×</button>
+                        </span>
+                        }
                     </div>
 
                     <div class="list-wrapper">
                         @for (item of filteredDataEtiquette(); track item.id) {
-                        <div class="list-item" [class.active]="selectedItemEtiquette?.id === item.id" (click)="selectItemEtiquette(item)"
-                            [routerLink]="['/DetalleCategoria', item.id]">
+                        <div class="list-item" [class.active]="isEtiquetteSelected(item)"
+                            (click)="toggleEtiquette(item)">
                             <div class="item-content">
                                 <div class="text-content">
-                                    <h3 class="item-title">
-                                        {{ item.name }}
-                                    </h3>
+                                    <h3 class="item-title">{{ item.name }}</h3>
                                     <p class="item-description">{{ item.description }}</p>
                                 </div>
                             </div>
