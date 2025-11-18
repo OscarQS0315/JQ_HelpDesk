@@ -108,13 +108,13 @@ export class TicketCategoryController {
 
                     imageUrl: body.imageUrl,
                     SLA: {
-                        connect: body.SLA
+                        connect: { id: body.SLA.id }
                     },
                     specialities: {
-                        connect: body.specialities
+                        connect: body.specialities.map((s: { id: number }) => ({ id: s.id }))
                     },
                     categoryEtiquettes: {
-                        connect: body.categoryEtiquettes
+                        connect: body.categoryEtiquettes.map((e: { id: number }) => ({ id: e.id }))
                     }
                 }
             });

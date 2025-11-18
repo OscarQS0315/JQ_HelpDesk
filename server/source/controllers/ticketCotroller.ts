@@ -1,7 +1,9 @@
-import { PrismaClient } from "../../generated/prisma";
-import { Request, Response, NextFunction } from "express";
+import { E_TicketPriority, E_TicketStatus, PrismaClient } from "../../generated/prisma";
+import { Request, Response, NextFunction, response } from "express";
 import { AppError } from "../errors/custom.error";
 import { E_Role } from "../../generated/prisma";
+import { title } from "process";
+import { connect } from "http2";
 
 
 export class TicketController {
@@ -167,8 +169,61 @@ export class TicketController {
     };
 
     create = async (req: Request, res: Response, next: NextFunction) => {
+        try {
         const body = req.body;
+        const vTicketPriority = body.ticketPriority as E_TicketPriority;
+        const category = await this.prisma.ticketCategory.findUnique({
+            where: { id: body.ticketCategoryId },
+            include: { SLA: true }
+        });
+
+        if (!category || !category.SLA) {
+            return res.status(400).json({ message: "La categoría no tiene SLA asociado." });
+        }
+
+        const now = new Date();
+
+        const vReplySLA = new Date(now.getTime() + category.SLA.slaReplyHours * 60 * 60 * 1000);
+        const vResolutionSLA = new Date(now.getTime() + category.SLA.slaResolutionHours * 60 * 60 * 1000);
+
 
         
+            const newTicket = await this.prisma.ticket.create({
+                data: {
+                    title: body.title,
+                    description: body.description,
+                    priority: vTicketPriority,
+                    storyPoints: body.storyPoints,
+                    aceptanceCriteria: body.aceptanceCriteria,
+                    comments: body.comments,
+                    slaReply: vReplySLA,
+                    slaResolution: vResolutionSLA,
+                    user: {
+                        connect: {id: body.userId}
+                    },
+                    ticketCategory: {
+                        connect: {id: body.ticketCategoryId}
+                    },
+                    ticketHistory: {
+                        create: {
+                            status: E_TicketStatus.PENDING,
+                            changedBy: body.userId,
+                            observation: "Ticket creado por el usuario.",
+                            ticketImages: {
+                                create: body.ticketImages.map((img: { url: string }) => ({
+                                    imageUrl: img.url
+                                }))
+                            }
+                        }
+                    }
+
+                }
+            });
+            res.status(200).json(newTicket);
+        } catch (error) {
+            console.error("Error creando tiquete:", error);
+            next(error);
+        }
+
     }
 }

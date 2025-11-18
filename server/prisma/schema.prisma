@@ -145,8 +145,8 @@ model Ticket {
   aceptanceCriteria           String?
   comments                    String?
   resolutionDays              Int?
-  slaReply                    Int?
-  slaResolution               Int?
+  slaReply                    DateTime?                    @default(now())
+  slaResolution               DateTime?                    @default(now())
   replyAchieved               Boolean?                     @default(false)
   resolutionAchieved          Boolean?                     @default(false)
   ticketValorationId          Int?

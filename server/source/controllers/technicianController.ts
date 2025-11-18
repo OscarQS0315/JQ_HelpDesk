@@ -121,7 +121,7 @@ export class TechnicianController {
                         create: {
                             status: body.userTechnician.status,
                             specialities: {
-                                connect: body.specialities
+                                connect: body.specialities.map((s: { id: number }) => ({ id: s.id }))
                             }
                         }
                     },

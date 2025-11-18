@@ -15,8 +15,7 @@ export const tickets = [
     aceptanceCriteria: 'El equipo debe conectarse a la red interna sin errores.',
     comments: 'Se revisó el cableado y configuración IP.',
     resolutionDays: 2,
-    slaReply: 24,
-    slaResolution: 72,
+    
     replyAchieved: true,
     resolutionAchieved: null, // no está resuelto
     ticketValorationId: null, // no está cerrado
@@ -40,8 +39,7 @@ export const tickets = [
     aceptanceCriteria: 'El usuario debe poder enviar correos sin errores.',
     comments: 'Se ajustó el servidor SMTP y se probó envío.',
     resolutionDays: 1,
-    slaReply: 12,
-    slaResolution: 48,
+    
     replyAchieved: true,
     resolutionAchieved: true,
     ticketValorationId: null, // no está cerrado
@@ -65,8 +63,7 @@ export const tickets = [
     aceptanceCriteria: 'La pantalla debe estar funcional y sin daños físicos.',
     comments: 'Se reemplazó el panel y se probó el equipo.',
     resolutionDays: 1,
-    slaReply: 4,
-    slaResolution: 24,
+    
     replyAchieved: true,
     resolutionAchieved: true,
     ticketValorationId: 1,
@@ -90,8 +87,7 @@ export const tickets = [
     aceptanceCriteria: 'El usuario debe poder conectarse remotamente sin errores.',
     comments: 'Se revisó configuración y credenciales.',
     resolutionDays: 1,
-    slaReply: 1,
-    slaResolution: 8,
+    
     replyAchieved: true,
     resolutionAchieved: null,
     ticketValorationId: null,
@@ -115,8 +111,7 @@ export const tickets = [
     aceptanceCriteria: 'El sistema debe estar libre de amenazas.',
     comments: 'Se eliminó el archivo malicioso y se actualizó el antivirus.',
     resolutionDays: 2,
-    slaReply: 6,
-    slaResolution: 36,
+    
     replyAchieved: true,
     resolutionAchieved: true,
     ticketValorationId: 2,
@@ -140,8 +135,7 @@ export const tickets = [
     aceptanceCriteria: 'El usuario debe recibir correos sin interrupciones.',
     comments: 'Pendiente de revisión de configuración IMAP.',
     resolutionDays: 1,
-    slaReply: 12,
-    slaResolution: 48,
+    
     replyAchieved: false,
     resolutionAchieved: null,
     ticketValorationId: null,
@@ -165,8 +159,7 @@ export const tickets = [
     aceptanceCriteria: 'El usuario debe acceder remotamente sin errores.',
     comments: 'Pendiente de revisión de firewall.',
     resolutionDays: 2,
-    slaReply: 1,
-    slaResolution: 8,
+    
     replyAchieved: false,
     resolutionAchieved: null,
     ticketValorationId: null,
@@ -190,8 +183,7 @@ export const tickets = [
     aceptanceCriteria: 'El sistema debe estar libre de amenazas.',
     comments: 'Se está evaluando el archivo detectado.',
     resolutionDays: 2,
-    slaReply: 6,
-    slaResolution: 36,
+    
     replyAchieved: true,
     resolutionAchieved: null,
     ticketValorationId: null,
@@ -215,8 +207,7 @@ export const tickets = [
     aceptanceCriteria: 'La red debe mantenerse estable.',
     comments: 'Se revisan logs del switch.',
     resolutionDays: 2,
-    slaReply: 24,
-    slaResolution: 72,
+    
     replyAchieved: true,
     resolutionAchieved: null,
     ticketValorationId: null,
@@ -240,8 +231,7 @@ export const tickets = [
     aceptanceCriteria: 'El teclado debe funcionar sin interrupciones.',
     comments: 'Se está probando con otro periférico.',
     resolutionDays: 1,
-    slaReply: 4,
-    slaResolution: 24,
+    
     replyAchieved: true,
     resolutionAchieved: null,
     ticketValorationId: null,
@@ -265,8 +255,7 @@ export const tickets = [
     aceptanceCriteria: 'Los correos deben aparecer una sola vez.',
     comments: 'Se ajustó la sincronización IMAP.',
     resolutionDays: 1,
-    slaReply: 12,
-    slaResolution: 48,
+    
     replyAchieved: true,
     resolutionAchieved: true,
     ticketValorationId: null,
@@ -290,8 +279,6 @@ export const tickets = [
     aceptanceCriteria: 'El usuario debe conectarse sin errores.',
     comments: 'Se actualizó el cliente VPN.',
     resolutionDays: 1,
-    slaReply: 1,
-    slaResolution: 8,
     replyAchieved: true,
     resolutionAchieved: true,
     ticketValorationId: 6,
@@ -315,8 +302,6 @@ export const tickets = [
     aceptanceCriteria: 'El sistema debe estar libre de amenazas.',
     comments: 'Se aplicó limpieza completa.',
     resolutionDays: 2,
-    slaReply: 6,
-    slaResolution: 36,
     replyAchieved: true,
     resolutionAchieved: true,
     ticketValorationId: 7,

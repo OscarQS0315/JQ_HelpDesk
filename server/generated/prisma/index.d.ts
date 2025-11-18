@@ -9487,8 +9487,6 @@ export namespace Prisma {
     ticketCategoryId: number | null
     storyPoints: number | null
     resolutionDays: number | null
-    slaReply: number | null
-    slaResolution: number | null
     ticketValorationId: number | null
     automaticTriageRuleId: number | null
   }
@@ -9500,8 +9498,6 @@ export namespace Prisma {
     ticketCategoryId: number | null
     storyPoints: number | null
     resolutionDays: number | null
-    slaReply: number | null
-    slaResolution: number | null
     ticketValorationId: number | null
     automaticTriageRuleId: number | null
   }
@@ -9519,8 +9515,8 @@ export namespace Prisma {
     aceptanceCriteria: string | null
     comments: string | null
     resolutionDays: number | null
-    slaReply: number | null
-    slaResolution: number | null
+    slaReply: Date | null
+    slaResolution: Date | null
     replyAchieved: boolean | null
     resolutionAchieved: boolean | null
     ticketValorationId: number | null
@@ -9545,8 +9541,8 @@ export namespace Prisma {
     aceptanceCriteria: string | null
     comments: string | null
     resolutionDays: number | null
-    slaReply: number | null
-    slaResolution: number | null
+    slaReply: Date | null
+    slaResolution: Date | null
     replyAchieved: boolean | null
     resolutionAchieved: boolean | null
     ticketValorationId: number | null
@@ -9593,8 +9589,6 @@ export namespace Prisma {
     ticketCategoryId?: true
     storyPoints?: true
     resolutionDays?: true
-    slaReply?: true
-    slaResolution?: true
     ticketValorationId?: true
     automaticTriageRuleId?: true
   }
@@ -9606,8 +9600,6 @@ export namespace Prisma {
     ticketCategoryId?: true
     storyPoints?: true
     resolutionDays?: true
-    slaReply?: true
-    slaResolution?: true
     ticketValorationId?: true
     automaticTriageRuleId?: true
   }
@@ -9790,8 +9782,8 @@ export namespace Prisma {
     aceptanceCriteria: string | null
     comments: string | null
     resolutionDays: number | null
-    slaReply: number | null
-    slaResolution: number | null
+    slaReply: Date | null
+    slaResolution: Date | null
     replyAchieved: boolean | null
     resolutionAchieved: boolean | null
     ticketValorationId: number | null
@@ -9923,8 +9915,8 @@ export namespace Prisma {
       aceptanceCriteria: string | null
       comments: string | null
       resolutionDays: number | null
-      slaReply: number | null
-      slaResolution: number | null
+      slaReply: Date | null
+      slaResolution: Date | null
       replyAchieved: boolean | null
       resolutionAchieved: boolean | null
       ticketValorationId: number | null
@@ -10323,8 +10315,8 @@ export namespace Prisma {
     readonly aceptanceCriteria: FieldRef<"Ticket", 'String'>
     readonly comments: FieldRef<"Ticket", 'String'>
     readonly resolutionDays: FieldRef<"Ticket", 'Int'>
-    readonly slaReply: FieldRef<"Ticket", 'Int'>
-    readonly slaResolution: FieldRef<"Ticket", 'Int'>
+    readonly slaReply: FieldRef<"Ticket", 'DateTime'>
+    readonly slaResolution: FieldRef<"Ticket", 'DateTime'>
     readonly replyAchieved: FieldRef<"Ticket", 'Boolean'>
     readonly resolutionAchieved: FieldRef<"Ticket", 'Boolean'>
     readonly ticketValorationId: FieldRef<"Ticket", 'Int'>
@@ -15726,8 +15718,8 @@ export namespace Prisma {
     aceptanceCriteria?: StringNullableFilter<"Ticket"> | string | null
     comments?: StringNullableFilter<"Ticket"> | string | null
     resolutionDays?: IntNullableFilter<"Ticket"> | number | null
-    slaReply?: IntNullableFilter<"Ticket"> | number | null
-    slaResolution?: IntNullableFilter<"Ticket"> | number | null
+    slaReply?: DateTimeNullableFilter<"Ticket"> | Date | string | null
+    slaResolution?: DateTimeNullableFilter<"Ticket"> | Date | string | null
     replyAchieved?: BoolNullableFilter<"Ticket"> | boolean | null
     resolutionAchieved?: BoolNullableFilter<"Ticket"> | boolean | null
     ticketValorationId?: IntNullableFilter<"Ticket"> | number | null
@@ -15798,8 +15790,8 @@ export namespace Prisma {
     aceptanceCriteria?: StringNullableFilter<"Ticket"> | string | null
     comments?: StringNullableFilter<"Ticket"> | string | null
     resolutionDays?: IntNullableFilter<"Ticket"> | number | null
-    slaReply?: IntNullableFilter<"Ticket"> | number | null
-    slaResolution?: IntNullableFilter<"Ticket"> | number | null
+    slaReply?: DateTimeNullableFilter<"Ticket"> | Date | string | null
+    slaResolution?: DateTimeNullableFilter<"Ticket"> | Date | string | null
     replyAchieved?: BoolNullableFilter<"Ticket"> | boolean | null
     resolutionAchieved?: BoolNullableFilter<"Ticket"> | boolean | null
     ticketValorationId?: IntNullableFilter<"Ticket"> | number | null
@@ -15866,8 +15858,8 @@ export namespace Prisma {
     aceptanceCriteria?: StringNullableWithAggregatesFilter<"Ticket"> | string | null
     comments?: StringNullableWithAggregatesFilter<"Ticket"> | string | null
     resolutionDays?: IntNullableWithAggregatesFilter<"Ticket"> | number | null
-    slaReply?: IntNullableWithAggregatesFilter<"Ticket"> | number | null
-    slaResolution?: IntNullableWithAggregatesFilter<"Ticket"> | number | null
+    slaReply?: DateTimeNullableWithAggregatesFilter<"Ticket"> | Date | string | null
+    slaResolution?: DateTimeNullableWithAggregatesFilter<"Ticket"> | Date | string | null
     replyAchieved?: BoolNullableWithAggregatesFilter<"Ticket"> | boolean | null
     resolutionAchieved?: BoolNullableWithAggregatesFilter<"Ticket"> | boolean | null
     ticketValorationId?: IntNullableWithAggregatesFilter<"Ticket"> | number | null
@@ -16666,8 +16658,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -16699,8 +16691,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -16725,8 +16717,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -16758,8 +16750,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -16788,8 +16780,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -16810,8 +16802,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -16835,8 +16827,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -17787,8 +17779,6 @@ export namespace Prisma {
     ticketCategoryId?: SortOrder
     storyPoints?: SortOrder
     resolutionDays?: SortOrder
-    slaReply?: SortOrder
-    slaResolution?: SortOrder
     ticketValorationId?: SortOrder
     automaticTriageRuleId?: SortOrder
   }
@@ -17852,8 +17842,6 @@ export namespace Prisma {
     ticketCategoryId?: SortOrder
     storyPoints?: SortOrder
     resolutionDays?: SortOrder
-    slaReply?: SortOrder
-    slaResolution?: SortOrder
     ticketValorationId?: SortOrder
     automaticTriageRuleId?: SortOrder
   }
@@ -19442,8 +19430,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -19473,8 +19461,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -19616,8 +19604,8 @@ export namespace Prisma {
     aceptanceCriteria?: StringNullableFilter<"Ticket"> | string | null
     comments?: StringNullableFilter<"Ticket"> | string | null
     resolutionDays?: IntNullableFilter<"Ticket"> | number | null
-    slaReply?: IntNullableFilter<"Ticket"> | number | null
-    slaResolution?: IntNullableFilter<"Ticket"> | number | null
+    slaReply?: DateTimeNullableFilter<"Ticket"> | Date | string | null
+    slaResolution?: DateTimeNullableFilter<"Ticket"> | Date | string | null
     replyAchieved?: BoolNullableFilter<"Ticket"> | boolean | null
     resolutionAchieved?: BoolNullableFilter<"Ticket"> | boolean | null
     ticketValorationId?: IntNullableFilter<"Ticket"> | number | null
@@ -19755,8 +19743,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -19786,8 +19774,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -20177,8 +20165,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -20208,8 +20196,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -20333,8 +20321,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -20365,8 +20353,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -20849,8 +20837,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -20881,8 +20869,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -20944,8 +20932,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -20976,8 +20964,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21029,8 +21017,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -21061,8 +21049,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -21165,8 +21153,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21197,8 +21185,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21320,8 +21308,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -21352,8 +21340,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -21437,8 +21425,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21469,8 +21457,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21494,8 +21482,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -21526,8 +21514,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -21567,8 +21555,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21599,8 +21587,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21627,8 +21615,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -21666,8 +21654,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21697,8 +21685,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21726,8 +21714,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21802,8 +21790,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -21849,8 +21837,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21880,8 +21868,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21909,8 +21897,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -22069,8 +22057,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -22139,8 +22127,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -22170,8 +22158,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -22199,8 +22187,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -22225,8 +22213,8 @@ export namespace Prisma {
     aceptanceCriteria?: string | null
     comments?: string | null
     resolutionDays?: number | null
-    slaReply?: number | null
-    slaResolution?: number | null
+    slaReply?: Date | string | null
+    slaResolution?: Date | string | null
     replyAchieved?: boolean | null
     resolutionAchieved?: boolean | null
     ticketValorationId?: number | null
@@ -22246,8 +22234,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -22278,8 +22266,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
@@ -22307,8 +22295,8 @@ export namespace Prisma {
     aceptanceCriteria?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     resolutionDays?: NullableIntFieldUpdateOperationsInput | number | null
-    slaReply?: NullableIntFieldUpdateOperationsInput | number | null
-    slaResolution?: NullableIntFieldUpdateOperationsInput | number | null
+    slaReply?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slaResolution?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     replyAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     resolutionAchieved?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ticketValorationId?: NullableIntFieldUpdateOperationsInput | number | null
