@@ -7,7 +7,8 @@ import { CreateUpdateTecnico } from './create-update-tecnico/create-update-tecni
 const routes: Routes = [
   {path:'Listado', component: Listado},
   {path:'Detalle/:id', component: Detalle},
-  {path:'Crear-UpdateTecnico', component: CreateUpdateTecnico}
+  {path:'Crear-UpdateTecnico', component: CreateUpdateTecnico},
+  {path:'Crear-UpdateTecnico/update/:id', component: CreateUpdateTecnico}
 ];
 
 @NgModule({

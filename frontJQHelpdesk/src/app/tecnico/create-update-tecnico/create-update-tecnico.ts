@@ -1,8 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { SpecialityService } from '../../share/services/api/Speciality.service';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NotificationService } from '../../share/services/app/notification.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TechnicianService } from '../../share/services/api/technician.service';
+import { Subject } from 'rxjs';
+import { TechnicianModel } from '../../share/models/TechnicianModel';
+import { TechnicianDTO } from '../../share/models/DTOs/TechnicianDTO';
+import { FileUploadService } from '../../share/services/api/file-upload.service';
+
+
 
 @Component({
   selector: 'app-user-registration',
@@ -17,65 +26,113 @@ import { NgSelectModule } from '@ng-select/ng-select';
   providers: [DatePipe]
 })
 export class CreateUpdateTecnico implements OnInit {
+
   registrationForm!: FormGroup;
-  isEditMode = false;
+  isCreate = true;
   isSubmitting = false;
-  imagePreview: string | null = null;
+  isEditMode = false;
   showPassword = false;
   maxDate!: string;
   userInitials = '';
-  imageError: string | null = null;
+  titleForm = 'Crear';
   specialities: Array<{ id: number; name: string }> = [];
+  userId: number | null = null;
+  technicianId: number | null = null;
+  currentFile?: File;
+  preview = '';
+  imageError: string | null = null;
+  imagePreview: string | null = null;
+  nameImage = 'image-no-found.jpg';
+  previousImage: string | null = null;
 
-  countries = [
-    { code: 'IN', name: 'India' },
-    { code: 'US', name: 'United States' }
-  ];
+
 
   states: { code: string, name: string }[] = [];
 
-  constructor(private fb: FormBuilder, private datePipe: DatePipe, private specialityService: SpecialityService) {
+  constructor(private fb: FormBuilder,
+    private router: Router,
+    private datePipe: DatePipe,
+    private specialityService: SpecialityService,
+    private noti: NotificationService,
+    private uploadService: FileUploadService,
+    private route: ActivatedRoute,
+    private tService: TechnicianService) {
     const today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.maxDate = today || '';
   }
 
   ngOnInit() {
-  this.initForm();
-  this.watchNameChanges();
-  this.loadSpecialities();
-  this.fixSpecialitiesType();
-}
+    this.initForm();
+    this.watchNameChanges();
+    this.loadSpecialities();
+    this.fixSpecialitiesType();
+
+    this.route.params.subscribe((params) => {
+      this.technicianId = params['id'] ?? null
+      this.isCreate = this.technicianId === null
+      this.titleForm = this.isCreate ? 'Crear' : 'Actualizar'
+      if (this.technicianId) {
+        this.tService.getById(this.technicianId).subscribe((data) => this.patchFormValues(data))
+      }
+    })
+  }
 
   initForm() {
     this.registrationForm = this.fb.group({
-      username: ['', [Validators.required, Validators.maxLength(20)]],
-      firstName: ['', [Validators.required]],
-      lastName: [''],
+      fname: ['', [Validators.required, Validators.maxLength(20)]],
+      firstLastName: ['', [Validators.required]],
+      secLastName: [''],
       gender: [''],
       dob: [''],
       email: ['', [Validators.required, Validators.email]],
       countryCode: ['+506'],
-      mobile: ['', [Validators.required]],
-      address1: ['', Validators.required],
-      country: ['', Validators.required],
+      mobile: ['', [Validators.required, Validators.pattern(/^\d{8,10}$/)]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
-      specialities: this.fb.control<number[]>([], { nonNullable: true }),
+      specialities: this.fb.control<number[]>([], {
+        nonNullable: true,
+        validators: [(ctrl) => ctrl.value.length > 0 ? null : { required: true }]
+      }),
+
+    }, { validators: this.passwordMatchValidator });
+  }
+
+  private patchFormValues(data: TechnicianModel) {
+    this.registrationForm.patchValue({
+      id: data.id,
+      fname: data.user.name,
+      firstLastName: data.user.lastName,
+      gender: data.user.genre ?? '',
+      dob: data.user.dob ? new Date(data.user.dob).toISOString().substring(0, 10) : '',
+      email: data.user.email,
+      countryCode: '+506',
+      mobile: data.user.cellphone,
+      password: '',
+      confirmPassword: '',
+      specialities: data.specialities?.map(s => s.id) ?? [],
     });
+    this.userId = data.userId;
+    // Actualiza la imagen previa
+    this.imagePreview = data.user.profileImage
+      ? `http://localhost:3000/images/${data.user.profileImage}`
+      : `http://localhost:3000/images/image-no-found.jpg`;
+
+    this.nameImage = data.user.profileImage || 'image-no-found.jpg';
+    this.previousImage = data.user.profileImage;
   }
 
   fixSpecialitiesType() {
-  const ctrl = this.registrationForm.get('specialities');
+    const ctrl = this.registrationForm.get('specialities');
 
-  ctrl?.valueChanges.subscribe(val => {
-    if (Array.isArray(val)) {
-      const converted = val.map(v => Number(v));
-      if (JSON.stringify(val) !== JSON.stringify(converted)) {
-        ctrl.setValue(converted, { emitEvent: false });
+    ctrl?.valueChanges.subscribe(val => {
+      if (Array.isArray(val)) {
+        const converted = val.map(v => Number(v));
+        if (JSON.stringify(val) !== JSON.stringify(converted)) {
+          ctrl.setValue(converted, { emitEvent: false });
+        }
       }
-    }
-  });
-}
+    });
+  }
 
   loadSpecialities() {
     this.specialityService.get().subscribe({
@@ -88,34 +145,34 @@ export class CreateUpdateTecnico implements OnInit {
     });
   }
 
-  
 
-getSpecialityName(id: number) {
-  return this.specialities?.find(x => x.id === id)?.name || '';
-}
 
-removeSpeciality(id: number) {
-  const control = this.registrationForm.get('specialities');
-  const current = control?.value ?? [];
+  getSpecialityName(id: number) {
+    return this.specialities?.find(x => x.id === id)?.name || '';
+  }
 
-  const updated = current.filter((x: number) => x !== id);
+  removeSpeciality(id: number) {
+    const control = this.registrationForm.get('specialities');
+    const current = control?.value ?? [];
 
-  control?.setValue(updated);
-  control?.markAsDirty();
-}
+    const updated = current.filter((x: number) => x !== id);
+
+    control?.setValue(updated);
+    control?.markAsDirty();
+  }
 
   watchNameChanges() {
-    this.registrationForm.get('firstName')?.valueChanges.subscribe(() => {
+    this.registrationForm.get('firstLastName')?.valueChanges.subscribe(() => {
       this.updateInitials();
     });
-    this.registrationForm.get('lastName')?.valueChanges.subscribe(() => {
+    this.registrationForm.get('secLastName')?.valueChanges.subscribe(() => {
       this.updateInitials();
     });
   }
 
   updateInitials() {
-    const firstName = this.registrationForm.get('firstName')?.value || '';
-    const lastName = this.registrationForm.get('lastName')?.value || '';
+    const firstName = this.registrationForm.get('firstLastName')?.value || '';
+    const lastName = this.registrationForm.get('secLastName')?.value || '';
     this.userInitials = `${firstName.charAt(0) || ''}${lastName.charAt(0) || ''}`;
   }
 
@@ -146,10 +203,13 @@ removeSpeciality(id: number) {
 
   onFileChange(event: any) {
     const file = event.target.files[0];
-    if (file && file.size <= 2 * 1024 * 1024) { // 2MB limit
+    if (file && file.size <= 2 * 1024 * 1024) {
+      this.currentFile = file;
       const reader = new FileReader();
+      this.nameImage = file.name;
       reader.onload = () => {
         this.imagePreview = reader.result as string;
+        this.nameImage = file.name;
       };
       reader.readAsDataURL(file);
     } else {
@@ -182,7 +242,77 @@ removeSpeciality(id: number) {
     if (this.registrationForm.valid) {
       this.isSubmitting = true;
       console.log(this.registrationForm.value);
-      this.resetForm();
+      this.submitTecnico();
+    } else {
+      console.error('Formulario inválido, revisa los campos');
+      this.noti.error('Formulario Inválido', 'Revise los campos marcados.', 5000);
+    }
+  }
+
+  submitTecnico() {
+    this.registrationForm.markAllAsTouched();
+
+    if (this.registrationForm.invalid) {
+      this.noti.error('Formulario Inválido', 'Revise los campos marcados.', 5000);
+      return;
+    }
+
+    const formValue = this.registrationForm.value;
+    const payloadSpecialities = formValue.specialities?.map((id: number) => ({ id })) ?? [];
+
+    const payload: TechnicianDTO = {
+      name: formValue.fname,
+      lastName: formValue.firstLastName + ' ' + (formValue.secLastName || ''),
+      email: formValue.email,
+      profileImage: this.nameImage,
+      role: 'TECHNICIAN',
+      status: true,
+      cellphone: formValue.mobile,
+      dob: new Date(formValue.dob),
+      genre: formValue.gender,
+      userTechnician: {
+        status: 'AVAILABLE',
+        workload: 0
+      },
+      specialities: payloadSpecialities
+    };
+
+    if (formValue.password?.trim()) {
+      payload.password = formValue.password;
+    }
+
+    const saveTecnico = () => {
+      const request$ = this.isCreate
+        ? this.tService.create(payload)
+        : this.tService.update(this.userId!, payload);
+
+      request$.subscribe({
+        next: (data) => {
+          this.noti.success(
+            this.isCreate ? 'Creación exitosa' : 'Actualización exitosa',
+            `Técnico ${data.name} ${data.lastName}  ${this.isCreate ? 'creado' : 'actualizado'}`,
+            5000,
+            '/Listado'
+          );
+          this.router.navigate(['/Listado']);
+        },
+        error: (err) => {
+          this.noti.error('Error', 'No se pudo guardar el técnico', 5000);
+          console.error(err);
+        }
+      });
+    };
+
+    if (this.currentFile) {
+
+      this.uploadService.upload(this.currentFile, this.previousImage)
+        .subscribe(data => {
+          this.nameImage = data.fileName;
+          payload.profileImage = this.nameImage;
+          saveTecnico();
+        });
+    } else {
+      saveTecnico();
     }
   }
 
@@ -221,7 +351,8 @@ removeSpeciality(id: number) {
       this.imageError = "Image size should not exceed 5MB";
       return;
     }
-
+    this.currentFile = file;
+    this.nameImage = file.name;
     this.imageError = null;
     const reader = new FileReader();
     reader.onload = () => {
@@ -234,6 +365,6 @@ removeSpeciality(id: number) {
     this.registrationForm.reset();
     this.imagePreview = null;
     this.userInitials = '';
-    this.registrationForm.patchValue({ countryCode: '+91' });
+    this.registrationForm.patchValue({ countryCode: '+506' });
   }
 }

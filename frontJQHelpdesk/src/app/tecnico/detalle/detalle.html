@@ -41,7 +41,7 @@
                         }
                         <div class="roles-container">
                             <span class="role-tag" (click)="$event.stopPropagation()"
-                    [routerLink]="['/Crear-UpdateTecnico']">Actualizar Técnico</span>
+                    [routerLink]="['/Crear-UpdateTecnico/update/', data()?.id]">Actualizar Técnico</span>
                         </div>
                         <h4>Contacto</h4>
                         <h5>{{ data()?.user?.email }}</h5>

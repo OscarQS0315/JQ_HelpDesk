@@ -15,19 +15,20 @@ import { CreateUpdateCategoria } from './categoria/create-update-categoria/creat
 
 
 const routes: Routes = [
-{ path: 'inicio', component: Inicio },
-{ path: 'Listado', component: Listado},
-{ path: 'Detalle/:id', component: Detalle},
-{path:'ListadoCategoria', component: ListadoCategoria},
-{path:'DetalleCategoria/:id', component: DetalleCategoria},
-{path:'ListadoTicket', component: ListadoTicket},
-{path:'DetalleTicket/:id', component: DetalleTicket},
-{path:'VisualizacionTicket', component: VisualizacionTicket},
-{path:'Crear-UpdateTecnico', component: CreateUpdateTecnico},
-{path:'CreateUpdateTicket', component: CreateUpdateTicket},
-{path:'CreateUpdateCategoria', component: CreateUpdateCategoria},
-{ path: '', redirectTo: '/inicio', pathMatch: 'full' },
-{ path: '**', component: PageNotFound }
+  { path: 'inicio', component: Inicio },
+  { path: 'Listado', component: Listado },
+  { path: 'Detalle/:id', component: Detalle },
+  { path: 'ListadoCategoria', component: ListadoCategoria },
+  { path: 'DetalleCategoria/:id', component: DetalleCategoria },
+  { path: 'ListadoTicket', component: ListadoTicket },
+  { path: 'DetalleTicket/:id', component: DetalleTicket },
+  { path: 'VisualizacionTicket', component: VisualizacionTicket },
+  { path: 'Crear-UpdateTecnico', component: CreateUpdateTecnico },
+  { path: 'Crear-UpdateTecnico/update/:id', component: CreateUpdateTecnico },
+  { path: 'CreateUpdateTicket', component: CreateUpdateTicket },
+  { path: 'CreateUpdateCategoria', component: CreateUpdateCategoria },
+  { path: '', redirectTo: '/inicio', pathMatch: 'full' },
+  { path: '**', component: PageNotFound }
 
 ];
 

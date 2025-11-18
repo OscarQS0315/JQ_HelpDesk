@@ -11,6 +11,9 @@ export interface UserModel {
     password: string;
     profileImage: string;
     role: E_Role;
+    genre: string;
+    cellphone: string;
+    dob: Date;
     status: boolean;
     lastLogin: Date;
     createdAt: Date;

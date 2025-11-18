@@ -27,30 +27,30 @@
 
     <div class="form-grid">
         <div class="form-group">
-            <label>Username <span class="required">*</span></label>
-            <input type="text" formControlName="username" [readonly]="isEditMode">
+            <label>Nombre <span class="required">*</span></label>
+            <input type="text" formControlName="fname" [readonly]="isEditMode">
             <div class="error">
-                @if(registrationForm.get('username')?.touched && registrationForm.get('username')?.errors){
-                @if(registrationForm.get('username')?.errors?.['required']){<span>Username is required</span>}
-                @if(registrationForm.get('username')?.errors?.['maxlength']){<span>Maximum 20 characters allowed</span>}
+                @if(registrationForm.get('fname')?.touched && registrationForm.get('fname')?.errors){
+                @if(registrationForm.get('fname')?.errors?.['required']){<span>El Nombre es requerido</span>}
+                @if(registrationForm.get('fname')?.errors?.['maxlength']){<span>Máximo 20 Caracteres</span>}
                 }
             </div>
         </div>
 
         <div class="form-group">
-            <label>Nombre<span class="required">*</span></label>
-            <input type="text" formControlName="firstName">
-            @if(registrationForm.get('firstName')?.touched && registrationForm.get('firstName')?.errors){
+            <label>Primer Apellido<span class="required">*</span></label>
+            <input type="text" formControlName="firstLastName">
+            @if(registrationForm.get('firstLastName')?.touched && registrationForm.get('firstLastName')?.errors){
             <div class="error">
-                @if(registrationForm.get('firstName')?.errors?.['required']){<span>El nombre es requerido</span>}
+                @if(registrationForm.get('firstLastName')?.errors?.['required']){<span>El primer apellido es requerido</span>}
             </div>
             }
 
         </div>
 
         <div class="form-group">
-            <label>Apellido</label>
-            <input type="text" formControlName="lastName">
+            <label>Segundo Apellido</label>
+            <input type="text" formControlName="secLastName">
         </div>
 
         <div class="form-group">
@@ -138,7 +138,7 @@
     </div>
 
     <div class="form-actions">
-        <button type="submit" [disabled]="!registrationForm.valid || isSubmitting">Register</button>
-        <button type="button" (click)="resetForm()">Reset</button>
+        <button type="submit" [disabled]="!registrationForm.valid || isSubmitting">Registrar</button>
+        <button type="button" (click)="resetForm()">Limpiar Campos</button>
     </div>
 </form>
