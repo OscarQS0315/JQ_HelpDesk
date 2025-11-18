@@ -127,6 +127,9 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   password: 'password',
   profileImage: 'profileImage',
+  genre: 'genre',
+  dob: 'dob',
+  cellphone: 'cellphone',
   role: 'role',
   status: 'status',
   lastLogin: 'lastLogin',
@@ -266,7 +269,9 @@ exports.Prisma.UserOrderByRelevanceFieldEnum = {
   lastName: 'lastName',
   email: 'email',
   password: 'password',
-  profileImage: 'profileImage'
+  profileImage: 'profileImage',
+  genre: 'genre',
+  cellphone: 'cellphone'
 };
 
 exports.Prisma.SpecialityAreaOrderByRelevanceFieldEnum = {

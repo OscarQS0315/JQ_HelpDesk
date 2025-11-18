@@ -11,7 +11,11 @@ export class TechnicianController {
         try {
             const technicians = await this.prisma.userTechnician.findMany({
                 include: {
-                    user: true,
+                    user: {
+                        omit:{
+                            password:true
+                        }
+                    }, 
                     tickets: true,
                     specialities: true
                 }
@@ -34,10 +38,15 @@ export class TechnicianController {
                     id: technicianId
                 },
                 include: {
-                    user: true,
+                    user: {
+                        omit:{
+                            password:true
+                        }
+                    },
                     tickets: true,
                     specialities: true
-                }
+                },
+                
             });
             if (!technician) {
                 return next(AppError.notFound("Técnico no encontrado"));
@@ -54,6 +63,7 @@ export class TechnicianController {
     create = async (req: Request, res: Response, next: NextFunction) => {
 
         try {
+            console.log("Entró al Create");
             const body = req.body;
 
             const errors: string[] = [];
@@ -115,6 +125,9 @@ export class TechnicianController {
                     email: body.email,
                     password: body.password,
                     profileImage: body.profileImage,
+                    genre: body.genre,
+                    dob: body.dob,
+                    cellphone:body.cellphone,
                     role: E_Role.TECHNICIAN,
                     status: body.status,
                     userTechnician: {
@@ -127,8 +140,9 @@ export class TechnicianController {
                     },
                 }
             });
-
-            res.status(201).json(newTechnician);
+            
+            
+            res.status(200).json(newTechnician);
         } catch (error) {
             console.error("Error creando tecnico:", error);
             next(error);
@@ -229,6 +243,9 @@ export class TechnicianController {
                     email: body.email,
                     password: body.password,
                     profileImage: finalImage,
+                    genre: body.genre,
+                    dob: body.dob,
+                    cellphone:body.cellphone,
                     role: E_Role.TECHNICIAN,
                     status: body.status,
                     userTechnician: {

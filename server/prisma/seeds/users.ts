@@ -1,6 +1,4 @@
-import { profile } from "console";
 import { E_Role } from "../../generated/prisma";
-
 
 export const users = [
   {
@@ -11,6 +9,9 @@ export const users = [
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.ADMIN,
     profileImage: 'oscar-profile.jpg',
+    genre: 'male',
+    dob: new Date('1995-05-20'),
+    cellphone: '84762042',
   },
   {
     //2
@@ -20,6 +21,9 @@ export const users = [
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.ADMIN,
     profileImage: 'lucia-profile.jpg',
+    genre: 'female',
+    dob: new Date('1992-08-15'),
+    cellphone: '88887777',
   },
   {
     //3
@@ -29,6 +33,9 @@ export const users = [
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.USER,
     profileImage: 'carlos-profile.jpg',
+    genre: 'male',
+    dob: new Date('1990-01-10'),
+    cellphone: '89998888',
   },
   {
     //4
@@ -38,6 +45,9 @@ export const users = [
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.USER,
     profileImage: 'ana-profile.jpg',
+    genre: 'female',
+    dob: new Date('1993-03-12'),
+    cellphone: '87001122',
   },
   {
     //5
@@ -45,8 +55,11 @@ export const users = [
     lastName: 'Salas',
     email: 'roberto@tech.com',
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
-    role: E_Role.USER,  
+    role: E_Role.USER,
     profileImage: 'roberto-profile.jpg',
+    genre: 'male',
+    dob: new Date('1988-07-25'),
+    cellphone: '88112233',
   },
   {
     //6
@@ -56,6 +69,9 @@ export const users = [
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.USER,
     profileImage: 'diego-profile.jpg',
+    genre: 'male',
+    dob: new Date('1996-11-02'),
+    cellphone: '88223344',
   },
   {
     //7
@@ -65,6 +81,9 @@ export const users = [
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.USER,
     profileImage: 'valeria-profile.jpg',
+    genre: 'female',
+    dob: new Date('1994-09-18'),
+    cellphone: '88334455',
   },
   {
     //8
@@ -74,6 +93,9 @@ export const users = [
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.USER,
     profileImage: 'esteban-profile.jpg',
+    genre: 'male',
+    dob: new Date('1991-12-30'),
+    cellphone: '88445566',
   },
   {
     //9
@@ -83,6 +105,9 @@ export const users = [
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.USER,
     profileImage: 'laura-profile.jpg',
+    genre: 'female',
+    dob: new Date('1997-04-05'),
+    cellphone: '88556677',
   },
   {
     //10
@@ -92,6 +117,9 @@ export const users = [
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.USER,
     profileImage: 'fernando-profile.jpg',
+    genre: 'male',
+    dob: new Date('1989-06-22'),
+    cellphone: '88667788',
   },
   {
     //11
@@ -101,6 +129,9 @@ export const users = [
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.TECHNICIAN,
     profileImage: 'maria-profile.jpg',
+    genre: 'female',
+    dob: new Date('1993-02-14'),
+    cellphone: '88778899',
   },
   {
     //12
@@ -110,6 +141,9 @@ export const users = [
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.TECHNICIAN,
     profileImage: 'jorge-profile.jpg',
+    genre: 'male',
+    dob: new Date('1990-08-09'),
+    cellphone: '88990011',
   },
   {
     //13
@@ -119,6 +153,9 @@ export const users = [
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.TECHNICIAN,
     profileImage: 'sofia-profile.jpg',
+    genre: 'female',
+    dob: new Date('1995-01-25'),
+    cellphone: '88001122',
   },
   {
     //14
@@ -128,6 +165,9 @@ export const users = [
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.TECHNICIAN,
     profileImage: 'luis-profile.jpg',
+    genre: 'male',
+    dob: new Date('1987-10-11'),
+    cellphone: '88112233',
   },
   {
     //15
@@ -137,7 +177,9 @@ export const users = [
     password: '$2b$10$1BaQqXuZYNLDAC42PY5fN.ufSOKjApmjkaZrQUYf7ms71PaS1mASO',
     role: E_Role.TECHNICIAN,
     profileImage: 'andrea-profile.jpg',
+    genre: 'female',
+    dob: new Date('1998-07-07'),
+    cellphone: '88223344',
   },
-
 ];
 
