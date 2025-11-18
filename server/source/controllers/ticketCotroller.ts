@@ -94,75 +94,81 @@ export class TicketController {
             }
             const userRole = user?.role as E_Role;
             if (userRole === E_Role.ADMIN) {
-            tickets = await this.prisma.ticket.findMany({
-                include: {
-                    user: true,
-                    technician: {
-                        include: {
-                            user: true,
+                tickets = await this.prisma.ticket.findMany({
+                    include: {
+                        user: true,
+                        technician: {
+                            include: {
+                                user: true,
+                            },
                         },
-                    },
-                    ticketHistory: {
-                        include: {
-                            ticketImages: true,
+                        ticketHistory: {
+                            include: {
+                                ticketImages: true,
+                            },
                         },
-                    },
-                    ticketCategory: true,
-                    ticketValoration: true,
-                }
-            });
+                        ticketCategory: true,
+                        ticketValoration: true,
+                    }
+                });
             } else if (userRole === E_Role.TECHNICIAN) {
-            tickets = await this.prisma.ticket.findMany({
-                where: {
-                    technician: {
-                        userId: userId
+                tickets = await this.prisma.ticket.findMany({
+                    where: {
+                        technician: {
+                            userId: userId
+                        }
+                    },
+                    include: {
+                        user: true,
+                        technician: {
+                            include: {
+                                user: true,
+                            },
+                        },
+                        ticketHistory: {
+                            include: {
+                                ticketImages: true,
+                            },
+                        },
+                        ticketCategory: true,
+                        ticketValoration: true
                     }
-                },
-                include: {
-                    user: true,
-                    technician: {
-                        include: {
-                            user: true,
-                        },
+                });
+            } else {
+                tickets = await this.prisma.ticket.findMany({
+                    where: {
+                        user: {
+                            id: userId
+                        }
                     },
-                    ticketHistory: {
-                        include: {
-                            ticketImages: true,
+                    include: {
+                        user: true,
+                        technician: {
+                            include: {
+                                user: true,
+                            },
                         },
-                    },
-                    ticketCategory: true,
-                    ticketValoration: true
-                }
-            });
-        }else{
-            tickets = await this.prisma.ticket.findMany({
-                where: {
-                    user:{
-                        id: userId
+                        ticketHistory: {
+                            include: {
+                                ticketImages: true,
+                            },
+                        },
+                        ticketCategory: true,
+                        ticketValoration: true
                     }
-                },
-                include: {
-                    user: true,
-                    technician: {
-                        include: {
-                            user: true,
-                        },
-                    },
-                    ticketHistory: {
-                        include: {
-                            ticketImages: true,
-                        },
-                    },
-                    ticketCategory: true,
-                    ticketValoration: true
-                }
-            });
-        }
+                });
+            }
 
-        res.status(200).json(tickets);
+            res.status(200).json(tickets);
+        }
+        catch (error) {
+            next(error);
+        }
+    };
+
+    create = async (req: Request, res: Response, next: NextFunction) => {
+        const body = req.body;
+
+        
     }
-    catch(error) {
-        next(error);
-    }
-};
 }
