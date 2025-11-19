@@ -6,6 +6,7 @@ import { TicketRoutes } from './ticket.routes';
 import { SpecialityRoutes } from './speciality.routes';
 import { EtiquetteRoutes } from './etiquette.routes';
 import { ImageRoutes } from './image.routes';
+import { SlaRoutes } from './sla.routes';
 export class AppRoutes{
     static get routes(): Router{
         const router = Router();
@@ -17,6 +18,7 @@ export class AppRoutes{
         router.use('/speciality', SpecialityRoutes.routes);
         router.use('/etiquette', EtiquetteRoutes.routes);
         router.use("/file/", ImageRoutes.routes);
+        router.use('/sla', SlaRoutes.routes);
         return router;
     }
 }

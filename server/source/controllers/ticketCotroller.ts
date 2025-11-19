@@ -171,7 +171,7 @@ export class TicketController {
     create = async (req: Request, res: Response, next: NextFunction) => {
         try {
         const body = req.body;
-        const vTicketPriority = body.ticketPriority as E_TicketPriority;
+        const vTicketPriority = body.priority as E_TicketPriority;
         const category = await this.prisma.ticketCategory.findUnique({
             where: { id: body.ticketCategoryId },
             include: { SLA: true }
@@ -189,7 +189,7 @@ export class TicketController {
         const vResolutionSLA = new Date(now.getTime() + Number(category.SLA.slaResolutionHours * 3600000));
 
         const historyPoints = calculateHistoryPoints(vTicketPriority);
-        
+        console.log (body.ticketPriority, vTicketPriority, typeof(vTicketPriority));
             const newTicket = await this.prisma.ticket.create({
                 data: {
                     title: body.title,

@@ -7,11 +7,6 @@ export class SpecialityRoutes{
         const controller = new SpecialitiesController();
 
         router.get('/', controller.get);
-
-
-
-
-        
         router.get('/:id', controller.getById);
         
         return router;
