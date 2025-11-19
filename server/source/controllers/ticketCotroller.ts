@@ -183,17 +183,19 @@ export class TicketController {
 
         const now = new Date();
 
-        const vReplySLA = new Date(now.getTime() + category.SLA.slaReplyHours * 60 * 60 * 1000);
-        const vResolutionSLA = new Date(now.getTime() + category.SLA.slaResolutionHours * 60 * 60 * 1000);
+        const vReplySLA = new Date(now.getTime() + Number(category.SLA.slaReplyHours) * 3600000);
 
 
+        const vResolutionSLA = new Date(now.getTime() + Number(category.SLA.slaResolutionHours * 3600000));
+
+        const historyPoints = calculateHistoryPoints(vTicketPriority);
         
             const newTicket = await this.prisma.ticket.create({
                 data: {
                     title: body.title,
                     description: body.description,
                     priority: vTicketPriority,
-                    storyPoints: body.storyPoints,
+                    storyPoints: historyPoints,
                     aceptanceCriteria: body.aceptanceCriteria,
                     comments: body.comments,
                     slaReply: vReplySLA,
@@ -225,5 +227,18 @@ export class TicketController {
             next(error);
         }
 
+    }
+    
+}
+function calculateHistoryPoints(priority: E_TicketPriority): number {
+    switch (priority) {
+        case E_TicketPriority.LOW:
+            return 1;
+        case E_TicketPriority.MEDIUM:
+            return 3;
+        case E_TicketPriority.HIGH:
+            return 5;
+        default:
+            return 0;
     }
 }
