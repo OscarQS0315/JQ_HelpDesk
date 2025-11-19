@@ -105,7 +105,10 @@
     height: 2px;
     background: #ebe825;
 }
-
+h2:hover {
+    color: #f5c518;
+    cursor: pointer;
+}
 @media (max-width: 768px) {
     .category-row {
         flex-direction: column;

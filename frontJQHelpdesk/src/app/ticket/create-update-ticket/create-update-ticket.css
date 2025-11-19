@@ -147,8 +147,9 @@
 
 .profile-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    grid-template-columns: 60% 40%;
+    gap: 20px;
+    align-items: start;
 }
 
 .profile-info,
@@ -334,6 +335,7 @@ button[type="submit"]:disabled {
     align-items: center;
     justify-content: center;
     background: #f8f9fa;
+    overflow: visible !important; 
 }
 
 .image-preview.circular-preview img {
@@ -404,6 +406,8 @@ background-color: black;
     padding: 1rem;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    align-items: flex-start;
+
 }
 
 .search-box {
@@ -533,3 +537,74 @@ background-color: black;
         gap: 0.5rem;
     }
 }
+.stack-list-container {
+    width: 100%;
+    margin-bottom: 20px; 
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; 
+}
+
+.list-wrapper {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+.list-item {
+    padding: 8px 0;
+}
+
+.item-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0; 
+}
+
+
+.item-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+
+.item-title {
+    font-size: 14px;
+    margin: 0 0 2px 0;
+}
+
+.item-description {
+    font-size: 12px;
+    margin: 0;
+}
+.image-preview {
+    position: relative;
+    margin: 5px;
+}
+
+.delete-image-btn {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 22px;
+    height: 22px;
+    border: none;
+    border-radius: 50%;
+    background: #ff4d4d;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-image-btn:hover {
+    background: #d60000;
+}
+
+

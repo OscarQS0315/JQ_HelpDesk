@@ -6,7 +6,7 @@
     <div class="search-box">
         <input type="text" [(ngModel)]="searchQuery" placeholder="Buscar técnicos..." class="search-input" />
     </div>
-    <h2 [routerLink]="['/Crear-UpdateTecnico']">Crear Técnico</h2>
+    <h2 [routerLink]="['/Crear-UpdateTecnico']">Crear Técnico +</h2>
     <div class="list-wrapper">
         @for (item of filteredData; track item.id) {
         <div class="list-item" [class.active]="selectedItem?.id === item.id" (click)="selectItem(item)"

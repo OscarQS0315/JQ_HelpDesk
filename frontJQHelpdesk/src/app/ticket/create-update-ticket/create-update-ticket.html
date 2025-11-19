@@ -2,32 +2,7 @@
 <br>
 <br>
 <app-breadcrumb-back />
-<div class="stepper-container" role="navigation" aria-label="Progress Steps">
-    <div class="steps-wrapper">
-        @for(step of steps; track step; let i = $index){
-        <div class="step" [class.active]="currentStep === i" [class.completed]="currentStep > i" role="button"
-            tabindex="0" (click)="goToStep(i)" [attr.aria-label]="'Step ' + (i + 1) + ': ' + step.label"
-            [attr.aria-current]="currentStep === i ? 'step' : null">
 
-            <div class="step-indicator">
-                <div class="circle">
-                    @if(currentStep <= i){ <span>{{ i + 1 }}</span>
-                        }
-                        @if(currentStep > i){
-                        <span class="check-icon">✓</span>
-                        }
-                </div>
-
-                @if(i !== steps.length - 1){
-                <div class="connector"></div>
-                }
-            </div>
-
-            <div class="step-label">{{ step.label }}</div>
-        </div>
-        }
-    </div>
-</div>
 
 <div class="profile-container">
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
@@ -79,13 +54,13 @@
                     <label>Prioridad</label>
                     <div class="radio-group">
                         <label>
-                            <input type="radio" name="prioridad" formControlName="prioridad" value="baja"> Baja
+                            <input type="radio" name="prioridad" formControlName="prioridad" value="LOW"> Baja
                         </label>
                         <label>
-                            <input type="radio" name="prioridad" formControlName="prioridad" value="media"> Media
+                            <input type="radio" name="prioridad" formControlName="prioridad" value="MEDIUM"> Media
                         </label>
                         <label>
-                            <input type="radio" name="prioridad" formControlName="prioridad" value="alta"> Alta
+                            <input type="radio" name="prioridad" formControlName="prioridad" value="HIGH"> Alta
                         </label>
                     </div>
                 </div>
@@ -97,18 +72,17 @@
                     </div>
 
                     <div class="list-wrapper">
+
                         @for (item of filteredData(); track item.id) {
-                        <div class="list-item" [class.active]="selectedItem?.id === item.id" (click)="selectItem(item)"
-                            [routerLink]="['/DetalleCategoria', item.id]">
+                        <div class="list-item" [class.active]="selectedItem?.id === item.id" (click)="selectItem(item)">
                             <div class="item-content">
                                 <div class="icon-wrapper">
                                     <img [src]="'http://localhost:3000/images/' + item.imageUrl" class="item-icon" />
                                 </div>
 
                                 <div class="text-content">
-                                    <h3 class="item-title">
-                                        {{ item.name }}
-                                    </h3>
+                                    <h3 class="item-title">{{ item.name }}</h3>
+
                                     <p class="item-description">{{ item.description }}</p>
 
                                     <div class="item-metadata">
@@ -125,6 +99,23 @@
                     </div>
                 </div>
 
+
+
+                <!-- ACCEPTANCE CRITERIA -->
+                <div class="form-group">
+                    <label for="aceptanceCriteria">Criterios de aceptación</label>
+                    <textarea id="aceptanceCriteria" formControlName="aceptanceCriteria"
+                        placeholder="Describa los criterios de aceptación..."></textarea>
+                </div>
+
+                <!-- COMMENTS -->
+                <div class="form-group">
+                    <label for="comments">Comentarios</label>
+                    <textarea id="comments" formControlName="comments"
+                        placeholder="Ingrese comentarios adicionales..."></textarea>
+                </div>
+
+
                 <div class="button-group">
                     <button type="submit" [disabled]="!profileForm.valid || isLoading">Crear Ticket</button>
                     <button type="button" (click)="resetForm()" class="reset-btn">Limpiar campos</button>
@@ -132,47 +123,71 @@
             </div>
 
 
-            <!-- PROFILE IMAGE -->
+
             <div class="profile-image">
-                <h2>Imagen</h2>
+                <h2>Imágenes relacionadas con el Ticket</h2>
 
                 <div class="image-upload-container" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
                     (drop)="onDrop($event)">
 
-                    @if(imagePreview){
-                    <div class="image-preview circular-preview">
-                        <img [src]="imagePreview" alt="Profile preview">
+                    <!-- PREVIEW DE VARIAS IMÁGENES -->
+                    @if(imagePreviews.length > 0){
+                    <div class="multiple-previews">
+                        <div class="image-preview circular-preview" *ngFor="let img of imagePreviews; let i = index">
+
+                            
+                            <img [src]="img" alt="Preview {{ i }}">
+
+                            
+                            <button type="button" class="delete-image-btn" (click)="removeImage(i)">✕</button>
+
+                        </div>
                     </div>
+
+
                     }
 
-                    @if(!imagePreview){
+                    <!-- PLACEHOLDER -->
+                    @if(imagePreviews.length === 0){
                     <div class="upload-placeholder circular-preview">
                         <i class="fas fa-cloud-upload-alt"></i>
                         <p>Arrastrar y soltar o hacer clic para subir</p>
-                        <span class="file-info">Tamaño máximo: 5MB (JPEG, PNG, WebP)</span>
+                        <span class="file-info">Máx 5MB por archivo (JPEG, PNG, WebP)</span>
                     </div>
                     }
 
+                    <!-- INPUT MULTIPLE -->
                     <input type="file" #fileInput (change)="onFileSelected($event)"
-                        accept="image/jpeg,image/png,image/webp" style="display: none">
+                        accept="image/jpeg,image/png,image/webp" multiple style="display: none">
 
-                    <button type="button" (click)="fileInput.click()" class="upload-btn">Seleccionar imagen</button>
+                    <button type="button" (click)="fileInput.click()" class="upload-btn">
+                        Seleccionar imágenes
+                    </button>
                 </div>
 
                 @if(imageError){
                 <div class="error">{{ imageError }}</div>
                 }
 
-                <div class="additional-fields">
-                    <span>Usuario</span>
+
+
+
+                <div class="additional-fields" [hidden]="!authUser()">
+                    <h3>Usuario autenticado</h3>
+
+                    <p><strong>ID:</strong> {{ authUser()?.id }}</p>
+                    <p><strong>Nombre:</strong> {{ authUser()?.name }} {{ authUser()?.lastName }}</p>
+                    <p><strong>Correo:</strong> {{ authUser()?.email }}</p>
+
+                    <p><strong>Celular:</strong> {{ authUser()?.cellphone }}</p>
+
+                    <img width="80" height="80" style="border-radius: 10px; margin-top: 10px;" [hidden]="!authUser()"
+                        [src]="'http://localhost:3000/images/image-no-found.jpg'">
+
                 </div>
+
+
             </div>
         </div>
     </form>
 </div>
-
-@if(notification.show){
-<div class="notification" [@notificationAnimation]>
-    {{ notification.message }}
-</div>
-}

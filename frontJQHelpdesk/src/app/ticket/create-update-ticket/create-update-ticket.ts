@@ -5,7 +5,14 @@ import { Router, RouterModule } from "@angular/router";
 import { BreadcrumbBackComponent } from "../../share/components/breadcrumb-back/breadcrumb-back.component";
 import { TicketCategoryModel } from "../../share/models/TicketCategoryModel";
 import { TicketCategoryService } from "../../share/services/api/ticketCategory.service";
-
+import { effect } from '@angular/core';
+import { UserModel } from "../../share/models/UserModel";
+import { UserService } from "../../share/services/api/user.service";
+import { TicketDTO } from "../../share/models/DTOs/TicketDTO";
+import { FileUploadService } from "../../share/services/api/file-upload.service";
+import { TicketService } from "../../share/services/api/ticket.service";
+import { NotificationService } from '../../share/services/app/notification.service';
+import { forkJoin } from 'rxjs';
 
 
 interface Step {
@@ -27,15 +34,25 @@ interface Category {
   standalone: true,
   templateUrl: "./create-update-ticket.html",
   styleUrls: ["./create-update-ticket.css"],
-  imports: [CommonModule, RouterModule, BreadcrumbBackComponent,FormsModule, ReactiveFormsModule]
+  imports: [CommonModule, RouterModule, BreadcrumbBackComponent, FormsModule, ReactiveFormsModule]
 })
 export class CreateUpdateTicket {
 
+  userId = signal<number>(10);
+
+  authUser = signal<UserModel | null>(null);
+
+  ticketImages = signal<{ url: string }[]>([]);
+  imagePreviews: string[] = [];
+  currentFile?: File;
+  selectedFiles: File[] = [];
+  nameImage = '';
+
   data = signal<TicketCategoryModel[]>([]);
   selectedItem: TicketCategoryModel | null = null;
- searchQuery = signal('');
- today = new Date().toISOString().split('T')[0]; // yyyy-mm-dd
- 
+  searchQuery = signal('');
+  today = new Date().toISOString().split('T')[0]; // yyyy-mm-dd
+
   steps: Step[] = [
     { label: "Pendiente", completed: false },
     { label: "En progreso", completed: false },
@@ -71,15 +88,50 @@ export class CreateUpdateTicket {
   imageError: string | null = null;
   isLoading = false;
   completionPercentage = 0;
-  notification = { show: false, message: "" };
 
-  constructor(private fb: FormBuilder, private router: Router,
-    private TCService: TicketCategoryService) { }
+
+  constructor(private fb: FormBuilder,
+    private router: Router,
+    private uploadService: FileUploadService,
+    private TicketService: TicketService,
+    private TCService: TicketCategoryService,
+    private userService: UserService,
+    private noti: NotificationService) {
+    effect(() => {
+      const id = this.userId();
+
+      if (id !== null) {
+        this.userService.getById(id).subscribe({
+          next: (user) => {
+            this.authUser.set(user);
+            this.profileForm.patchValue({
+              userId: user.id
+            });
+          },
+          error: () => this.authUser.set(null)
+        });
+      }
+    });
+
+  }
 
   ngOnInit() {
     this.initForm();
     this.watchFormChanges();
     this.listCategories();
+
+    effect(() => {
+      const q = this.searchQuery().trim().toLowerCase();
+
+
+      if (!this.selectedItem) return;
+
+
+      if (q !== this.selectedItem.name.toLowerCase()) {
+        this.selectedItem = null;
+        this.profileForm.patchValue({ ticketCategoryId: null });
+      }
+    });
   }
 
   listCategories(): void {
@@ -115,8 +167,14 @@ export class CreateUpdateTicket {
       titulo: ["", [Validators.required]],
       descripcion: ["", [Validators.required]],
       Fecha: [this.today, [Validators.required]],
-      prioridad: ["", [Validators.required]]
+      prioridad: ["", [Validators.required]],
+      storyPoints: [0],
+      aceptanceCriteria: [""],
+      comments: [""],
+      userId: [null, [Validators.required]],
+      ticketCategoryId: [null, [Validators.required]]
     });
+
   }
 
   watchFormChanges() {
@@ -136,9 +194,16 @@ export class CreateUpdateTicket {
   }
 
   onFileSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    this.handleFile(file);
+    const files = (event.target as HTMLInputElement).files;
+
+    if (!files || files.length === 0) return;
+
+
+    Array.from(files).forEach(file => {
+      this.handleFile(file);
+    });
   }
+
 
   onDragOver(event: DragEvent) {
     event.preventDefault();
@@ -153,9 +218,15 @@ export class CreateUpdateTicket {
   onDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
-    const file = event.dataTransfer?.files[0];
-    this.handleFile(file);
+
+    const files = event.dataTransfer?.files;
+    if (!files || files.length === 0) return;
+
+    Array.from(files).forEach(file => {
+      this.handleFile(file);
+    });
   }
+
 
   handleFile(file: File | undefined) {
     if (!file) return;
@@ -171,55 +242,166 @@ export class CreateUpdateTicket {
     }
 
     this.imageError = null;
+
+    // Guardar archivo en la lista
+    this.selectedFiles.push(file);
+
+    // Generar preview
     const reader = new FileReader();
     reader.onload = () => {
-      this.imagePreview = reader.result as string;
+      this.imagePreviews.push(reader.result as string);
     };
     reader.readAsDataURL(file);
   }
 
   resetForm() {
-    this.profileForm.reset();
+    const currentFecha = this.profileForm.get('Fecha')?.value;
+    this.profileForm.reset({
+      Fecha: currentFecha
+    });
     this.imagePreview = null;
     this.imageError = null;
-    this.showNotification("Form has been reset");
+    this.noti.info('Operación Exitosa', 'Formulario Restablecido', 5000);
   }
+
 
   onSubmit() {
-    if (this.profileForm.valid) {
-      this.isLoading = true;
-      // Simulate API call
-      setTimeout(() => {
-        this.isLoading = false;
-        this.showNotification("Profile updated successfully");
-      }, 1500);
+    this.profileForm.markAllAsTouched();
+
+    if (this.profileForm.invalid) {
+      this.noti.error('Formulario Inválido', 'Revise los campos marcados.', 5000);
+      return;
     }
+
+    this.isLoading = true;
+    this.submitTicket();
+  }
+  removeImage(index: number) {
+    this.selectedFiles.splice(index, 1);
+    this.imagePreviews.splice(index, 1);
+  }
+  submitTicket() {
+    const formValue = this.profileForm.value;
+
+
+    const payload: TicketDTO = {
+      title: formValue.titulo,
+      description: formValue.descripcion,
+      priority: formValue.prioridad.toUpperCase(),
+      storyPoints: formValue.storyPoints,
+      aceptanceCriteria: formValue.aceptanceCriteria,
+      comments: formValue.comments,
+      userId: formValue.userId,
+      ticketCategoryId: formValue.ticketCategoryId,
+      ticketImages: []
+    };
+
+
+    const saveTicket = () => {
+      this.TicketService.create(payload).subscribe({
+        next: (resp) => {
+          this.noti.success('Operación Exitosa', `Ticket ${resp.title} creado`, 5000);
+          this.router.navigate(['/VisualizacionTicket']);
+        },
+        error: () => {
+          this.noti.error('Operación Fallida', 'Error al crear el ticket', 5000);
+        },
+        complete: () => this.isLoading = false
+      });
+    };
+
+
+    if (this.selectedFiles.length === 0) {
+      saveTicket();
+      return;
+    }
+
+    this.isLoading = true;
+
+
+    const uploadObservables = this.selectedFiles.map(file =>
+      this.uploadService.upload(file, null)
+    );
+
+
+    forkJoin(uploadObservables).subscribe({
+      next: (results: any[]) => {
+        payload.ticketImages = results.map(r => ({ url: r.fileName }));
+        saveTicket();
+      },
+      error: () => {
+        this.noti.error('Operación Fallida', 'Error al subir las imágenes', 5000);
+        this.isLoading = false;
+      }
+    });
   }
 
-  showNotification(message: string) {
-    this.notification = { show: true, message };
-    setTimeout(() => {
-      this.notification = { show: false, message: "" };
-    }, 3000);
+
+
+
+
+
+  filteredData = computed(() => {
+    const selected = this.selectedItem;
+    const query = this.searchQuery().trim().toLowerCase();
+
+
+    if (selected && query === selected.name.toLowerCase()) {
+      return [selected];
+    }
+
+
+    return this.data().filter(item =>
+      item.name.toLowerCase().includes(query) ||
+      item.description.toLowerCase().includes(query) ||
+      item.categoryEtiquettes?.some(tag =>
+        tag.name.toLowerCase().includes(query)
+      )
+    );
+  });
+
+  buildDTO(): TicketDTO {
+    const form = this.profileForm.value;
+
+    return {
+      title: form.titulo,
+      description: form.descripcion,
+      priority: form.prioridad,
+      storyPoints: form.storyPoints,
+      aceptanceCriteria: form.aceptanceCriteria,
+      comments: form.comments,
+      userId: form.userId,
+      ticketCategoryId: form.ticketCategoryId,
+      ticketImages: this.ticketImages()
+    };
   }
 
-  
-filteredData = computed(() => {
-  const query = this.searchQuery().toLowerCase();
-
-  return this.data().filter(item =>
-    item.name.toLowerCase().includes(query) ||
-    item.description.toLowerCase().includes(query) ||
-    item.categoryEtiquettes?.some(tag =>
-      tag.name.toLowerCase().includes(query)
-    )
-  );
-});
 
 
   selectItem(item: TicketCategoryModel): void {
-      this.selectedItem = item;
+
+
+    if (this.selectedItem?.id === item.id) {
+      this.selectedItem = null;
+      this.searchQuery.set("");
+      return;
     }
+
+
+    this.selectedItem = item;
+
+
+    this.searchQuery.set(item.name);
+
+
+    this.profileForm.patchValue({
+      ticketCategoryId: item.id
+    });
+  }
+  onImageError(event: Event) {
+    (event.target as HTMLImageElement).src = 'assets/image-no-found.jpg';
+  }
+
 }
 
 

@@ -54,11 +54,17 @@ export class ListadoTicket implements OnInit {
   }
 
   getSlaRemaining(ticket: TicketModel): number {
-    const created = new Date(ticket.createdAt);
-    const now = new Date();
-    const diffDays = Math.floor((now.getTime() - created.getTime()) / (1000 * 60 * 60 * 24));
-    return Math.max(ticket.slaResolution - diffDays, 0);
-  }
+  const now = new Date();
+  const slaDate = new Date(ticket.slaResolution);   
+  const diffMs = slaDate.getTime() - now.getTime(); 
+
+  
+  const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+ 
+  return Math.max(diffDays, 0);
+}
+
 
   toggleExpand(ticketId: number): void {
     const current = this.expandedTickets();

@@ -44,8 +44,8 @@
 
     <div class="section sla">
         <h3>Indicadores SLA</h3>
-        <p><strong>SLA Respuesta:</strong> {{ ticket()?.slaReply }} hrs</p>
-        <p><strong>SLA Resolución:</strong> {{ ticket()?.slaResolution }} hrs</p>
+        <p><strong>SLA Respuesta:</strong> {{ formatDateTimeShort(ticket()?.slaReply) }}</p>
+        <p><strong>SLA Resolución:</strong> {{ formatDateTimeShort(ticket()?.slaResolution )}}</p>
         <p><strong>¿Respondido a tiempo?:</strong> {{ ticket()?.replyAchieved ? 'Sí' : 'No' }}</p>
         <p><strong>¿Resuelto a tiempo?:</strong> {{ ticket()?.resolutionAchieved ? 'Sí' : 'No' }}</p>
     </div>

@@ -22,8 +22,8 @@ export interface TicketModel {
     aceptanceCriteria?: string;
     comments?: string;
     resolutionDays?: number;
-    slaReply: number;
-    slaResolution: number;
+    slaReply: Date;
+    slaResolution: Date;
     replyAchieved: boolean;
     resolutionAchieved: boolean;
     ticketValorationId?: number;

@@ -24,7 +24,10 @@
     outline: none;
     border-color: #ebe825;
 }
-
+h2:hover {
+    color: #f5c518;
+    cursor: pointer;
+}
 .list-wrapper {
     display: flex;
     flex-direction: column;
