@@ -21,7 +21,7 @@
 <div class="project-status-container">
     <app-breadcrumb-back />
     <div class="status-card">
-        <h2 class="card-title">Tickets</h2> <h2 [routerLink]="['/CreateUpdateTicket']">Crear Ticket</h2>
+        <h2 class="card-title">Tickets</h2> <h2 [routerLink]="['/CreateUpdateTicket']">Crear Ticket +</h2>
         <div class="phases-container">
             @for (ticket of data(); track ticket) {
             <a class="phase-item-link" [routerLink]="['/DetalleTicket', ticket.id]"

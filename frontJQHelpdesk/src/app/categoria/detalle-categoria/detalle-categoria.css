@@ -159,3 +159,19 @@
     margin-top: 2%;
     margin-left: 5%;
 }
+.role-tag {
+    background: black;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    width: 400px;
+}
+
+.role-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px #ebe825;
+    cursor: pointer;
+}

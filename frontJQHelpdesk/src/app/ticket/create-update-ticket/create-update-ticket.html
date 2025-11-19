@@ -101,14 +101,14 @@
 
 
 
-                <!-- ACCEPTANCE CRITERIA -->
+                
                 <div class="form-group">
                     <label for="aceptanceCriteria">Criterios de aceptación</label>
                     <textarea id="aceptanceCriteria" formControlName="aceptanceCriteria"
                         placeholder="Describa los criterios de aceptación..."></textarea>
                 </div>
 
-                <!-- COMMENTS -->
+                
                 <div class="form-group">
                     <label for="comments">Comentarios</label>
                     <textarea id="comments" formControlName="comments"
@@ -130,15 +130,11 @@
                 <div class="image-upload-container" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
                     (drop)="onDrop($event)">
 
-                    <!-- PREVIEW DE VARIAS IMÁGENES -->
+                    
                     @if(imagePreviews.length > 0){
                     <div class="multiple-previews">
                         <div class="image-preview circular-preview" *ngFor="let img of imagePreviews; let i = index">
-
-                            
                             <img [src]="img" alt="Preview {{ i }}">
-
-                            
                             <button type="button" class="delete-image-btn" (click)="removeImage(i)">✕</button>
 
                         </div>
@@ -147,7 +143,7 @@
 
                     }
 
-                    <!-- PLACEHOLDER -->
+                    
                     @if(imagePreviews.length === 0){
                     <div class="upload-placeholder circular-preview">
                         <i class="fas fa-cloud-upload-alt"></i>
@@ -156,7 +152,7 @@
                     </div>
                     }
 
-                    <!-- INPUT MULTIPLE -->
+                    
                     <input type="file" #fileInput (change)="onFileSelected($event)"
                         accept="image/jpeg,image/png,image/webp" multiple style="display: none">
 

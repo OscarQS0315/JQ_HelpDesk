@@ -8,7 +8,9 @@ import { CreateUpdateCategoria } from './create-update-categoria/create-update-c
 const routes: Routes = [
   {path:'ListadoCategoria', component: ListadoCategoria},
   {path:'DetalleCategoria/:id', component: DetalleCategoria},
-  {path:'CreateUpdateCategoria', component: CreateUpdateCategoria}
+  {path:'CreateUpdateCategoria', component: CreateUpdateCategoria},
+  {path:'CreateUpdateCategoria/update/:id', component: CreateUpdateCategoria}
+
 ];
 
 @NgModule({

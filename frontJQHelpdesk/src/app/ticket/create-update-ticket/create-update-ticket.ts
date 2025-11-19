@@ -169,8 +169,8 @@ export class CreateUpdateTicket {
       Fecha: [this.today, [Validators.required]],
       prioridad: ["", [Validators.required]],
       storyPoints: [0],
-      aceptanceCriteria: [""],
-      comments: [""],
+      aceptanceCriteria: ["", [Validators.required]],
+      comments: ["", [Validators.required]],
       userId: [null, [Validators.required]],
       ticketCategoryId: [null, [Validators.required]]
     });
@@ -295,7 +295,7 @@ export class CreateUpdateTicket {
       ticketCategoryId: formValue.ticketCategoryId,
       ticketImages: []
     };
-
+    console.log(payload);
 
     const saveTicket = () => {
       this.TicketService.create(payload).subscribe({
@@ -315,15 +315,10 @@ export class CreateUpdateTicket {
       saveTicket();
       return;
     }
-
     this.isLoading = true;
-
-
     const uploadObservables = this.selectedFiles.map(file =>
       this.uploadService.upload(file, null)
     );
-
-
     forkJoin(uploadObservables).subscribe({
       next: (results: any[]) => {
         payload.ticketImages = results.map(r => ({ url: r.fileName }));

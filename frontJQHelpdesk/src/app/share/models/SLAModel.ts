@@ -7,7 +7,6 @@ export interface SLAModel {
     slaResolutionHours: number;
     createdAt: Date;
     updatedAt: Date;
-
-
+    
     ticketCategories: TicketCategoryModel[];
 }

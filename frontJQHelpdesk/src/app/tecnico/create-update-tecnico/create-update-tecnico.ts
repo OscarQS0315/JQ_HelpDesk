@@ -291,8 +291,7 @@ export class CreateUpdateTecnico implements OnInit {
           this.noti.success(
             this.isCreate ? 'Creación exitosa' : 'Actualización exitosa',
             `Técnico ${data.name} ${data.lastName}  ${this.isCreate ? 'creado' : 'actualizado'}`,
-            5000,
-            '/Listado'
+            5000
           );
           this.router.navigate(['/Listado']);
         },

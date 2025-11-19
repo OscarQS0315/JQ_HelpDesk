@@ -66,6 +66,10 @@
 
                 </ul>
             </div>
+            <br>
+
+            <span class="role-tag" (click)="$event.stopPropagation()"
+                    [routerLink]="['/CreateUpdateCategoria/update/', data()?.id]">Actualizar Categoría</span>
         </div>
     </div>
 </div>

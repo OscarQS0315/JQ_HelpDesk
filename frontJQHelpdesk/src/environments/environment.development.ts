@@ -6,4 +6,6 @@ export const environment = {
     endPointTicketCategories: 'ticket-category',
     endPointSpecialities: 'speciality',
     endPointEtiquettes: 'etiquette',
+    endPointSlas: 'sla',
+    
 };

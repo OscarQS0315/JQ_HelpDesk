@@ -27,6 +27,7 @@ const routes: Routes = [
   { path: 'Crear-UpdateTecnico/update/:id', component: CreateUpdateTecnico },
   { path: 'CreateUpdateTicket', component: CreateUpdateTicket },
   { path: 'CreateUpdateCategoria', component: CreateUpdateCategoria },
+  { path: 'CreateUpdateCategoria/update/:id', component: CreateUpdateCategoria },
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', component: PageNotFound }
 

@@ -142,7 +142,7 @@
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    
+
 }
 
 .profile-grid {
@@ -192,7 +192,7 @@ input:focus,
 textarea:focus {
     outline: none;
     border-color: #ebe825;
-    
+
 }
 
 .radio-group {
@@ -366,7 +366,7 @@ button[type="submit"]:disabled {
     margin-top: 2rem;
     padding-top: 2rem;
     border-top: 1px solid #e2e8f0;
-    
+
 }
 
 .additional-fields .form-group {
@@ -375,7 +375,7 @@ button[type="submit"]:disabled {
 
 .additional-fields textarea,
 .additional-fields input {
-background-color: black;
+    background-color: black;
 }
 
 @media (max-width: 768px) {
@@ -417,7 +417,7 @@ background-color: black;
     border-radius: 8px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
-    
+
 }
 
 .search-input:focus {
@@ -532,4 +532,53 @@ background-color: black;
         align-items: flex-start;
         gap: 0.5rem;
     }
+}
+
+.styled-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #555;
+    font-size: 14px;
+    background-color: #1e1e1e; 
+    color: #f1f1f1; 
+    transition: all .2s ease;
+}
+
+.styled-select option {
+    background: #1e1e1e;
+    color: #fff;
+}
+
+.styled-select:focus {
+    border-color: #ebe825;
+    
+    outline: none;
+}
+
+
+.sla-info-box,
+.sla-detail {
+    background: #2a2a2a; 
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 10px;
+    border: 1px solid #444;
+    color: #eaeaea; 
+}
+
+.sla-info-box h3,
+.sla-detail h3 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #fff;
+}
+
+.sla-info-box p,
+.sla-detail p {
+    margin: 4px 0;
+    color: #ccc;
 }
