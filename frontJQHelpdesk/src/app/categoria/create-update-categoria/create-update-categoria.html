@@ -6,7 +6,7 @@
 
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <div class="button-group">
-            <button type="submit" [disabled]="!profileForm.valid || isLoading">Crear Categoría +</button>
+            <button type="submit" [disabled]="!profileForm.valid || isLoading">Registrar +</button>
             <button type="button" (click)="resetForm()" class="reset-btn">Limpiar campos</button>
         </div>
         <div class="profile-grid">

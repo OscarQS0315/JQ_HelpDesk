@@ -157,6 +157,7 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background: #ebe825;
+  color: black;
 }
 
 button[type="button"] {
