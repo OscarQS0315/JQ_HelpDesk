@@ -10,6 +10,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatBadgeModule} from '@angular/material/badge'
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTreeModule} from '@angular/material/tree';
+import { TranslocoModule } from '@jsverse/transloco';
 
 
 
@@ -27,7 +28,8 @@ import {MatTreeModule} from '@angular/material/tree';
     MatMenuModule,
     MatBadgeModule,
     MatSidenavModule,
-    MatTreeModule
+    MatTreeModule,
+    TranslocoModule
   ],
   exports: [
     Header,

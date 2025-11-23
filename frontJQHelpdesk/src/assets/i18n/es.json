@@ -1,0 +1,17 @@
+{
+    "title": "Bienvenido a JQ HelpDesk en:{{ language }}",
+    "language": {
+    "en": "English",
+    "es": "Español"
+  },
+    "menu": {
+        "home": "Inicio",
+        "technicians": "Técnicos",
+        "categories": "Categorías",
+        "ticket": "Ticket",
+        "assignments": "Asignaciones"
+    },
+    "Select": "Select an option",
+    "Login": "Iniciar sesión",
+    "Sign Up":"Registrarse" 
+}

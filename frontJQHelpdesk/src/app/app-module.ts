@@ -1,4 +1,4 @@
-import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { isDevMode, NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -14,6 +14,9 @@ import { NgxSonnerToaster } from 'ngx-sonner';
 import { HttpErrorInterceptorService } from './share/interceptor/http-error-interceptor.service';
 import { BreadcrumbBackComponent } from './share/components/breadcrumb-back/breadcrumb-back.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { provideTransloco, TranslocoModule } from '@jsverse/transloco';
+import { availableLanguages, AvailableLanguages } from './transloco-config';
+import { TranslocoHttpLoader } from './transloco-loader';
 
 
 registerLocaleData(localeEs);
@@ -30,12 +33,22 @@ registerLocaleData(localeEs);
     AppRoutingModule,
     BreadcrumbBackComponent,
     FormsModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    TranslocoModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es' },
     provideBrowserGlobalErrorListeners(),
+    provideHttpClient(),
+    provideTransloco({
+      config: {
+        availableLangs: AvailableLanguages,
+        defaultLang: availableLanguages.ES,
+        reRenderOnLangChange: true,
+        prodMode: !isDevMode(),
+      },
+      loader: TranslocoHttpLoader
+    }),
     provideHttpClient(withInterceptorsFromDi()),
     {
       provide: HTTP_INTERCEPTORS,

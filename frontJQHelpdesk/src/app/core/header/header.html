@@ -22,8 +22,29 @@
         </ul>
     </nav>
 
+    <div class="select-menu" (click)="toggleDropdown()" (keydown)="handleKeydown($event)" tabindex="0" role="listbox"
+        [attr.aria-expanded]="isOpen" [attr.aria-activedescendant]="selectedOption?.id">
+
+        <div class="selected-option">
+            {{ selectedOption?.label || ('Select' | transloco) }}
+        </div>
+
+        <div class="dropdown" [class.open]="isOpen">
+            @for(option of options; track option){
+            <div class="option" [class.selected]="option.id === selectedOption?.id"
+                (click)="selectOption(option)" role="option" 
+                [attr.aria-selected]="option.id === selectedOption?.id" [id]="option.id">
+
+                {{ option.label }}
+                @if(option.id === selectedOption?.id){<span class="checkmark" >&#10003;</span>}
+            </div>
+            }
+
+        </div>
+    </div>
+
     <div class="action-area">
-        <button class="btn login-btn">Login</button>
-        <button class="btn signup-btn">Sign Up</button>
+        <button class="btn login-btn">{{'Login' | transloco}}</button>
+        <button class="btn signup-btn">{{'Sign Up' | transloco}}</button>
     </div>
 </header>
