@@ -1,27 +1,8 @@
-<!--<div class="status-card">
-    <h2 class="task-title">{{ taskTitle }}</h2>
-    <div class="status-updates">
-        @for(status of statuses;track status){
-        <button [class.active]="currentStatus === status" (click)="updateStatus(status)"
-            [attr.aria-pressed]="currentStatus === status" [attr.aria-label]="'Set status to ' + status">
-            <span class="status-icon" [ngClass]="status.toLowerCase()">
-                <i class="fas" [ngClass]="getIconClass(status)"></i>
-            </span>
-            {{ status }}
-        </button>
-        }
-    </div>
-    <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="progressPercentage" aria-valuemin="0"
-        aria-valuemax="100">
-        <div class="progress" [style.width.%]="progressPercentage"></div>
-    </div>
-
-</div>-->
-
 <div class="project-status-container">
     <app-breadcrumb-back />
     <div class="status-card">
-        <h2 class="card-title">Tickets</h2> <h2 [routerLink]="['/CreateUpdateTicket']">Crear Ticket +</h2>
+        <h2 class="card-title">{{'TicketTitle' | transloco}}</h2>
+        <h2 [routerLink]="['/CreateUpdateTicket']">{{'CreateTicket' | transloco}}</h2>
         <div class="phases-container">
             @for (ticket of data(); track ticket) {
             <a class="phase-item-link" [routerLink]="['/DetalleTicket', ticket.id]"
@@ -42,11 +23,9 @@
                             <div class="progress" [style.width.%]="progressTicketBar(ticket.status)"></div>
                         </div>
                         <span class="assigned-technician">
-                            Técnico: {{ ticket.technician?.user?.name }} {{ ticket.technician?.user?.lastName }}
+                            {{'Technician' | transloco}}{{ ticket.technician?.user?.name }} {{
+                            ticket.technician?.user?.lastName }}
                         </span>
-                        <button class="btn-action" aria-label="View Details">
-                            <i class="fas fa-eye"></i> Ver Detalles
-                        </button>
                     </div>
                 </div>
             </a>

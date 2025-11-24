@@ -14,6 +14,7 @@ import { SLAModel } from "../../share/models/SLAModel";
 import { TicketCategoryDTO } from '../../share/models/DTOs/TicketCategoryDTO';
 import { NotificationService } from '../../share/services/app/notification.service';
 import { FileUploadService } from '../../share/services/api/file-upload.service';
+import { TranslocoModule } from "@jsverse/transloco";
 
 interface SelectedSpeciality {
   id: number;
@@ -30,7 +31,7 @@ interface SelectedEtiquette {
   standalone: true,
   templateUrl: "./create-update-categoria.html",
   styleUrls: ["./create-update-categoria.css"],
-  imports: [CommonModule, RouterModule, BreadcrumbBackComponent, FormsModule, ReactiveFormsModule]
+  imports: [CommonModule, RouterModule, BreadcrumbBackComponent, FormsModule, ReactiveFormsModule, TranslocoModule]
 })
 
 

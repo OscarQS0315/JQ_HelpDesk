@@ -7,6 +7,7 @@ import { Listado } from './listado/listado';
 import { Detalle } from './detalle/detalle';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbBackComponent } from '../share/components/breadcrumb-back/breadcrumb-back.component';
+import { TranslocoModule } from '@jsverse/transloco';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { BreadcrumbBackComponent } from '../share/components/breadcrumb-back/bre
     FormsModule,
     Detalle,
     BreadcrumbBackComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslocoModule
   ],
   exports: [
   ]

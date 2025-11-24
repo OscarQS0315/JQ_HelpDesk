@@ -5,28 +5,28 @@
         <img [src]="'http://localhost:3000/images/' + ticket()?.ticketCategory?.imageUrl" alt="Categoría" />
         <div>
             <h2>{{ ticket()?.title }}</h2>
-            <p><strong>Descripción:</strong> {{ ticket()?.description }}</p>
+            <p><strong>{{'TicketDescription' | transloco}}</strong> {{ ticket()?.description }}</p>
             <p class="category">{{ ticket()?.ticketCategory?.name }}</p>
         </div>
     </div>
 
     <div class="section user">
-        <h3>Usuario que reportó</h3>
-        <p><strong>Nombre:</strong> {{ ticket()?.user?.name }} {{ ticket()?.user?.lastName }}</p>
-        <p><strong>Email:</strong> {{ ticket()?.user?.email }}</p>
+        <h3>{{'UserReporter' | transloco}}</h3>
+        <p><strong>{{'Name' | transloco}}</strong> {{ ticket()?.user?.name }} {{ ticket()?.user?.lastName }}</p>
+        <p><strong>{{'EmailTechnician' | transloco}}</strong> {{ ticket()?.user?.email }}</p>
         <!--<img [src]="'http://localhost:3000/images/' + ticket()?.user?.profileImage" alt="Usuario" />-->
         <img [src]="'http://localhost:3000/images/image-no-found.jpg'" alt="Usuario" />
     </div>
 
     <div class="section meta">
-        <h3>Información general</h3>
-        <p><strong>Estado:</strong> {{ formatStatus(ticket()?.status) }}</p>
-        <p><strong>Prioridad:</strong> {{ formatPriority(ticket()?.priority) }}</p>
-        <p><strong>Story Points:</strong> {{ ticket()?.storyPoints }}</p>
-        <p><strong>Asignado:</strong> {{ formatDateShort(ticket()?.assignedAt) }} ({{
+        <h3>{{'GeneralInfo' | transloco}}</h3>
+        <p><strong>{{'Status' | transloco}}</strong> {{ formatStatus(ticket()?.status) }}</p>
+        <p><strong>{{'Priority' | transloco}}</strong> {{ formatPriority(ticket()?.priority) }}</p>
+        <p><strong>{{'StoryPoints' | transloco}}</strong> {{ ticket()?.storyPoints }}</p>
+        <p><strong>{{'Asigned' | transloco}}</strong> {{ formatDateShort(ticket()?.assignedAt) }} ({{
             formatAssignedMethod(ticket()?.assignedMethod) }})</p>
-        <p><strong>Creado:</strong> {{ formatDateShort(ticket()?.createdAt) }}</p>
-        <p><strong>Cerrado:</strong> {{ formatDateShort(ticket()?.closedAt) }}</p>
+        <p><strong>{{'Created' | transloco}}</strong> {{ formatDateShort(ticket()?.createdAt) }}</p>
+        <p><strong>{{'Closed' | transloco}}</strong> {{ formatDateShort(ticket()?.closedAt) }}</p>
         <div class="progress-label">
             {{ progressTicketBar(ticket()?.status) }}%
         </div>
@@ -37,21 +37,21 @@
 
 
     <div class="section description">
-        <h3>Detalles técnicos</h3>
-        <p><strong>Criterio de aceptación:</strong> {{ ticket()?.aceptanceCriteria }}</p>
-        <p><strong>Comentarios:</strong> {{ ticket()?.comments }}</p>
+        <h3>{{'DetailTechnician' | transloco}}</h3>
+        <p><strong>{{'AceptanceCriteria' | transloco}}</strong> {{ ticket()?.aceptanceCriteria }}</p>
+        <p><strong>{{'Comments' | transloco}}</strong> {{ ticket()?.comments }}</p>
     </div>
 
     <div class="section sla">
-        <h3>Indicadores SLA</h3>
-        <p><strong>SLA Respuesta:</strong> {{ formatDateTimeShort(ticket()?.slaReply) }}</p>
-        <p><strong>SLA Resolución:</strong> {{ formatDateTimeShort(ticket()?.slaResolution )}}</p>
-        <p><strong>¿Respondido a tiempo?:</strong> {{ ticket()?.replyAchieved ? 'Sí' : 'No' }}</p>
-        <p><strong>¿Resuelto a tiempo?:</strong> {{ ticket()?.resolutionAchieved ? 'Sí' : 'No' }}</p>
+        <h3>{{'SLAIndicators' | transloco}}</h3>
+        <p><strong>{{'SLAAnswer' | transloco}}</strong> {{ formatDateTimeShort(ticket()?.slaReply) }}</p>
+        <p><strong>{{'SLAResolution' | transloco}}</strong> {{ formatDateTimeShort(ticket()?.slaResolution )}}</p>
+        <p><strong>{{'AnswerOnTime' | transloco}}</strong> {{ ticket()?.replyAchieved ? 'Sí' : 'No' }}</p>
+        <p><strong>{{'SolvedOnTime' | transloco}}</strong> {{ ticket()?.resolutionAchieved ? 'Sí' : 'No' }}</p>
     </div>
 
     <div class="section technician">
-        <h3>Técnico asignado</h3>
+        <h3>{{'Technician' | transloco}}</h3>
 
         @if (ticket()?.technician) {
         <a [routerLink]="['/Detalle', ticket()?.technician?.id]" class="tech-link">
@@ -59,14 +59,14 @@
             <img [src]="'http://localhost:3000/images/' + ticket()?.technician?.user?.profileImage" alt="Técnico" />
         </a>
         } @else {
-        <p><strong>Técnico no asignado</strong></p>
+        <p><strong>{{'TechnicianNotAssigned' | transloco}}</strong></p>
         }
     </div>
 
 
 
     <div class="section history">
-        <h3>Historial</h3>
+        <h3>{{'Historial' | transloco}}</h3>
         @for (h of ticket()?.ticketHistory; track h) {
         <div class="history-item">
             <p><strong>{{ formatStatus(h.status) }}</strong> — {{ formatDateShort(h.changedAt) }}</p>
@@ -89,8 +89,8 @@
 
     @if (ticket()?.ticketValoration) {
     <div class="section valoration">
-        <h3>Valoración del usuario</h3>
-        <p><strong>Calificación:</strong> {{ ticket()?.ticketValoration?.rating }}/5</p>
+        <h3>{{'ValorationUser' | transloco}}</h3>
+        <p><strong>{{'Valoration' | transloco}}</strong> {{ ticket()?.ticketValoration?.rating }}/5</p>
         <p>{{ ticket()?.ticketValoration?.comments }}</p>
     </div>
     }

@@ -2,7 +2,7 @@
     <div class="breadcrumb-wrapper">
         <app-breadcrumb-back />
     </div>
-    <h2 [routerLink]="['/CreateUpdateCategoria']">Crear Categoría +</h2>
+    <h2 [routerLink]="['/CreateUpdateCategoria']">{{'CreateCategories' | transloco}}</h2>
     @for (level of categoriesHierarchy; track level) {
     <div class="hierarchy-level">
         <div class="category-row">

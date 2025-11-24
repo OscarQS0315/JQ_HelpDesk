@@ -9,58 +9,58 @@
         <div class="profile-grid">
 
             <div class="profile-info">
-                <h2>Ticket</h2>
+                <h2>{{'TicketTitle' | transloco}}</h2>
 
                 <div class="form-group">
-                    <label for="fullName">Título</label>
-                    <input type="text" id="fullName" formControlName="titulo" placeholder="Ingrese un título">
+                    <label for="fullName">{{'title' | transloco}}</label>
+                    <input type="text" id="fullName" formControlName="titulo" placeholder="{{'EnterTitle' | transloco}}">
 
                     @if(profileForm.get('titulo')?.touched && profileForm.get('titulo')?.invalid){
                     <div class="error">
                         @if(profileForm.get('titulo')?.errors?.['required']){
-                        <span>El título es obligatorio</span>
+                        <span>{{'titleRequired' | transloco}}</span>
                         }
                     </div>
                     }
                 </div>
 
                 <div class="form-group">
-                    <label for="descripcion">Descripción</label>
+                    <label for="descripcion">{{'Description' | transloco}}</label>
                     <textarea id="descripcion" formControlName="descripcion"
-                        placeholder="Ingrese una descripción"></textarea>
+                        placeholder="{{'PlaceHolderDescriptionCategory' | transloco}}"></textarea>
 
                     @if(profileForm.get('descripcion')?.touched && profileForm.get('descripcion')?.invalid){
                     <div class="error">
                         @if(profileForm.get('descripcion')?.errors?.['required']){
-                        <span>La descripción es obligatoria</span>
+                        <span>{{'CategoryDescriptionRequired' | transloco}}</span>
                         }
                     </div>
                     }
                 </div>
 
                 <div class="form-group">
-                    <label for="Fecha">Fecha de creación</label>
+                    <label for="Fecha">{{'CategoryCreationDate' | transloco}}</label>
                     <input type="date" id="Fecha" formControlName="Fecha" [value]="today" readonly />
 
                     @if(profileForm.get('Fecha')?.touched && profileForm.get('Fecha')?.invalid){
                     <div class="error">
                         @if(profileForm.get('Fecha')?.errors?.['required']){
-                        <span>La fecha de creación es obligatoria</span>
+                        <span>{{'CategoryCreationDateRequired' | transloco}}</span>
                         }
                     </div>
                     }
                 </div>
                 <div class="form-group">
-                    <label>Prioridad</label>
+                    <label>{{'Priority' | transloco}}</label>
                     <div class="radio-group">
                         <label>
-                            <input type="radio" name="prioridad" formControlName="prioridad" value="LOW"> Baja
+                            <input type="radio" name="prioridad" formControlName="prioridad" value="LOW"> {{'LowPriority' | transloco}}
                         </label>
                         <label>
-                            <input type="radio" name="prioridad" formControlName="prioridad" value="MEDIUM"> Media
+                            <input type="radio" name="prioridad" formControlName="prioridad" value="MEDIUM"> {{'MidPriority' | transloco}}
                         </label>
                         <label>
-                            <input type="radio" name="prioridad" formControlName="prioridad" value="HIGH"> Alta
+                            <input type="radio" name="prioridad" formControlName="prioridad" value="HIGH"> {{'HighPriority' | transloco}}
                         </label>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                 <div class="stack-list-container">
                     <div class="search-box">
                         <input type="text" [(ngModel)]="searchQuery" [ngModelOptions]="{ standalone: true }"
-                            placeholder="Buscar categorías..." class="search-input" />
+                            placeholder="{{'CategorySearch' | transloco}}" class="search-input" />
                     </div>
 
                     <div class="list-wrapper">
@@ -103,29 +103,29 @@
 
                 
                 <div class="form-group">
-                    <label for="aceptanceCriteria">Criterios de aceptación</label>
+                    <label for="aceptanceCriteria">{{'AceptanceCriteria' | transloco}}</label>
                     <textarea id="aceptanceCriteria" formControlName="aceptanceCriteria"
-                        placeholder="Describa los criterios de aceptación..."></textarea>
+                        placeholder="{{'AceptanceCriteriaDescription' | transloco}}"></textarea>
                 </div>
 
                 
                 <div class="form-group">
-                    <label for="comments">Comentarios</label>
+                    <label for="comments">{{'Comments' | transloco}}</label>
                     <textarea id="comments" formControlName="comments"
-                        placeholder="Ingrese comentarios adicionales..."></textarea>
+                        placeholder="{{'AditionalComments' | transloco}}"></textarea>
                 </div>
 
 
                 <div class="button-group">
-                    <button type="submit" [disabled]="!profileForm.valid || isLoading">Crear Ticket</button>
-                    <button type="button" (click)="resetForm()" class="reset-btn">Limpiar campos</button>
+                    <button type="submit" [disabled]="!profileForm.valid || isLoading">{{'CreateTicket' | transloco}}</button>
+                    <button type="button" (click)="resetForm()" class="reset-btn">{{'ClearFieldsTechnician' | transloco}}</button>
                 </div>
             </div>
 
 
 
             <div class="profile-image">
-                <h2>Imágenes relacionadas con el Ticket</h2>
+                <h2>{{'ImageRelateTicket'|transloco}}</h2>
 
                 <div class="image-upload-container" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
                     (drop)="onDrop($event)">
@@ -133,11 +133,13 @@
                     
                     @if(imagePreviews.length > 0){
                     <div class="multiple-previews">
-                        <div class="image-preview circular-preview" *ngFor="let img of imagePreviews; let i = index">
-                            <img [src]="img" alt="Preview {{ i }}">
-                            <button type="button" class="delete-image-btn" (click)="removeImage(i)">✕</button>
-
+                        @for(img of imagePreviews; track $index){
+                            <div class="image-preview circular-preview">
+                            <img [src]="img" alt="Preview {{ $index }}">
+                            <button type="button" class="delete-image-btn" (click)="removeImage($index)">✕</button>
                         </div>
+                        }
+                        
                     </div>
 
 
@@ -147,8 +149,6 @@
                     @if(imagePreviews.length === 0){
                     <div class="upload-placeholder circular-preview">
                         <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Arrastrar y soltar o hacer clic para subir</p>
-                        <span class="file-info">Máx 5MB por archivo (JPEG, PNG, WebP)</span>
                     </div>
                     }
 
@@ -157,7 +157,7 @@
                         accept="image/jpeg,image/png,image/webp" multiple style="display: none">
 
                     <button type="button" (click)="fileInput.click()" class="upload-btn">
-                        Seleccionar imágenes
+                        {{'SelectProfilePictureTechnician' | transloco}}
                     </button>
                 </div>
 
@@ -169,13 +169,13 @@
 
 
                 <div class="additional-fields" [hidden]="!authUser()">
-                    <h3>Usuario autenticado</h3>
+                    <h3>{{'User' | transloco}}</h3>
 
-                    <p><strong>ID:</strong> {{ authUser()?.id }}</p>
-                    <p><strong>Nombre:</strong> {{ authUser()?.name }} {{ authUser()?.lastName }}</p>
-                    <p><strong>Correo:</strong> {{ authUser()?.email }}</p>
+                    <p><strong>{{'ID' | transloco}}</strong> {{ authUser()?.id }}</p>
+                    <p><strong>{{'Name' | transloco}}</strong> {{ authUser()?.name }} {{ authUser()?.lastName }}</p>
+                    <p><strong>{{'EmailTechnician' | transloco}}</strong> {{ authUser()?.email }}</p>
 
-                    <p><strong>Celular:</strong> {{ authUser()?.cellphone }}</p>
+                    <p><strong>{{'Phone' | transloco}}</strong> {{ authUser()?.cellphone }}</p>
 
                     <img width="80" height="80" style="border-radius: 10px; margin-top: 10px;" [hidden]="!authUser()"
                         [src]="'http://localhost:3000/images/image-no-found.jpg'">

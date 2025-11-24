@@ -8,13 +8,14 @@ import { computed } from '@angular/core';
 import { E_TechnicianStatus } from "../../share/models/enums/technicianStatus.enum";
 import { E_Role } from "../../share/models/enums/role.enum";
 import { BreadcrumbBackComponent } from "../../share/components/breadcrumb-back/breadcrumb-back.component";
+import { TranslocoModule } from "@jsverse/transloco";
 
 @Component({
   selector: "app-contact-card",
   standalone: true,
   templateUrl: "./detalle.html",
   styleUrls: ["./detalle.css"],
-  imports: [BreadcrumbBackComponent, RouterLink]
+  imports: [BreadcrumbBackComponent, RouterLink, TranslocoModule]
 })
 export class Detalle implements OnInit {
 

@@ -8,17 +8,17 @@
     <div class="calendar-header">
         <div class="nav-buttons">
             <button class="nav-btn" (click)="previousView()">&#8249;</button>
-            <button class="today-btn" (click)="goToToday()">Hoy</button>
+            <button class="today-btn" (click)="goToToday()">{{'Today' | transloco}}</button>
             <button class="nav-btn" (click)="nextView()">&#8250;</button>
         </div>
         <div class="priority-legend">
-            <span class="legend-item priority-low">Baja</span>
-            <span class="legend-item priority-medium">Media</span>
-            <span class="legend-item priority-high">Alta</span>
+            <span class="legend-item priority-low">{{'LowPriority' | transloco}}</span>
+            <span class="legend-item priority-medium">{{'MidPriority' | transloco}}</span>
+            <span class="legend-item priority-high">{{'HighPriority' | transloco}}</span>
         </div>
         <div class="view-toggle">
-            <button [class.active]="currentView() === 'month'" (click)="switchView('month')">Mes</button>
-            <button [class.active]="currentView() === 'week'" (click)="switchView('week')">Semana</button>
+            <button [class.active]="currentView() === 'month'" (click)="switchView('month')">{{'Month' | transloco}}</button>
+            <button [class.active]="currentView() === 'week'" (click)="switchView('week')">{{'Week' | transloco}}</button>
         </div>
     </div>
 
@@ -48,27 +48,27 @@
                                 <div class="status-icon">
                                     <i class="fas fa-ticket-alt"></i>
                                 </div>
-                                <h3 class="status-title">Ticket #{{ ticket.id }}</h3>
+                                <h3 class="status-title">{{'TicketNumber' | transloco}}{{ ticket.id }}</h3>
                             </div>
 
                             <div class="card-body">
-                                <p><strong>Categoría:</strong> {{ ticket.ticketCategory.name }}</p>
-                                <p><strong>Estado:</strong> {{ getStatusLabel(ticket.status) }}</p>
-                                <p><strong>SLA restante:</strong> {{ getSlaRemaining(ticket) }} días</p>
+                                <p><strong>{{'CreateCategoryTittle' | transloco}}</strong> {{ ticket.ticketCategory.name }}</p>
+                                <p><strong>{{'Status' | transloco}}</strong> {{ getStatusLabel(ticket.status) }}</p>
+                                <p><strong>{{'SLARemaining' | transloco}}</strong> {{ getSlaRemaining(ticket) }} días</p>
 
                                 @if (isTicketExpanded(ticket.id)) {
                                 <div class="details">
                                     <div class="stats-grid">
                                         <div class="stat-item">
-                                            <span class="stat-label">Prioridad</span>
+                                            <span class="stat-label">{{'Priority' | transloco}}</span>
                                             <span class="stat-value">{{ getPriorityLabel(ticket.priority) }}</span>
                                         </div>
                                         <div class="stat-item">
-                                            <span class="stat-label">Creado</span>
+                                            <span class="stat-label">{{'Created' | transloco}}</span>
                                             <span class="stat-value">{{ ticket.createdAt | date:'short' }}</span>
                                         </div>
                                         <div class="stat-item">
-                                            <span class="stat-label">Asignado a</span>
+                                            <span class="stat-label">{{'Assigned' | transloco}}</span>
                                             <span class="stat-value">
                                                 {{
                                                 ticket.technician?.user
@@ -87,11 +87,11 @@
                             <div class="card-footer">
                                 <button class="btn-action" (click)="$event.stopPropagation(); viewDetails(ticket.id)"
                                     [routerLink]="['/DetalleTicket', ticket.id]" aria-label="Ver detalles">
-                                    <i class="fas fa-eye"></i> Ver detalles
+                                    <i class="fas fa-eye"></i> {{'ViewDetails' | transloco}}
                                 </button>
                                 <button class="btn-action" (click)="$event.stopPropagation(); takeAction(ticket.id)"
                                     aria-label="Tomar acción">
-                                    <i class="fas fa-bolt"></i> Tomar acción
+                                    <i class="fas fa-bolt"></i> {{'TakeAction' | transloco}}
                                 </button>
                             </div>
                         </div>
@@ -119,12 +119,11 @@
 
                                 <strong>#{{ ticket.id }}</strong> - {{ ticket.title }}
                                 <br>
-                                <span><strong>Estado:</strong> {{ getStatusLabel(ticket.status) }}</span>
+                                <span><strong>{{'Status' | transloco}}</strong> {{ getStatusLabel(ticket.status) }}</span>
                                 <br>
-                                <span><strong>SLA restante:</strong> {{ getSlaRemaining(ticket) }} días</span>
+                                <span><strong>{{'SLARemaining' | transloco}}</strong> {{ getSlaRemaining(ticket) }} {{'Days' | transloco}}</span>
                                 <br>
-                                <button class="add-event-btn-week" [routerLink]="['/DetalleTicket', ticket.id]">Ver
-                                    ticket</button>
+                                <button class="add-event-btn-week" [routerLink]="['/DetalleTicket', ticket.id]">{{'ViewDetails' | transloco}}</button>
                             </div>
                             }
                         </div>
@@ -140,15 +139,14 @@
                 <h2>{{ selectedDate() | date:'longDate' }}</h2>
             </div>
             <div class="events-list">
-                <!-- Aquí podés mostrar los tickets del día seleccionado si querés -->
                 @for (ticket of getTicketsForDate(selectedDate()); track ticket.id) {
                 <div class="event-card">
                     <div class="event-title"><strong>#{{ ticket.id }}</strong> - {{ ticket.title }}</div>
                     <div class="event-meta">
-                        <span><strong>Estado:</strong> {{ ticket.status }}</span>
-                        <span><strong>SLA restante:</strong> {{ getSlaRemaining(ticket) }} días</span>
+                        <span><strong>{{'Status' | transloco}}</strong> {{ ticket.status }}</span> <br>
+                        <span><strong>{{'SLARemaining' | transloco}}</strong> {{ getSlaRemaining(ticket) }} {{'Days' | transloco}}</span>
                     </div>
-                    <button class="add-event-btn" [routerLink]="['/DetalleTicket', ticket.id]">Ver ticket</button>
+                    <button class="add-event-btn" [routerLink]="['/DetalleTicket', ticket.id]">{{'ViewDetails' | transloco}}</button>
                 </div>
                 }
             </div>

@@ -3,7 +3,7 @@
     </div>
 <div class="current-plan-container">
     
-    <h2 class="title">Detalle de Categoría</h2>
+    <h2 class="title">{{'TitleCategories' | transloco}}</h2>
     <div class="plan-details-card">
         <div class="plan-header">
             <div class="plan-icon">
@@ -12,11 +12,11 @@
             </div>
             <div class="plan-info">
                 <div class="detail-row">
-                    <span class="label">Nombre:</span>
+                    <span class="label">{{'NameCategory' | transloco}}</span>
                     <span class="value">{{ data()?.name }}</span>
                 </div>
                 <div class="detail-row">
-                    <span class="label">Descripción:</span>
+                    <span class="label">{{'DescriptionCategory' | transloco}}</span>
                     <span class="value">{{ data()?.description }}</span>
                 </div>
             </div>
@@ -24,23 +24,23 @@
 
         <div class="plan-body">
             <div class="detail-row">
-                <span class="label">SLA:</span>
+                <span class="label">{{'SLACategory' | transloco}}:</span>
                 <span class="value">{{ data()?.SLA?.name ?? 'Sin SLA asignado' }}</span>
 
             </div>
             <div class="detail-row">
 
-                <span class="label">Tiempo de respuesta:</span>
+                <span class="label">{{'ResponseTimeCategory' | transloco}}</span>
                 <span class="value">{{ data()?.SLA?.slaReplyHours + "h" }}</span>
 
             </div>
             <div class="detail-row">
-                <span class="label">Tiempo de resolución:</span>
+                <span class="label">{{'ResolutionTimeCategory' | transloco}}</span>
                 <span class="value">{{ data()?.SLA?.slaResolutionHours + "h" }}</span>
             </div>
 
             <div class="features-section">
-                <span class="label">Especialidades:</span>
+                <span class="label">{{'SpecialitiesTechnician' | transloco}}</span>
                 <ul class="features-list">
                     @for (speci of data()?.specialities; track speci.id) {
                     <li class="feature-item">
@@ -54,7 +54,7 @@
             </div>
 
             <div class="features-section">
-                <span class="label">Etiquetas:</span>
+                <span class="label">{{'Tags' | transloco}}</span>
                 <ul class="features-list">
                     @for (tag of data()?.categoryEtiquettes; track tag.id) {
                     <li class="feature-item">
@@ -69,7 +69,7 @@
             <br>
 
             <span class="role-tag" (click)="$event.stopPropagation()"
-                    [routerLink]="['/CreateUpdateCategoria/update/', data()?.id]">Actualizar Categoría</span>
+                    [routerLink]="['/CreateUpdateCategoria/update/', data()?.id]">{{'UpdateCategory' | transloco}}</span>
         </div>
     </div>
 </div>

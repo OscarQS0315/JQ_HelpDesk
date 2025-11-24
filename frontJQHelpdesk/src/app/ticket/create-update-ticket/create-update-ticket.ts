@@ -13,6 +13,7 @@ import { FileUploadService } from "../../share/services/api/file-upload.service"
 import { TicketService } from "../../share/services/api/ticket.service";
 import { NotificationService } from '../../share/services/app/notification.service';
 import { forkJoin } from 'rxjs';
+import { TranslocoModule } from "@jsverse/transloco";
 
 
 interface Step {
@@ -34,7 +35,7 @@ interface Category {
   standalone: true,
   templateUrl: "./create-update-ticket.html",
   styleUrls: ["./create-update-ticket.css"],
-  imports: [CommonModule, RouterModule, BreadcrumbBackComponent, FormsModule, ReactiveFormsModule]
+  imports: [CommonModule, RouterModule, BreadcrumbBackComponent, FormsModule, ReactiveFormsModule,TranslocoModule]
 })
 export class CreateUpdateTicket {
 

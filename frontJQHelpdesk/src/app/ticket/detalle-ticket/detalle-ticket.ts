@@ -9,13 +9,14 @@ import { E_AssignedMethod } from '../../share/models/enums/assignedMethod.enum';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BreadcrumbBackComponent } from '../../share/components/breadcrumb-back/breadcrumb-back.component';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: "app-stepper",
   standalone: true,
   templateUrl: "./detalle-ticket.html",
   styleUrls: ["./detalle-ticket.css"],
-  imports: [CommonModule, RouterModule, BreadcrumbBackComponent]
+  imports: [CommonModule, RouterModule, BreadcrumbBackComponent,TranslocoModule]
 })
 export class DetalleTicket {
   ticket = signal<TicketModel | null>(null);

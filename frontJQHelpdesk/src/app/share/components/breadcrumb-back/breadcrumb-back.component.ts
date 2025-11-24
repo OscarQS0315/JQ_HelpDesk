@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
     selector: 'app-breadcrumb-back',
     standalone: true,
-    template: `<button class="breadcrumb-back" (click)="goBack()">← Volver</button>`,
+    imports: [TranslocoModule],
+    template: `<button class="breadcrumb-back" (click)="goBack()">{{'Return' | transloco}}</button>`,
     styles: [`
     .breadcrumb-back {
       background: transparent;

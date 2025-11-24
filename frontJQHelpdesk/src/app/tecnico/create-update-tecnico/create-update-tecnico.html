@@ -2,7 +2,7 @@
     <div class="profile-image">
         <div class="image-upload-container" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
             (drop)="onDrop($event)">
-            <h2 class="image-title">Foto de perfsíl</h2>
+            <h2 class="image-title">{{'ProfilePictureTechnician' | transloco}}</h2>
 
             @if(imagePreview){
             <div class="image-preview circular-preview">
@@ -13,72 +13,70 @@
             @if(!imagePreview){
             <div class="upload-placeholder circular-preview">
                 <i class="fas fa-cloud-upload-alt"></i>
-                <p>Arrastrar y soltar o hacer clic para subir</p>
-                <span class="file-info">Tamaño máximo: 5MB (JPEG, PNG, WebP)</span>
             </div>
             }
 
             <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/jpeg,image/png,image/webp"
                 style="display: none">
 
-            <button type="button" (click)="fileInput.click()" class="upload-btn">Seleccionar imagen</button>
+            <button type="button" (click)="fileInput.click()" class="upload-btn">{{'SelectProfilePictureTechnician' | transloco}}</button>
         </div>
     </div>
 
     <div class="form-grid">
         <div class="form-group">
-            <label>Nombre <span class="required">*</span></label>
+            <label>{{'NameTechnician' | transloco}} <span class="required">*</span></label>
             <input type="text" formControlName="fname" [readonly]="isEditMode">
             <div class="error">
                 @if(registrationForm.get('fname')?.touched && registrationForm.get('fname')?.errors){
-                @if(registrationForm.get('fname')?.errors?.['required']){<span>El Nombre es requerido</span>}
-                @if(registrationForm.get('fname')?.errors?.['maxlength']){<span>Máximo 20 Caracteres</span>}
+                @if(registrationForm.get('fname')?.errors?.['required']){<span>{{'NameRequiredTechnician' | transloco}}</span>}
+                @if(registrationForm.get('fname')?.errors?.['maxlength']){<span>{{'MaxLenghtTechnician' | transloco}}</span>}
                 }
             </div>
         </div>
 
         <div class="form-group">
-            <label>Primer Apellido<span class="required">*</span></label>
+            <label>{{'FirstLastNameTechnician' | transloco}}<span class="required">*</span></label>
             <input type="text" formControlName="firstLastName">
             @if(registrationForm.get('firstLastName')?.touched && registrationForm.get('firstLastName')?.errors){
             <div class="error">
-                @if(registrationForm.get('firstLastName')?.errors?.['required']){<span>El primer apellido es requerido</span>}
+                @if(registrationForm.get('firstLastName')?.errors?.['required']){<span>{{'FirstLastNameTechnicianRequired' | transloco}}</span>}
             </div>
             }
 
         </div>
 
         <div class="form-group">
-            <label>Segundo Apellido</label>
+            <label>{{'SecondLastNameTechnician' | transloco}}</label>
             <input type="text" formControlName="secLastName">
         </div>
 
         <div class="form-group">
-            <label>Género</label>
+            <label>{{'GenderTechnician' | transloco}}</label>
             <div class="radio-group">
-                <label><input type="radio" formControlName="gender" value="male"> Masculino</label>
-                <label><input type="radio" formControlName="gender" value="female"> Femenino</label>
-                <label><input type="radio" formControlName="gender" value="transgender"> Otro</label>
+                <label><input type="radio" formControlName="gender" value="male"> {{'MaleGenderTechnician' | transloco}}</label>
+                <label><input type="radio" formControlName="gender" value="female"> {{'FemaleGenderTechnician' | transloco}}</label>
+                <label><input type="radio" formControlName="gender" value="transgender">{{'AnotherGenderTechnician' | transloco}}</label>
             </div>
         </div>
 
         <div class="form-group">
-            <label>Fecha de Nacimiento</label>
+            <label>{{'BithdayTechnician' | transloco}}</label>
             <input type="date" formControlName="dob" [max]="maxDate">
         </div>
 
         <div class="form-group">
-            <label>Email <span class="required">*</span></label>
+            <label>{{'EmailTechnician' | transloco}} <span class="required">*</span></label>
             <input type="email" formControlName="email">
             @if(registrationForm.get('email')?.touched && registrationForm.get('email')?.errors){
             <div class="error">
-                @if(registrationForm.get('email')?.errors?.['required']){<span>Email es requerido</span>}
-                @if(registrationForm.get('email')?.errors?.['email']){<span>Formato de email inválido</span>}
+                @if(registrationForm.get('email')?.errors?.['required']){<span>{{'EmailTechnicianRequired' | transloco}}</span>}
+                @if(registrationForm.get('email')?.errors?.['email']){<span>{{'InvalidadEmailTechnician' | transloco}}</span>}
             </div>}
         </div>
 
         <div class="form-group mobile-group">
-            <label>Número de Teléfono <span class="required">*</span></label>
+            <label> {{'phoneNumberTechnician' | transloco}}<span class="required">*</span></label>
             <div class="mobile-input">
                 <select formControlName="countryCode">
                     <option value="+506">+506</option>
@@ -87,8 +85,8 @@
             </div>
             @if(registrationForm.get('mobile')?.touched && registrationForm.get('mobile')?.errors){
             <div class="error">
-                @if(registrationForm.get('mobile')?.errors?.['required']){<span>Número de teléfono es requerido</span>}
-                @if(registrationForm.get('mobile')?.errors?.['pattern']){<span>Número de teléfono inválido</span>}
+                @if(registrationForm.get('mobile')?.errors?.['required']){<span>{{'phoneNumberTechnicianRequired' | transloco}}</span>}
+                @if(registrationForm.get('mobile')?.errors?.['pattern']){<span>{{'phoneNumberTechnicianInvalid' | transloco}}</span>}
             </div>
             }
 
@@ -96,7 +94,7 @@
 
 
         <div class="form-group password-group">
-            <label>Contraseña <span class="required">*</span></label>
+            <label> {{'passwordTechnician' | transloco}}<span class="required">*</span></label>
             <div class="password-input">
                 <input [type]="showPassword ? 'text' : 'password'" formControlName="password">
                 <button type="button" (click)="togglePassword()" class="toggle-password">
@@ -110,10 +108,10 @@
 
 
         <div class="form-group">
-            <label>Especialidades <span class="required">*</span></label>
+            <label>{{'SpecialitiesTechnician' | transloco}} <span class="required">*</span></label>
 
             <ng-select [items]="specialities" bindLabel="name" bindValue="id" formControlName="specialities"
-                [multiple]="true" [closeOnSelect]="true" [searchable]="true" placeholder="Buscar especialidades">
+                [multiple]="true" [closeOnSelect]="true" [searchable]="true" placeholder="{{'SpecialitiesTechnicianSearch' | transloco}}">
             </ng-select>
 
             <div class="selected-tags">
@@ -129,16 +127,16 @@
         </div>
 
         <div class="form-group">
-            <label>Confirmar Contraseña <span class="required">*</span></label>
+            <label>{{'passwordTechnicianConfirm' | transloco}}<span class="required">*</span></label>
             <input type="password" formControlName="confirmPassword">
             @if(registrationForm.errors?.['passwordMismatch']){<div class="error">
-                Las contraseñas no coinciden
+                {{'passwordTechnicianMatch' | transloco}}
             </div>}
         </div>
     </div>
 
     <div class="form-actions">
-        <button type="submit" [disabled]="!registrationForm.valid || isSubmitting">Registrar</button>
-        <button type="button" (click)="resetForm()">Limpiar Campos</button>
+        <button type="submit" [disabled]="!registrationForm.valid || isSubmitting">{{'RegisterTechnician' | transloco}}</button>
+        <button type="button" (click)="resetForm()">{{'ClearFieldsTechnician' | transloco}}</button>
     </div>
 </form>

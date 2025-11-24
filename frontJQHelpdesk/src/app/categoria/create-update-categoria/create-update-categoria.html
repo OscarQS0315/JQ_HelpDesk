@@ -6,22 +6,22 @@
 
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <div class="button-group">
-            <button type="submit" [disabled]="!profileForm.valid || isLoading">Registrar +</button>
-            <button type="button" (click)="resetForm()" class="reset-btn">Limpiar campos</button>
+            <button type="submit" [disabled]="!profileForm.valid || isLoading">{{'CreateCategory' | transloco}}</button>
+            <button type="button" (click)="resetForm()" class="reset-btn">{{'ClearFieldsTechnician' | transloco}}</button>
         </div>
         <div class="profile-grid">
 
             <div class="profile-info">
-                <h2>Categoría</h2>
+                <h2>{{'CreateCategoryTittle' | transloco}}</h2>
 
                 <div class="form-group">
-                    <label for="fullName">Título</label>
-                    <input type="text" id="fullName" formControlName="titulo" placeholder="Ingrese un título">
+                    <label for="fullName">{{'CategoryTitle' | transloco}}</label>
+                    <input type="text" id="fullName" formControlName="titulo" placeholder="{{'PlaceHolderTitleCategory' | transloco}}">
 
                     @if(profileForm.get('titulo')?.touched && profileForm.get('titulo')?.invalid){
                     <div class="error">
                         @if(profileForm.get('titulo')?.errors?.['required']){
-                        <span>El título es obligatorio</span>
+                        <span>{{'CategoryTitleRequired' | transloco}}</span>
                         }
                     </div>
                     }
@@ -29,33 +29,33 @@
 
 
                 <div class="form-group">
-                    <label for="descripcion">Descripción</label>
+                    <label for="descripcion">{{'CategoryDescription' | transloco}}</label>
                     <textarea id="descripcion" formControlName="descripcion"
-                        placeholder="Ingrese una descripción"></textarea>
+                        placeholder="{{'PlaceHolderDescriptionCategory' | transloco}}"></textarea>
 
                     @if(profileForm.get('descripcion')?.touched && profileForm.get('descripcion')?.invalid){
                     <div class="error">
                         @if(profileForm.get('descripcion')?.errors?.['required']){
-                        <span>La descripción es obligatoria</span>
+                        <span>{{'CategoryDescriptionRequired' | transloco}}</span>
                         }
                     </div>
                     }
                 </div>
 
                 <div class="form-group">
-                    <label for="Fecha">Fecha de creación</label>
+                    <label for="Fecha">{{'CategoryCreationDate' | transloco}}</label>
                     <input type="date" id="Fecha" formControlName="Fecha" [value]="today" readonly />
 
                     @if(profileForm.get('Fecha')?.touched && profileForm.get('Fecha')?.invalid){
                     <div class="error">
                         @if(profileForm.get('Fecha')?.errors?.['required']){
-                        <span>La fecha de creación es obligatoria</span>
+                        <span>{{'CategoryCreationDateRequired' | transloco}}</span>
                         }
                     </div>
                     }
                 </div>
                 <div class="form-group">
-                    <h2>SLA</h2>
+                    <h2>{{'SLACategory' | transloco}}</h2>
 
                     @if(profileForm.get('slaId')?.value){
                     @let selected = getSelectedSLA();
@@ -63,16 +63,16 @@
                     <div class="sla-detail">
                         <h3>Detalles del SLA</h3>
 
-                        <p><strong>Nombre:</strong> {{ selected?.name }}</p>
-                        <p><strong>Descripción:</strong> {{ selected?.description }}</p>
-                        <p><strong>SLA Respuesta:</strong> {{ selected?.slaReplyHours }} horas</p>
-                        <p><strong>SLA Resolución:</strong> {{ selected?.slaResolutionHours }} horas</p>
+                        <p><strong>{{'Name' | transloco}}</strong> {{ selected?.name }}</p>
+                        <p><strong>{{'Description' | transloco}}</strong> {{ selected?.description }}</p>
+                        <p><strong>{{'SLAAnswer' | transloco}}</strong> {{ selected?.slaReplyHours }} horas</p>
+                        <p><strong>{{'SLAResolution' | transloco}}</strong> {{ selected?.slaResolutionHours }} horas</p>
                     </div>
                     }
                     <h1></h1>
-                    <label for="slaId">Seleccione un SLA</label>
+                    <label for="slaId">{{'SelectSLA' | transloco}}</label>
                     <select class="styled-select" id="slaId" formControlName="slaId">
-                        <option value="" disabled selected>Seleccione un SLA...</option>
+                        <option value="" disabled selected>{{'SelectSLA' | transloco}}</option>
 
                         @for (sla of slaList(); track sla.id) {
                         <option [value]="sla.id">
@@ -86,11 +86,11 @@
 
 
                 <div class="stack-list-container">
-                    <h2>Especialidades</h2>
+                    <h2>{{'SpecialitiesTechnician' | transloco}}</h2>
 
                     <div class="search-box">
                         <input type="text" [(ngModel)]="searchQuerySpeciality" [ngModelOptions]="{ standalone: true }"
-                            placeholder="Buscar especialidades..." class="search-input" />
+                            placeholder="{{'SpecialitiesTechnicianSearch' | transloco}}" class="search-input" />
                     </div>
 
                     <!-- SELECCIONADAS -->
@@ -122,7 +122,7 @@
 
             <!-- PROFILE IMAGE -->
             <div class="profile-image">
-                <h2>Imagen</h2>
+                <h2>{{'Image' | transloco}}</h2>
 
                 <div class="image-upload-container" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
                     (drop)="onDrop($event)">
@@ -136,15 +136,13 @@
                     @if(!imagePreview){
                     <div class="upload-placeholder circular-preview">
                         <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Arrastrar y soltar o hacer clic para subir</p>
-                        <span class="file-info">Tamaño máximo: 5MB (JPEG, PNG, WebP)</span>
                     </div>
                     }
 
                     <input type="file" #fileInput (change)="onFileSelected($event)"
                         accept="image/jpeg,image/png,image/webp" style="display: none">
 
-                    <button type="button" (click)="fileInput.click()" class="upload-btn">Seleccionar imagen</button>
+                    <button type="button" (click)="fileInput.click()" class="upload-btn">{{'SelectProfilePictureTechnician' | transloco}}</button>
                 </div>
 
                 @if(imageError){
@@ -152,11 +150,11 @@
                 }
 
                 <div class="stack-list-container">
-                    <h2>Etiquetas</h2>
+                    <h2>{{'Tags' | transloco}}</h2>
 
                     <div class="search-box">
                         <input type="text" [(ngModel)]="searchQueryEtiquette" [ngModelOptions]="{ standalone: true }"
-                            placeholder="Buscar etiquetas..." class="search-input" />
+                            placeholder="{{'SearchTags' | transloco}}" class="search-input" />
                     </div>
                     <div class="selected-items">
                         @for (item of selectedEtiquettes; track item.id) {

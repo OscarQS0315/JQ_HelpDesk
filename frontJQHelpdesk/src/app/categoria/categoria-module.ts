@@ -7,6 +7,7 @@ import { DetalleCategoria } from './detalle-categoria/detalle-categoria';
 import { FormsModule } from '@angular/forms';
 import { BreadcrumbBackComponent } from '../share/components/breadcrumb-back/breadcrumb-back.component';
 import { CreateUpdateCategoria } from './create-update-categoria/create-update-categoria';
+import { TranslocoModule } from '@jsverse/transloco';
 @NgModule({
   declarations: [
     ListadoCategoria,
@@ -17,7 +18,8 @@ import { CreateUpdateCategoria } from './create-update-categoria/create-update-c
     CategoriaRoutingModule,
     FormsModule,
     BreadcrumbBackComponent,
-    DetalleCategoria
+    DetalleCategoria,
+    TranslocoModule
   ],
   exports: [
   ]

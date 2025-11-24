@@ -6,6 +6,7 @@ import { TicketService } from '../../share/services/api/ticket.service';
 import { TicketModel } from '../../share/models/TicketModel';
 import { E_TicketStatus } from '../../share/models/enums/ticketStatus.enum';
 import { E_TicketPriority } from '../../share/models/enums/ticketPriority.enum';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 
 interface CalendarDay {
   date: Date;
@@ -17,7 +18,7 @@ interface CalendarDay {
   standalone: true,
   templateUrl: './listado-ticket.html',
   styleUrls: ['./listado-ticket.css'],
-  imports: [CommonModule, RouterModule, BreadcrumbBackComponent]
+  imports: [CommonModule, RouterModule, BreadcrumbBackComponent, TranslocoModule]
 })
 export class ListadoTicket implements OnInit {
   isExpanded = false;
@@ -32,7 +33,7 @@ export class ListadoTicket implements OnInit {
   calendarDays: CalendarDay[] = [];
   weekViewDays: CalendarDay[] = [];
 
-  constructor(private ticketService: TicketService) { }
+  constructor(private ticketService: TicketService, private transloco: TranslocoService) { }
 
   ngOnInit() {
     this.generateCalendarDays();
@@ -54,16 +55,16 @@ export class ListadoTicket implements OnInit {
   }
 
   getSlaRemaining(ticket: TicketModel): number {
-  const now = new Date();
-  const slaDate = new Date(ticket.slaResolution);   
-  const diffMs = slaDate.getTime() - now.getTime(); 
+    const now = new Date();
+    const slaDate = new Date(ticket.slaResolution);
+    const diffMs = slaDate.getTime() - now.getTime();
 
-  
-  const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
 
- 
-  return Math.max(diffDays, 0);
-}
+    const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+
+    return Math.max(diffDays, 0);
+  }
 
 
   toggleExpand(ticketId: number): void {
@@ -173,29 +174,29 @@ export class ListadoTicket implements OnInit {
   getPriorityLabel(priority: E_TicketPriority): string {
     switch (priority) {
       case E_TicketPriority.LOW:
-        return 'Baja';
+        return this.transloco.translate('LowPriority');
       case E_TicketPriority.MEDIUM:
-        return 'Media';
+        return this.transloco.translate('MidPriority');
       case E_TicketPriority.HIGH:
-        return 'Alta';
+        return this.transloco.translate('HighPriority');
       default:
-        return 'Desconocida';
+        return this.transloco.translate('UnknowPriority');
     }
   }
   getStatusLabel(status: E_TicketStatus): string {
     switch (status) {
       case E_TicketStatus.PENDING:
-        return 'Pendiente';
+        return this.transloco.translate('PendingStatus');
       case E_TicketStatus.ASSIGNED:
-        return 'Asignado';
+        return this.transloco.translate('AssignedStatus');
       case E_TicketStatus.IN_PROGRESS:
-        return 'En progreso';
+        return this.transloco.translate('InProgressStatus');
       case E_TicketStatus.RESOLVED:
-        return 'Resuelto';
+        return this.transloco.translate('ResolvedStatus');
       case E_TicketStatus.CLOSED:
-        return 'Cerrado';
+        return this.transloco.translate('ClosedStatus');
       default:
-        return 'Desconocido';
+        return this.transloco.translate('UnknowStatus');
     }
   }
 

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TicketCategoryService } from "../../share/services/api/ticketCategory.service";
 import { BreadcrumbBackComponent } from "../../share/components/breadcrumb-back/breadcrumb-back.component";
 import { RouterLink } from "@angular/router";
+import { TranslocoModule } from "@jsverse/transloco";
 interface PlanDetails {
   name: string;
   price: number;
@@ -17,7 +18,7 @@ interface PlanDetails {
   templateUrl: "./detalle-categoria.html",
   styleUrls: ["./detalle-categoria.css"],
   standalone: true,
-  imports:[BreadcrumbBackComponent, RouterLink]
+  imports:[BreadcrumbBackComponent, RouterLink, TranslocoModule]
 })
 export class DetalleCategoria implements OnInit {
 

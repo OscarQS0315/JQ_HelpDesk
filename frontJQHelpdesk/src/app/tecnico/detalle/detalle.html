@@ -1,5 +1,5 @@
 <div class="timeline-container">
-    <h1>Tickets Abiertos ({{ activeTicketsCount() }})</h1>
+    <h1>{{'CountTickets' | transloco}}({{ activeTicketsCount() }})</h1>
     <div class="timeline">
         @for(ticket of ticketsOpen(); track ticket){
         <ng-container>
@@ -33,7 +33,7 @@
                     <h2 class="name">{{ data()?.user?.name }} {{ data()?.user?.lastName }}</h2>
 
                     <div class="section">
-                        <h3>Especialidades</h3>
+                        <h3>{{'SpecialitiesTechnician' | transloco}}</h3>
                         @for(specialist of specialitiesList(); track specialist){
                         <div class="roles-container">
                             <span class="role-tag">{{specialist.name}}</span>
@@ -41,11 +41,11 @@
                         }
                         <div class="roles-container">
                             <span class="role-tag" (click)="$event.stopPropagation()"
-                    [routerLink]="['/Crear-UpdateTecnico/update/', data()?.id]">Actualizar Técnico</span>
+                    [routerLink]="['/Crear-UpdateTecnico/update/', data()?.id]">{{'UpdateTechnician' | transloco}}</span>
                         </div>
-                        <h4>Contacto</h4>
+                        <h4>{{'ContactTechnician' | transloco}}</h4>
                         <h5>{{ data()?.user?.email }}</h5>
-                        <h4>Estado</h4>
+                        <h4>{{'StatusTechnician' | transloco}}</h4>
                         <h5>{{ statusLabel() }}</h5>
                     </div>
                     <img src="/Images/Logo_JQHelpdesk1.png" alt="">

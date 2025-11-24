@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
 import { TechnicianModel } from '../../share/models/TechnicianModel';
 import { TechnicianDTO } from '../../share/models/DTOs/TechnicianDTO';
 import { FileUploadService } from '../../share/services/api/file-upload.service';
+import { TranslocoModule } from '@jsverse/transloco';
 
 
 
@@ -21,7 +22,8 @@ import { FileUploadService } from '../../share/services/api/file-upload.service'
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+    TranslocoModule
   ],
   providers: [DatePipe]
 })
