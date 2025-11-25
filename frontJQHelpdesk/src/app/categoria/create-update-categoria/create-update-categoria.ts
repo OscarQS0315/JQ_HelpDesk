@@ -14,7 +14,7 @@ import { SLAModel } from "../../share/models/SLAModel";
 import { TicketCategoryDTO } from '../../share/models/DTOs/TicketCategoryDTO';
 import { NotificationService } from '../../share/services/app/notification.service';
 import { FileUploadService } from '../../share/services/api/file-upload.service';
-import { TranslocoModule } from "@jsverse/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 interface SelectedSpeciality {
   id: number;
@@ -75,6 +75,7 @@ export class CreateUpdateCategoria {
     private sService: SlaService,
     private tCService: TicketCategoryService,
     private noti: NotificationService,
+    private transloco: TranslocoService,
     private uploadService: FileUploadService) { }
 
   ngOnInit() {
@@ -261,12 +262,12 @@ export class CreateUpdateCategoria {
     this.selectedEtiquettes = [];
     this.searchQuerySpeciality.set('');
     this.searchQueryEtiquette.set('');
-    this.noti.success('Operación Exitosa', 'Formulario reiniciado.', 5000);
+    this.noti.success(this.transloco.translate('OperationSuccesfull'),this.transloco.translate('FormReset'), 5000);
   }
 
   onSubmit() {
   if (!this.profileForm.valid) {
-    this.noti.error('Formulario inválido', 'Revise los campos marcados.', 5000);
+    this.noti.error(this.transloco.translate('NotiInvalid'),this.transloco.translate('NotiInvalidForm'), 5000);
     return;
   }
 
@@ -291,8 +292,8 @@ export class CreateUpdateCategoria {
       next: (data) => {
         this.isLoading = false;
         this.noti.success(
-          this.isCreate ? 'Creación exitosa' : 'Actualización exitosa',
-          `Categoría ${data.name} ${this.isCreate ? 'creada' : 'actualizada'}`,
+          this.isCreate ? this.transloco.translate('NotiCreateTechnician') : this.transloco.translate('NotiUpdateTechnician'),
+          `${this.transloco.translate('Category')} ${data.name} ${this.isCreate ? this.transloco.translate('NotiCreated') : this.transloco.translate('NotiUpdated')}`,
           5000
         );
         this.router.navigate(['/ListadoCategoria']);
@@ -300,7 +301,7 @@ export class CreateUpdateCategoria {
       error: (err) => {
         this.isLoading = false;
         console.error(err);
-        this.noti.error('Error', 'No se pudo guardar la categoría', 5000);
+        this.noti.error(this.transloco.translate('Error'), this.transloco.translate('ErrorSavingCategory'), 5000);
       }
     });
   };
@@ -316,7 +317,7 @@ export class CreateUpdateCategoria {
         error: (err) => {
           this.isLoading = false;
           console.error(err);
-          this.noti.error('Error', 'No se pudo subir la imagen', 5000);
+          this.noti.error(this.transloco.translate('Error'), this.transloco.translate('FailUploadingImage'), 5000);
         }
       });
   } else {

@@ -122,5 +122,21 @@
     "ResolvedStatus" : "Resuelto",
     "ClosedStatus" : "Cerrado",
     "UnknowStatus" : "Desconocido",
-    "Return" : "← Volver"
+    "Return" : "← Volver",
+    "NotiCreateTechnician" : "Creación exitosa",
+    "NotiUpdateTechnician" : "Actualización exitosa",
+    "NotiCreated" : "Creado",
+    "NotiUpdated" : "Actualizado",
+    "NotiInvalidForm" : "Formulario inválido, revisa los campos",
+    "NotiInvalid" : "Invalido",
+    "Error" : "Error",
+    "CannotSaveTechnician" : "No se pudo guardar el técnico",
+    "OperationSuccesfull"  : "Operación Exitosa",
+    "FormReset" : "Formulario Restablecido",
+    "OperationFailed" : "Operación Fallida",
+    "FailCreatingTicket" : "Error al crear el ticket",
+    "FailUploadingImage" : "Error al subir las imágenes",
+    "Category" : "Categoría",
+    "ErrorSavingCategory" : "No se pudo guardar la categoría" 
+    
 }

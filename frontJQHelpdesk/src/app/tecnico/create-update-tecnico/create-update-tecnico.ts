@@ -10,7 +10,7 @@ import { Subject } from 'rxjs';
 import { TechnicianModel } from '../../share/models/TechnicianModel';
 import { TechnicianDTO } from '../../share/models/DTOs/TechnicianDTO';
 import { FileUploadService } from '../../share/services/api/file-upload.service';
-import { TranslocoModule } from '@jsverse/transloco';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 
 
 
@@ -58,9 +58,11 @@ export class CreateUpdateTecnico implements OnInit {
     private noti: NotificationService,
     private uploadService: FileUploadService,
     private route: ActivatedRoute,
+    private transloco: TranslocoService,
     private tService: TechnicianService) {
     const today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.maxDate = today || '';
+
   }
 
   ngOnInit() {
@@ -246,8 +248,8 @@ export class CreateUpdateTecnico implements OnInit {
       console.log(this.registrationForm.value);
       this.submitTecnico();
     } else {
-      console.error('Formulario inválido, revisa los campos');
-      this.noti.error('Formulario Inválido', 'Revise los campos marcados.', 5000);
+      console.error(this.transloco.translate('NotiInvalidForm'));
+      this.noti.error(this.transloco.translate('NotiInvalid'), this.transloco.translate('NotiInvalidForm'), 5000);
     }
   }
 
@@ -255,7 +257,7 @@ export class CreateUpdateTecnico implements OnInit {
     this.registrationForm.markAllAsTouched();
 
     if (this.registrationForm.invalid) {
-      this.noti.error('Formulario Inválido', 'Revise los campos marcados.', 5000);
+      this.noti.error(this.transloco.translate('NotiInvalid'), this.transloco.translate('NotiInvalidForm'), 5000);
       return;
     }
 
@@ -291,14 +293,16 @@ export class CreateUpdateTecnico implements OnInit {
       request$.subscribe({
         next: (data) => {
           this.noti.success(
-            this.isCreate ? 'Creación exitosa' : 'Actualización exitosa',
-            `Técnico ${data.name} ${data.lastName}  ${this.isCreate ? 'creado' : 'actualizado'}`,
+            this.isCreate
+              ? this.transloco.translate('NotiCreateTechnician')
+              : this.transloco.translate('NotiUpdateTechnician'),
+            `${this.transloco.translate('Technician')} ${data.name} ${this.isCreate ? this.transloco.translate('NotiCreated') : this.transloco.translate('NotiUpdated')}`,
             5000
           );
           this.router.navigate(['/Listado']);
         },
         error: (err) => {
-          this.noti.error('Error', 'No se pudo guardar el técnico', 5000);
+          this.noti.error(this.transloco.translate('Error'), this.transloco.translate('NotiInvalidForm'), 5000);
           console.error(err);
         }
       });

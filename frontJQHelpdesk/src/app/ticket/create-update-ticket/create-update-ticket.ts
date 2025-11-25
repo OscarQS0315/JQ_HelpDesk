@@ -13,7 +13,7 @@ import { FileUploadService } from "../../share/services/api/file-upload.service"
 import { TicketService } from "../../share/services/api/ticket.service";
 import { NotificationService } from '../../share/services/app/notification.service';
 import { forkJoin } from 'rxjs';
-import { TranslocoModule } from "@jsverse/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 
 interface Step {
@@ -97,6 +97,7 @@ export class CreateUpdateTicket {
     private TicketService: TicketService,
     private TCService: TicketCategoryService,
     private userService: UserService,
+    private transloco: TranslocoService,
     private noti: NotificationService) {
     effect(() => {
       const id = this.userId();
@@ -262,7 +263,7 @@ export class CreateUpdateTicket {
     });
     this.imagePreview = null;
     this.imageError = null;
-    this.noti.info('Operación Exitosa', 'Formulario Restablecido', 5000);
+    this.noti.info(this.transloco.translate('OperationSuccesfull'),this.transloco.translate('FormReset'), 5000);
   }
 
 
@@ -270,7 +271,7 @@ export class CreateUpdateTicket {
     this.profileForm.markAllAsTouched();
 
     if (this.profileForm.invalid) {
-      this.noti.error('Formulario Inválido', 'Revise los campos marcados.', 5000);
+      this.noti.error(this.transloco.translate('NotiInvalid'),this.transloco.translate('NotiInvalidForm'), 5000);
       return;
     }
 
@@ -301,11 +302,11 @@ export class CreateUpdateTicket {
     const saveTicket = () => {
       this.TicketService.create(payload).subscribe({
         next: (resp) => {
-          this.noti.success('Operación Exitosa', `Ticket ${resp.title} creado`, 5000);
+          this.noti.success(this.transloco.translate('OperationSuccesfull'), `Ticket ${resp.title} ${this.transloco.translate('NotiCreated')}`, 5000);
           this.router.navigate(['/VisualizacionTicket']);
         },
         error: () => {
-          this.noti.error('Operación Fallida', 'Error al crear el ticket', 5000);
+          this.noti.error(this.transloco.translate('OperationFailed'),this.transloco.translate('FailCreatingTicket'), 5000);
         },
         complete: () => this.isLoading = false
       });
@@ -326,7 +327,7 @@ export class CreateUpdateTicket {
         saveTicket();
       },
       error: () => {
-        this.noti.error('Operación Fallida', 'Error al subir las imágenes', 5000);
+        this.noti.error(this.transloco.translate('OperationFailed'),this.transloco.translate('FailUploadingImage'), 5000);
         this.isLoading = false;
       }
     });
