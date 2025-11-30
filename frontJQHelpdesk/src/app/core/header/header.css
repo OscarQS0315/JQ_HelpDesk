@@ -227,3 +227,17 @@ img{
 .option.highlight {
   animation: highlight 0.5s ease;
 }
+
+.signup-btn svg {
+  width: 30px;
+  height: 15px;
+  stroke: currentColor;   /* icono toma el color del texto */
+}
+
+.signup-btn svg:hover {
+  width: 30px;
+  height: 15px;
+  stroke: white;   /* icono toma el color del texto */
+  color: white;
+  fill: white;
+}

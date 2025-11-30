@@ -1,0 +1,63 @@
+
+<br><br><br><div class="notification-container">
+    <div class="notification-header">
+        <h2>Notifications</h2>
+        <div class="notification-actions">
+            <div class="custom-dropdown">
+                <select [(ngModel)]="selectedCategory" (change)="filterNotifications()" class="filter-dropdown">
+                    <option value="all">All Notifications</option>
+                    <option value="alert">Alerts</option>
+                    <option value="message">Messages</option>
+                    <option value="update">Updates</option>
+                </select>
+            </div>
+            <button class="mark-read-btn ripple" (click)="markAllAsRead()">
+                <span class="btn-text">Mark All as Read</span>
+                <span class="btn-icon">✓</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="notification-list">
+        <div *ngFor="let notification of filteredNotifications"
+            [ngClass]="{'notification-item': true, 'unread': !notification.read, 'animated': true}"
+            (click)="openNotificationDetail(notification)">
+            <div class="notification-icon pulse">
+                <img [src]="notification.avatar || 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=50&h=50'"
+                    [alt]="notification.type">
+            </div>
+            <div class="notification-content">
+                <div class="notification-title">
+                    <span class="title">{{notification.title}}</span>
+                    <br>
+                    <span class="time">{{notification.timestamp | date:'short'}}</span>
+                </div>
+                <p class="message">{{notification.message}}</p>
+                <span class="category-badge" [ngClass]="notification.type">{{notification.type}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification-detail" *ngIf="selectedNotification" [ngClass]="{'show': selectedNotification}">
+        <div class="detail-header">
+            <button class="close-btn" (click)="closeDetail()">×</button>
+            <h3>Notification Detail</h3>
+            
+        </div>
+        <div class="detail-content">
+            <img [src]="selectedNotification.avatar || 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=80&h=80'"
+                [alt]="selectedNotification.type" class="detail-avatar">
+            <h4>{{selectedNotification.title}}</h4>
+            <p class="detail-message">{{selectedNotification.message}}</p>
+            <div class="detail-meta">
+                <span class="detail-type">Type: {{selectedNotification.type}}</span>
+                <span class="detail-time">Sent: {{selectedNotification.timestamp | date:'medium'}}</span>
+            </div>
+            <br>
+            <div class="action-buttons">
+                <button class="action-btn primary ripple">Take Action</button>
+                <button class="action-btn secondary ripple">Dismiss</button>
+            </div>
+        </div>
+    </div>
+</div>

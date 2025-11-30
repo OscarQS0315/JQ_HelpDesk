@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideTransloco, TranslocoModule } from '@jsverse/transloco';
 import { availableLanguages, AvailableLanguages } from './transloco-config';
 import { TranslocoHttpLoader } from './transloco-loader';
+import { NotificacionesModule } from './notificaciones/notificaciones-module';
 
 
 registerLocaleData(localeEs);
@@ -34,7 +35,8 @@ registerLocaleData(localeEs);
     BreadcrumbBackComponent,
     FormsModule,
     ReactiveFormsModule,
-    TranslocoModule
+    TranslocoModule,
+    NotificacionesModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es' },
