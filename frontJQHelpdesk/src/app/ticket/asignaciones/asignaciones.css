@@ -1,0 +1,618 @@
+h2:hover {
+    color: #f5c518;
+    cursor: pointer;
+}
+
+.project-status-container {
+    padding: 20px;
+    font-family: "Arial", sans-serif;
+    margin-top: 4%;
+}
+
+.status-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #1e1e1e;
+}
+
+.card-title {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.phases-container {
+    display: grid;
+    gap: 20px;
+}
+
+.phase-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    color: white;
+    background-color: #2a2a2a;
+}
+
+.phase-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.icon-container {
+    width: auto;
+    height: auto;
+    background: none;
+    border-radius: 0;
+    margin-right: 16px;
+}
+
+.icon-container i {
+    font-size: 24px;
+    color: #48dbfb;
+}
+
+.phase-details {
+    flex: 1;
+}
+
+.phase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.phase-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: white;
+}
+
+.percentage {
+    font-weight: bold;
+    color: #f0f0f0;
+}
+
+.progress-bar {
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, black, #f5c518);
+    /* sutil dorado */
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.phase-item[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 12px;
+    background: #333;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+.category-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.assigned-technician {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #f5c518;
+    margin-top: 12px;
+    text-align: left;
+    letter-spacing: 0.5px;
+}
+
+.phase-item-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.phase-item-link:hover .phase-item {
+    transform: scale(1.01);
+    box-shadow: 0 0 8px rgba(245, 197, 24, 0.3);
+}
+
+/* Status icons */
+
+.status-updates {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+button:focus {
+    box-shadow: 0 0 0 2px #48dbfb;
+}
+
+.status-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+    background-color: #3a3a3a;
+    color: white;
+}
+
+.status-icon:hover {
+    transform: scale(1.1);
+    background-color: #48dbfb;
+}
+
+.TÉCNICO.status-icon {
+    background-color: #ff6b6b;
+}
+
+.ADMIN.status-icon {
+    background-color: #feca57;
+    color: white;
+}
+
+.CLIENTE.status-icon {
+    background-color: #48dbfb;
+    color: white;
+}
+
+button.active .status-icon {
+    transform: scale(1.1);
+}
+
+.progress-text {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.in-progress .status-icon i {
+    animation: spin 2s linear infinite;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+    .status-card {
+        padding: 16px;
+    }
+
+    .phase-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .icon-container {
+        margin: 0 0 12px 0;
+    }
+
+    .phase-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .status-card {
+        padding: 15px;
+    }
+
+    .task-title {
+        font-size: 1.2rem;
+    }
+
+    .status-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    button {
+        font-size: 0.8rem;
+    }
+}
+
+.modal-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+.modal-container.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 24px;
+    min-width: 400px;
+    max-width: 90%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+}
+
+.modal-header {
+    margin-bottom: 16px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.5rem;
+}
+
+.modal-body {
+    margin-bottom: 24px;
+    color: #34495e;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-cancel {
+    background-color: #95a5a6;
+    color: white;
+}
+
+.btn-cancel:hover {
+    background-color: #7f8c8d;
+}
+
+.btn-confirm {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-confirm:hover {
+    background-color: #c0392b;
+}
+
+.center-button {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.btn-open {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-open:hover {
+    background-color: #2980b9;
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        min-width: 90%;
+        padding: 16px;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+
+.stack-list-container {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-box {
+    margin-bottom: 1.5rem;
+}
+
+.search-input {
+    width: 90%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #ebe825;
+}
+
+h2:hover {
+    color: #f5c518;
+    cursor: pointer;
+}
+
+h2 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+p {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+
+.list-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.list-item {
+    padding: 1.25rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.list-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: #ebe825;
+    color: black;
+}
+
+.list-item.active {
+    background: #ebe825;
+    color: black;
+}
+
+.item-content {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.icon-wrapper {
+    flex-shrink: 0;
+}
+
+.item-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.text-content {
+    flex-grow: 1;
+}
+
+.item-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: inherit;
+}
+
+.item-description {
+    font-size: 0.875rem;
+    color: inherit;
+    opacity: 0.85;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.5;
+}
+
+.item-metadata {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+}
+
+.date {
+    color: inherit;
+    opacity: 0.75;
+}
+
+.tags {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.tag {
+    padding: 4px 8px;
+    background: rgba(79, 70, 229, 0.1);
+    border-radius: 4px;
+    color: inherit;
+}
+
+.active .tag {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 640px) {
+    .stack-list-container {
+        margin: 1rem;
+    }
+
+    .item-content {
+        flex-direction: column;
+    }
+
+    .icon-wrapper {
+        margin-bottom: 0.5rem;
+    }
+
+    .item-metadata {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 990;
+    backdrop-filter: blur(2px);
+}
+
+.modal-container {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    z-index: 999;
+    overflow-y: auto;
+    align-items: center;
+
+
+}
+
+.modal-box {
+    background: black;
+    max-width: 1500px;
+    border-radius: 12px;
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+    background-color: black;
+    position: relative
+}
+
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-confirm {
+    background: #4CAF50;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-cancel {
+    background: #E53935;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+.technicians-scroll {
+    max-height: 500px;
+    overflow-y: auto;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+    width: 500px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    transition: 0.2s;
+}
+
+.close-btn:hover {
+    color: white;
+    transform: scale(1.1);
+}

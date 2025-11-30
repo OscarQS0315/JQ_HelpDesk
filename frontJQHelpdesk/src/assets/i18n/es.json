@@ -137,6 +137,7 @@
     "FailCreatingTicket" : "Error al crear el ticket",
     "FailUploadingImage" : "Error al subir las imágenes",
     "Category" : "Categoría",
-    "ErrorSavingCategory" : "No se pudo guardar la categoría" 
+    "ErrorSavingCategory" : "No se pudo guardar la categoría",
+    "AssignTicket" : "Asignar Tiquete"
     
 }

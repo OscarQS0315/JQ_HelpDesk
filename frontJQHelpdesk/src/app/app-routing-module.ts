@@ -12,6 +12,7 @@ import { VisualizacionTicket } from './ticket/visualizacion-ticket/visualizacion
 import { CreateUpdateTecnico } from './tecnico/create-update-tecnico/create-update-tecnico';
 import { CreateUpdateTicket } from './ticket/create-update-ticket/create-update-ticket';
 import { CreateUpdateCategoria } from './categoria/create-update-categoria/create-update-categoria';
+import { Asignaciones } from './ticket/asignaciones/asignaciones';
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'CreateUpdateTicket', component: CreateUpdateTicket },
   { path: 'CreateUpdateCategoria', component: CreateUpdateCategoria },
   { path: 'CreateUpdateCategoria/update/:id', component: CreateUpdateCategoria },
+  { path: 'AsignacionesTicket', component: Asignaciones},
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', component: PageNotFound }
 

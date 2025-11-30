@@ -1,5 +1,3 @@
-
-
 <div class="calendar-container">
     <app-breadcrumb-back />
     <br>
@@ -17,8 +15,10 @@
             <span class="legend-item priority-high">{{'HighPriority' | transloco}}</span>
         </div>
         <div class="view-toggle">
-            <button [class.active]="currentView() === 'month'" (click)="switchView('month')">{{'Month' | transloco}}</button>
-            <button [class.active]="currentView() === 'week'" (click)="switchView('week')">{{'Week' | transloco}}</button>
+            <button [class.active]="currentView() === 'month'" (click)="switchView('month')">{{'Month' |
+                transloco}}</button>
+            <button [class.active]="currentView() === 'week'" (click)="switchView('week')">{{'Week' |
+                transloco}}</button>
         </div>
     </div>
 
@@ -52,9 +52,11 @@
                             </div>
 
                             <div class="card-body">
-                                <p><strong>{{'CreateCategoryTittle' | transloco}}</strong> {{ ticket.ticketCategory.name }}</p>
+                                <p><strong>{{'CreateCategoryTittle' | transloco}}</strong> {{ ticket.ticketCategory.name
+                                    }}</p>
                                 <p><strong>{{'Status' | transloco}}</strong> {{ getStatusLabel(ticket.status) }}</p>
-                                <p><strong>{{'SLARemaining' | transloco}}</strong> {{ getSlaRemaining(ticket) }} días</p>
+                                <p><strong>{{'SLARemaining' | transloco}}</strong> {{ getSlaRemaining(ticket) }} días
+                                </p>
 
                                 @if (isTicketExpanded(ticket.id)) {
                                 <div class="details">
@@ -89,10 +91,13 @@
                                     [routerLink]="['/DetalleTicket', ticket.id]" aria-label="Ver detalles">
                                     <i class="fas fa-eye"></i> {{'ViewDetails' | transloco}}
                                 </button>
-                                <button class="btn-action" (click)="$event.stopPropagation(); takeAction(ticket.id)"
-                                    aria-label="Tomar acción">
-                                    <i class="fas fa-bolt"></i> {{'TakeAction' | transloco}}
+                                @if(ticket.status === 'PENDING'){
+                                    <button  class="btn-action"
+                                    (click)="$event.stopPropagation(); takeAction(ticket.id); openModal(ticket)" aria-label="{{'AssignTicket' | transloco}}" >
+                                    <i class="fas fa-bolt"></i> {{ 'AssignTicket' | transloco }} 
                                 </button>
+                                }
+                                
                             </div>
                         </div>
                         }
@@ -119,11 +124,14 @@
 
                                 <strong>#{{ ticket.id }}</strong> - {{ ticket.title }}
                                 <br>
-                                <span><strong>{{'Status' | transloco}}</strong> {{ getStatusLabel(ticket.status) }}</span>
+                                <span><strong>{{'Status' | transloco}}</strong> {{ getStatusLabel(ticket.status)
+                                    }}</span>
                                 <br>
-                                <span><strong>{{'SLARemaining' | transloco}}</strong> {{ getSlaRemaining(ticket) }} {{'Days' | transloco}}</span>
+                                <span><strong>{{'SLARemaining' | transloco}}</strong> {{ getSlaRemaining(ticket) }}
+                                    {{'Days' | transloco}}</span>
                                 <br>
-                                <button class="add-event-btn-week" [routerLink]="['/DetalleTicket', ticket.id]">{{'ViewDetails' | transloco}}</button>
+                                <button class="add-event-btn-week"
+                                    [routerLink]="['/DetalleTicket', ticket.id]">{{'ViewDetails' | transloco}}</button>
                             </div>
                             }
                         </div>
@@ -144,12 +152,87 @@
                     <div class="event-title"><strong>#{{ ticket.id }}</strong> - {{ ticket.title }}</div>
                     <div class="event-meta">
                         <span><strong>{{'Status' | transloco}}</strong> {{ ticket.status }}</span> <br>
-                        <span><strong>{{'SLARemaining' | transloco}}</strong> {{ getSlaRemaining(ticket) }} {{'Days' | transloco}}</span>
+                        <span><strong>{{'SLARemaining' | transloco}}</strong> {{ getSlaRemaining(ticket) }} {{'Days' |
+                            transloco}}</span>
                     </div>
-                    <button class="add-event-btn" [routerLink]="['/DetalleTicket', ticket.id]">{{'ViewDetails' | transloco}}</button>
+                    <button class="add-event-btn" [routerLink]="['/DetalleTicket', ticket.id]">{{'ViewDetails' |
+                        transloco}}</button>
                 </div>
                 }
             </div>
         </div>
     </div>
 </div>
+
+@if(isModalOpen){<div class="modal-backdrop"></div>}
+
+
+@if(isModalOpen){
+
+<div class="modal-container">
+    <div class="modal-box">
+
+        <button class="close-btn" (click)="closeModal()">✕</button>
+        <br>
+        <h2>Asignar Técnico</h2>
+
+        <p class="modal-text">
+            Tiquete: {{selectedTicket?.title}}
+        </p>
+        @if(showTechniciansSection){
+
+        <div class="technicians-scroll">
+
+            <div class="search-box">
+                <input type="text" [(ngModel)]="searchQuery" placeholder="{{'SearchTechnician' | transloco}}"
+                    class="search-input" />
+            </div>
+
+            <div class="list-wrapper">
+                @for (item of filteredData; track item) {
+                <div class="list-item" [class.active]="selectedItem?.id === item.id" (click)="selectItem(item)">
+
+                    <div class="item-content">
+                        <div class="icon-wrapper">
+                            <img [src]="'http://localhost:3000/images/' + item.user.profileImage" class="item-icon" />
+                        </div>
+
+                        <div class="text-content">
+                            <h3 class="item-title">{{ item.user.name }} {{ item.user.lastName }}</h3>
+                            <h4 class="ticket-count">
+                                Tickets activos: {{ getTicketsCountForTechnician(item.id) }}
+                            </h4>
+                            <h4 class="item-description">{{ item.user.email }}</h4>
+                            <div class="tags">
+                                @for(tag of item.specialities; track tag){
+                                <span class="tag">
+                                    {{ tag.name }}
+                                </span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                }
+            </div>
+
+        </div>
+        }
+
+        <div class="modal-buttons">
+
+            @if(!showTechniciansSection){
+            <!-- ESTADO INICIAL -->
+            <button class="btn-confirm" (click)="onConfirm()">Automático</button>
+            <button class="btn-cancel" (click)="onCancel()">Manual</button>
+            } @else {
+            <!-- ESTADO CON TÉCNICOS CARGADOS -->
+            <button class="btn-confirm" (click)="onConfirm()">Asignar</button>
+            <button class="btn-cancel" (click)="onBack()">Volver</button>
+            }
+
+        </div>
+    </div>
+</div>
+}

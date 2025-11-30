@@ -1,0 +1,120 @@
+<div class="project-status-container">
+
+    <app-breadcrumb-back />
+
+    <div class="status-card">
+        <h2 class="card-title">{{ 'TicketTitle' | transloco }}</h2>
+
+        <div class="phases-container">
+
+            @for (ticket of dataShow().tickets; track ticket) {
+            <div class="phase-item" (click)="openModal(ticket)">
+
+                <div class="icon-container" (click)="$event.stopPropagation()">
+                    <img [src]="'http://localhost:3000/images/' + ticket.ticketCategory.imageUrl"
+                        alt="Ícono de categoría" class="category-icon" />
+                </div>
+
+                <div class="phase-details">
+                    <div class="phase-header" (click)="$event.stopPropagation()">
+                        <a [routerLink]="['/DetalleTicket', ticket.id]">
+                            <h3>{{ ticket.title }}</h3>
+                        </a>
+
+                        <span class="percentage">
+                            {{ ticketStatusString(ticket.status) }}
+                            {{ progressTicketBar(ticket.status) }}%
+                        </span>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress" [style.width.%]="progressTicketBar(ticket.status)">
+                        </div>
+                    </div>
+
+                    <span class="assigned-technician">
+                        {{ 'Technician' | transloco }}
+                        {{ ticket.technician?.user?.name }}
+                        {{ ticket.technician?.user?.lastName }}
+                    </span>
+
+                </div>
+
+            </div>
+
+            }
+        </div>
+    </div>
+</div>
+@if(isModalOpen){<div class="modal-backdrop"></div>}
+
+
+@if(isModalOpen){
+
+<div class="modal-container">
+    <div class="modal-box">
+
+        <button class="close-btn" (click)="closeModal()">✕</button>
+        <br>
+        <h2>Asignar Técnico</h2>
+
+        <p class="modal-text">
+            Tiquete: {{selectedTicket?.title}}
+        </p>
+        @if(showTechniciansSection){
+
+        <div class="technicians-scroll">
+
+            <div class="search-box">
+                <input type="text" [(ngModel)]="searchQuery" placeholder="{{'SearchTechnician' | transloco}}"
+                    class="search-input" />
+            </div>
+
+            <div class="list-wrapper">
+                @for (item of filteredData; track item) {
+                <div class="list-item" [class.active]="selectedItem?.id === item.id" (click)="selectItem(item)">
+
+                    <div class="item-content">
+                        <div class="icon-wrapper">
+                            <img [src]="'http://localhost:3000/images/' + item.user.profileImage" class="item-icon" />
+                        </div>
+
+                        <div class="text-content">
+                            <h3 class="item-title">{{ item.user.name }} {{ item.user.lastName }}</h3>
+                            <h4 class="ticket-count">
+                                Tickets activos: {{ getTicketsCountForTechnician(item.id) }}
+                            </h4>
+                            <h4 class="item-description">{{ item.user.email }}</h4>
+                            <div class="tags">
+                                @for(tag of item.specialities; track tag){
+                                <span class="tag">
+                                    {{ tag.name }}
+                                </span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                }
+            </div>
+
+        </div>
+        }
+
+        <div class="modal-buttons">
+
+            @if(!showTechniciansSection){
+            <!-- ESTADO INICIAL -->
+            <button class="btn-confirm" (click)="onConfirm()">Automático</button>
+            <button class="btn-cancel" (click)="onCancel()">Manual</button>
+            } @else {
+            <!-- ESTADO CON TÉCNICOS CARGADOS -->
+            <button class="btn-confirm" (click)="onConfirm()">Asignar</button>
+            <button class="btn-cancel" (click)="onBack()">Volver</button>
+            }
+
+        </div>
+    </div>
+</div>
+}

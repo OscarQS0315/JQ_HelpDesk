@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BreadcrumbBackComponent } from '../../share/components/breadcrumb-back/breadcrumb-back.component';
@@ -7,6 +7,9 @@ import { TicketModel } from '../../share/models/TicketModel';
 import { E_TicketStatus } from '../../share/models/enums/ticketStatus.enum';
 import { E_TicketPriority } from '../../share/models/enums/ticketPriority.enum';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
+import { TechnicianModel } from '../../share/models/TechnicianModel';
+import { TechnicianService } from '../../share/services/api/technician.service';
+import { FormsModule } from '@angular/forms';
 
 interface CalendarDay {
   date: Date;
@@ -18,7 +21,7 @@ interface CalendarDay {
   standalone: true,
   templateUrl: './listado-ticket.html',
   styleUrls: ['./listado-ticket.css'],
-  imports: [CommonModule, RouterModule, BreadcrumbBackComponent, TranslocoModule]
+  imports: [CommonModule, RouterModule, BreadcrumbBackComponent, TranslocoModule, FormsModule]
 })
 export class ListadoTicket implements OnInit {
   isExpanded = false;
@@ -32,12 +35,22 @@ export class ListadoTicket implements OnInit {
   weekDays: string[] = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
   calendarDays: CalendarDay[] = [];
   weekViewDays: CalendarDay[] = [];
+  selectedTicket!: TicketModel;
+  isModalOpen: boolean = false;
+  showTechniciansSection: boolean = false;
+  dataTechnicians = signal<TechnicianModel[]>([]);
+  data = signal<{ tickets: any[] }>({ tickets: [] });
+  searchQuery: string = '';
 
-  constructor(private ticketService: TicketService, private transloco: TranslocoService) { }
+  authUser = 1;
+
+
+  constructor(private ticketService: TicketService, private transloco: TranslocoService, private TechService: TechnicianService) { }
 
   ngOnInit() {
     this.generateCalendarDays();
     this.generateWeekViewDays();
+    this.listTickets(this.authUser);
     this.ticketService.get().subscribe((response: TicketModel[]) => {
       this.tickets.set(
         response.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
@@ -200,4 +213,109 @@ export class ListadoTicket implements OnInit {
     }
   }
 
+  openModal(ticket: TicketModel) {
+    this.selectedTicket = ticket;
+    this.isModalOpen = true;
+  }
+
+  closeModal(): void {
+    this.isModalOpen = false;
+  }
+
+  onConfirm(): void {
+    if (this.showTechniciansSection) {
+      console.log("Asignando técnico:", this.selectedItem);
+    } else {
+
+      console.log("Asignación automática activada");
+    }
+
+    this.closeModal();
+  }
+
+  onCancel(): void {
+    this.listTechnicians();
+    this.showTechniciansSection = true;
+  }
+
+  onBack(): void {
+    this.showTechniciansSection = false;
+  }
+
+  selectedItem: TechnicianModel | null = null;
+
+
+  listTechnicians(): void {
+    this.TechService.get().subscribe((response: TechnicianModel[]) => {
+      console.log('Técnicos cargados:', response);
+      this.dataTechnicians.set(response);
+    });
+  }
+
+
+  get filteredData(): TechnicianModel[] {
+    const query = this.searchQuery.toLowerCase();
+    return this.dataTechnicians().filter(item =>
+      item.user.name.toLowerCase().includes(query) ||
+      item.user.lastName.toLowerCase().includes(query) ||
+      item.user.email.toLowerCase().includes(query) ||
+      item.specialities.some(tag => tag.name.toLowerCase().includes(query))
+    );
+  }
+
+
+  selectItem(item: TechnicianModel): void {
+    this.selectedItem = item;
+  }
+
+  trackById(index: number, item: TechnicianModel) {
+    return item.id;
+  }
+
+
+
+  activeTicketsCount(): number {
+    const tickets = this.data()?.tickets || [];
+    return tickets.filter(ticket =>
+      ticket.status !== 'RESOLVED' && ticket.status !== 'CLOSED'
+    ).length;
+  }
+
+  readonly ticketsByTechnician = computed(() => {
+    const tickets = this.data()?.tickets ?? [];
+
+    const map = new Map<number, number>();
+
+    tickets.forEach(ticket => {
+      if (ticket.technician?.id) {
+        const techId = ticket.technician.id;
+
+        const isActive = ticket.status !== 'RESOLVED' && ticket.status !== 'CLOSED';
+
+        if (isActive) {
+          map.set(techId, (map.get(techId) ?? 0) + 1);
+        }
+      }
+    });
+
+    return map;
+  });
+
+  getTicketsCountForTechnician(technicianId: number): number {
+    const tickets = this.data()?.tickets ?? [];
+
+    return tickets.filter(t =>
+      t.technicianId === technicianId &&
+      t.status !== 'RESOLVED' &&
+      t.status !== 'CLOSED'
+    ).length;
+  }
+
+  listTickets(userId: number): void {
+    this.ticketService.getMethod(`by-role/${userId}`)
+      .subscribe((response: TicketModel | TicketModel[]) => {
+        const tickets = Array.isArray(response) ? response : [response];
+        this.data.set({ tickets }); // Guardar todos
+      });
+  }
 }
