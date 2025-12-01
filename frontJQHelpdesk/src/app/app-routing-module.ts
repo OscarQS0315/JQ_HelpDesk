@@ -35,7 +35,8 @@ const routes: Routes = [
   { path: 'AsignacionesTicket', component: Asignaciones},
   { path: 'Notificaciones', component: ListadoNotificaciones},
   { path: 'UpdateTicket/:id', component: UpdateTicket},
-  { path: '', redirectTo: '/inicio', pathMatch: 'full' },
+  { path: 'Inicio', component: Inicio},
+  { path: '', redirectTo: '/Login', pathMatch: 'full' },
   { path: '**', component: PageNotFound }
 
 ];

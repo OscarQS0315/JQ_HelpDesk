@@ -6,15 +6,18 @@ import { Inicio } from './inicio/inicio';
 import { AcercaDe } from './acerca-de/acerca-de';
 
 
+
 @NgModule({
   declarations: [
     Inicio,
-    AcercaDe,
+    AcercaDe
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     MatCardModule
+  ],
+  exports: [
   ]
 })
 export class HomeModule { }

@@ -1,0 +1,49 @@
+<div class="login-register-container">
+    <header class="header">
+        <img src="assets/logo.png" alt="Platform Logo" class="logo">
+    </header>
+
+    <div class="form-container">
+        <div *ngIf="isLoginView" class="login-form">
+            <h2>Login</h2>
+            <form (ngSubmit)="onLogin()">
+                <div class="form-group">
+                    <input type="email" [(ngModel)]="loginEmail" name="loginEmail" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" [(ngModel)]="loginPassword" name="loginPassword" placeholder="Password"
+                        required>
+                </div>
+                <button type="submit" class="btn-login">Login</button>
+            </form>
+            <a href="#" class="forgot-password">Forgot Password?</a>
+            <p class="switch-form">Don't have an account? <a (click)="toggleView()">Register here</a></p>
+        </div>
+
+        <div *ngIf="!isLoginView" class="register-form">
+            <h2>Register</h2>
+            <form (ngSubmit)="onRegister()">
+                <div class="form-group">
+                    <input type="text" [(ngModel)]="fullName" name="fullName" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" [(ngModel)]="registerEmail" name="registerEmail" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" [(ngModel)]="registerPassword" name="registerPassword" placeholder="Password"
+                        required>
+                </div>
+                <div class="form-group">
+                    <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword"
+                        placeholder="Confirm Password" required>
+                </div>
+                <button type="submit" class="btn-register">Register</button>
+            </form>
+            <p class="switch-form">Already have an account? <a (click)="toggleView()">Login here</a></p>
+        </div>
+    </div>
+
+    <div class="image-container">
+        <img [src]="currentImage" alt="Login/Register Image" class="side-image">
+    </div>
+</div>

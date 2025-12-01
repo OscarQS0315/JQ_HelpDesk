@@ -1,0 +1,131 @@
+.login-register-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: black;
+}
+
+.header {
+    width: 100%;
+    padding: 20px 0;
+    background-color: #ebe825;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.logo {
+    max-width: 150px;
+    height: auto;
+}
+
+.form-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.login-form,
+.register-form {
+    background-color: black;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+}
+
+h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.btn-login,
+.btn-register {
+    width: 100%;
+    padding: 12px;
+    background-color: black;
+    color: #ebe825;
+    border: oklch(from color l c h);
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-login:hover,
+.btn-register:hover {
+    background-color: #ebe825;
+    color: black;
+}
+
+.forgot-password {
+    display: block;
+    text-align: right;
+    color: #ebe825;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.switch-form {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.switch-form a {
+    color: #ebe825;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+.side-image {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .login-register-container {
+        flex-direction: column;
+    }
+
+    .form-container {
+        order: 2;
+        padding: 20px;
+    }
+
+    .image-container {
+        order: 1;
+        padding: 20px;
+    }
+
+    .side-image {
+        max-height: 40vh;
+    }
+}

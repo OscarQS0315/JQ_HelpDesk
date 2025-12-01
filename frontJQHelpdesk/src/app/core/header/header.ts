@@ -51,7 +51,7 @@ export class Header implements OnInit {
 
   buildMenu(): void {
     this.menuItems = [
-      { label: this.transloco.translate('menu.home'), link: "/", active: true },
+      { label: this.transloco.translate('menu.home'), link: "/Inicio", active: true },
       { label: this.transloco.translate('menu.technicians'), link: "/Listado" },
       { label: this.transloco.translate('menu.categories'), link: "/ListadoCategoria" },
       {
