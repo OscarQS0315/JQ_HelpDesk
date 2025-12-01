@@ -5,6 +5,7 @@ import { DetalleTicket } from './detalle-ticket/detalle-ticket';
 import { VisualizacionTicket } from './visualizacion-ticket/visualizacion-ticket';
 import { CreateUpdateTicket } from './create-update-ticket/create-update-ticket';
 import { Asignaciones } from './asignaciones/asignaciones';
+import { UpdateTicket } from './update-ticket/update-ticket';
 
 const routes: Routes = [
   {path:'ListadoTicket', component: ListadoTicket},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path:'VisualizacionTicket', component: VisualizacionTicket},
   {path:'CreateUpdateTicket', component: CreateUpdateTicket},
   {path:'AsignacionesTicket', component: Asignaciones},
+  {path:'UpdateTicket/:id', component: UpdateTicket},
 ];
 
 @NgModule({

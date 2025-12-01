@@ -14,6 +14,7 @@ import { CreateUpdateTicket } from './ticket/create-update-ticket/create-update-
 import { CreateUpdateCategoria } from './categoria/create-update-categoria/create-update-categoria';
 import { Asignaciones } from './ticket/asignaciones/asignaciones';
 import { ListadoNotificaciones } from './notificaciones/listado-notificaciones/listado-notificaciones';
+import { UpdateTicket } from './ticket/update-ticket/update-ticket';
 
 
 
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'CreateUpdateCategoria/update/:id', component: CreateUpdateCategoria },
   { path: 'AsignacionesTicket', component: Asignaciones},
   { path: 'Notificaciones', component: ListadoNotificaciones},
+  { path: 'UpdateTicket/:id', component: UpdateTicket},
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', component: PageNotFound }
 

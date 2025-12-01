@@ -1,6 +1,7 @@
 <h1></h1>
 <div class="ticket-card">
     <app-breadcrumb-back />
+    <button [routerLink]="['/UpdateTicket', ticket()?.id]">Actualizar tiquete</button>
     <div class="section header">
         <img [src]="'http://localhost:3000/images/' + ticket()?.ticketCategory?.imageUrl" alt="Categoría" />
         <div>
