@@ -142,7 +142,7 @@
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    
+
 }
 
 .profile-grid {
@@ -193,7 +193,7 @@ input:focus,
 textarea:focus {
     outline: none;
     border-color: #ebe825;
-    
+
 }
 
 .radio-group {
@@ -335,7 +335,7 @@ button[type="submit"]:disabled {
     align-items: center;
     justify-content: center;
     background: #f8f9fa;
-    overflow: visible !important; 
+    overflow: visible !important;
 }
 
 .image-preview.circular-preview img {
@@ -368,7 +368,7 @@ button[type="submit"]:disabled {
     margin-top: 2rem;
     padding-top: 2rem;
     border-top: 1px solid #e2e8f0;
-    
+
 }
 
 .additional-fields .form-group {
@@ -377,7 +377,7 @@ button[type="submit"]:disabled {
 
 .additional-fields textarea,
 .additional-fields input {
-background-color: black;
+    background-color: black;
 }
 
 @media (max-width: 768px) {
@@ -421,7 +421,7 @@ background-color: black;
     border-radius: 8px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
-    
+
 }
 
 .search-input:focus {
@@ -537,13 +537,14 @@ background-color: black;
         gap: 0.5rem;
     }
 }
+
 .stack-list-container {
     width: 100%;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 8px; 
+    gap: 8px;
 }
 
 .list-wrapper {
@@ -561,7 +562,7 @@ background-color: black;
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 0; 
+    padding: 0;
 }
 
 
@@ -581,6 +582,7 @@ background-color: black;
     font-size: 12px;
     margin: 0;
 }
+
 .image-preview {
     position: relative;
     margin: 5px;
@@ -608,3 +610,48 @@ background-color: black;
 }
 
 
+
+
+
+
+
+
+
+.ticket-card {
+    background: #0d0d0d;
+    padding: 20px;
+    border-radius: 14px;
+    margin-bottom: 25px;
+    border-left: 4px solid #ebe825;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #f5f5f5;
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+}
+
+.card-item {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.item-label {
+    font-weight: 600;
+    color: #cbd5e1;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.item-value {
+    background: #141414;
+    color: #e2e8f0;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #1f2937;
+    font-size: 14px;
+}

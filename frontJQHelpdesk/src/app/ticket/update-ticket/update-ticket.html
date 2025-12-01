@@ -3,78 +3,98 @@
 <br>
 <app-breadcrumb-back />
 
-
 <div class="profile-container">
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <div class="profile-grid">
 
+            <!-- INFORMACIÓN DEL TICKET -->
             <div class="profile-info">
-                <h2>{{'TicketTitle' | transloco}}</h2>
+                <h2>Actualizar Ticket</h2>
 
+                <!-- Título -->
+                <!-- CARD DE INFORMACIÓN DEL TICKET -->
+                <div class="ticket-card">
+                    <h2 class="card-title">Información del Ticket</h2>
+
+                    <div class="card-item">
+                        <span class="item-label">Título:</span>
+                        <span class="item-value">{{ profileForm.get('titulo')?.value }}</span>
+                    </div>
+
+                    <div class="card-item">
+                        <span class="item-label">Descripción:</span>
+                        <span class="item-value">{{ profileForm.get('descripcion')?.value }}</span>
+                    </div>
+
+                    <div class="card-item">
+                        <span class="item-label">Fecha de creación:</span>
+                        <span class="item-value">{{ profileForm.get('Fecha')?.value | date:'yyyy-MM-dd' }}</span>
+                    </div>
+
+                    <div class="card-item">
+                        <span class="item-label">Fecha actual:</span>
+                        <span class="item-value">{{ profileForm.get('FechaActual')?.value | date:'yyyy-MM-dd' }}</span>
+                    </div>
+                </div>
+
+
+                <!-- ESTADO DEL TICKET (editable) -->
+                <!-- ESTADO DEL TICKET -->
                 <div class="form-group">
-                    <label for="fullName">{{'title' | transloco}}</label>
-                    <input type="text" id="fullName" formControlName="titulo"
-                        placeholder="{{'EnterTitle' | transloco}}" readonly>
+                    <label>Estado del Ticket</label>
 
-                    @if(profileForm.get('titulo')?.touched && profileForm.get('titulo')?.invalid){
-                    <div class="error">
-                        @if(profileForm.get('titulo')?.errors?.['required']){
-                        <span>{{'titleRequired' | transloco}}</span>
+                    <div class="radio-group">
+                        @for(state of availableStates; track state){
+                        <label class="radio-option">
+                            <input type="radio" [value]="state" formControlName="status"
+                                [disabled]="!canSelectState(state)" />
+                            {{ state | transloco }}
+                        </label>
                         }
+                    </div>
+
+                    @if(profileForm.get('status')?.touched && profileForm.get('status')?.invalid){
+                    <div class="error">
+                        <span>Debe seleccionar un estado válido.</span>
                     </div>
                     }
                 </div>
 
-                <div class="form-group">
-                    <label for="descripcion">{{'Description' | transloco}}</label>
-                    <textarea id="descripcion" formControlName="descripcion"
-                        placeholder="{{'PlaceHolderDescriptionCategory' | transloco}}"></textarea>
 
-                    @if(profileForm.get('descripcion')?.touched && profileForm.get('descripcion')?.invalid){
+                <!-- OBSERVACIÓN OBLIGATORIA -->
+                <div class="form-group">
+                    <label for="observacion">Observación de Cambio de Estado *</label>
+                    <textarea id="observacion" formControlName="observacion"
+                        placeholder="Ingrese una observación obligatoria"></textarea>
+
+                    @if(profileForm.get('observacion')?.touched && profileForm.get('observacion')?.invalid){
                     <div class="error">
-                        @if(profileForm.get('descripcion')?.errors?.['required']){
-                        <span>{{'CategoryDescriptionRequired' | transloco}}</span>
-                        }
+                        <span>La observación es obligatoria.</span>
                     </div>
                     }
                 </div>
 
-                <div class="form-group">
-                    <label for="Fecha">{{'CategoryCreationDate' | transloco}}</label>
-                    <input type="date" id="Fecha" formControlName="Fecha" [value]="today" readonly />
-
-                    @if(profileForm.get('Fecha')?.touched && profileForm.get('Fecha')?.invalid){
-                    <div class="error">
-                        @if(profileForm.get('Fecha')?.errors?.['required']){
-                        <span>{{'CategoryCreationDateRequired' | transloco}}</span>
-                        }
-                    </div>
-                    }
-                </div>
-
-                <div class="form-group">
-                    <label for="comments">{{'Comments' | transloco}}</label>
-                    <textarea id="comments" formControlName="comments"
-                        placeholder="{{'AditionalComments' | transloco}}"></textarea>
-                </div>
 
 
                 <div class="button-group">
-                    <button type="submit" [disabled]="!profileForm.valid || isLoading">{{'CreateTicket' |
-                        transloco}}</button>
-                    <button type="button" (click)="resetForm()" class="reset-btn">{{'ClearFieldsTechnician' |
-                        transloco}}</button>
+                    <button type="submit" [disabled]="!profileForm.valid || isLoading">
+                        Actualizar Ticket
+                    </button>
+
+                    <button type="button" (click)="resetForm()" class="reset-btn">
+                        Limpiar campos
+                    </button>
                 </div>
             </div>
 
 
 
+            <!-- IMÁGENES -->
             <div class="profile-image">
-                <h2>{{'ImageRelateTicket'|transloco}}</h2>
+                <h2>Imágenes relacionadas al cambio de Estado *</h2>
 
                 <div class="image-upload-container" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
                     (drop)="onDrop($event)">
-
 
                     @if(imagePreviews.length > 0){
                     <div class="multiple-previews">
@@ -84,12 +104,8 @@
                             <button type="button" class="delete-image-btn" (click)="removeImage($index)">✕</button>
                         </div>
                         }
-
                     </div>
-
-
                     }
-
 
                     @if(imagePreviews.length === 0){
                     <div class="upload-placeholder circular-preview">
@@ -97,38 +113,36 @@
                     </div>
                     }
 
-
                     <input type="file" #fileInput (change)="onFileSelected($event)"
                         accept="image/jpeg,image/png,image/webp" multiple style="display: none">
 
                     <button type="button" (click)="fileInput.click()" class="upload-btn">
-                        {{'SelectProfilePictureTechnician' | transloco}}
+                        Subir imágenes
                     </button>
                 </div>
 
                 @if(imageError){
                 <div class="error">{{ imageError }}</div>
                 }
+                @if(imagePreviews.length === 0){
+                <div class="error">Debe subir al menos una imagen.</div>
+                }
 
 
+                <!-- INFORMACIÓN DEL USUARIO -->
+                <div class="additional-fields" [hidden]="!user()">
+                    <h3>Usuario</h3>
 
+                    <p><strong>ID:</strong> {{ user()?.id }}</p>
+                    <p><strong>Nombre:</strong> {{ user()?.name }} {{ user()?.lastName }}</p>
+                    <p><strong>Email:</strong> {{ user()?.email }}</p>
+                    <p><strong>Teléfono:</strong> {{ user()?.cellphone }}</p>
 
-                <div class="additional-fields" [hidden]="!authUser()">
-                    <h3>{{'User' | transloco}}</h3>
-
-                    <p><strong>{{'ID' | transloco}}</strong> {{ authUser()?.id }}</p>
-                    <p><strong>{{'Name' | transloco}}</strong> {{ authUser()?.name }} {{ authUser()?.lastName }}</p>
-                    <p><strong>{{'EmailTechnician' | transloco}}</strong> {{ authUser()?.email }}</p>
-
-                    <p><strong>{{'Phone' | transloco}}</strong> {{ authUser()?.cellphone }}</p>
-
-                    <img width="80" height="80" style="border-radius: 10px; margin-top: 10px;" [hidden]="!authUser()"
+                    <img width="80" height="80" style="border-radius: 10px; margin-top: 10px;" [hidden]="!user()"
                         [src]="'http://localhost:3000/images/image-no-found.jpg'">
-
                 </div>
-
-
             </div>
+
         </div>
     </form>
 </div>
