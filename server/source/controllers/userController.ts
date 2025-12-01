@@ -1,58 +1,70 @@
-import { PrismaClient } from "../../generated/prisma";
+import { Request, Response, NextFunction } from "express";
+import bcrypt from "bcryptjs";
+import { PrismaClient, E_Role, User } from "../../generated/prisma";
+import passport from "passport";
+import { generateToken } from "../config/authUtils";
 
-import { Request, Response, NextFunction, response } from 'express';
-import { AppError } from '../errors/custom.error';
-import { tickets } from '../../prisma/seeds/tickets';
-import { notifications } from '../../prisma/seeds/notifications';
+const prisma = new PrismaClient();
 
 export class UserController {
-    prisma = new PrismaClient();
+  register = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { nombre, email, password, role } = req.body;
 
-    //method to get all users
-    get = async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            const users = await this.prisma.user.findMany({
-                include: {
-                    tickets: true,
-                    userTechnician: true,
-                    ticketHistory: true,
-                    notifications: true
-                }
-            });
-            res.json(users);
-        } catch (error) {
-            next(error);
+      const salt = await bcrypt.genSalt(10);
+      const hash = await bcrypt.hash(password, salt);
+
+      const user = await prisma.user.create({
+        data: {
+          name: nombre,
+          lastName: "",
+          email,
+          password: hash,
+          role: E_Role[role as keyof typeof E_Role],
+        },
+      });
+
+      res.status(201).json({
+        success: true,
+        message: "Usuario creado",
+        data: user,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  login = (req: Request, res: Response, next: NextFunction) => {
+    passport.authenticate(
+      "local",
+      { session: false },
+      (
+        err: Error | null,
+        user: Express.User | false | null,
+        info: { message?: string }
+      ) => {
+        if (err) return next(err);
+        if (!user) {
+          return res
+            .status(401)
+            .json({ success: false, message: info.message });
         }
-    };
+        const token = generateToken(user as User);
+        return res.json({
+          success: true,
+          message: "Inicio de sesión exitoso",
+          token,
+        });
+      }
+    )(req, res, next);
+  };
+  userAuth = (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const usuario = req.user as User;
+      res.json(usuario);
 
-    //method to get user by id
-    getById = async (req: Request, res: Response, next: NextFunction) => {
-        try {
-
-            let userId = parseInt(req.params.id);
-            if (isNaN(userId)) {
-                next(AppError.badRequest("El ID no es válido"));
-            }
-            const user = await this.prisma.user.findFirst({
-
-                where: {
-                    id: userId
-                },
-                include: {
-                    tickets: true,
-                    userTechnician: true,
-                    ticketHistory: true,
-                    notifications: true
-                }
-            });
-            if (user) {
-                res.status(200).json(user);
-            } else {
-                next(AppError.notFound("Usuario no encontrado"));
-            }
-
-        } catch (error) {
-            next(error);
-        }
-    };
+    } catch (error) {
+      next(error);
+    }
+  };
 }
