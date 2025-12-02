@@ -7,5 +7,6 @@ export const environment = {
     endPointSpecialities: 'speciality',
     endPointEtiquettes: 'etiquette',
     endPointSlas: 'sla',
+    endPointHistory: 'history',
     
 };
