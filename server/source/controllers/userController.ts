@@ -58,6 +58,7 @@ export class UserController {
       }
     )(req, res, next);
   };
+  
   userAuth = (req: Request, res: Response, next: NextFunction) => {
     try {
       const usuario = req.user as User;

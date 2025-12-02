@@ -1,19 +1,17 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import { UserController } from '../controllers/userController';
+import { authenticateJWT } from '../middleware/authMiddleware';
 
-export class UserRoutes{
-    static get routes(): Router{
+export class UserRoutes {
+    static get routes(): Router {
         const router = Router();
         const controller = new UserController();
-
-        //router.get('/', controller.get);
-
-
-
-
         
+        router.post("/login", controller.login);
+        router.post("/register", controller.register);
+        router.get("/profile", authenticateJWT, controller.userAuth);
         //router.get('/:id', controller.getById);
-        
+        //router.get('/', controller.get);
         return router;
     }
 
