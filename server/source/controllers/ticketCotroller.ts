@@ -1,4 +1,4 @@
-import { E_TicketPriority, E_TicketStatus, PrismaClient } from "../../generated/prisma";
+import { E_TechnicianStatus, E_TicketPriority, E_TicketStatus, PrismaClient, SpecialityArea } from "../../generated/prisma";
 import { Request, Response, NextFunction, response } from "express";
 import { AppError } from "../errors/custom.error";
 import { E_Role } from "../../generated/prisma";
@@ -172,26 +172,26 @@ export class TicketController {
 
     create = async (req: Request, res: Response, next: NextFunction) => {
         try {
-        const body = req.body;
-        const vTicketPriority = body.priority as E_TicketPriority;
-        const category = await this.prisma.ticketCategory.findUnique({
-            where: { id: body.ticketCategoryId },
-            include: { SLA: true }
-        });
+            const body = req.body;
+            const vTicketPriority = body.priority as E_TicketPriority;
+            const category = await this.prisma.ticketCategory.findUnique({
+                where: { id: body.ticketCategoryId },
+                include: { SLA: true }
+            });
 
-        if (!category || !category.SLA) {
-            return res.status(400).json({ message: "La categoría no tiene SLA asociado." });
-        }
+            if (!category || !category.SLA) {
+                return res.status(400).json({ message: "La categoría no tiene SLA asociado." });
+            }
 
-        const now = new Date();
+            const now = new Date();
 
-        const vReplySLA = new Date(now.getTime() + Number(category.SLA.slaReplyHours) * 3600000);
+            const vReplySLA = new Date(now.getTime() + Number(category.SLA.slaReplyHours) * 3600000);
 
 
-        const vResolutionSLA = new Date(now.getTime() + Number(category.SLA.slaResolutionHours * 3600000));
+            const vResolutionSLA = new Date(now.getTime() + Number(category.SLA.slaResolutionHours * 3600000));
 
-        const historyPoints = calculateHistoryPoints(vTicketPriority);
-        console.log (body.ticketPriority, vTicketPriority, typeof(vTicketPriority));
+            const historyPoints = calculateHistoryPoints(vTicketPriority);
+            console.log(body.ticketPriority, vTicketPriority, typeof (vTicketPriority));
             const newTicket = await this.prisma.ticket.create({
                 data: {
                     title: body.title,
@@ -203,10 +203,10 @@ export class TicketController {
                     slaReply: vReplySLA,
                     slaResolution: vResolutionSLA,
                     user: {
-                        connect: {id: body.userId}
+                        connect: { id: body.userId }
                     },
                     ticketCategory: {
-                        connect: {id: body.ticketCategoryId}
+                        connect: { id: body.ticketCategoryId }
                     },
                     ticketHistory: {
                         create: {
@@ -229,10 +229,192 @@ export class TicketController {
             next(error);
         }
 
-    }
+    };
 
-    
-    
+    manualAssignTechnician = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            console.log("Manual asignando técnico...");
+            console.log("Usuario que realiza la acción:", (req.user as any).id);
+
+            const ticketId = parseInt(req.params.id);
+            const technicianId = parseInt(req.body.technicianId);
+
+            if (isNaN(ticketId) || isNaN(technicianId)) {
+                return next(AppError.badRequest('El ID del ticket o del técnico no es válido'));
+            }
+            const technician = await this.prisma.userTechnician.findUnique({
+                where: { id: technicianId },
+                include: { user: true }
+            });
+            const updatedTicket = await this.prisma.ticket.update({
+                where: { id: ticketId },
+                data: {
+                    technicianId: technicianId,
+                    status: E_TicketStatus.ASSIGNED,
+                    ticketHistory: {
+                        create: {
+                            status: E_TicketStatus.ASSIGNED,
+                            changedBy: (req.user as any).id,
+                            observation: `Técnico ${technician?.user.name} ${technician?.user.lastName} asignado manualmente por ${(req.user as any).name} ${(req.user as any).lastName}.`,
+                        }
+                    }
+                },
+                include: {
+
+                    technician: {
+                        include: {
+                            user: true
+                        }
+                    },
+                    ticketHistory: true,
+                    ticketCategory: true
+                }
+            });
+
+            res.status(200).json({
+                updatedTicket,
+                assignedTechnician: updatedTicket.technician
+            });
+
+        } catch (error) {
+            console.error("Error asignando tiquete:", error);
+            next(error);
+        }
+    };
+
+    autoAssignTechnician = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            console.log("Auto asignando técnico...");
+            console.log("Usuario que realiza la acción:", (req.user as any).id);
+            const ticketId = parseInt(req.params.id);
+            if (isNaN(ticketId)) {
+                return next(AppError.badRequest('El ID del ticket no es válido'));
+            }
+            const ticket = await this.prisma.ticket.findFirst({
+                where: { id: ticketId },
+                include: {
+                    user: true,
+                    technician: {
+                        include: {
+                            user: true,
+                        },
+                    },
+                    ticketHistory: {
+                        include: {
+                            ticketImages: true,
+                            user: true,
+                        },
+                    },
+                    ticketCategory: {
+                        include: {
+                            specialities: true
+                        }
+                    }
+                }
+            });
+            if (!ticket) {
+                return next(AppError.notFound('No existe el ticket'));
+            }
+            const ticketSpecialtyIds = ticket.ticketCategory.specialities.map(s => s.id);
+
+            const technicians = await this.prisma.userTechnician.findMany({
+                include: {
+                    user: {
+                        omit: {
+                            password: true
+                        }
+                    },
+                    tickets: true,
+                    specialities: true
+                }
+            });
+            const availableTechnicians = technicians.filter(t => t.status === E_TechnicianStatus.AVAILABLE);
+            const bussyTechnicians = technicians.filter(t => t.status === E_TechnicianStatus.BUSY);
+
+            const availableTechniciansMatching = availableTechnicians.filter(t =>
+                t.specialities.some(s => ticketSpecialtyIds.includes(s.id))
+            );
+            const bussyTechniciansMatching = bussyTechnicians.filter(t =>
+                t.specialities.some(s => ticketSpecialtyIds.includes(s.id))
+            );
+            let firstMatchingSpeciality: SpecialityArea | null = null;
+            if (availableTechniciansMatching.length > 0) {
+                for (const t of availableTechniciansMatching) {
+                    const match = t.specialities.find(s => ticketSpecialtyIds.includes(s.id));
+                    if (match) {
+                        firstMatchingSpeciality = match;
+                        break;
+                    }
+                }
+            } else if (bussyTechniciansMatching.length > 0) {
+                for (const t of bussyTechniciansMatching) {
+                    const match = t.specialities.find(s => ticketSpecialtyIds.includes(s.id));
+                    if (match) {
+                        firstMatchingSpeciality = match;
+                        break;
+                    }
+                }
+            }
+
+
+            let assignedTechnician = null;
+
+            let puntaje = 0;
+            const now = Date.now();
+            const slaDate = ticket.slaResolution?.getTime() ? new Date(ticket.slaResolution).getTime() : null;
+            let timeRemainingMs = 0;
+            if (slaDate) {
+                timeRemainingMs = slaDate - now;
+            }
+            if (ticket.storyPoints) {
+                puntaje = (ticket.storyPoints * 1000) - timeRemainingMs;
+            }
+            console.log("Puntaje del ticket:", puntaje);
+
+            if (availableTechniciansMatching.length > 0) {
+                const technicianAvailableWithMinWorkload = availableTechniciansMatching.reduce((min, t) =>
+                    t.workload < min.workload ? t : min
+                );
+                assignedTechnician = technicianAvailableWithMinWorkload;
+            } else if (bussyTechniciansMatching.length > 0) {
+                const technicianBussyWithMinWorkload = bussyTechniciansMatching.reduce((min, t) =>
+                    t.workload < min.workload ? t : min
+                );
+                assignedTechnician = technicianBussyWithMinWorkload;
+            } else {
+                return next(AppError.notFound('No hay técnicos con las especialidades requeridas disponibles'));
+            }
+
+            const createdRule = await this.prisma.autoTriageRule.create({
+                data: {
+                    timeRemainingSLA: timeRemainingMs,
+                    ticketPriority: ticket.priority as E_TicketPriority,
+                    technicianSpecialityId: firstMatchingSpeciality?.id,
+                }
+            });
+            const updatedTicket = await this.prisma.ticket.update({
+                where: { id: ticket.id },
+                data: {
+                    technicianId: assignedTechnician.id,
+                    status: E_TicketStatus.ASSIGNED,
+                    automaticTriageRuleId: createdRule.id,
+                    ticketHistory: {
+                        create: {
+                            status: E_TicketStatus.ASSIGNED,
+                            changedBy: (req.user as any).id,
+                            observation: `Técnico ${assignedTechnician.user.name} ${assignedTechnician.user.lastName}  asignado automáticamente.`,
+                        }
+                    },
+
+                },
+            });
+            res.status(200).json({ updatedTicket, puntaje, createdRule, assignedTechnician });
+        } catch (error) {
+            console.error("Error creando tiquete:", error);
+            next(error);
+        }
+    };
+
 }
 function calculateHistoryPoints(priority: E_TicketPriority): number {
     switch (priority) {

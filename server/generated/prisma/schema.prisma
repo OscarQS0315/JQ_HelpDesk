@@ -138,7 +138,7 @@ model AutoTriageRule {
   id                     Int              @id @default(autoincrement())
   timeRemainingSLA       Int
   ticketPriority         E_TicketPriority
-  technicianSpecialityId Int
+  technicianSpecialityId Int?
   createdAt              DateTime         @default(now())
   updatedAt              DateTime         @updatedAt
   // Relations

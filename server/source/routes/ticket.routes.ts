@@ -12,6 +12,8 @@ export class TicketRoutes{
         //router.put("/:id", controller.update);
         router.get('/:id', authenticateJWT, controller.getById);
         router.get('/by-role/:userId', authenticateJWT, controller.getByRole);
+        router.put('/auto-assign/:id', authenticateJWT, authorizeRoles(E_Role.ADMIN), controller.autoAssignTechnician);
+        router.put('/manual-assign/:id', authenticateJWT, authorizeRoles(E_Role.ADMIN), controller.manualAssignTechnician);
         return router;
     }
 }

@@ -8676,7 +8676,7 @@ export namespace Prisma {
     id: number
     timeRemainingSLA: number
     ticketPriority: $Enums.E_TicketPriority
-    technicianSpecialityId: number
+    technicianSpecialityId: number | null
     createdAt: Date
     updatedAt: Date
     _count: AutoTriageRuleCountAggregateOutputType | null
@@ -8737,7 +8737,7 @@ export namespace Prisma {
       id: number
       timeRemainingSLA: number
       ticketPriority: $Enums.E_TicketPriority
-      technicianSpecialityId: number
+      technicianSpecialityId: number | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["autoTriageRule"]>
@@ -15700,7 +15700,7 @@ export namespace Prisma {
     id?: IntFilter<"AutoTriageRule"> | number
     timeRemainingSLA?: IntFilter<"AutoTriageRule"> | number
     ticketPriority?: EnumE_TicketPriorityFilter<"AutoTriageRule"> | $Enums.E_TicketPriority
-    technicianSpecialityId?: IntFilter<"AutoTriageRule"> | number
+    technicianSpecialityId?: IntNullableFilter<"AutoTriageRule"> | number | null
     createdAt?: DateTimeFilter<"AutoTriageRule"> | Date | string
     updatedAt?: DateTimeFilter<"AutoTriageRule"> | Date | string
     Ticket?: TicketListRelationFilter
@@ -15710,7 +15710,7 @@ export namespace Prisma {
     id?: SortOrder
     timeRemainingSLA?: SortOrder
     ticketPriority?: SortOrder
-    technicianSpecialityId?: SortOrder
+    technicianSpecialityId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     Ticket?: TicketOrderByRelationAggregateInput
@@ -15723,7 +15723,7 @@ export namespace Prisma {
     NOT?: AutoTriageRuleWhereInput | AutoTriageRuleWhereInput[]
     timeRemainingSLA?: IntFilter<"AutoTriageRule"> | number
     ticketPriority?: EnumE_TicketPriorityFilter<"AutoTriageRule"> | $Enums.E_TicketPriority
-    technicianSpecialityId?: IntFilter<"AutoTriageRule"> | number
+    technicianSpecialityId?: IntNullableFilter<"AutoTriageRule"> | number | null
     createdAt?: DateTimeFilter<"AutoTriageRule"> | Date | string
     updatedAt?: DateTimeFilter<"AutoTriageRule"> | Date | string
     Ticket?: TicketListRelationFilter
@@ -15733,7 +15733,7 @@ export namespace Prisma {
     id?: SortOrder
     timeRemainingSLA?: SortOrder
     ticketPriority?: SortOrder
-    technicianSpecialityId?: SortOrder
+    technicianSpecialityId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: AutoTriageRuleCountOrderByAggregateInput
@@ -15750,7 +15750,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"AutoTriageRule"> | number
     timeRemainingSLA?: IntWithAggregatesFilter<"AutoTriageRule"> | number
     ticketPriority?: EnumE_TicketPriorityWithAggregatesFilter<"AutoTriageRule"> | $Enums.E_TicketPriority
-    technicianSpecialityId?: IntWithAggregatesFilter<"AutoTriageRule"> | number
+    technicianSpecialityId?: IntNullableWithAggregatesFilter<"AutoTriageRule"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"AutoTriageRule"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"AutoTriageRule"> | Date | string
   }
@@ -16662,7 +16662,7 @@ export namespace Prisma {
   export type AutoTriageRuleCreateInput = {
     timeRemainingSLA: number
     ticketPriority: $Enums.E_TicketPriority
-    technicianSpecialityId: number
+    technicianSpecialityId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     Ticket?: TicketCreateNestedManyWithoutAutomaticTriageRuleInput
@@ -16672,7 +16672,7 @@ export namespace Prisma {
     id?: number
     timeRemainingSLA: number
     ticketPriority: $Enums.E_TicketPriority
-    technicianSpecialityId: number
+    technicianSpecialityId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     Ticket?: TicketUncheckedCreateNestedManyWithoutAutomaticTriageRuleInput
@@ -16681,7 +16681,7 @@ export namespace Prisma {
   export type AutoTriageRuleUpdateInput = {
     timeRemainingSLA?: IntFieldUpdateOperationsInput | number
     ticketPriority?: EnumE_TicketPriorityFieldUpdateOperationsInput | $Enums.E_TicketPriority
-    technicianSpecialityId?: IntFieldUpdateOperationsInput | number
+    technicianSpecialityId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Ticket?: TicketUpdateManyWithoutAutomaticTriageRuleNestedInput
@@ -16691,7 +16691,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     timeRemainingSLA?: IntFieldUpdateOperationsInput | number
     ticketPriority?: EnumE_TicketPriorityFieldUpdateOperationsInput | $Enums.E_TicketPriority
-    technicianSpecialityId?: IntFieldUpdateOperationsInput | number
+    technicianSpecialityId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Ticket?: TicketUncheckedUpdateManyWithoutAutomaticTriageRuleNestedInput
@@ -16701,7 +16701,7 @@ export namespace Prisma {
     id?: number
     timeRemainingSLA: number
     ticketPriority: $Enums.E_TicketPriority
-    technicianSpecialityId: number
+    technicianSpecialityId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16709,7 +16709,7 @@ export namespace Prisma {
   export type AutoTriageRuleUpdateManyMutationInput = {
     timeRemainingSLA?: IntFieldUpdateOperationsInput | number
     ticketPriority?: EnumE_TicketPriorityFieldUpdateOperationsInput | $Enums.E_TicketPriority
-    technicianSpecialityId?: IntFieldUpdateOperationsInput | number
+    technicianSpecialityId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16718,7 +16718,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     timeRemainingSLA?: IntFieldUpdateOperationsInput | number
     ticketPriority?: EnumE_TicketPriorityFieldUpdateOperationsInput | $Enums.E_TicketPriority
-    technicianSpecialityId?: IntFieldUpdateOperationsInput | number
+    technicianSpecialityId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17719,6 +17719,17 @@ export namespace Prisma {
     not?: NestedEnumE_TicketPriorityFilter<$PrismaModel> | $Enums.E_TicketPriority
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type AutoTriageRuleCountOrderByAggregateInput = {
     id?: SortOrder
     timeRemainingSLA?: SortOrder
@@ -17768,7 +17779,7 @@ export namespace Prisma {
     _max?: NestedEnumE_TicketPriorityFilter<$PrismaModel>
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
     notIn?: number[] | null
@@ -17776,7 +17787,12 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EnumE_TicketStatusFilter<$PrismaModel = never> = {
@@ -17927,22 +17943,6 @@ export namespace Prisma {
     resolutionDays?: SortOrder
     ticketValorationId?: SortOrder
     automaticTriageRuleId?: SortOrder
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EnumE_TicketStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -18765,6 +18765,14 @@ export namespace Prisma {
     set?: $Enums.E_TicketPriority
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type TicketUpdateManyWithoutAutomaticTriageRuleNestedInput = {
     create?: XOR<TicketCreateWithoutAutomaticTriageRuleInput, TicketUncheckedCreateWithoutAutomaticTriageRuleInput> | TicketCreateWithoutAutomaticTriageRuleInput[] | TicketUncheckedCreateWithoutAutomaticTriageRuleInput[]
     connectOrCreate?: TicketCreateOrConnectWithoutAutomaticTriageRuleInput | TicketCreateOrConnectWithoutAutomaticTriageRuleInput[]
@@ -18873,14 +18881,6 @@ export namespace Prisma {
 
   export type EnumE_TicketStatusFieldUpdateOperationsInput = {
     set?: $Enums.E_TicketStatus
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type NullableBoolFieldUpdateOperationsInput = {
@@ -19406,25 +19406,6 @@ export namespace Prisma {
     _max?: NestedEnumE_TicketPriorityFilter<$PrismaModel>
   }
 
-  export type NestedEnumE_TicketStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.E_TicketStatus | EnumE_TicketStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.E_TicketStatus[]
-    notIn?: $Enums.E_TicketStatus[]
-    not?: NestedEnumE_TicketStatusFilter<$PrismaModel> | $Enums.E_TicketStatus
-  }
-
-  export type NestedBoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
-  export type NestedEnumE_AssignedMethodNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.E_AssignedMethod | EnumE_AssignedMethodFieldRefInput<$PrismaModel> | null
-    in?: $Enums.E_AssignedMethod[] | null
-    notIn?: $Enums.E_AssignedMethod[] | null
-    not?: NestedEnumE_AssignedMethodNullableFilter<$PrismaModel> | $Enums.E_AssignedMethod | null
-  }
-
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -19450,6 +19431,25 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumE_TicketStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.E_TicketStatus | EnumE_TicketStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.E_TicketStatus[]
+    notIn?: $Enums.E_TicketStatus[]
+    not?: NestedEnumE_TicketStatusFilter<$PrismaModel> | $Enums.E_TicketStatus
+  }
+
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedEnumE_AssignedMethodNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.E_AssignedMethod | EnumE_AssignedMethodFieldRefInput<$PrismaModel> | null
+    in?: $Enums.E_AssignedMethod[] | null
+    notIn?: $Enums.E_AssignedMethod[] | null
+    not?: NestedEnumE_AssignedMethodNullableFilter<$PrismaModel> | $Enums.E_AssignedMethod | null
   }
 
   export type NestedEnumE_TicketStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -20688,7 +20688,7 @@ export namespace Prisma {
   export type AutoTriageRuleCreateWithoutTicketInput = {
     timeRemainingSLA: number
     ticketPriority: $Enums.E_TicketPriority
-    technicianSpecialityId: number
+    technicianSpecialityId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20697,7 +20697,7 @@ export namespace Prisma {
     id?: number
     timeRemainingSLA: number
     ticketPriority: $Enums.E_TicketPriority
-    technicianSpecialityId: number
+    technicianSpecialityId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20921,7 +20921,7 @@ export namespace Prisma {
   export type AutoTriageRuleUpdateWithoutTicketInput = {
     timeRemainingSLA?: IntFieldUpdateOperationsInput | number
     ticketPriority?: EnumE_TicketPriorityFieldUpdateOperationsInput | $Enums.E_TicketPriority
-    technicianSpecialityId?: IntFieldUpdateOperationsInput | number
+    technicianSpecialityId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20930,7 +20930,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     timeRemainingSLA?: IntFieldUpdateOperationsInput | number
     ticketPriority?: EnumE_TicketPriorityFieldUpdateOperationsInput | $Enums.E_TicketPriority
-    technicianSpecialityId?: IntFieldUpdateOperationsInput | number
+    technicianSpecialityId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
