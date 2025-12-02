@@ -1,7 +1,10 @@
 <h1></h1>
 <div class="ticket-card">
     <app-breadcrumb-back />
+    @if(isAdmin() || isTechnician()) {
     <button [routerLink]="['/UpdateTicket', ticket()?.id]">Actualizar tiquete</button>
+    }
+
     <div class="section header">
         <img [src]="'http://localhost:3000/images/' + ticket()?.ticketCategory?.imageUrl" alt="Categoría" />
         <div>
@@ -71,12 +74,13 @@
         @for (h of ticket()?.ticketHistory; track h) {
         <div class="history-item">
             <p><strong>{{ formatStatus(h.status) }}</strong> — {{ formatDateShort(h.changedAt) }}</p>
+            <p><strong>{{'Responsable:'}}</strong> {{ h.user?.name }} {{ h.user?.lastName }}</p>
             <p>{{ h.observation }}</p>
             @for (img of h.ticketImages; track img) {
-            @if (!img.imageUrl.includes('PENDING')) {
-            <img [src]="'http://localhost:3000/images/' + img.imageUrl" alt="Imagen historial" class="thumbnail"
+                @if (!img.imageUrl.includes('PENDING')) {
+                <img [src]="'http://localhost:3000/images/' + img.imageUrl" alt="Imagen historial" class="thumbnail"
                 (click)="openImage('http://localhost:3000/images/' + img.imageUrl)" />
-            }
+                }
             }
 
 

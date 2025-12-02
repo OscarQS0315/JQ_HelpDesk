@@ -2,8 +2,13 @@
     <app-breadcrumb-back />
     <div class="status-card">
         <h2 class="card-title">{{'TicketTitle' | transloco}}</h2>
-        <h2 [routerLink]="['/CreateUpdateTicket']">{{'CreateTicket' | transloco}}</h2>
-        <h2 [routerLink]="['/AsignacionesTicket']">{{'AssignTicket' | transloco}}</h2>
+        @if(isAdmin()) {
+            <h2 [routerLink]="['/CreateUpdateTicket']">{{'CreateTicket' | transloco}}</h2>
+            <h2 [routerLink]="['/AsignacionesTicket']">{{'AssignTicket' | transloco}}</h2>
+        }@else if (isUser()) {
+            <h2 [routerLink]="['/CreateUpdateTicket']">{{'CreateTicket' | transloco}}</h2>
+        }
+        
         <div class="phases-container">
             @for (ticket of data(); track ticket) {
             <a class="phase-item-link" [routerLink]="['/DetalleTicket', ticket.id]"

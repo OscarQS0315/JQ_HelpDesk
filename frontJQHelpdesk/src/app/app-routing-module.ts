@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'DetalleCategoria/:id', component: DetalleCategoria, canActivate: [authGuard] },
   { path: 'ListadoTicket', component: ListadoTicket, canActivate: [authGuard] },
   { path: 'DetalleTicket/:id', component: DetalleTicket, canActivate: [authGuard] },
-  { path: 'VisualizacionTicket', component: VisualizacionTicket, canActivate: [authGuard], data: { roles: [E_Role.ADMIN, E_Role.TECHNICIAN] } },
+  { path: 'VisualizacionTicket', component: VisualizacionTicket, canActivate: [authGuard] },
   { path: 'Crear-UpdateTecnico', component: CreateUpdateTecnico, canActivate: [authGuard], data: { roles: [E_Role.ADMIN] } },
   { path: 'Crear-UpdateTecnico/update/:id', component: CreateUpdateTecnico, canActivate: [authGuard], data: { roles: [E_Role.ADMIN] } },
   { path: 'CreateUpdateTicket', component: CreateUpdateTicket, canActivate: [authGuard] },
@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: 'CreateUpdateCategoria/update/:id', component: CreateUpdateCategoria, canActivate: [authGuard], data: { roles: [E_Role.ADMIN] } },
   { path: 'AsignacionesTicket', component: Asignaciones, canActivate: [authGuard], data: { roles: [E_Role.ADMIN, E_Role.TECHNICIAN] } },
   { path: 'Notificaciones', component: ListadoNotificaciones, canActivate: [authGuard]},
-  { path: 'UpdateTicket/:id', component: UpdateTicket, canActivate: [authGuard]},
+  { path: 'UpdateTicket/:id', component: UpdateTicket, canActivate: [authGuard], data: { roles: [E_Role.ADMIN, E_Role.TECHNICIAN] } },
   { path: 'Inicio', component: Inicio},
   { path: '', redirectTo: '/Login', pathMatch: 'full' },
   { path: '**', component: PageNotFound }

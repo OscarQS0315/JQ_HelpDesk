@@ -1,5 +1,5 @@
 
-import { Component, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TicketService } from '../../share/services/api/ticket.service';
 import { TicketModel } from '../../share/models/TicketModel';
@@ -10,13 +10,15 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BreadcrumbBackComponent } from '../../share/components/breadcrumb-back/breadcrumb-back.component';
 import { TranslocoModule } from '@jsverse/transloco';
+import { AuthenticationService } from '../../share/services/app/authentication.service';
+import { E_Role } from '../../share/models/enums/role.enum';
 
 @Component({
   selector: "app-stepper",
   standalone: true,
   templateUrl: "./detalle-ticket.html",
   styleUrls: ["./detalle-ticket.css"],
-  imports: [CommonModule, RouterModule, BreadcrumbBackComponent,TranslocoModule]
+  imports: [CommonModule, RouterModule, BreadcrumbBackComponent, TranslocoModule]
 })
 export class DetalleTicket {
   ticket = signal<TicketModel | null>(null);
@@ -25,6 +27,20 @@ export class DetalleTicket {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.ticketService.getById(id).subscribe((data) => this.ticket.set(data));
   }
+
+  authService = inject(AuthenticationService);
+  readonly currentUser = this.authService.user;
+  readonly isAuthenticated = computed(() => this.authService.authenticated());
+
+
+  readonly role = computed(() => {
+    const user = this.currentUser();
+    return user?.role as E_Role | undefined;
+  });
+
+  readonly isAdmin = computed(() => this.role() === E_Role.ADMIN);
+  readonly isUser = computed(() => this.role() === E_Role.USER);
+  readonly isTechnician = computed(() => this.role() === E_Role.TECHNICIAN);
 
   formatDate(date?: string): string {
     return date ? new Date(date).toLocaleString() : '—';

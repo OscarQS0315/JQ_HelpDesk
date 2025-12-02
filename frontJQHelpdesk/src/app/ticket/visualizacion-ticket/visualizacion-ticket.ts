@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, Input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TicketModel } from '../../share/models/TicketModel';
 import { Router } from '@angular/router';
@@ -8,6 +8,8 @@ import { UserModel } from '../../share/models/UserModel';
 import { RouterModule } from '@angular/router';
 import { BreadcrumbBackComponent } from '../../share/components/breadcrumb-back/breadcrumb-back.component';
 import { TranslocoModule } from '@jsverse/transloco';
+import { AuthenticationService } from '../../share/services/app/authentication.service';
+import { E_Role } from '../../share/models/enums/role.enum';
 
 @Component({
   selector: 'app-status-card',
@@ -20,7 +22,23 @@ import { TranslocoModule } from '@jsverse/transloco';
 
 export class VisualizacionTicket implements OnInit {
 
-  authUser = 1;
+  authService = inject(AuthenticationService);
+  readonly currentUser = this.authService.user;
+  readonly isAuthenticated = computed(() => this.authService.authenticated());
+  
+
+   readonly role = computed(() => {
+      const user = this.currentUser();
+      return user?.role as E_Role | undefined;
+    });
+  
+    readonly isAdmin = computed(() => this.role() === E_Role.ADMIN);
+    readonly isUser = computed(() => this.role() === E_Role.USER);
+    readonly isTechnician = computed(() => this.role() === E_Role.TECHNICIAN);
+
+
+    authUser = this.currentUser()?.id;
+
   data = signal<TicketModel[]>([]);
 
   constructor(
@@ -37,7 +55,7 @@ export class VisualizacionTicket implements OnInit {
 
   
 
-  listTickets(userId: number): void {
+  listTickets(userId?: number): void {
     this.TService.getMethod(`by-role/${userId}`).subscribe((response: TicketModel | TicketModel[]) => {
       const tickets = Array.isArray(response) ? response : [response];
       this.data.set(tickets);

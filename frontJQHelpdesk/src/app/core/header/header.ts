@@ -110,6 +110,7 @@ export class Header implements OnInit {
     if (this.isUser()) {
       this.menuItems = [
         { label: this.transloco.translate('menu.home'), link: "/Inicio", active: true },
+        { label: this.transloco.translate('menu.ticket'), link: "/VisualizacionTicket" },
       ];
       return;
     }

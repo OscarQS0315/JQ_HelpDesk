@@ -1,19 +1,20 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit, ViewChild, ElementRef, signal } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, signal, inject, computed } from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { BreadcrumbBackComponent } from "../../share/components/breadcrumb-back/breadcrumb-back.component";
-import { TicketService } from "../../share/services/api/ticket.service";
+import { HistoryService } from "../../share/services/api/history.service";
 import { FileUploadService } from "../../share/services/api/file-upload.service";
 import { UserService } from "../../share/services/api/user.service";
 import { NotificationService } from '../../share/services/app/notification.service';
-
+import { TicketService } from "../../share/services/api/ticket.service";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { forkJoin } from "rxjs";
 import { ActivatedRoute } from '@angular/router';
 import { UserModel } from "../../share/models/UserModel";
 import { Router } from "@angular/router";
 import { TicketHistoryDTO } from "../../share/models/DTOs/TicketHistoryDTO";
+import { AuthenticationService } from "../../share/services/app/authentication.service";
 @Component({
   selector: "app-update-ticket",
   standalone: true,
@@ -48,22 +49,26 @@ export class UpdateTicket implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private ticketService: TicketService,
+    private historyService: HistoryService,
     private uploadService: FileUploadService,
     private userService: UserService,
     private noti: NotificationService,
     private transloco: TranslocoService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private ticketService: TicketService
   ) {
     this.ticketId = Number(this.route.snapshot.paramMap.get('id'));
   }
+  authService = inject(AuthenticationService);
+  readonly currentUser = this.authService.user;
+  readonly isAuthenticated = computed(() => this.authService.authenticated());
 
   ngOnInit() {
     this.initForm();
 
     this.loadTicket();
-
+    console.log(this.currentUser());
   }
 
 
@@ -181,7 +186,7 @@ export class UpdateTicket implements OnInit {
       ticketId: this.ticketId,
       status: form.status,
       observation: form.observacion,
-      changedBy: this.authUser()?.id,
+      changedBy: this.currentUser()?.id,
       ticketImages: []
     };
 
@@ -209,7 +214,7 @@ export class UpdateTicket implements OnInit {
     });
   }
   saveHistory(payload: TicketHistoryDTO) {
-    this.ticketService.create(payload).subscribe({
+    this.historyService.create(payload).subscribe({
       next: () => {
         this.noti.success("Estado actualizado", "Se registró el historial correctamente", 5000);
         this.router.navigate(['/VisualizacionTicket']);
