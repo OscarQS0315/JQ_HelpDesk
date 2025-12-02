@@ -22,6 +22,7 @@ export class TicketController {
                     ticketHistory: {
                         include: {
                             ticketImages: true,
+                            user: true,
                         },
                     },
                     ticketCategory: true,
@@ -52,6 +53,7 @@ export class TicketController {
                     ticketHistory: {
                         include: {
                             ticketImages: true,
+                            user: true,
                         },
                     },
                     ticketCategory: true,

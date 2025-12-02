@@ -68,4 +68,42 @@ export class UserController {
       next(error);
     }
   };
+
+  get = async (req: Request, res: Response, next: NextFunction) => {
+    try{
+      const users = await prisma.user.findMany({
+        include:{
+          userTechnician: true,
+          tickets: true,
+          notifications: true,
+        },
+        omit:{
+          password: true
+        }
+      });
+      res.json(users);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  getById = async (req: Request, res: Response, next: NextFunction) => {
+    try{
+      const { id } = req.params;
+      const user = await prisma.user.findUnique({
+        where: { id: Number(id) },
+        include:{
+          userTechnician: true,
+          tickets: true,
+          notifications: true,
+        },
+        omit:{
+          password: true
+        }
+      });
+      res.json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

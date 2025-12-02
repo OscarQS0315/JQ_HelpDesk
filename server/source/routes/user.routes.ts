@@ -10,8 +10,8 @@ export class UserRoutes {
         router.post("/login", controller.login);
         router.post("/register", controller.register);
         router.get("/profile", authenticateJWT, controller.userAuth);
-        //router.get('/:id', controller.getById);
-        //router.get('/', controller.get);
+        router.get('/:id', controller.getById);
+        router.get('/', controller.get);
         return router;
     }
 

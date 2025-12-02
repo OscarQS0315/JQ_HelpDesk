@@ -7,7 +7,7 @@ export class TicketCategoryRoutes {
     static get routes(): Router {
         const router = Router();
         const controller = new TicketCategoryController();
-        router.get('/', authenticateJWT, authorizeRoles(E_Role.ADMIN), controller.get);
+        router.get('/', authenticateJWT, controller.get);
         router.get('/:id', controller.getById);
         router.post("/", authenticateJWT, authorizeRoles(E_Role.ADMIN), controller.create);
         router.put("/:id", authenticateJWT, authorizeRoles(E_Role.ADMIN), controller.update);
