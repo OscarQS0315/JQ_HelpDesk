@@ -229,16 +229,7 @@ export class TicketController {
 
     }
 
-    updateState = async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            const ticketId = parseInt(req.params.id);
-            const body = req.body;
-            
-        } catch (error) {
-            console.error("Error creando tiquete:", error);
-            next(error);
-        }
-    }
+    
     
 }
 function calculateHistoryPoints(priority: E_TicketPriority): number {
