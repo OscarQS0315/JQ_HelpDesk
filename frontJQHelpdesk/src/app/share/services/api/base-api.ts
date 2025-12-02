@@ -35,6 +35,15 @@ export class BaseAPI<TModel extends BaseEntity, TCreate = TModel> {
     );
   }
 
+  putMethod(
+    action: string,
+    options: { [param: string]: unknown } = {}
+  ): Observable<any> {
+    return this.http.put<any>(
+      `${this.urlAPI}/${this.endpoint}/${action}`,
+      options
+    );
+  }
 
   getById(id: number): Observable<TModel> {
     return this.http.get<TModel>(`${this.urlAPI}/${this.endpoint}/${id}`);

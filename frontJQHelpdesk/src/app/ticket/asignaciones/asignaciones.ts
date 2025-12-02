@@ -10,6 +10,7 @@ import { TranslocoModule } from '@jsverse/transloco';
 import { TechnicianModel } from '../../share/models/TechnicianModel';
 import { TechnicianService } from '../../share/services/api/technician.service';
 import { FormsModule } from '@angular/forms';
+import { NotificationService } from '../../share/services/app/notification.service';
 
 @Component({
   selector: 'app-status-card',
@@ -36,7 +37,8 @@ export class Asignaciones implements OnInit {
     private router: Router,
     private TService: TicketService,
     private UService: UserService,
-    private TechService: TechnicianService
+    private TechService: TechnicianService,
+    private noti: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -80,9 +82,36 @@ export class Asignaciones implements OnInit {
   onConfirm(): void {
     if (this.showTechniciansSection) {
       console.log("Asignando técnico:", this.selectedItem);
+      const tiketId = this.selectedTicket.id;
+      const technicianId = this.selectedItem?.id;
+      const payload = { technicianId: technicianId };
+      this.TService.putMethod(`manual-assign/${tiketId}`, payload).subscribe({
+        next: (response) => {
+          console.log("Técnico  asignado manualmente:", response);
+          this.listTickets(this.authUser);
+          this.noti.success("Operación exitosa", `Ticket ${response.updatedTicket.id} asignado Manualmente a ${response.updatedTicket.technician.user.name} ${response.updatedTicket.technician.user.lastName}`, 5000);
+        },
+        error: (error) => {
+          console.error("Error al asignar técnico manualmente:", error);
+        }
+      });
     } else {
 
       console.log("Asignación automática activada");
+      const tiketId = this.selectedTicket.id;
+      this.TService.putMethod(`auto-assign/${tiketId}`).subscribe({
+        next: (response) => {
+          console.log("Técnico  asignado automáticamente:", response);
+          this.listTicketsShow(this.authUser);
+          this.listTickets(this.authUser);
+          this.noti.success("Operación exitosa", `Técnico ${response.assignedTechnician.user.name} ${response.assignedTechnician.user.lastName} 
+                             Puntaje ${response.puntaje}`, 5000);
+        },
+        error: (error) => {
+          console.error("Error al asignar técnico automáticamente:", error);
+        }
+      });
+
     }
 
     this.closeModal();

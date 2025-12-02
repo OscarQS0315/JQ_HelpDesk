@@ -10,6 +10,7 @@ import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { TechnicianModel } from '../../share/models/TechnicianModel';
 import { TechnicianService } from '../../share/services/api/technician.service';
 import { FormsModule } from '@angular/forms';
+import { NotificationService } from '../../share/services/app/notification.service';
 
 interface CalendarDay {
   date: Date;
@@ -45,7 +46,7 @@ export class ListadoTicket implements OnInit {
   authUser = 1;
 
 
-  constructor(private ticketService: TicketService, private transloco: TranslocoService, private TechService: TechnicianService) { }
+  constructor(private ticketService: TicketService, private transloco: TranslocoService, private TechService: TechnicianService, private noti: NotificationService) { }
 
   ngOnInit() {
     this.generateCalendarDays();
@@ -225,9 +226,37 @@ export class ListadoTicket implements OnInit {
   onConfirm(): void {
     if (this.showTechniciansSection) {
       console.log("Asignando técnico:", this.selectedItem);
+      const tiketId = this.selectedTicket.id;
+      const technicianId = this.selectedItem?.id;
+      const payload = { technicianId: technicianId };
+      this.ticketService.putMethod(`manual-assign/${tiketId}`, payload).subscribe({
+        next: (response) => {
+          console.log("Técnico  asignado manualmente:", response);
+          this.listTickets(this.authUser);
+          this.noti.success("Operación exitosa", `Ticket ${response.updatedTicket.id} asignado Manualmente a ${response.updatedTicket.technician.user.name} ${response.updatedTicket.technician.user.lastName}`, 5000);
+          this.ngOnInit();
+        },
+        error: (error) => {
+          console.error("Error al asignar técnico manualmente:", error);
+        }
+      });
     } else {
 
       console.log("Asignación automática activada");
+      const tiketId = this.selectedTicket.id;
+      this.ticketService.putMethod(`auto-assign/${tiketId}`).subscribe({
+        next: (response) => {
+          console.log("Técnico  asignado automáticamente:", response);
+          this.listTickets(this.authUser);
+          this.noti.success("Operación exitosa", `Técnico ${response.assignedTechnician.user.name} ${response.assignedTechnician.user.lastName} 
+                             Puntaje: ${response.puntaje}`, 5000);
+          this.ngOnInit();
+        },
+        error: (error) => {
+          console.error("Error al asignar técnico automáticamente:", error);
+        }
+      });
+
     }
 
     this.closeModal();
