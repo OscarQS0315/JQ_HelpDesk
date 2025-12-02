@@ -18,6 +18,7 @@ import { provideTransloco, TranslocoModule } from '@jsverse/transloco';
 import { availableLanguages, AvailableLanguages } from './transloco-config';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { NotificacionesModule } from './notificaciones/notificaciones-module';
+import { HttpAuthInterceptorService } from './share/interceptor/http-auth-interceptor.service';
 
 
 registerLocaleData(localeEs);
@@ -39,6 +40,8 @@ registerLocaleData(localeEs);
     NotificacionesModule
   ],
   providers: [
+    
+    
     { provide: LOCALE_ID, useValue: 'es' },
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(),
@@ -56,7 +59,13 @@ registerLocaleData(localeEs);
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptorService,
       multi: true
-    }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpAuthInterceptorService,
+      multi: true
+    },
+    
   ],
   bootstrap: [App]
 })

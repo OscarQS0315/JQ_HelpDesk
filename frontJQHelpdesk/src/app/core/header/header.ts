@@ -1,7 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy, inject, computed, effect, ChangeDetectorRef } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { TranslocoService } from "@jsverse/transloco";
 import { AvailableLanguages } from "../../transloco-config";
+import { AuthenticationService } from "../../share/services/app/authentication.service";
+import { E_Role } from "../../share/models/enums/role.enum";
+import { Router } from '@angular/router';
 
 interface MenuItem {
   label: string;
@@ -23,6 +26,8 @@ export interface Option {
 })
 
 export class Header implements OnInit {
+  private router = inject(Router);
+
   isMenuOpen = false;
   isDarkMode = false;
   isOpen = false;
@@ -30,39 +35,85 @@ export class Header implements OnInit {
   menuItems: MenuItem[] = [];
 
   options: Option[] = [];
-  constructor(private transloco: TranslocoService) { }
+  constructor(private transloco: TranslocoService, private cdr: ChangeDetectorRef) { 
+    effect(() => {
+    const isAuth = this.isAuthenticated();
+    const role = this.role();
 
+    this.buildMenu();  
+    this.cdr.markForCheck();
+  });
+  }
+
+  authService = inject(AuthenticationService);
+  readonly currentUser = this.authService.user;
+  readonly isAuthenticated = computed(() => this.authService.authenticated());
+
+  readonly role = computed(() => {
+    const user = this.currentUser();
+    return user?.role as E_Role | undefined;
+  });
+
+  readonly isAdmin = computed(() => this.role() === E_Role.ADMIN);
+  readonly isUser = computed(() => this.role() === E_Role.USER);
+  readonly isTechnician = computed(() => this.role() === E_Role.TECHNICIAN);
 
 
   ngOnInit(): void {
-  this.checkPreferredTheme();
-  this.transloco.selectTranslate('menu.home').subscribe(() => {
-    this.loadOptions();
-    this.buildMenu();
-  });
+    this.checkPreferredTheme();
+    this.transloco.selectTranslate('menu.home').subscribe(() => {
+      this.loadOptions();
+      this.buildMenu();
+    });
 
+    this.router.events.subscribe(() => {
+      this.buildMenu();
+    });
 
-  
-  this.transloco.langChanges$.subscribe(() => {
-    this.buildMenu();
-    this.loadOptions();
-  });
-}
-
-  buildMenu(): void {
-    this.menuItems = [
-      { label: this.transloco.translate('menu.home'), link: "/Inicio", active: true },
-      { label: this.transloco.translate('menu.technicians'), link: "/Listado" },
-      { label: this.transloco.translate('menu.categories'), link: "/ListadoCategoria" },
-      {
-        label: this.transloco.translate('menu.ticket', {
-          language: this.transloco.translate(`language.${this.transloco.getActiveLang()}`)
-        }),
-        link: "/VisualizacionTicket"
-      },
-      { label: this.transloco.translate('menu.assignments'), link: "/ListadoTicket" }
-    ];
+    this.transloco.langChanges$.subscribe(() => {
+      this.buildMenu();
+      this.loadOptions();
+    });
   }
+
+  isLoginPage(): boolean {
+    return this.router.url.includes('Login');
+  }
+  buildMenu(): void {
+
+    
+    if (this.isLoginPage()) {
+      this.menuItems = [];
+      return;
+    }
+
+    if (this.isAdmin()) {
+      this.menuItems = [
+        { label: this.transloco.translate('menu.home'), link: "/Inicio", active: true },
+        { label: this.transloco.translate('menu.technicians'), link: "/Listado" },
+        { label: this.transloco.translate('menu.categories'), link: "/ListadoCategoria" },
+        { label: this.transloco.translate('menu.ticket'), link: "/VisualizacionTicket" },
+        { label: this.transloco.translate('menu.assignments'), link: "/ListadoTicket" }
+      ];
+      return;
+    }
+
+    if (this.isTechnician()) {
+      this.menuItems = [
+        { label: this.transloco.translate('menu.home'), link: "/Inicio", active: true },
+        { label: this.transloco.translate('menu.assignments'), link: "/ListadoTicket" },
+      ];
+      return;
+    }
+
+    if (this.isUser()) {
+      this.menuItems = [
+        { label: this.transloco.translate('menu.home'), link: "/Inicio", active: true },
+      ];
+      return;
+    }
+  }
+
 
   loadOptions(): void {
     this.options = AvailableLanguages.map(lang => ({
@@ -155,4 +206,7 @@ export class Header implements OnInit {
       }, 500);
     }
   }
+
+  login = () => this.router.navigate(['/Login']);
+  logout = () => this.authService.logout();
 }

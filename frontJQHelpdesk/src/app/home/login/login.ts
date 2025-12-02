@@ -1,29 +1,58 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationService } from '../../share/services/app/notification.service';
+import { AuthenticationService } from '../../share/services/app/authentication.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-login-register',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
 export class Login implements OnInit {
+
   isLoginView = true;
-  loginEmail = '';
-  loginPassword = '';
+
+  
+  formulario!: FormGroup;
+
+  
   fullName = '';
   registerEmail = '';
   registerPassword = '';
   confirmPassword = '';
 
+  
   loginImage = '/Images/Background JQ.png';
   registerImage = "/Images/Background JQ.png";
   currentImage = this.loginImage;
 
+  constructor(
+    private fb: FormBuilder,
+    private noti: NotificationService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private authService: AuthenticationService
+  ) {
+    this.buildForm();
+  }
+
+  
   ngOnInit() {
     this.setCurrentImage();
+  }
+
+  buildForm() {
+    this.formulario = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
   }
 
   toggleView() {
@@ -35,13 +64,36 @@ export class Login implements OnInit {
     this.currentImage = this.isLoginView ? this.loginImage : this.registerImage;
   }
 
-  onLogin() {
-    // Implement login logic here
-    console.log('Login attempted with:', this.loginEmail, this.loginPassword);
+  
+  submitForm() {
+    if (this.formulario.invalid) {
+      this.noti.warning(
+        'Formulario incompleto',
+        'Por favor complete todos los campos.'
+      );
+      return;
+    }
+
+    const credentials = this.formulario.value;
+
+    this.authService.loginUser(credentials).subscribe({
+      next: (response) => {
+        this.noti.success('Bienvenido', 'Inicio de sesión exitoso', 3000);
+        this.router.navigateByUrl('/Inicio');
+      },
+      error: (err) => {
+        this.noti.error('Error', 'Credenciales incorrectas');
+      }
+    });
   }
 
+
   onRegister() {
-    // Implement registration logic here
-    console.log('Registration attempted with:', this.fullName, this.registerEmail, this.registerPassword);
+    console.log('Register:', {
+      fullName: this.fullName,
+      registerEmail: this.registerEmail,
+      registerPassword: this.registerPassword,
+      confirmPassword: this.confirmPassword
+    });
   }
 }
