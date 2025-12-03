@@ -93,7 +93,9 @@ export class NotificationController {
         try {
             const body = req.body;
             let newNotification;
-            if (body.NotificationType === E_NotificationType.TICKET_UPDATE) {
+            const type = body.type as E_NotificationType;
+            if (type === E_NotificationType.TICKET_UPDATE) {
+                console.log("En el Tipo UPDATE");
                 newNotification = await this.prisma.notification.create({
                     data: {
                         title: body.title,
@@ -107,7 +109,9 @@ export class NotificationController {
                 });
 
             } else {
+                console.log("En el LOGIN");
                 newNotification = await this.prisma.notification.create({
+                    
                     data: {
                         title: "Nuevo Inicio de sesión",
                         toUserId: body.toUserId,

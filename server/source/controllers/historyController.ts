@@ -28,7 +28,7 @@ export class HistoryController {
                             }
                         }
                     }
-                }
+                },
             });
 
             res.status(201).json(uptadeTicketHistory);

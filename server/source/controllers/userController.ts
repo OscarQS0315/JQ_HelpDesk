@@ -54,6 +54,7 @@ export class UserController {
           success: true,
           message: "Inicio de sesión exitoso",
           token,
+          user,
         });
       }
     )(req, res, next);
