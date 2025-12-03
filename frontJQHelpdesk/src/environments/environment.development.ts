@@ -8,5 +8,6 @@ export const environment = {
     endPointEtiquettes: 'etiquette',
     endPointSlas: 'sla',
     endPointHistory: 'history',
+    endPointNotifications: 'notification',
     
 };

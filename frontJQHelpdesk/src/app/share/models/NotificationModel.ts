@@ -1,15 +1,19 @@
+import { E_NotificationType } from "./enums/notificationType.enum";
 import { TicketModel } from "./TicketModel";
 import { UserModel } from "./UserModel";
 
 export interface NotificationModel {
     id: number;
-    userId: number;
+    toUserId: number;
+    fromUserId?: number;
     message: string;
     isRead: boolean;
     ticketId?: number;
+    type: E_NotificationType;
     createdAt: Date;
     updatedAt: Date;
 
-    user: UserModel;
+    toUser: UserModel;
+    fromUser?: UserModel;
     ticket?: TicketModel;
 }

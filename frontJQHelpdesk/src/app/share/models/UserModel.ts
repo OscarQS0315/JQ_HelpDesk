@@ -22,5 +22,6 @@ export interface UserModel {
     technician?: TechnicianModel;
     tickets: TicketModel[];
     ticketHistories: TicketHistoryModel[];
-    notifications: NotificationModel[];
+    notificationsToUser: NotificationModel[];
+    notificationsFromUser: NotificationModel[];
 }
