@@ -130,19 +130,22 @@ const main = async () => {
     }
 
 
-    // Notifications
+
     for (const notification of notifications) {
-      const { userId, ticketId, message, isRead } = notification;
+      const { toUserId, fromUserId, ticketId, message, isRead, type } = notification;
 
       await prisma.notification.create({
         data: {
           message,
           isRead,
-          user: { connect: { id: userId } },
+          type,
+          toUser: { connect: { id: toUserId } },
+          fromUser: fromUserId ? { connect: { id: fromUserId } } : undefined,
           ticket: ticketId ? { connect: { id: ticketId } } : undefined,
         },
       });
     }
+
 
 
     // TicketValorations

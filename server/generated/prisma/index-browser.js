@@ -237,10 +237,12 @@ exports.Prisma.TicketHistoryScalarFieldEnum = {
 
 exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
+  toUserId: 'toUserId',
+  fromUserId: 'fromUserId',
   message: 'message',
   isRead: 'isRead',
   ticketId: 'ticketId',
+  type: 'type',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -345,6 +347,11 @@ exports.E_TicketStatus = exports.$Enums.E_TicketStatus = {
 exports.E_AssignedMethod = exports.$Enums.E_AssignedMethod = {
   AUTOMATIC: 'AUTOMATIC',
   MANUAL: 'MANUAL'
+};
+
+exports.E_NotificationType = exports.$Enums.E_NotificationType = {
+  LOGIN: 'LOGIN',
+  TICKET_UPDATE: 'TICKET_UPDATE'
 };
 
 exports.Prisma.ModelName = {

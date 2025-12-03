@@ -12,6 +12,10 @@ export class TechnicianController {
             const technicians = await this.prisma.userTechnician.findMany({
                 include: {
                     user: {
+                        include:{
+                            notificationsFrom: true,
+                            notificationsTo: true,
+                        },
                         omit:{
                             password:true
                         }
@@ -39,6 +43,10 @@ export class TechnicianController {
                 },
                 include: {
                     user: {
+                        include:{
+                            notificationsFrom: true,
+                            notificationsTo: true,
+                        },
                         omit:{
                             password:true
                         }

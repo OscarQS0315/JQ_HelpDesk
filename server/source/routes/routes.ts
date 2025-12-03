@@ -8,6 +8,7 @@ import { EtiquetteRoutes } from './etiquette.routes';
 import { ImageRoutes } from './image.routes';
 import { SlaRoutes } from './sla.routes';
 import { HistoryRoutes } from './history.routes';
+import { NotificationRoutes } from './notification.routes';
 export class AppRoutes{
     static get routes(): Router{
         const router = Router();
@@ -21,6 +22,7 @@ export class AppRoutes{
         router.use("/file/", ImageRoutes.routes);
         router.use('/sla', SlaRoutes.routes);
         router.use('/history', HistoryRoutes.routes);
+        router.use('/notification', NotificationRoutes.routes);
         return router;
     }
 }

@@ -15,6 +15,10 @@ datasource db {
 }
 
 //Models
+enum E_NotificationType {
+  LOGIN 
+  TICKET_UPDATE
+}
 enum E_AssignedMethod {
   AUTOMATIC
   MANUAL
@@ -60,7 +64,8 @@ model User {
   userTechnician              UserTechnician?
   tickets                     Ticket[]
   ticketHistory               TicketHistory[]
-  notifications               Notification[]
+  notificationsTo             Notification[]   @relation("NotificationToUser")     
+  notificationsFrom           Notification[]  @relation("NotificationFromUser")   
 }
 
 model UserTechnician {
@@ -201,15 +206,18 @@ model TicketHistory {
 
 model Notification {
   id                          Int                         @id @default(autoincrement())
-  userId                      Int
+  toUserId                    Int
+  fromUserId                  Int?
   message                     String
   isRead                      Boolean                     @default(false)
   ticketId                    Int?
+  type                        E_NotificationType          
   createdAt                   DateTime                    @default(now())
   updatedAt                   DateTime                    @updatedAt
 
   // Relations
-  user                        User                        @relation(fields: [userId], references: [id])
+  toUser                     User                        @relation("NotificationToUser", fields: [toUserId], references: [id])
+  fromUser                    User?                       @relation("NotificationFromUser", fields: [fromUserId], references: [id])
   ticket                      Ticket?                     @relation(fields: [ticketId], references: [id])
 }
 

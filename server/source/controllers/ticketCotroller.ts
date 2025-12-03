@@ -90,7 +90,8 @@ export class TicketController {
                     tickets: true,
                     userTechnician: true,
                     ticketHistory: true,
-                    notifications: true
+                    notificationsFrom: true,
+                    notificationsTo: true
                 }
             });
             if (!user) {

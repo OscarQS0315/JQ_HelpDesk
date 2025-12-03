@@ -89,7 +89,7 @@ CREATE TABLE `AutoTriageRule` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `timeRemainingSLA` INTEGER NOT NULL,
     `ticketPriority` ENUM('LOW', 'MEDIUM', 'HIGH') NOT NULL,
-    `technicianSpecialityId` INTEGER NOT NULL,
+    `technicianSpecialityId` INTEGER NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -152,10 +152,12 @@ CREATE TABLE `TicketHistory` (
 -- CreateTable
 CREATE TABLE `Notification` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `userId` INTEGER NOT NULL,
+    `toUserId` INTEGER NOT NULL,
+    `fromUserId` INTEGER NULL,
     `message` VARCHAR(191) NOT NULL,
     `isRead` BOOLEAN NOT NULL DEFAULT false,
     `ticketId` INTEGER NULL,
+    `type` ENUM('LOGIN', 'TICKET_UPDATE') NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -233,7 +235,10 @@ ALTER TABLE `TicketHistory` ADD CONSTRAINT `TicketHistory_ticketId_fkey` FOREIGN
 ALTER TABLE `TicketHistory` ADD CONSTRAINT `TicketHistory_changedBy_fkey` FOREIGN KEY (`changedBy`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Notification` ADD CONSTRAINT `Notification_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Notification` ADD CONSTRAINT `Notification_toUserId_fkey` FOREIGN KEY (`toUserId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Notification` ADD CONSTRAINT `Notification_fromUserId_fkey` FOREIGN KEY (`fromUserId`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Notification` ADD CONSTRAINT `Notification_ticketId_fkey` FOREIGN KEY (`ticketId`) REFERENCES `Ticket`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

@@ -75,7 +75,8 @@ export class UserController {
         include:{
           userTechnician: true,
           tickets: true,
-          notifications: true,
+          notificationsFrom: true,
+          notificationsTo: true,
         },
         omit:{
           password: true
@@ -95,7 +96,8 @@ export class UserController {
         include:{
           userTechnician: true,
           tickets: true,
-          notifications: true,
+          notificationsFrom: true,
+          notificationsTo: true
         },
         omit:{
           password: true
