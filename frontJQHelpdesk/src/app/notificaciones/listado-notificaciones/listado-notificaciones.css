@@ -2,10 +2,11 @@
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background: linear-gradient(145deg, #0a0a0a, #f8f9fa);
+    background: linear-gradient(145deg, #0a0a0a, #111);
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     transition: all 0.3s ease;
+    color: white;
 }
 
 .notification-header {
@@ -14,7 +15,7 @@
     align-items: center;
     margin-bottom: 25px;
     padding-bottom: 15px;
-    border-bottom: 2px solid rgba(74, 144, 226, 0.1);
+    border-bottom: 2px solid rgba(235, 232, 37, 0.15);
 }
 
 .notification-actions {
@@ -30,25 +31,21 @@
 
 .filter-dropdown {
     padding: 10px 15px;
-    border: 2px solid rgba(74, 144, 226, 0.2);
+    border: 2px solid rgba(235, 232, 37, 0.2);
     border-radius: 12px;
-    background: black;
+    background: #000;
     cursor: pointer;
     font-size: 14px;
-    color: white;
+    color: #fff;
     transition: all 0.3s ease;
     outline: none;
     appearance: none;
-    -webkit-appearance: none;
     width: 180px;
-
-
-    
 }
 
 .filter-dropdown:hover {
     border-color: #ebe825;
-    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.1);
+    box-shadow: 0 2px 8px rgba(235, 232, 37, 0.25);
 }
 
 .mark-read-btn {
@@ -63,17 +60,15 @@
     align-items: center;
     gap: 8px;
     font-weight: 500;
-    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.2);
+    box-shadow: 0 4px 15px rgba(235, 232, 37, 0.2);
 }
 
 .mark-read-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.3);
+    box-shadow: 0 6px 20px rgba(235, 232, 37, 0.35);
     background: #ebe825;
     color: black;
 }
-
-
 
 .btn-icon {
     font-size: 16px;
@@ -81,23 +76,39 @@
 
 .notification-item {
     display: flex;
-    padding: 20px;
-    margin-bottom: 15px;
+    padding: 12px 15px;
+    margin-bottom: 8px;
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
-    background: black;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    background: #000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
+/* 🎯 EFECTO DE LEÍDA — MÁS GRIS Y OPACA */
+.notification-item.read {
+    background: #1a1a1a !important;
+    opacity: 0.55;
+    border-left: 4px solid transparent !important;
+    filter: grayscale(0.7);
+}
+
+/* NO LEÍDAS */
+.unread {
+    background: #000;
+    border-left: 4px solid #ebe825;
+}
+
+/* Hover normal */
 .notification-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(235, 232, 37, 0.25);
 }
 
-.unread {
-    background: black;
-    border-left: 4px solid #ebe825;
+/* Hover desactivado en leídas */
+.notification-item.read:hover {
+    transform: none;
+    box-shadow: none;
 }
 
 .notification-icon {
@@ -105,42 +116,35 @@
 }
 
 .notification-icon img {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    border-radius: 14px;
     margin-right: 20px;
     border: 2px solid #ebe825;
-    transition: all 0.3s ease;
+    object-fit: cover;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+    transition: all 0.25s ease;
 }
 
+.notification-item:hover .notification-icon img {
+    transform: scale(1.05);
+}
+
+/* Imagen en notificación leída */
+.notification-item.read .notification-icon img {
+    border-color: #444 !important;
+    filter: grayscale(1) brightness(0.7);
+}
+
+/* Pulse original que ya tenías */
 .pulse {
     animation: pulse 2s infinite;
 }
 
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: transparent;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-
-
 @keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(204, 22, 9, 0.4);
-    }
-
-    70% {
-        box-shadow: 0 0 0 10px rgba(204, 22, 9, 0);
-    }
-
-    100% {
-        box-shadow: 0 0 0 0 rgba(204, 22, 9, 0);
-    }
+    0% { box-shadow: 0 0 0 0 rgba(235, 232, 37, 0.25); }
+    70% { box-shadow: 0 0 0 10px rgba(235, 232, 37, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(235, 232, 37, 0); }
 }
 
 .category-badge {
@@ -155,19 +159,18 @@
 }
 
 .alert {
-    background: linear-gradient(45deg, #ffe0e0, #ffcdd2);
-    color: #d32f2f;
+    background: linear-gradient(45deg, #4a0000, #8b0000);
+    color: #ff6b6b;
 }
 
-
 .update {
-    background: linear-gradient(45deg, #e8f5e9, #49b84c);
-    color: #388e3c;
+    background: linear-gradient(45deg, #003300, #0f5e00);
+    color: #8cff97;
 }
 
 .category-badge.message {
-    background: linear-gradient(45deg, #e0f0ff, #bbdefb);
-    color: #357abd;
+    background: linear-gradient(45deg, #00172d, #003f7d);
+    color: #84c5ff;
 }
 
 .notification-detail {
@@ -177,19 +180,100 @@
     transform: translate(-50%, -50%) scale(0.9);
     width: 90%;
     max-width: 500px;
-    background: black;
+    background: #0b0b0b;
     border-radius: 16px;
     padding: 25px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
+    color: #fff;
 }
 
 .notification-detail.show {
     opacity: 1;
     visibility: visible;
     transform: translate(-50%, -50%) scale(1);
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #ebe825;
+}
+
+.sender-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.detail-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+    border: 2px solid #ebe825;
+}
+
+.sender-info .title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.from-to {
+    margin: 0;
+    font-size: 14px;
+    color: #e4e4e4;
+}
+
+.from-to strong {
+    color: #ebe825;
+}
+
+.detail-message {
+    background: #111;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin: 15px 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #ddd;
+}
+
+.detail-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.meta-card {
+    background: #111;
+    border: 1px solid rgba(235, 232, 37, 0.25);
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.meta-card strong {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #ebe825;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
 }
 
 .action-btn {
@@ -201,24 +285,50 @@
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    margin-right: 10px;
 }
 
 .action-btn.primary {
     background: linear-gradient(45deg, #020202, #ebe825);
-    color: white;
-    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.2);
-    margin-right: 10px;
+    color: black;
+    box-shadow: 0 4px 15px rgba(235, 232, 37, 0.25);
 }
 
 .action-btn.secondary {
-    background: linear-gradient(45deg, #f5f5f5, #e0e0e0);
-    color: #333;
-    margin-right: 10px;
+    background: #222;
+    color: #ebe825;
+    border: 1px solid rgba(235, 232, 37, 0.4);
 }
 
 .action-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 20px rgba(235, 232, 37, 0.35);
+}
+
+/* Etiqueta de leída o no leída */
+.read-status {
+    display: inline-block;
+    padding: 4px 10px;
+    margin-top: 5px;
+    margin-left: 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    transition: all 0.2s ease-in-out;
+}
+
+.read-status.read {
+    background: #e0f7e9;
+    color: #1e7a3c;
+    border: 1px solid #8ad7a3;
+}
+
+.read-status.unread {
+    background: #ffe9e9;
+    color: #b20707;
+    border: 1px solid #ff8a8a;
 }
 
 .ripple {
@@ -235,7 +345,7 @@
     top: 0;
     left: 0;
     pointer-events: none;
-    background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+    background-image: radial-gradient(circle, #ebe825 10%, transparent 10.01%);
     background-repeat: no-repeat;
     background-position: 50%;
     transform: scale(10, 10);
@@ -268,4 +378,19 @@
         width: 95%;
         margin: 10px;
     }
+}
+
+.type-badge {
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-top: 6px;
+    box-shadow: 0 0 10px rgba(235, 232, 37, 0.4);
+    border: 1px solid rgba(235, 232, 37, 0.6);
+    background: rgba(20, 20, 20, 0.8);
+    color: #ebe825;
 }

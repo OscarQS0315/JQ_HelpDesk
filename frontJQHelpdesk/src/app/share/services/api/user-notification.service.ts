@@ -17,8 +17,11 @@ export class UserNotificationService extends BaseAPI<NotificationModel, Notifica
             httpClient,
             environment.endPointNotifications);
     }
-    getUserNotifications(userId: number): Observable<NotificationModel[]> {
-        return this.http.get<NotificationModel[]>(`${this.urlAPI}/${this.endpoint}/${userId}`);
+    getUserNotifications(userId: number): Observable<{ notifications: NotificationModel[] }> {
+        return this.http.get<{ notifications: NotificationModel[] }>(
+            `${this.urlAPI}/${this.endpoint}/${userId}`
+        );
     }
+
 
 }

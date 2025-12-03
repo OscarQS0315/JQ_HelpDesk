@@ -4,6 +4,7 @@ import { UserModel } from "./UserModel";
 
 export interface NotificationModel {
     id: number;
+    title: string;
     toUserId: number;
     fromUserId?: number;
     message: string;

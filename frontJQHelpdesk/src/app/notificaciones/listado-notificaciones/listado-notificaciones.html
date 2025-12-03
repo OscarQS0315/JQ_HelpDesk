@@ -1,63 +1,149 @@
+<br><br><br>
+<div class="notification-container">
 
-<br><br><br><div class="notification-container">
     <div class="notification-header">
         <h2>Notifications</h2>
+
         <div class="notification-actions">
+
             <div class="custom-dropdown">
                 <select [(ngModel)]="selectedCategory" (change)="filterNotifications()" class="filter-dropdown">
-                    <option value="all">All Notifications</option>
-                    <option value="alert">Alerts</option>
-                    <option value="message">Messages</option>
-                    <option value="update">Updates</option>
+                    <option [ngValue]="E_NotificationType.ALL">Todas</option>
+                    <option [ngValue]="E_NotificationType.LOGIN">Login</option>
+                    <option [ngValue]="E_NotificationType.TICKET_UPDATE">Actualización de Ticket</option>
                 </select>
             </div>
+
+
             <button class="mark-read-btn ripple" (click)="markAllAsRead()">
-                <span class="btn-text">Mark All as Read</span>
+                <span class="btn-text">Marcar todo como leído</span>
                 <span class="btn-icon">✓</span>
             </button>
         </div>
     </div>
+    @if (filteredNotifications.length > 0) {
+
+
 
     <div class="notification-list">
-        <div *ngFor="let notification of filteredNotifications"
-            [ngClass]="{'notification-item': true, 'unread': !notification.read, 'animated': true}"
+
+        @for (notification of filteredNotifications; track notification.id) {
+
+        <div class="notification-item animated" [class.unread]="!notification.read" [class.read]="notification.read"
             (click)="openNotificationDetail(notification)">
-            <div class="notification-icon pulse">
-                <img [src]="notification.avatar || 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=50&h=50'"
+
+            <div class="notification-icon" [class.pulse]="!notification.read">
+                <img [src]="notification.avatar || 'http://localhost:3000/images/image-no-found.jpg'"
                     [alt]="notification.type">
             </div>
+
             <div class="notification-content">
                 <div class="notification-title">
-                    <span class="title">{{notification.title}}</span>
+                    <span class="title">{{ notification.title }}</span>
                     <br>
-                    <span class="time">{{notification.timestamp | date:'short'}}</span>
+                    <span class="time">{{ notification.timestamp | date:'short' }}</span>
+
+                    <span class="read-status" [ngClass]="notification.read ? 'read' : 'unread'">
+                        {{ notification.read ? 'Visto' : 'No visto' }}
+                    </span>
                 </div>
-                <p class="message">{{notification.message}}</p>
-                <span class="category-badge" [ngClass]="notification.type">{{notification.type}}</span>
+
+                <p class="message">{{ notification.message }}</p>
+                <span class="type-badge" [ngClass]="notification.type">
+                    {{ notification.type }}
+                </span>
             </div>
         </div>
+
+
+        }
+
     </div>
 
-    <div class="notification-detail" *ngIf="selectedNotification" [ngClass]="{'show': selectedNotification}">
+    }
+
+
+
+    @if (filteredNotifications.length === 0) {
+    <div class="no-notifications">
+        <h3>No tienes notificaciones</h3>
+        <p>Cuando tengas nuevas notificaciones, aparecerán aquí.</p>
+    </div>
+    }
+
+
+
+    @if (selectedNotification) {
+    <div class="notification-detail show">
+
         <div class="detail-header">
             <button class="close-btn" (click)="closeDetail()">×</button>
-            <h3>Notification Detail</h3>
-            
+            <h3>Notificación</h3>
         </div>
+
         <div class="detail-content">
-            <img [src]="selectedNotification.avatar || 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=80&h=80'"
-                [alt]="selectedNotification.type" class="detail-avatar">
-            <h4>{{selectedNotification.title}}</h4>
-            <p class="detail-message">{{selectedNotification.message}}</p>
-            <div class="detail-meta">
-                <span class="detail-type">Type: {{selectedNotification.type}}</span>
-                <span class="detail-time">Sent: {{selectedNotification.timestamp | date:'medium'}}</span>
+
+
+            <div class="sender-header">
+
+                <img [src]="selectedNotification.avatar || 'http://localhost:3000/images/image-no-found.jpg'"
+                    [alt]="selectedNotification.type" class="detail-avatar">
+
+                <div class="sender-info">
+                    <h4 class="title">{{ selectedNotification.title }}</h4>
+
+                    <p class="from-to">
+                        <strong>De:</strong>
+                        {{
+                        selectedNotification.senderName?.name?.trim()
+                        ? (selectedNotification.senderName?.name + ' ' + (selectedNotification.senderName?.lastName ??
+                        ''))
+                        : 'Sistema'
+                        }}
+                    </p>
+
+                    <p class="from-to">
+                        <strong>Para:</strong>
+                        {{
+                        selectedNotification.receiverName?.name?.trim()
+                        ? (selectedNotification.receiverName?.name + ' ' + (selectedNotification.receiverName?.lastName
+                        ?? ''))
+                        : 'Usuario'
+                        }}
+                    </p>
+
+                </div>
             </div>
-            <br>
+
+
+            <p class="detail-message">{{ selectedNotification.message }}</p>
+
+
+            <div class="detail-meta-grid">
+
+                <div class="meta-card">
+                    <strong>Tipo:</strong>
+                    <span>{{ selectedNotification.type }}</span>
+                </div>
+
+                <div class="meta-card">
+                    <strong>Fecha:</strong>
+                    <span>{{ selectedNotification.timestamp | date:'medium' }}</span>
+                </div>
+
+            </div>
+
+
             <div class="action-buttons">
-                <button class="action-btn primary ripple">Take Action</button>
-                <button class="action-btn secondary ripple">Dismiss</button>
+
+                <button class="action-btn secondary ripple" (click)="closeDetail()">Cerrar</button>
             </div>
+
         </div>
+
     </div>
+    }
+
+
+
 </div>

@@ -5,7 +5,9 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { UserModel } from '../../models/UserModel';
 import { environment } from '../../../../environments/environment.development';
-
+import { NotificationDTO } from '../../models/DTOs/NotificationDTO';
+import { E_NotificationType } from '../../models/enums/notificationType.enum';
+import { UserNotificationAppService } from './user-notification.service';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +31,8 @@ export class AuthenticationService {
   
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private appNoti: UserNotificationAppService
   ) {
     /**
      * Effect: Se ejecuta cada vez que el token cambia
@@ -57,6 +60,7 @@ export class AuthenticationService {
           localStorage.setItem(this.tokenKey, strToken);
           this.tokenUser.set(strToken);
           console.log('Sesión iniciada correctamente.', this.tokenKey, this.tokenUser());
+          
         })
         
       );

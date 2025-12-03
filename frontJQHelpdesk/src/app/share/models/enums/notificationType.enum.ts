@@ -1,4 +1,5 @@
 export enum E_NotificationType {
     LOGIN = 'LOGIN',
-    TICKET_UPDATED = 'TICKET_UPDATED',
+    TICKET_UPDATE = 'TICKET_UPDATE',
+    ALL = 'ALL'
 }

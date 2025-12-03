@@ -6,6 +6,9 @@ import { AuthenticationService } from '../../share/services/app/authentication.s
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserNotificationAppService } from '../../share/services/app/user-notification.service';
+import { NotificationDTO } from '../../share/models/DTOs/NotificationDTO';
+import { E_NotificationType } from '../../share/models/enums/notificationType.enum';
 
 
 @Component({
@@ -38,7 +41,8 @@ export class Login implements OnInit {
     private noti: NotificationService,
     private router: Router,
     private route: ActivatedRoute,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private appNoti: UserNotificationAppService
   ) {
     this.buildForm();
   }
