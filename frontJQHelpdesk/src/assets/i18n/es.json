@@ -196,5 +196,19 @@
     "TryAgain" : "Por favor, inténtelo de nuevo",
     "StatusUpdatedSuccessfully" : "Estado actualizado con éxito",
     "HistorySavedSuccessfully" : "Historial guardado con éxito",
-    "ErrorUpdatingTicket" : "Error al actualizar el tiquete"
+    "ErrorUpdatingTicket" : "Error al actualizar el tiquete",
+    "All" : "Todas",
+    "Ticket_Update" : "Actualización de Tiquete",
+    "Readed" : "Marcar como Leído",
+    "ThereAreNoNotifications" : "No hay notificaciones para mostrar",
+    "WhenYouHaveNewNotificationsTheyWillAppearHere" : "Cuando tengas nuevas notificaciones, aparecerán aquí.",
+    "Notification" : "Notificación",
+    "From" : "De",
+    "FromTo" : "Para",
+    "Date" : "Fecha",
+    "Type" : "Tipo",
+    "Close" : "Cerrar",
+    "ErrorSendingNotification": "Error al enviar la notificación",
+    "AllReaded" : "Todas las notificaciones marcadas como leídas",
+    "AllViewed" : "Todas las notificaciones vistas"
 }

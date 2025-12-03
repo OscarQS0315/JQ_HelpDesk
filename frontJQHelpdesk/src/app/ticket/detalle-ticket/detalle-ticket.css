@@ -13,6 +13,25 @@
     margin-top: 4%;
 }
 
+.btn-update{
+    padding: 10px 20px;
+    background-color: #020202;
+    color: #ebe825;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-update:hover {
+    background-color: #121212;
+    box-shadow: 0 2px 10px rgba(235, 232, 37, 0.3);
+}
+
 .section {
     background: #2a2a2a;
     padding: 20px;

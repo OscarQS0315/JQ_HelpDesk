@@ -8,15 +8,15 @@
 
             <div class="custom-dropdown">
                 <select [(ngModel)]="selectedCategory" (change)="filterNotifications()" class="filter-dropdown">
-                    <option [ngValue]="E_NotificationType.ALL">Todas</option>
-                    <option [ngValue]="E_NotificationType.LOGIN">Login</option>
-                    <option [ngValue]="E_NotificationType.TICKET_UPDATE">Actualización de Ticket</option>
+                    <option [ngValue]="E_NotificationType.ALL">{{ 'All' | transloco }}</option>
+                    <option [ngValue]="E_NotificationType.LOGIN">{{ 'Login' | transloco }}</option>
+                    <option [ngValue]="E_NotificationType.TICKET_UPDATE">{{ 'Ticket_Update' | transloco }}</option>
                 </select>
             </div>
 
 
             <button class="mark-read-btn ripple" (click)="markAllAsRead()">
-                <span class="btn-text">Marcar todo como leído</span>
+                <span class="btn-text">{{ 'Readed' | transloco }}</span>
                 <span class="btn-icon">✓</span>
             </button>
         </div>
@@ -66,8 +66,8 @@
 
     @if (filteredNotifications.length === 0) {
     <div class="no-notifications">
-        <h3>No tienes notificaciones</h3>
-        <p>Cuando tengas nuevas notificaciones, aparecerán aquí.</p>
+        <h3>{{ 'ThereAreNoNotifications' | transloco }}</h3>
+        <p>{{ 'WhenYouHaveNewNotificationsTheyWillAppearHere' | transloco }}</p>
     </div>
     }
 
@@ -78,7 +78,7 @@
 
         <div class="detail-header">
             <button class="close-btn" (click)="closeDetail()">×</button>
-            <h3>Notificación</h3>
+            <h3>{{ 'Notification' | transloco }}</h3>
         </div>
 
         <div class="detail-content">
@@ -93,7 +93,7 @@
                     <h4 class="title">{{ selectedNotification.title }}</h4>
 
                     <p class="from-to">
-                        <strong>De:</strong>
+                        <strong>{{ 'From' | transloco }}:</strong>
                         {{
                         selectedNotification.senderName?.name?.trim()
                         ? (selectedNotification.senderName?.name + ' ' + (selectedNotification.senderName?.lastName ??
@@ -103,7 +103,7 @@
                     </p>
 
                     <p class="from-to">
-                        <strong>Para:</strong>
+                        <strong>{{ 'FromTo' | transloco }}:</strong>
                         {{
                         selectedNotification.receiverName?.name?.trim()
                         ? (selectedNotification.receiverName?.name + ' ' + (selectedNotification.receiverName?.lastName
@@ -122,12 +122,12 @@
             <div class="detail-meta-grid">
 
                 <div class="meta-card">
-                    <strong>Tipo:</strong>
+                    <strong>{{ 'Type' | transloco }}:</strong>
                     <span>{{ selectedNotification.type }}</span>
                 </div>
 
                 <div class="meta-card">
-                    <strong>Fecha:</strong>
+                    <strong>{{ 'Date' | transloco }}:</strong>
                     <span>{{ selectedNotification.timestamp | date:'medium' }}</span>
                 </div>
 
@@ -136,7 +136,7 @@
 
             <div class="action-buttons">
 
-                <button class="action-btn secondary ripple" (click)="closeDetail()">Cerrar</button>
+                <button class="action-btn secondary ripple" (click)="closeDetail()">{{ 'Close' | transloco }}</button>
             </div>
 
         </div>

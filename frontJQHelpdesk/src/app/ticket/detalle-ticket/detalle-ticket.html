@@ -2,7 +2,7 @@
 <div class="ticket-card">
     <app-breadcrumb-back />
     @if(isAdmin() || isTechnician()) {
-    <button [routerLink]="['/UpdateTicket', ticket()?.id]">Actualizar tiquete</button>
+    <button class="btn-update" [routerLink]="['/UpdateTicket', ticket()?.id]">{{'UpdateTicket' | transloco}}</button>
     }
 
     <div class="section header">

@@ -66,7 +66,7 @@ export class UserNotificationAppService {
                 
             },
             error: () => {
-                this.noti.error(this.transloco.translate('OperationFailed'), "Error enviando notificación", 5000);
+                this.noti.error(this.transloco.translate('OperationFailed'), this.transloco.translate('ErrorSendingNotification'), 5000);
             },
         });
     };
@@ -86,11 +86,11 @@ export class UserNotificationAppService {
     markAllAsRead() {
         this.userNoti.putMethod(`mark-all-as-read/${this.userId()}`).subscribe({
             next: (resp) => {
-                this.noti.success(this.transloco.translate('OperationSuccesfull'), `Todas las notificaciones vistas`, 3000);
+                this.noti.success(this.transloco.translate('OperationSuccesfull'), this.transloco.translate('AllViewed'), 3000);
                 this.loadNotifications();
             },
             error: () => {
-                this.noti.error(this.transloco.translate('OperationFailed'), "Error marcando todas las notificaciones como vistas", 5000);
+                this.noti.error(this.transloco.translate('OperationFailed'), this.transloco.translate('AllReaded'), 5000);
             },
         });
     };

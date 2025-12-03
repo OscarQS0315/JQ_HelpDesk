@@ -6,6 +6,7 @@ import { AuthenticationService } from '../../share/services/app/authentication.s
 import { E_Role } from '../../share/models/enums/role.enum';
 import { UserModel } from '../../share/models/UserModel';
 import { E_NotificationType } from '../../share/models/enums/notificationType.enum';
+import { TranslocoModule } from '@jsverse/transloco';
 
 interface Notification {
   id: number;
@@ -24,7 +25,7 @@ interface Notification {
   templateUrl: './listado-notificaciones.html',
   styleUrls: ['./listado-notificaciones.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule,TranslocoModule]
 })
 export class ListadoNotificaciones {
 
