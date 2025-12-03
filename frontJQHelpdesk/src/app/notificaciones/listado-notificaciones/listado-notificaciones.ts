@@ -67,7 +67,10 @@ export class ListadoNotificaciones {
         type: n.type as E_NotificationType,
         timestamp: new Date(n.createdAt),
         read: n.isRead,
-        avatar: `http://localhost:3000/images/${n.fromUser?.profileImage}`,
+        avatar: n.fromUser?.profileImage
+          ? `http://localhost:3000/images/${n.fromUser.profileImage}`
+          : `http://localhost:3000/images/Logo JQHelpdesk.jpg`,
+
         senderName: n.fromUser,
         receiverName: n.toUser
       }));
@@ -81,7 +84,7 @@ export class ListadoNotificaciones {
       this.selectedCategory === E_NotificationType.ALL
         ? this.notifications
         : this.notifications.filter(n => n.type === this.selectedCategory);
-        console.log('Category actual:', this.selectedCategory);
+    console.log('Category actual:', this.selectedCategory);
   }
 
 

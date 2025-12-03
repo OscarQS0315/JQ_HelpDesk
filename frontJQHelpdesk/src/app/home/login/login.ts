@@ -44,7 +44,8 @@ export class Login implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthenticationService,
-    private translocoService: TranslocoService
+    private translocoService: TranslocoService,
+    private appNoti: UserNotificationAppService
   ) {
     this.buildForm();
   }
@@ -86,6 +87,15 @@ export class Login implements OnInit {
       next: (response) => {
         this.noti.success(this.translocoService.translate('Welcome'), this.translocoService.translate('SesionSuccess'), 3000);
         this.router.navigateByUrl('/Inicio');
+
+        const notificationDTO : NotificationDTO = {
+          title: 'Nuevo inicio de sesión',
+          message: `Has iniciado sesión en tu cuenta.`,
+          type: E_NotificationType.LOGIN,
+          toUserId: this.authService.user()?.id!
+        };
+        this.appNoti.newUserNotification(notificationDTO);
+        console.log('Notification DTO:', notificationDTO);
       },
       error: (err) => {
         this.noti.error('Error', this.translocoService.translate('IncorrectCredentials'));

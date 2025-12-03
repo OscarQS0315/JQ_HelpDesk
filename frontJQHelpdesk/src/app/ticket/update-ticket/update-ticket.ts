@@ -15,6 +15,13 @@ import { UserModel } from "../../share/models/UserModel";
 import { Router } from "@angular/router";
 import { TicketHistoryDTO } from "../../share/models/DTOs/TicketHistoryDTO";
 import { AuthenticationService } from "../../share/services/app/authentication.service";
+import { UserNotificationAppService } from "../../share/services/app/user-notification.service";
+import { E_Role } from "../../share/models/enums/role.enum";
+import { NotificationDTO } from "../../share/models/DTOs/NotificationDTO";
+import { E_NotificationType } from "../../share/models/enums/notificationType.enum";
+import { E_TicketStatus } from "../../share/models/enums/ticketStatus.enum";
+
+
 @Component({
   selector: "app-update-ticket",
   standalone: true,
@@ -24,6 +31,19 @@ import { AuthenticationService } from "../../share/services/app/authentication.s
 })
 export class UpdateTicket implements OnInit {
 
+
+  authService = inject(AuthenticationService);
+  readonly currentUser = this.authService.user;
+  readonly isAuthenticated = computed(() => this.authService.authenticated());
+  readonly userId = computed(() => this.currentUser()?.id);
+  readonly role = computed(() => {
+    const user = this.currentUser();
+    return user?.role as E_Role | undefined;
+  });
+
+  readonly isAdmin = computed(() => this.role() === E_Role.ADMIN);
+  readonly isUser = computed(() => this.role() === E_Role.USER);
+  readonly isTechnician = computed(() => this.role() === E_Role.TECHNICIAN);
 
   user = signal<UserModel | null>(null);
   authUser = signal<any | null>(null);
@@ -45,7 +65,7 @@ export class UpdateTicket implements OnInit {
 
   ticketId: number = 0;
 
-  availableStates: { value: string; label: string }[] = [];
+  availableStates: { value: E_TicketStatus; label: string }[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -56,13 +76,12 @@ export class UpdateTicket implements OnInit {
     private transloco: TranslocoService,
     private route: ActivatedRoute,
     private router: Router,
-    private ticketService: TicketService
+    private ticketService: TicketService,
+    private appNoti: UserNotificationAppService
   ) {
     this.ticketId = Number(this.route.snapshot.paramMap.get('id'));
   }
-  authService = inject(AuthenticationService);
-  readonly currentUser = this.authService.user;
-  readonly isAuthenticated = computed(() => this.authService.authenticated());
+  
 
   ngOnInit() {
     this.initForm();
@@ -77,7 +96,7 @@ export class UpdateTicket implements OnInit {
       titulo: ["", Validators.required],
       descripcion: ["", Validators.required],
       Fecha: ["", Validators.required],
-      status: ["", Validators.required],
+      status: [E_TicketStatus, Validators.required],
       observacion: ["", Validators.required],
       FechaActual: [this.today]
     });
@@ -91,7 +110,7 @@ export class UpdateTicket implements OnInit {
         titulo: ticket.title,
         descripcion: ticket.description,
         Fecha: this.formatDate(ticket.createdAt),
-        status: ticket.status,
+        status: ticket.status as E_TicketStatus,
         observacion: ""
       });
 
@@ -184,7 +203,7 @@ export class UpdateTicket implements OnInit {
 
     const payload: TicketHistoryDTO = {
       ticketId: this.ticketId,
-      status: form.status,
+      status: form.status as E_TicketStatus,
       observation: form.observacion,
       changedBy: this.currentUser()?.id,
       ticketImages: []
@@ -215,9 +234,19 @@ export class UpdateTicket implements OnInit {
   }
   saveHistory(payload: TicketHistoryDTO) {
     this.historyService.create(payload).subscribe({
-      next: () => {
+      next: (res) => {
         this.noti.success(this.transloco.translate('StatusUpdatedSuccessfully'), this.transloco.translate('HistorySavedSuccessfully'), 5000);
-        this.router.navigate(['/VisualizacionTicket']);
+        const notificationDTO : NotificationDTO = {
+          
+                  title: `Nuevo cambio de Estado de Ticket`,
+                  message: payload.observation,
+                  type: E_NotificationType.TICKET_UPDATE,
+                  toUserId: res.userId,
+                  fromUserId : this.authService.user()?.id
+                };
+                this.appNoti.newUserNotification(notificationDTO);
+                console.log("Notification DTO", notificationDTO);
+                this.router.navigate(['/VisualizacionTicket']);
       },
       error: () => {
         this.noti.error(this.transloco.translate('Error'), this.transloco.translate('ErrorUpdatingTicket'), 5000);
@@ -251,34 +280,34 @@ export class UpdateTicket implements OnInit {
     switch (current) {
       case "PENDING":
         this.availableStates = [
-          { value: this.transloco.translate('PendingStatus'), label: this.transloco.translate('PendingStatus') },
+          { value: E_TicketStatus.PENDING, label: this.transloco.translate('PendingStatus') },
         ];
         break;
 
       case "ASSIGNED":
         this.availableStates = [
-          { value: this.transloco.translate('AssignedStatus'), label: this.transloco.translate('AssignedStatus') },
-          { value: this.transloco.translate('InProgressStatus'), label: this.transloco.translate('InProgressStatus') }
+          { value: E_TicketStatus.ASSIGNED, label: this.transloco.translate('AssignedStatus') },
+          { value: E_TicketStatus.IN_PROGRESS, label: this.transloco.translate('InProgressStatus') }
         ];
         break;
 
       case "IN_PROGRESS":
         this.availableStates = [
-          { value: this.transloco.translate('InProgressStatus'), label: this.transloco.translate('InProgressStatus') },
-          { value: this.transloco.translate('ResolvedStatus'), label: this.transloco.translate('ResolvedStatus') }
+          { value: E_TicketStatus.IN_PROGRESS, label: this.transloco.translate('InProgressStatus') },
+          { value: E_TicketStatus.RESOLVED, label: this.transloco.translate('ResolvedStatus') }
         ];
         break;
 
       case "RESOLVED":
         this.availableStates = [
-          { value: this.transloco.translate('ResolvedStatus'), label: this.transloco.translate('ResolvedStatus') },
-          { value: this.transloco.translate('ClosedStatus'), label: this.transloco.translate('ClosedStatus') }
+          { value: E_TicketStatus.RESOLVED, label: this.transloco.translate('ResolvedStatus') },
+          { value: E_TicketStatus.CLOSED, label: this.transloco.translate('ClosedStatus') }
         ];
         break;
 
       case "CLOSED":
         this.availableStates = [
-          { value: this.transloco.translate('ClosedStatus'), label: this.transloco.translate('ClosedStatus') }
+          { value: E_TicketStatus.CLOSED, label: this.transloco.translate('ClosedStatus') }
         ];
         break;
     }
@@ -287,7 +316,7 @@ export class UpdateTicket implements OnInit {
 
 
 
- 
+
   canSelectState(value: string) {
     return this.availableStates.some(s => s.value === value);
   }

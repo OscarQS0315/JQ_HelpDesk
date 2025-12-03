@@ -5,6 +5,7 @@ import { AvailableLanguages } from "../../transloco-config";
 import { AuthenticationService } from "../../share/services/app/authentication.service";
 import { E_Role } from "../../share/models/enums/role.enum";
 import { Router } from '@angular/router';
+import { UserNotificationAppService } from "../../share/services/app/user-notification.service";
 
 interface MenuItem {
   label: string;
@@ -26,6 +27,7 @@ export interface Option {
 })
 
 export class Header implements OnInit {
+  notiApp = inject(UserNotificationAppService);
   private router = inject(Router);
 
   isMenuOpen = false;
@@ -35,7 +37,10 @@ export class Header implements OnInit {
   menuItems: MenuItem[] = [];
 
   options: Option[] = [];
+
+  readonly unreadCount = computed(() => this.notiApp.unreadCount());
   constructor(private transloco: TranslocoService, private cdr: ChangeDetectorRef) { 
+    this.notiApp.loadNotifications
     effect(() => {
     const isAuth = this.isAuthenticated();
     const role = this.role();

@@ -6,5 +6,4 @@ export interface TicketHistoryDTO {
     changedBy?: number;
     observation?: string;
     ticketImages?: { url: string }[];
-    
 }

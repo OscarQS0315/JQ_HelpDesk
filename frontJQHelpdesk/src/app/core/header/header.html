@@ -22,15 +22,14 @@
         </ul>
     </nav>
 
-    
+
 
     <div class="action-area">
         @if(!isAuthenticated()){
         <button class="btn login-btn" (click)="login()">{{'Login' | transloco}}</button>
         <!--<button class="btn signup-btn">{{'Sign Up' | transloco}}</button>-->
         }@else{
-        <button class="btn signup-btn" [routerLink]="['/Notificaciones']">{{'Notifications' | transloco}}<svg viewBox="-0.5 0 25 25"
-                fill="none" xmlns="http://www.w3.org/2000/svg">
+        <button class="btn signup-btn notification-btn" [routerLink]="['/Notificaciones']"><svg viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                 <g id="SVGRepo_iconCarrier">
@@ -40,7 +39,11 @@
                     <path d="M15 21.04C14.1345 21.6891 13.0819 22.04 12 22.04C10.9181 22.04 9.86548 21.6891 9 21.04"
                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                 </g>
-            </svg></button>
+            </svg>
+            @if (unreadCount() > 0) {
+            <span class="notification-badge">{{ unreadCount() }}</span>
+            }
+        </button>
         <button class="btn logout-btn" (click)="logout()">
             {{'Logout' | transloco}}
         </button>
@@ -48,7 +51,7 @@
 
     </div>
 
-    
+
     <div class="select-menu" (click)="toggleDropdown()" (keydown)="handleKeydown($event)" tabindex="0" role="listbox"
         [attr.aria-expanded]="isOpen" [attr.aria-activedescendant]="selectedOption?.id">
 

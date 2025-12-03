@@ -40,11 +40,6 @@ export class UserNotificationAppService {
     constructor(private userNoti: UserNotificationService, private transloco: TranslocoService) {
 
         this.loadNotifications();
-
-        effect(() => {
-            localStorage.setItem('notifications', JSON.stringify(this.notifications()));
-
-        });
     };
 
     public loadNotifications() {
@@ -65,11 +60,10 @@ export class UserNotificationAppService {
     newUserNotification(notification: NotificationDTO) {
         this.userNoti.create(notification).subscribe({
             next: (resp) => {
-
                 this.notifications.update((list) =>
                     list.map(n => n.id === resp.id ? { ...n, isRead: true } : n)
                 );
-                this.noti.success(this.transloco.translate('OperationSuccesfull'), `Notificacion enviada`, 3000);
+                
             },
             error: () => {
                 this.noti.error(this.transloco.translate('OperationFailed'), "Error enviando notificación", 5000);
@@ -80,11 +74,11 @@ export class UserNotificationAppService {
     markAsRead(notificationId: number) {
         this.userNoti.putMethod(`mark-as-read/${notificationId}`).subscribe({
             next: (resp) => {
-                this.noti.success(this.transloco.translate('OperationSuccesfull'), `Notificacion Vista`, 3000);
+                
                 this.loadNotifications();
             },
             error: () => {
-                this.noti.error(this.transloco.translate('OperationFailed'), "Error marcando notificación como vista", 5000);
+                
             },
         });
     };

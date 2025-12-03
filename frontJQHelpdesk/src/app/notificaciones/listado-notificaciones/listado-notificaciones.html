@@ -33,7 +33,7 @@
             (click)="openNotificationDetail(notification)">
 
             <div class="notification-icon" [class.pulse]="!notification.read">
-                <img [src]="notification.avatar || 'http://localhost:3000/images/image-no-found.jpg'"
+                <img [src]="notification.avatar ?? 'http://localhost:3000/images/image-no-found.jpg'"
                     [alt]="notification.type">
             </div>
 

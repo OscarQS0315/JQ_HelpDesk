@@ -7,7 +7,7 @@ import { UserModel } from '../../models/UserModel';
 import { environment } from '../../../../environments/environment.development';
 import { NotificationDTO } from '../../models/DTOs/NotificationDTO';
 import { E_NotificationType } from '../../models/enums/notificationType.enum';
-import { UserNotificationAppService } from './user-notification.service';
+
 
 @Injectable({
   providedIn: 'root',
@@ -31,8 +31,7 @@ export class AuthenticationService {
   
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private appNoti: UserNotificationAppService
+    private router: Router
   ) {
     /**
      * Effect: Se ejecuta cada vez que el token cambia
@@ -53,13 +52,13 @@ export class AuthenticationService {
    */
   loginUser(credentials: { email: string; password: string }): Observable<{ token: string }> {
     return this.http
-      .post<{ token: string }>(`${this.apiUrl}/user/login`, credentials)
+      .post<{ token: string, user: UserModel }>(`${this.apiUrl}/user/login`, credentials)
       .pipe(
-        tap(({ token }) => {
+        tap(({ token, user }) => {
           const strToken = String(token);
           localStorage.setItem(this.tokenKey, strToken);
           this.tokenUser.set(strToken);
-          console.log('Sesión iniciada correctamente.', this.tokenKey, this.tokenUser());
+          this.user.set(user);
           
         })
         
@@ -67,7 +66,7 @@ export class AuthenticationService {
       
   }
 
-  /**
+  /*
    * Obtener perfil de usuario desde API
    * - Si falla: se hace logout seguro
    */
@@ -75,7 +74,6 @@ export class AuthenticationService {
     return this.http.get<UserModel>(`${this.apiUrl}/user/profile`).pipe(
       tap((user) => {
         this.user.set(user)
-        console.log('Perfil de usuario obtenido correctamente.', user);
       }),
       catchError(() => {
         this.logout(); 
