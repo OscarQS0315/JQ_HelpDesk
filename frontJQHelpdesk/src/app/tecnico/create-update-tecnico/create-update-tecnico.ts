@@ -74,7 +74,7 @@ export class CreateUpdateTecnico implements OnInit {
     this.route.params.subscribe((params) => {
       this.technicianId = params['id'] ?? null
       this.isCreate = this.technicianId === null
-      this.titleForm = this.isCreate ? 'Crear' : 'Actualizar'
+      this.titleForm = this.isCreate ? 'Crear' : 'Actualizar';
       if (this.technicianId) {
         this.tService.getById(this.technicianId).subscribe((data) => this.patchFormValues(data))
       }
@@ -144,7 +144,7 @@ export class CreateUpdateTecnico implements OnInit {
         this.specialities = data;
       },
       error: (err) => {
-        console.error('Error loading specialities', err);
+        console.error(this.transloco.translate('ErrorLoadingSpecialities'), err);
       }
     });
   }
@@ -348,12 +348,12 @@ export class CreateUpdateTecnico implements OnInit {
     if (!file) return;
 
     if (!file.type.match(/image\/(jpeg|png|webp)/)) {
-      this.imageError = "Only JPEG, PNG and WebP images are allowed";
+      this.imageError = this.transloco.translate('ImageFormat');
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      this.imageError = "Image size should not exceed 5MB";
+      this.imageError = this.transloco.translate('ImageSizeExceeded');
       return;
     }
     this.currentFile = file;

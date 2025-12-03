@@ -7,67 +7,61 @@
 
         @if (isLoginView) {
 
-  
-        <div class="login-form">
-            <h2>Login</h2>
 
-            
+        <div class="login-form">
+            <h2>{{'Login' | transloco}}</h2>
+
+
             <form [formGroup]="formulario" (ngSubmit)="submitForm()">
 
                 <div class="form-group">
-                    <input 
-                        type="email"
-                        formControlName="email"
-                        placeholder="Email">
+                    <input type="email" formControlName="email" placeholder="{{'EmailTechnician' | transloco}}">
                 </div>
 
                 <div class="form-group">
-                    <input
-                        type="password"
-                        formControlName="password"
-                        placeholder="Password">
+                    <input type="password" formControlName="password" placeholder="{{'passwordTechnician' | transloco}}">
                 </div>
 
-                <button type="submit" class="btn-login">Login</button>
+                <button type="submit" class="btn-login">{{'Login' | transloco}}</button>
             </form>
 
             <p class="switch-form">
-                Don't have an account?
-                <a (click)="toggleView()">Register here</a>
+                {{'Dont have an account?' | transloco}}
+                <a (click)="toggleView()">{{'Sign Up' | transloco}}</a>
             </p>
         </div>
 
         } @else {
 
-     
+
         <div class="register-form">
-            <h2>Register</h2>
+            <h2>{{'Register' | transloco}}</h2>
 
             <form (ngSubmit)="onRegister()">
                 <div class="form-group">
-                    <input type="text" [(ngModel)]="fullName" name="fullName" placeholder="Full Name" required>
+                    <input type="text" [(ngModel)]="fullName" name="fullName" placeholder="{{'FullName' | transloco}}" required>
                 </div>
 
                 <div class="form-group">
-                    <input type="email" [(ngModel)]="registerEmail" name="registerEmail" placeholder="Email" required>
+                    <input type="email" [(ngModel)]="registerEmail" name="registerEmail" placeholder="{{'EmailTechnician' | transloco}}" required>
                 </div>
 
                 <div class="form-group">
-                    <input type="password" [(ngModel)]="registerPassword" name="registerPassword" placeholder="Password"
+                    <input type="password" [(ngModel)]="registerPassword" name="registerPassword" placeholder="{{'passwordTechnician' | transloco}}"
                         required>
                 </div>
 
                 <div class="form-group">
                     <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword"
-                        placeholder="Confirm Password" required>
+                        placeholder="{{'passwordTechnicianConfirm' | transloco}}" required>
                 </div>
 
-                <button type="submit" class="btn-register">Register</button>
+                <button type="submit" class="btn-register">{{'Register' | transloco}}</button>
             </form>
 
             <p class="switch-form">
-                Already have an account?
-                <a (click)="toggleView()">Login here</a>
+                {{'AlreadyHaveAccount?' | transloco}}
+                <a (click)="toggleView()">{{'LoginHere' | transloco}}</a>
             </p>
         </div>
 

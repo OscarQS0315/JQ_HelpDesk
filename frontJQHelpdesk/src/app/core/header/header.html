@@ -29,7 +29,7 @@
         <button class="btn login-btn" (click)="login()">{{'Login' | transloco}}</button>
         <!--<button class="btn signup-btn">{{'Sign Up' | transloco}}</button>-->
         }@else{
-        <button class="btn signup-btn" [routerLink]="['/Notificaciones']">Notificaciones<svg viewBox="-0.5 0 25 25"
+        <button class="btn signup-btn" [routerLink]="['/Notificaciones']">{{'Notifications' | transloco}}<svg viewBox="-0.5 0 25 25"
                 fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -42,7 +42,7 @@
                 </g>
             </svg></button>
         <button class="btn logout-btn" (click)="logout()">
-            Logout
+            {{'Logout' | transloco}}
         </button>
         }
 

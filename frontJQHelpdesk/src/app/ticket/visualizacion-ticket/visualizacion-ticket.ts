@@ -7,7 +7,7 @@ import { UserService } from '../../share/services/api/user.service';
 import { UserModel } from '../../share/models/UserModel';
 import { RouterModule } from '@angular/router';
 import { BreadcrumbBackComponent } from '../../share/components/breadcrumb-back/breadcrumb-back.component';
-import { TranslocoModule } from '@jsverse/transloco';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { AuthenticationService } from '../../share/services/app/authentication.service';
 import { E_Role } from '../../share/models/enums/role.enum';
 
@@ -44,7 +44,8 @@ export class VisualizacionTicket implements OnInit {
   constructor(
     private router: Router,
     private TService: TicketService,
-    private UService: UserService
+    private UService: UserService,
+    private transloco: TranslocoService
   ) { }
 
   ngOnInit(): void {
@@ -114,17 +115,17 @@ export class VisualizacionTicket implements OnInit {
   ticketStatusString(status: string): string {
     switch (status) {
       case 'PENDING':
-        return 'PENDIENTE';
+        return this.transloco.translate('PendingStatus');
       case 'ASSIGNED':
-        return 'ASIGNADO';
+        return this.transloco.translate('AssignedStatus');
       case 'IN_PROGRESS':
-        return 'EN PROGRESO';
+        return this.transloco.translate('InProgressStatus');
       case 'RESOLVED':
-        return 'RESUELTO';
+        return this.transloco.translate('ResolvedStatus');
       case 'CLOSED':
-        return 'CERRADO';
+        return this.transloco.translate('ClosedStatus');
       default:
-        return 'DESCONOCIDO';
+        return this.transloco.translate('UnknowStatus');
     }
   }
   getIconClass(status: string): string {

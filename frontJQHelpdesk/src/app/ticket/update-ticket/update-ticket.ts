@@ -161,17 +161,17 @@ export class UpdateTicket implements OnInit {
     this.profileForm.markAllAsTouched();
 
     if (this.profileForm.invalid) {
-      this.noti.error("Formulario inválido", "Debe completar todos los campos", 5000);
+      this.noti.error(this.transloco.translate('NotiInvalid'), this.transloco.translate('NotiInvalidForm'), 5000);
       return;
     }
 
     if (!this.hasStatusChanged()) {
-      this.noti.error("Sin cambios", "Debe cambiar el estado para continuar", 5000);
+      this.noti.error(this.transloco.translate('NoChanges'), this.transloco.translate('ChangeStatusToContinue'), 5000);
       return;
     }
 
     if (this.selectedFiles.length === 0) {
-      this.noti.error("Debe subir al menos una imagen", "Es obligatorio adjuntar imágenes", 5000);
+      this.noti.error(this.transloco.translate('ImageNecessary'), this.transloco.translate('MustSelectImage'), 5000);
       return;
     }
 
@@ -192,7 +192,7 @@ export class UpdateTicket implements OnInit {
 
 
     if (this.selectedFiles.length === 0) {
-      this.noti.error("Debe subir al menos una imagen.", "Imágenes obligatorias", 5000);
+      this.noti.error(this.transloco.translate('ImageNecessary'), this.transloco.translate('MustSelectImage'), 5000);
       this.isLoading = false;
       return;
     }
@@ -208,7 +208,7 @@ export class UpdateTicket implements OnInit {
         this.saveHistory(payload);
       },
       error: () => {
-        this.noti.error("Error subiendo imágenes", "Intente nuevamente", 5000);
+        this.noti.error(this.transloco.translate('ErrorUploadingImages'), this.transloco.translate('TryAgain'), 5000);
         this.isLoading = false;
       }
     });
@@ -216,11 +216,11 @@ export class UpdateTicket implements OnInit {
   saveHistory(payload: TicketHistoryDTO) {
     this.historyService.create(payload).subscribe({
       next: () => {
-        this.noti.success("Estado actualizado", "Se registró el historial correctamente", 5000);
+        this.noti.success(this.transloco.translate('StatusUpdatedSuccessfully'), this.transloco.translate('HistorySavedSuccessfully'), 5000);
         this.router.navigate(['/VisualizacionTicket']);
       },
       error: () => {
-        this.noti.error("Error", "No se pudo actualizar el ticket", 5000);
+        this.noti.error(this.transloco.translate('Error'), this.transloco.translate('ErrorUpdatingTicket'), 5000);
       },
       complete: () => this.isLoading = false
     });
@@ -251,34 +251,34 @@ export class UpdateTicket implements OnInit {
     switch (current) {
       case "PENDING":
         this.availableStates = [
-          { value: "PENDING", label: "Pendiente" }
+          { value: this.transloco.translate('PendingStatus'), label: this.transloco.translate('PendingStatus') },
         ];
         break;
 
       case "ASSIGNED":
         this.availableStates = [
-          { value: "ASSIGNED", label: "Asignado" },
-          { value: "IN_PROGRESS", label: "En Progreso" }
+          { value: this.transloco.translate('AssignedStatus'), label: this.transloco.translate('AssignedStatus') },
+          { value: this.transloco.translate('InProgressStatus'), label: this.transloco.translate('InProgressStatus') }
         ];
         break;
 
       case "IN_PROGRESS":
         this.availableStates = [
-          { value: "IN_PROGRESS", label: "En Progreso" },
-          { value: "RESOLVED", label: "Resuelto" }
+          { value: this.transloco.translate('InProgressStatus'), label: this.transloco.translate('InProgressStatus') },
+          { value: this.transloco.translate('ResolvedStatus'), label: this.transloco.translate('ResolvedStatus') }
         ];
         break;
 
       case "RESOLVED":
         this.availableStates = [
-          { value: "RESOLVED", label: "Resuelto" },
-          { value: "CLOSED", label: "Cerrado" }
+          { value: this.transloco.translate('ResolvedStatus'), label: this.transloco.translate('ResolvedStatus') },
+          { value: this.transloco.translate('ClosedStatus'), label: this.transloco.translate('ClosedStatus') }
         ];
         break;
 
       case "CLOSED":
         this.availableStates = [
-          { value: "CLOSED", label: "Cerrado" }
+          { value: this.transloco.translate('ClosedStatus'), label: this.transloco.translate('ClosedStatus') }
         ];
         break;
     }

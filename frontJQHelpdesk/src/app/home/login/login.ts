@@ -6,14 +6,16 @@ import { AuthenticationService } from '../../share/services/app/authentication.s
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 
 
 @Component({
   selector: 'app-login-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslocoModule],
   templateUrl: './login.html',
-  styleUrls: ['./login.css']
+  styleUrls: ['./login.css'],
+  
 })
 export class Login implements OnInit {
 
@@ -38,7 +40,8 @@ export class Login implements OnInit {
     private noti: NotificationService,
     private router: Router,
     private route: ActivatedRoute,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private translocoService: TranslocoService
   ) {
     this.buildForm();
   }
@@ -68,8 +71,8 @@ export class Login implements OnInit {
   submitForm() {
     if (this.formulario.invalid) {
       this.noti.warning(
-        'Formulario incompleto',
-        'Por favor complete todos los campos.'
+      this.translocoService.translate('IncompleteForm'),
+      this.translocoService.translate('PleaseFillAllFields')
       );
       return;
     }
@@ -78,11 +81,11 @@ export class Login implements OnInit {
 
     this.authService.loginUser(credentials).subscribe({
       next: (response) => {
-        this.noti.success('Bienvenido', 'Inicio de sesión exitoso', 3000);
+        this.noti.success(this.translocoService.translate('Welcome'), this.translocoService.translate('SesionSuccess'), 3000);
         this.router.navigateByUrl('/Inicio');
       },
       error: (err) => {
-        this.noti.error('Error', 'Credenciales incorrectas');
+        this.noti.error('Error', this.translocoService.translate('IncorrectCredentials'));
       }
     });
   }

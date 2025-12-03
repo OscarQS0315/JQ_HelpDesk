@@ -7,7 +7,7 @@ export enum availableLanguages {
 
 export const AvailableLanguages = [
     availableLanguages.EN,
-    availableLanguages.ES
+    availableLanguages.ES,
 ];
 
 const config: TranslocoGlobalConfig = {

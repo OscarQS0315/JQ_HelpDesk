@@ -233,7 +233,7 @@ export class ListadoTicket implements OnInit {
         next: (response) => {
           console.log("Técnico  asignado manualmente:", response);
           this.listTickets(this.authUser);
-          this.noti.success("Operación exitosa", `Ticket ${response.updatedTicket.id} asignado Manualmente a ${response.updatedTicket.technician.user.name} ${response.updatedTicket.technician.user.lastName}`, 5000);
+          this.noti.success(this.transloco.translate('OperationSuccesfull'), `${this.transloco.translate('Ticket')} ${response.updatedTicket.id} ${this.transloco.translate('AssignedManually')} ${response.updatedTicket.technician.user.name} ${response.updatedTicket.technician.user.lastName}`, 5000);
           this.ngOnInit();
         },
         error: (error) => {
@@ -248,8 +248,8 @@ export class ListadoTicket implements OnInit {
         next: (response) => {
           console.log("Técnico  asignado automáticamente:", response);
           this.listTickets(this.authUser);
-          this.noti.success("Operación exitosa", `Técnico ${response.assignedTechnician.user.name} ${response.assignedTechnician.user.lastName} 
-                             Puntaje: ${response.puntaje}`, 5000);
+          this.noti.success(this.transloco.translate('OperationSuccesfull'), `${this.transloco.translate('Technician')} ${response.assignedTechnician.user.name} ${response.assignedTechnician.user.lastName} 
+                             ${this.transloco.translate('Points')}: ${response.puntaje}`, 5000);
           this.ngOnInit();
         },
         error: (error) => {
