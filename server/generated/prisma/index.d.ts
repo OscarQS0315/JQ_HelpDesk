@@ -12966,6 +12966,7 @@ export namespace Prisma {
 
   export type NotificationMinAggregateOutputType = {
     id: number | null
+    title: string | null
     toUserId: number | null
     fromUserId: number | null
     message: string | null
@@ -12978,6 +12979,7 @@ export namespace Prisma {
 
   export type NotificationMaxAggregateOutputType = {
     id: number | null
+    title: string | null
     toUserId: number | null
     fromUserId: number | null
     message: string | null
@@ -12990,6 +12992,7 @@ export namespace Prisma {
 
   export type NotificationCountAggregateOutputType = {
     id: number
+    title: number
     toUserId: number
     fromUserId: number
     message: number
@@ -13018,6 +13021,7 @@ export namespace Prisma {
 
   export type NotificationMinAggregateInputType = {
     id?: true
+    title?: true
     toUserId?: true
     fromUserId?: true
     message?: true
@@ -13030,6 +13034,7 @@ export namespace Prisma {
 
   export type NotificationMaxAggregateInputType = {
     id?: true
+    title?: true
     toUserId?: true
     fromUserId?: true
     message?: true
@@ -13042,6 +13047,7 @@ export namespace Prisma {
 
   export type NotificationCountAggregateInputType = {
     id?: true
+    title?: true
     toUserId?: true
     fromUserId?: true
     message?: true
@@ -13141,6 +13147,7 @@ export namespace Prisma {
 
   export type NotificationGroupByOutputType = {
     id: number
+    title: string
     toUserId: number
     fromUserId: number | null
     message: string
@@ -13172,6 +13179,7 @@ export namespace Prisma {
 
   export type NotificationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    title?: boolean
     toUserId?: boolean
     fromUserId?: boolean
     message?: boolean
@@ -13189,6 +13197,7 @@ export namespace Prisma {
 
   export type NotificationSelectScalar = {
     id?: boolean
+    title?: boolean
     toUserId?: boolean
     fromUserId?: boolean
     message?: boolean
@@ -13199,7 +13208,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "toUserId" | "fromUserId" | "message" | "isRead" | "ticketId" | "type" | "createdAt" | "updatedAt", ExtArgs["result"]["notification"]>
+  export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "toUserId" | "fromUserId" | "message" | "isRead" | "ticketId" | "type" | "createdAt" | "updatedAt", ExtArgs["result"]["notification"]>
   export type NotificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     toUser?: boolean | UserDefaultArgs<ExtArgs>
     fromUser?: boolean | Notification$fromUserArgs<ExtArgs>
@@ -13215,6 +13224,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      title: string
       toUserId: number
       fromUserId: number | null
       message: string
@@ -13596,6 +13606,7 @@ export namespace Prisma {
    */
   interface NotificationFieldRefs {
     readonly id: FieldRef<"Notification", 'Int'>
+    readonly title: FieldRef<"Notification", 'String'>
     readonly toUserId: FieldRef<"Notification", 'Int'>
     readonly fromUserId: FieldRef<"Notification", 'Int'>
     readonly message: FieldRef<"Notification", 'String'>
@@ -15146,6 +15157,7 @@ export namespace Prisma {
 
   export const NotificationScalarFieldEnum: {
     id: 'id',
+    title: 'title',
     toUserId: 'toUserId',
     fromUserId: 'fromUserId',
     message: 'message',
@@ -15258,6 +15270,7 @@ export namespace Prisma {
 
 
   export const NotificationOrderByRelevanceFieldEnum: {
+    title: 'title',
     message: 'message'
   };
 
@@ -16174,6 +16187,7 @@ export namespace Prisma {
     OR?: NotificationWhereInput[]
     NOT?: NotificationWhereInput | NotificationWhereInput[]
     id?: IntFilter<"Notification"> | number
+    title?: StringFilter<"Notification"> | string
     toUserId?: IntFilter<"Notification"> | number
     fromUserId?: IntNullableFilter<"Notification"> | number | null
     message?: StringFilter<"Notification"> | string
@@ -16189,6 +16203,7 @@ export namespace Prisma {
 
   export type NotificationOrderByWithRelationInput = {
     id?: SortOrder
+    title?: SortOrder
     toUserId?: SortOrder
     fromUserId?: SortOrderInput | SortOrder
     message?: SortOrder
@@ -16208,6 +16223,7 @@ export namespace Prisma {
     AND?: NotificationWhereInput | NotificationWhereInput[]
     OR?: NotificationWhereInput[]
     NOT?: NotificationWhereInput | NotificationWhereInput[]
+    title?: StringFilter<"Notification"> | string
     toUserId?: IntFilter<"Notification"> | number
     fromUserId?: IntNullableFilter<"Notification"> | number | null
     message?: StringFilter<"Notification"> | string
@@ -16223,6 +16239,7 @@ export namespace Prisma {
 
   export type NotificationOrderByWithAggregationInput = {
     id?: SortOrder
+    title?: SortOrder
     toUserId?: SortOrder
     fromUserId?: SortOrderInput | SortOrder
     message?: SortOrder
@@ -16243,6 +16260,7 @@ export namespace Prisma {
     OR?: NotificationScalarWhereWithAggregatesInput[]
     NOT?: NotificationScalarWhereWithAggregatesInput | NotificationScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Notification"> | number
+    title?: StringWithAggregatesFilter<"Notification"> | string
     toUserId?: IntWithAggregatesFilter<"Notification"> | number
     fromUserId?: IntNullableWithAggregatesFilter<"Notification"> | number | null
     message?: StringWithAggregatesFilter<"Notification"> | string
@@ -17162,6 +17180,7 @@ export namespace Prisma {
   }
 
   export type NotificationCreateInput = {
+    title: string
     message: string
     isRead?: boolean
     type: $Enums.E_NotificationType
@@ -17174,6 +17193,7 @@ export namespace Prisma {
 
   export type NotificationUncheckedCreateInput = {
     id?: number
+    title: string
     toUserId: number
     fromUserId?: number | null
     message: string
@@ -17185,6 +17205,7 @@ export namespace Prisma {
   }
 
   export type NotificationUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumE_NotificationTypeFieldUpdateOperationsInput | $Enums.E_NotificationType
@@ -17197,6 +17218,7 @@ export namespace Prisma {
 
   export type NotificationUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
     toUserId?: IntFieldUpdateOperationsInput | number
     fromUserId?: NullableIntFieldUpdateOperationsInput | number | null
     message?: StringFieldUpdateOperationsInput | string
@@ -17209,6 +17231,7 @@ export namespace Prisma {
 
   export type NotificationCreateManyInput = {
     id?: number
+    title: string
     toUserId: number
     fromUserId?: number | null
     message: string
@@ -17220,6 +17243,7 @@ export namespace Prisma {
   }
 
   export type NotificationUpdateManyMutationInput = {
+    title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumE_NotificationTypeFieldUpdateOperationsInput | $Enums.E_NotificationType
@@ -17229,6 +17253,7 @@ export namespace Prisma {
 
   export type NotificationUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
     toUserId?: IntFieldUpdateOperationsInput | number
     fromUserId?: NullableIntFieldUpdateOperationsInput | number | null
     message?: StringFieldUpdateOperationsInput | string
@@ -18238,6 +18263,7 @@ export namespace Prisma {
 
   export type NotificationCountOrderByAggregateInput = {
     id?: SortOrder
+    title?: SortOrder
     toUserId?: SortOrder
     fromUserId?: SortOrder
     message?: SortOrder
@@ -18257,6 +18283,7 @@ export namespace Prisma {
 
   export type NotificationMaxOrderByAggregateInput = {
     id?: SortOrder
+    title?: SortOrder
     toUserId?: SortOrder
     fromUserId?: SortOrder
     message?: SortOrder
@@ -18269,6 +18296,7 @@ export namespace Prisma {
 
   export type NotificationMinOrderByAggregateInput = {
     id?: SortOrder
+    title?: SortOrder
     toUserId?: SortOrder
     fromUserId?: SortOrder
     message?: SortOrder
@@ -19848,6 +19876,7 @@ export namespace Prisma {
   }
 
   export type NotificationCreateWithoutToUserInput = {
+    title: string
     message: string
     isRead?: boolean
     type: $Enums.E_NotificationType
@@ -19859,6 +19888,7 @@ export namespace Prisma {
 
   export type NotificationUncheckedCreateWithoutToUserInput = {
     id?: number
+    title: string
     fromUserId?: number | null
     message: string
     isRead?: boolean
@@ -19879,6 +19909,7 @@ export namespace Prisma {
   }
 
   export type NotificationCreateWithoutFromUserInput = {
+    title: string
     message: string
     isRead?: boolean
     type: $Enums.E_NotificationType
@@ -19890,6 +19921,7 @@ export namespace Prisma {
 
   export type NotificationUncheckedCreateWithoutFromUserInput = {
     id?: number
+    title: string
     toUserId: number
     message: string
     isRead?: boolean
@@ -20033,6 +20065,7 @@ export namespace Prisma {
     OR?: NotificationScalarWhereInput[]
     NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
     id?: IntFilter<"Notification"> | number
+    title?: StringFilter<"Notification"> | string
     toUserId?: IntFilter<"Notification"> | number
     fromUserId?: IntNullableFilter<"Notification"> | number | null
     message?: StringFilter<"Notification"> | string
@@ -20947,6 +20980,7 @@ export namespace Prisma {
   }
 
   export type NotificationCreateWithoutTicketInput = {
+    title: string
     message: string
     isRead?: boolean
     type: $Enums.E_NotificationType
@@ -20958,6 +20992,7 @@ export namespace Prisma {
 
   export type NotificationUncheckedCreateWithoutTicketInput = {
     id?: number
+    title: string
     toUserId: number
     fromUserId?: number | null
     message: string
@@ -22189,6 +22224,7 @@ export namespace Prisma {
 
   export type NotificationCreateManyToUserInput = {
     id?: number
+    title: string
     fromUserId?: number | null
     message: string
     isRead?: boolean
@@ -22200,6 +22236,7 @@ export namespace Prisma {
 
   export type NotificationCreateManyFromUserInput = {
     id?: number
+    title: string
     toUserId: number
     message: string
     isRead?: boolean
@@ -22317,6 +22354,7 @@ export namespace Prisma {
   }
 
   export type NotificationUpdateWithoutToUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumE_NotificationTypeFieldUpdateOperationsInput | $Enums.E_NotificationType
@@ -22328,6 +22366,7 @@ export namespace Prisma {
 
   export type NotificationUncheckedUpdateWithoutToUserInput = {
     id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
     fromUserId?: NullableIntFieldUpdateOperationsInput | number | null
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
@@ -22339,6 +22378,7 @@ export namespace Prisma {
 
   export type NotificationUncheckedUpdateManyWithoutToUserInput = {
     id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
     fromUserId?: NullableIntFieldUpdateOperationsInput | number | null
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
@@ -22349,6 +22389,7 @@ export namespace Prisma {
   }
 
   export type NotificationUpdateWithoutFromUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumE_NotificationTypeFieldUpdateOperationsInput | $Enums.E_NotificationType
@@ -22360,6 +22401,7 @@ export namespace Prisma {
 
   export type NotificationUncheckedUpdateWithoutFromUserInput = {
     id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
     toUserId?: IntFieldUpdateOperationsInput | number
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
@@ -22371,6 +22413,7 @@ export namespace Prisma {
 
   export type NotificationUncheckedUpdateManyWithoutFromUserInput = {
     id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
     toUserId?: IntFieldUpdateOperationsInput | number
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
@@ -22927,6 +22970,7 @@ export namespace Prisma {
 
   export type NotificationCreateManyTicketInput = {
     id?: number
+    title: string
     toUserId: number
     fromUserId?: number | null
     message: string
@@ -22985,6 +23029,7 @@ export namespace Prisma {
   }
 
   export type NotificationUpdateWithoutTicketInput = {
+    title?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     isRead?: BoolFieldUpdateOperationsInput | boolean
     type?: EnumE_NotificationTypeFieldUpdateOperationsInput | $Enums.E_NotificationType
@@ -22996,6 +23041,7 @@ export namespace Prisma {
 
   export type NotificationUncheckedUpdateWithoutTicketInput = {
     id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
     toUserId?: IntFieldUpdateOperationsInput | number
     fromUserId?: NullableIntFieldUpdateOperationsInput | number | null
     message?: StringFieldUpdateOperationsInput | string
@@ -23007,6 +23053,7 @@ export namespace Prisma {
 
   export type NotificationUncheckedUpdateManyWithoutTicketInput = {
     id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
     toUserId?: IntFieldUpdateOperationsInput | number
     fromUserId?: NullableIntFieldUpdateOperationsInput | number | null
     message?: StringFieldUpdateOperationsInput | string

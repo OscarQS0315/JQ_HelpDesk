@@ -237,6 +237,7 @@ exports.Prisma.TicketHistoryScalarFieldEnum = {
 
 exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
+  title: 'title',
   toUserId: 'toUserId',
   fromUserId: 'fromUserId',
   message: 'message',
@@ -313,6 +314,7 @@ exports.Prisma.TicketHistoryOrderByRelevanceFieldEnum = {
 };
 
 exports.Prisma.NotificationOrderByRelevanceFieldEnum = {
+  title: 'title',
   message: 'message'
 };
 

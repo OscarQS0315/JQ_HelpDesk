@@ -16,12 +16,11 @@ export class NotificationRoutes {
                 controller.create
             );
     
-            router.put('/:id',
+            router.put('/mark-as-read/:id',
                 authenticateJWT,
-                authorizeRoles(E_Role.ADMIN),
                 controller.markAsRead
             );
-            router.put('/markAll/:userId',
+            router.put('/mark-all-as-read/:userId',
                 authenticateJWT,
                 controller.markAllAsRead
             );

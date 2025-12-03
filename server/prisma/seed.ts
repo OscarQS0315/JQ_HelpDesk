@@ -132,10 +132,11 @@ const main = async () => {
 
 
     for (const notification of notifications) {
-      const { toUserId, fromUserId, ticketId, message, isRead, type } = notification;
+      const { title, toUserId, fromUserId, ticketId, message, isRead, type } = notification;
 
       await prisma.notification.create({
         data: {
+          title,
           message,
           isRead,
           type,

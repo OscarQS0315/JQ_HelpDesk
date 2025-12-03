@@ -8,7 +8,7 @@ export class NotificationController {
 
     getUserNotifications = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const userId = parseInt(req.params.userId);
+            const userId = parseInt(req.params.id);
             if (isNaN(userId)) {
                 next(AppError.badRequest("El ID no es válido"));
             }
@@ -42,17 +42,34 @@ export class NotificationController {
 
     markAsRead = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const notificationId = parseInt(req.params.notificationId);
+            const notificationId = parseInt(req.params.id);
             if (isNaN(notificationId)) {
-                next(AppError.badRequest("El ID no es válido"));
+                return next(AppError.badRequest("El ID no es válido"));
             }
-            await this.prisma.notification.update({
+            const notificationUpdated = await this.prisma.notification.update({
                 where: { id: notificationId },
                 data: { isRead: true },
+                include: {
+                    fromUser: {
+                        omit: {
+                            password: true,
+                        }
+                    },
+                    toUser: {
+                        omit: {
+                            password: true,
+                        }
+                    },
+                    ticket: {
+                        include: {
+                            ticketHistory: true,
+                        }
+                    }
+                }
             });
-            res.status(200).json({ message: "Notificación marcada como leída" });
+            res.status(200).json({ notificationUpdated });
         } catch (error) {
-            next(error);
+            return next(error);
         }
     };
 
@@ -79,6 +96,7 @@ export class NotificationController {
             if (body.NotificationType === E_NotificationType.TICKET_UPDATE) {
                 newNotification = await this.prisma.notification.create({
                     data: {
+                        title: body.title,
                         toUserId: body.toUserId,
                         fromUserId: body.fromUserId,
                         ticketId: body.ticketId,
@@ -91,6 +109,7 @@ export class NotificationController {
             } else {
                 newNotification = await this.prisma.notification.create({
                     data: {
+                        title: "Nuevo Inicio de sesión",
                         toUserId: body.toUserId,
                         message: "Nuevo Inicio de sesión detectado en tu cuenta.",
                         isRead: false,

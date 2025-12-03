@@ -152,6 +152,7 @@ CREATE TABLE `TicketHistory` (
 -- CreateTable
 CREATE TABLE `Notification` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `title` VARCHAR(191) NOT NULL,
     `toUserId` INTEGER NOT NULL,
     `fromUserId` INTEGER NULL,
     `message` VARCHAR(191) NOT NULL,
