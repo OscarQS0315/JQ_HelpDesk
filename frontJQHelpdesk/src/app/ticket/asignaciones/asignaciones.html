@@ -56,10 +56,10 @@
 
         <button class="close-btn" (click)="closeModal()">✕</button>
         <br>
-        <h2>Asignar Técnico</h2>
+        <h2>{{'AssignTechnician' | transloco}}</h2>
 
         <p class="modal-text">
-            Tiquete: {{selectedTicket.title}}
+            {{'Ticket' | transloco}}: {{selectedTicket.title}}
         </p>
         @if(showTechniciansSection){
 
@@ -82,7 +82,7 @@
                         <div class="text-content">
                             <h3 class="item-title">{{ item.user.name }} {{ item.user.lastName }}</h3>
                             <h4 class="ticket-count">
-                                Tickets activos: {{ getTicketsCountForTechnician(item.id) }}
+                                {{'ActiveTickets' | transloco}}: {{ getTicketsCountForTechnician(item.id) }}
                             </h4>
                             <h4 class="item-description">{{ item.user.email }}</h4>
                             <div class="tags">
@@ -106,12 +106,12 @@
 
             @if(!showTechniciansSection){
             <!-- ESTADO INICIAL -->
-            <button class="btn-confirm" (click)="onConfirm()">Automático</button>
-            <button class="btn-cancel" (click)="onCancel()">Manual</button>
+            <button class="btn-confirm" (click)="onConfirm()">{{'Automatic' | transloco}}</button>
+            <button class="btn-cancel" (click)="onCancel()">{{'Manual' | transloco}}</button>
             } @else {
             <!-- ESTADO CON TÉCNICOS CARGADOS -->
-            <button class="btn-confirm" (click)="onConfirm()">Asignar</button>
-            <button class="btn-cancel" (click)="onBack()">Volver</button>
+            <button class="btn-confirm" (click)="onConfirm()">{{'Assign' | transloco}}</button>
+            <button class="btn-cancel" (click)="onBack()">{{'Back' | transloco}}</button>
             }
 
         </div>

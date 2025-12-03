@@ -6,7 +6,7 @@ import { TicketService } from '../../share/services/api/ticket.service';
 import { UserService } from '../../share/services/api/user.service';
 import { RouterModule } from '@angular/router';
 import { BreadcrumbBackComponent } from '../../share/components/breadcrumb-back/breadcrumb-back.component';
-import { TranslocoModule } from '@jsverse/transloco';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { TechnicianModel } from '../../share/models/TechnicianModel';
 import { TechnicianService } from '../../share/services/api/technician.service';
 import { FormsModule } from '@angular/forms';
@@ -38,7 +38,8 @@ export class Asignaciones implements OnInit {
     private TService: TicketService,
     private UService: UserService,
     private TechService: TechnicianService,
-    private noti: NotificationService
+    private noti: NotificationService,
+    private transloco: TranslocoService
   ) { }
 
   ngOnInit(): void {
@@ -89,10 +90,10 @@ export class Asignaciones implements OnInit {
         next: (response) => {
           console.log("Técnico  asignado manualmente:", response);
           this.listTickets(this.authUser);
-          this.noti.success("Operación exitosa", `Ticket ${response.updatedTicket.id} asignado Manualmente a ${response.updatedTicket.technician.user.name} ${response.updatedTicket.technician.user.lastName}`, 5000);
+          this.noti.success(this.transloco.translate('OperationSuccessful'), `${this.transloco.translate('Ticket')} ${response.updatedTicket.id} ${this.transloco.translate('AssignedManuallyTo')} ${response.updatedTicket.technician.user.name} ${response.updatedTicket.technician.user.lastName}`, 5000);
         },
         error: (error) => {
-          console.error("Error al asignar técnico manualmente:", error);
+          console.error(this.transloco.translate('ErrorAssigningTechnician'), error);
         }
       });
     } else {
@@ -104,11 +105,11 @@ export class Asignaciones implements OnInit {
           console.log("Técnico  asignado automáticamente:", response);
           this.listTicketsShow(this.authUser);
           this.listTickets(this.authUser);
-          this.noti.success("Operación exitosa", `Técnico ${response.assignedTechnician.user.name} ${response.assignedTechnician.user.lastName} 
-                             Puntaje ${response.puntaje}`, 5000);
+          this.noti.success(this.transloco.translate('OperationSuccessful'), `${this.transloco.translate('Technician')} ${response.assignedTechnician.user.name} ${response.assignedTechnician.user.lastName} 
+                              ${this.transloco.translate('Points')} ${response.puntaje}`, 5000);
         },
         error: (error) => {
-          console.error("Error al asignar técnico automáticamente:", error);
+          console.error(this.transloco.translate('ErrorAssigningTechnician'), error);
         }
       });
 
@@ -140,12 +141,12 @@ export class Asignaciones implements OnInit {
 
   ticketStatusString(status: string): string {
     switch (status) {
-      case 'PENDING': return 'PENDIENTE';
-      case 'ASSIGNED': return 'ASIGNADO';
-      case 'IN_PROGRESS': return 'EN PROGRESO';
-      case 'RESOLVED': return 'RESUELTO';
-      case 'CLOSED': return 'CERRADO';
-      default: return 'DESCONOCIDO';
+      case 'PENDING': return this.transloco.translate('PendingStatus');
+      case 'ASSIGNED': return this.transloco.translate('AssignedStatus');
+      case 'IN_PROGRESS': return this.transloco.translate('InProgressStatus');
+      case 'RESOLVED': return this.transloco.translate('ResolvedStatus');
+      case 'CLOSED': return this.transloco.translate('ClosedStatus');
+      default: return this.transloco.translate('UnknowStatus');
     }
   }
 

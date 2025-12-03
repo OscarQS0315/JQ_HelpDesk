@@ -3,47 +3,43 @@
         <!-- Company Information -->
         <div class="footer__section company-info">
             <img src="/Images/Logo_JQHelpdesk1.png" alt="Company Logo" class="company-info__logo">
-            <p class="company-info__description">Nos especializamos en brindar soporte tecnológico ágil y confiable. Trabajamos cada día para ofrecer la mejor experiencia en la gestión de tickets y atención al usuario.</p>
-            <address class="company-info__address">UTN Sede Central<br>ISW-811</address>
+            <p class="company-info__description">{{ 'AboutUs' | transloco }}</p>
+            <address class="company-info__address">{{'UTNAddress' | transloco}}<br>ISW-811</address>
         </div>
 
         <!-- Quick Links -->
         <div class="footer__section quick-links">
-            <h3 class="quick-links__title">Quick Links</h3>
+            <h3 class="quick-links__title">{{'Products' | transloco}}</h3>
+
             <div class="quick-links__grid">
+
                 <div class="quick-links__column">
-                    <h4>Products</h4>
-                    <ul>
-                        <li><a href="#">Solutions</a></li>
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Updates</a></li>
-                    </ul>
+                    <h4>{{'Solutions' | transloco}}</h4>
+                    <p>
+                        {{'SolutionsDescription' | transloco}}
+                    </p>
                 </div>
+
                 <div class="quick-links__column">
-                    <h4>About</h4>
-                    <ul>
-                        <li><a href="#">Our Story</a></li>
-                        <li><a href="#">Team</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Press</a></li>
-                    </ul>
+                    <h4>{{'Features' | transloco}}</h4>
+                    <p>
+                        {{'FeaturesDescription' | transloco}}
+                    </p>
                 </div>
+
                 <div class="quick-links__column">
-                    <h4>Support</h4>
-                    <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
+                    <h4>{{'Updates' | transloco}}</h4>
+                    <p>
+                        {{'UpdatesDescription' | transloco}}
+                    </p>
                 </div>
+
             </div>
         </div>
 
         <!-- Contact Information -->
         <div class="footer__section contact-info">
-            <h3 class="contact-info__title">Contáctenos</h3>
+            <h3 class="contact-info__title">{{'ContatctUs' | transloco}}</h3>
             <div class="contact-info__details">
                 <p><i class="fas fa-envelope"></i> Esteban Jiménez</p>
                 <p><i class="fas fa-phone"></i>+506 8382-4334</p>
@@ -54,10 +50,10 @@
 
         <!-- Newsletter -->
         <div class="footer__section newsletter">
-            <h3 class="newsletter__title">Stay Updated</h3>
-            <p class="newsletter__description">Subscribe to our newsletter for the latest updates and offers.</p>
+            <h3 class="newsletter__title">{{'EmailUs' | transloco}}</h3>
+            <p class="newsletter__description">JQHelpdesk@tech.com</p>
             <form class="newsletter__form" (ngSubmit)="onSubscribe()">
-                <button type="submit">Subscribe</button>
+                <button type="submit">{{'SendEmail' | transloco}}</button>
             </form>
         </div>
     </div>

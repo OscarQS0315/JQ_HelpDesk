@@ -9,14 +9,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserNotificationAppService } from '../../share/services/app/user-notification.service';
 import { NotificationDTO } from '../../share/models/DTOs/NotificationDTO';
 import { E_NotificationType } from '../../share/models/enums/notificationType.enum';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 
 
 @Component({
   selector: 'app-login-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslocoModule],
   templateUrl: './login.html',
-  styleUrls: ['./login.css']
+  styleUrls: ['./login.css'],
+  
 })
 export class Login implements OnInit {
 
@@ -42,7 +44,7 @@ export class Login implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthenticationService,
-    private appNoti: UserNotificationAppService
+    private translocoService: TranslocoService
   ) {
     this.buildForm();
   }
@@ -72,8 +74,8 @@ export class Login implements OnInit {
   submitForm() {
     if (this.formulario.invalid) {
       this.noti.warning(
-        'Formulario incompleto',
-        'Por favor complete todos los campos.'
+      this.translocoService.translate('IncompleteForm'),
+      this.translocoService.translate('PleaseFillAllFields')
       );
       return;
     }
@@ -82,11 +84,11 @@ export class Login implements OnInit {
 
     this.authService.loginUser(credentials).subscribe({
       next: (response) => {
-        this.noti.success('Bienvenido', 'Inicio de sesión exitoso', 3000);
+        this.noti.success(this.translocoService.translate('Welcome'), this.translocoService.translate('SesionSuccess'), 3000);
         this.router.navigateByUrl('/Inicio');
       },
       error: (err) => {
-        this.noti.error('Error', 'Credenciales incorrectas');
+        this.noti.error('Error', this.translocoService.translate('IncorrectCredentials'));
       }
     });
   }
