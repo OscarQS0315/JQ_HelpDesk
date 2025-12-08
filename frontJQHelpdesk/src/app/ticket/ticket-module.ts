@@ -7,6 +7,7 @@ import { DetalleTicket } from './detalle-ticket/detalle-ticket';
 import { A11yModule } from "@angular/cdk/a11y";
 import { VisualizacionTicket } from './visualizacion-ticket/visualizacion-ticket';
 import { UpdateTicket } from './update-ticket/update-ticket';
+import { Valoracion } from './valoracion/valoracion';
 
 
 
@@ -23,6 +24,6 @@ import { UpdateTicket } from './update-ticket/update-ticket';
     VisualizacionTicket
 ],
   exports: [
-  ]
+    ]
 })
 export class TicketModule { }

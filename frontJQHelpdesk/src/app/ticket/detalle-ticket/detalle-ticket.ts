@@ -12,21 +12,34 @@ import { BreadcrumbBackComponent } from '../../share/components/breadcrumb-back/
 import { TranslocoModule } from '@jsverse/transloco';
 import { AuthenticationService } from '../../share/services/app/authentication.service';
 import { E_Role } from '../../share/models/enums/role.enum';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: "app-stepper",
   standalone: true,
   templateUrl: "./detalle-ticket.html",
   styleUrls: ["./detalle-ticket.css"],
-  imports: [CommonModule, RouterModule, BreadcrumbBackComponent, TranslocoModule]
+  imports: [CommonModule, RouterModule, BreadcrumbBackComponent, TranslocoModule, ReactiveFormsModule]
 })
 export class DetalleTicket {
   ticket = signal<TicketModel | null>(null);
+  feedbackForm!: FormGroup;
+  stars: number[] = [1, 2, 3, 4, 5];
+  rating: number = 0;
+  hoverRating: number = 0;
 
-  constructor(private route: ActivatedRoute, private ticketService: TicketService) {
+  constructor(private route: ActivatedRoute, private ticketService: TicketService, private fb: FormBuilder) {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.ticketService.getById(id).subscribe((data) => this.ticket.set(data));
   }
+
+  ngOnInit() {
+    this.feedbackForm = this.fb.group({
+      rating: [null, Validators.required],
+      feedback: [""]
+    });
+  }
+
 
   authService = inject(AuthenticationService);
   readonly currentUser = this.authService.user;
@@ -136,6 +149,45 @@ export class DetalleTicket {
 
   closeImage(): void {
     this.selectedImageUrl = null;
+  }
+
+  setRating(value: number): void {
+    this.rating = value;
+    this.feedbackForm.patchValue({ rating: value });
+  }
+
+  setHoverRating(value: number): void {
+    this.hoverRating = value;
+  }
+
+  clearHoverRating(): void {
+    this.hoverRating = 0;
+  }
+
+  getRatingText(): string {
+    const rating = this.hoverRating || this.rating;
+    switch (rating) {
+      case 1:
+        return "Muy Insatisfecho";
+      case 2:
+        return "Insatisfecho";
+      case 3:
+        return "Neutral";
+      case 4:
+        return "Satisfecho";
+      case 5:
+        return "Muy Satisfecho";
+      default:
+        return "";
+    }
+  }
+
+  onSubmit(): void {
+    if (this.feedbackForm.valid) {
+      console.log("Feedback submitted:", this.feedbackForm.value);
+      this.feedbackForm.reset();
+      this.rating = 0;
+    }
   }
 
 }

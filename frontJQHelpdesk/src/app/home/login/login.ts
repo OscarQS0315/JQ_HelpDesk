@@ -73,35 +73,46 @@ export class Login implements OnInit {
 
   
   submitForm() {
-    if (this.formulario.invalid) {
-      this.noti.warning(
+  if (this.formulario.invalid) {
+    this.noti.warning(
       this.translocoService.translate('IncompleteForm'),
       this.translocoService.translate('PleaseFillAllFields')
-      );
-      return;
-    }
-
-    const credentials = this.formulario.value;
-
-    this.authService.loginUser(credentials).subscribe({
-      next: (response) => {
-        this.noti.success(this.translocoService.translate('Welcome'), this.translocoService.translate('SesionSuccess'), 3000);
-        this.router.navigateByUrl('/Inicio');
-
-        const notificationDTO : NotificationDTO = {
-          title: 'Nuevo inicio de sesión',
-          message: `Has iniciado sesión en tu cuenta.`,
-          type: E_NotificationType.LOGIN,
-          toUserId: this.authService.user()?.id!
-        };
-        this.appNoti.newUserNotification(notificationDTO);
-        console.log('Notification DTO:', notificationDTO);
-      },
-      error: (err) => {
-        this.noti.error('Error', this.translocoService.translate('IncorrectCredentials'));
-      }
-    });
+    );
+    return;
   }
+
+  const credentials = this.formulario.value;
+
+  this.authService.loginUser(credentials).subscribe({
+    next: (response: any) => {
+      // Guardar token y user en localStorage
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('user', JSON.stringify(response.user));
+
+      this.noti.success(
+        this.translocoService.translate('Welcome'),
+        this.translocoService.translate('SesionSuccess'),
+        3000
+      );
+
+      this.router.navigateByUrl('/Inicio');
+
+      // Opcional: enviar notificación
+      const notificationDTO = {
+        title: 'Nuevo inicio de sesión',
+        message: `Has iniciado sesión en tu cuenta.`,
+        type: E_NotificationType.LOGIN,
+        toUserId: response.user.id
+      };
+      this.appNoti.newUserNotification(notificationDTO);
+    },
+    error: (err) => {
+      this.noti.error('Error', this.translocoService.translate('IncorrectCredentials'));
+    }
+  });
+}
+
+
 
 
   onRegister() {

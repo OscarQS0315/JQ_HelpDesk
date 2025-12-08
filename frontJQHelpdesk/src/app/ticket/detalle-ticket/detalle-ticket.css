@@ -13,7 +13,7 @@
     margin-top: 4%;
 }
 
-.btn-update{
+.btn-update {
     padding: 10px 20px;
     background-color: #020202;
     color: #ebe825;
@@ -196,5 +196,116 @@
 
     to {
         transform: scale(0.90);
+    }
+}
+
+
+.rating-feedback-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: black;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.rating-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h3 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.stars-container {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.stars-container span {
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: #ddd;
+    transition: color 0.2s ease-in-out, transform 0.2s ease;
+}
+
+.stars-container .filled {
+    color: #ffd700;
+}
+
+.stars-container span.hover {
+    color: #ffc107;
+    transform: scale(1.1);
+}
+
+.rating-text {
+    color: white;
+    margin: 0.5rem 0;
+    min-height: 24px;
+}
+
+.feedback-section {
+    margin-bottom: 2rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: white;
+    font-weight: 500;
+}
+
+textarea {
+    width: 100%;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #ebe825;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: black;
+    color: #ebe825;
+    border: oklch(lightness chroma hue);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:disabled {
+    background-color: #cccccc;
+    color: #020202;
+    cursor: not-allowed;
+}
+
+.submit-button:hover:not(:disabled) {
+    background-color: #ebe825;
+    color: black;
+}
+
+@media (max-width: 480px) {
+    .rating-feedback-container {
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    .stars-container span {
+        font-size: 2rem;
     }
 }

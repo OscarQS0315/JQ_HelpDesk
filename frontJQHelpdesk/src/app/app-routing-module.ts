@@ -17,6 +17,7 @@ import { ListadoNotificaciones } from './notificaciones/listado-notificaciones/l
 import { UpdateTicket } from './ticket/update-ticket/update-ticket';
 import { E_Role } from './share/models/enums/role.enum';
 import { authGuard } from './share/guards/auth.guard';
+import { Valoracion } from './ticket/valoracion/valoracion';
 
 
 
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'AsignacionesTicket', component: Asignaciones, canActivate: [authGuard], data: { roles: [E_Role.ADMIN, E_Role.TECHNICIAN] } },
   { path: 'Notificaciones', component: ListadoNotificaciones, canActivate: [authGuard]},
   { path: 'UpdateTicket/:id', component: UpdateTicket, canActivate: [authGuard], data: { roles: [E_Role.ADMIN, E_Role.TECHNICIAN] } },
+  { path: 'Valoracion', component: Valoracion, canActivate: [authGuard], data: { roles: [E_Role.ADMIN, E_Role.USER] } },
   { path: 'Inicio', component: Inicio},
   { path: '', redirectTo: '/Login', pathMatch: 'full' },
   { path: '**', component: PageNotFound }
