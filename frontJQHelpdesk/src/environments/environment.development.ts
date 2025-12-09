@@ -9,5 +9,7 @@ export const environment = {
     endPointSlas: 'sla',
     endPointHistory: 'history',
     endPointNotifications: 'notification',
+    endPointValorations: 'ticket/valoration',
+    endPointRegisterUser : 'user/register'
     
 };

@@ -19,7 +19,8 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="password" formControlName="password" placeholder="{{'passwordTechnician' | transloco}}">
+                    <input type="password" formControlName="password"
+                        placeholder="{{'passwordTechnician' | transloco}}">
                 </div>
 
                 <button type="submit" class="btn-login">{{'Login' | transloco}}</button>
@@ -39,16 +40,23 @@
 
             <form (ngSubmit)="onRegister()">
                 <div class="form-group">
-                    <input type="text" [(ngModel)]="fullName" name="fullName" placeholder="{{'FullName' | transloco}}" required>
-                </div>
-
-                <div class="form-group">
-                    <input type="email" [(ngModel)]="registerEmail" name="registerEmail" placeholder="{{'EmailTechnician' | transloco}}" required>
-                </div>
-
-                <div class="form-group">
-                    <input type="password" [(ngModel)]="registerPassword" name="registerPassword" placeholder="{{'passwordTechnician' | transloco}}"
+                    <input type="text" [(ngModel)]="fullName" name="fullName" [ngModelOptions]="{standalone: true}"
                         required>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" [(ngModel)]="lastName" name="lastName" [ngModelOptions]="{standalone: true}"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <input type="email" [(ngModel)]="registerEmail" name="registerEmail"
+                        placeholder="{{'EmailTechnician' | transloco}}" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" [(ngModel)]="registerPassword" name="registerPassword"
+                        placeholder="{{'passwordTechnician' | transloco}}" required>
                 </div>
 
                 <div class="form-group">

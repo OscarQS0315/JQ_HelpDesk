@@ -1,6 +1,6 @@
 
 import { Component, computed, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TicketService } from '../../share/services/api/ticket.service';
 import { TicketModel } from '../../share/models/TicketModel';
 import { E_TicketStatus } from '../../share/models/enums/ticketStatus.enum';
@@ -9,10 +9,12 @@ import { E_AssignedMethod } from '../../share/models/enums/assignedMethod.enum';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BreadcrumbBackComponent } from '../../share/components/breadcrumb-back/breadcrumb-back.component';
-import { TranslocoModule } from '@jsverse/transloco';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { AuthenticationService } from '../../share/services/app/authentication.service';
 import { E_Role } from '../../share/models/enums/role.enum';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TicketValorationService } from '../../share/services/api/TicketValoration.service';
+import { NotificationService } from '../../share/services/app/notification.service';
 
 @Component({
   selector: "app-stepper",
@@ -27,16 +29,18 @@ export class DetalleTicket {
   stars: number[] = [1, 2, 3, 4, 5];
   rating: number = 0;
   hoverRating: number = 0;
+  valorationForm!: FormGroup;
+  isLoading = false;
 
-  constructor(private route: ActivatedRoute, private ticketService: TicketService, private fb: FormBuilder) {
+  constructor(private route: ActivatedRoute, private ticketService: TicketService, private fb: FormBuilder, private ticketValorationService: TicketValorationService, private router: Router, private noti: NotificationService, private transloco: TranslocoService) {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.ticketService.getById(id).subscribe((data) => this.ticket.set(data));
   }
 
   ngOnInit() {
-    this.feedbackForm = this.fb.group({
+    this.valorationForm = this.fb.group({
       rating: [null, Validators.required],
-      feedback: [""]
+      comments: [""]
     });
   }
 
@@ -153,7 +157,7 @@ export class DetalleTicket {
 
   setRating(value: number): void {
     this.rating = value;
-    this.feedbackForm.patchValue({ rating: value });
+    this.valorationForm.patchValue({ rating: value });
   }
 
   setHoverRating(value: number): void {
@@ -182,13 +186,50 @@ export class DetalleTicket {
     }
   }
 
-  onSubmit(): void {
-    if (this.feedbackForm.valid) {
-      console.log("Feedback submitted:", this.feedbackForm.value);
-      this.feedbackForm.reset();
-      this.rating = 0;
-    }
-  }
 
+  submitValoration() {
+    if (this.valorationForm.invalid) return;
+
+    const ticketId = this.ticket()?.id;
+
+    if (!ticketId) {
+      this.noti.error(
+        this.transloco.translate('OperationFailed'),
+        'No se encontró el ID del ticket',
+        5000
+      );
+      return;
+    }
+
+    const payload = {
+      ticketId: ticketId,
+      rating: this.valorationForm.value.rating,
+      comments: this.valorationForm.value.comments
+    };
+
+    this.isLoading = true;
+
+    this.ticketValorationService.create(payload).subscribe({
+      next: () => {
+        this.noti.success(
+          this.transloco.translate('OperationSuccesfull'),
+          'Valoración registrada',
+          5000
+        );
+        this.router.navigate(['/Valoracion']);
+      },
+      error: () => {
+        this.noti.error(
+          this.transloco.translate('OperationFailed'),
+          'No se pudo registrar la valoración',
+          5000
+        );
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
+  }
 }
 

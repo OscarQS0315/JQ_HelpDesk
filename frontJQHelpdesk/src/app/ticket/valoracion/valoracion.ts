@@ -9,15 +9,23 @@ import { BreadcrumbBackComponent } from '../../share/components/breadcrumb-back/
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { TechnicianModel } from '../../share/models/TechnicianModel';
 import { TechnicianService } from '../../share/services/api/technician.service';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotificationService } from '../../share/services/app/notification.service';
+import { TicketValorationService } from '../../share/services/api/TicketValoration.service';
+
+
+export interface Valoracion {
+  ticketId: number;
+  rating: number;
+  comments?: string;
+}
 
 @Component({
   selector: 'app-valoracion-card',
   standalone: true,
   templateUrl: './valoracion.html',
   styleUrls: ['./valoracion.css'],
-  imports: [CommonModule, RouterModule, BreadcrumbBackComponent, TranslocoModule, FormsModule]
+  imports: [CommonModule, RouterModule, BreadcrumbBackComponent, TranslocoModule, FormsModule, ReactiveFormsModule]
 })
 
 
@@ -28,6 +36,10 @@ export class Valoracion implements OnInit {
   dataShow = signal<{ tickets: any[] }>({ tickets: [] });
   dataTechnicians = signal<TechnicianModel[]>([]);
   showTechniciansSection: boolean = false;
+  
+  isLoading = false;
+
+  
 
 
   selectedTicket!: TicketModel;
@@ -225,7 +237,6 @@ export class Valoracion implements OnInit {
       t.status !== 'CLOSED'
     ).length;
   }
-
 }
 
 

@@ -94,53 +94,42 @@
         <p>{{ ticket()?.ticketValoration?.comments }}</p>
     </div>
     }
-@if (ticket()?.status === 'CLOSED' && !ticket()?.ticketValoration) {
-<div class="rating-feedback-container">
-    <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
-        
-        <div class="rating-section">
-            <h3>Califica tu experiencia</h3>
+    @if (ticket()?.status === 'CLOSED' && !ticket()?.ticketValoration) {
+    <div class="rating-feedback-container">
 
-            <div class="stars-container">
-                @for (star of stars; track $index) {
-                <span 
-                    [ngClass]="{'filled': $index + 1 <= rating}"
-                    [class.hover]="$index + 1 <= hoverRating"
-                    (click)="setRating($index + 1)"
-                    (mouseenter)="setHoverRating($index + 1)"
-                    (mouseleave)="clearHoverRating()"
-                    role="button"
-                    tabindex="0"
-                    (keydown.enter)="setRating($index + 1)"
-                >
-                    ★
-                </span>
-                }
+        <form [formGroup]="valorationForm" (ngSubmit)="submitValoration()">
+
+            <div class="rating-section">
+                <h3>Califica tu experiencia</h3>
+
+                <div class="stars-container">
+                    @for (star of stars; track $index) {
+                    <span [ngClass]="{'filled': star <= rating}" [class.hover]="star <= hoverRating"
+                        (click)="setRating(star)" (mouseenter)="setHoverRating(star)" (mouseleave)="clearHoverRating()"
+                        class="star">
+                        ★
+                    </span>
+                    }
+                </div>
+
+                <p class="rating-text">{{ getRatingText() }}</p>
             </div>
 
-            <p class="rating-text">{{ getRatingText() }}</p>
-        </div>
+            <div class="feedback-section">
+                <label for="comments">Agrega un comentario (Opcional)</label>
+                <textarea id="comments" formControlName="comments" rows="4"
+                    placeholder="Cuéntanos más sobre tu experiencia..."></textarea>
+            </div>
 
-        <div class="feedback-section">
-            <label for="feedback">Agrega un comentario (Opcional)</label>
-            <textarea 
-                id="feedback" 
-                formControlName="feedback" 
-                rows="4"
-                placeholder="Cuéntanos más sobre tu experiencia..."
-            ></textarea>
-        </div>
+            <button type="submit" class="submit-button" [disabled]="valorationForm.invalid || isLoading">
+                {{ isLoading ? 'Guardando...' : 'Enviar valoración' }}
+            </button>
 
-        <button 
-            type="submit" 
-            [disabled]="!feedbackForm.get('rating')?.value" 
-            class="submit-button"
-        >
-            Enviar Comentarios
-        </button>
-    </form>
-</div>
-}
+        </form>
+
+    </div>
+    }
+
 
 
 </div>
@@ -149,4 +138,3 @@
     <img [src]="selectedImageUrl" alt="Imagen ampliada" class="modal-image" />
 </div>
 }
-
