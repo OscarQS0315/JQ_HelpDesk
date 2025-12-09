@@ -7,32 +7,46 @@ import { generateToken } from "../config/authUtils";
 const prisma = new PrismaClient();
 
 export class UserController {
-  register = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { nombre, email, password, role } = req.body;
+  
+register = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Acepta ambos contratos para compatibilidad: 'nombre' o 'name'
+    const nombre = (req.body.nombre ?? req.body.name ?? '').trim();
+    const lastName = (req.body.lastName ?? '').trim();
+    const email = (req.body.email ?? '').trim();
+    const password = req.body.password;
+    const role = req.body.role;
 
-      const salt = await bcrypt.genSalt(10);
-      const hash = await bcrypt.hash(password, salt);
-
-      const user = await prisma.user.create({
-        data: {
-          name: nombre,
-          lastName: "",
-          email,
-          password: hash,
-          role: E_Role[role as keyof typeof E_Role],
-        },
+    if (!nombre || !email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Faltan campos requeridos: nombre/email/password',
       });
-
-      res.status(201).json({
-        success: true,
-        message: "Usuario creado",
-        data: user,
-      });
-    } catch (error) {
-      next(error);
     }
-  };
+
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+
+    const user = await prisma.user.create({
+      data: {
+        name: nombre,         
+        lastName: lastName,    
+        email,
+        password: hash,
+        role: E_Role[role as keyof typeof E_Role] ?? E_Role.USER,
+      },
+    });
+
+    res.status(201).json({
+      success: true,
+      message: 'Usuario creado',
+      data: user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 
   login = (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate(

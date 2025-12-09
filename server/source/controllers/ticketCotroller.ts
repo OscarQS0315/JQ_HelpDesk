@@ -416,6 +416,56 @@ export class TicketController {
         }
     };
 
+
+    createValoration = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { ticketId, rating, comments } = req.body;
+
+        // Validaciones básicas
+        if (!ticketId || !rating) {
+            return next(AppError.badRequest("ticketId y rating son requeridos"));
+        }
+
+        const ticketIdNumber = parseInt(ticketId);
+        if (isNaN(ticketIdNumber)) {
+            return next(AppError.badRequest("El ticketId no es válido"));
+        }
+
+        // Validar que el ticket exista
+        const ticket = await this.prisma.ticket.findUnique({
+            where: { id: ticketIdNumber }
+        });
+
+        if (!ticket) {
+            return next(AppError.notFound("El ticket no existe"));
+        }
+
+        // Validar que no exista una valoración previa
+        const existingValoration = await this.prisma.ticketValoration.findUnique({
+            where: { ticketId: ticketIdNumber }
+        });
+
+        if (existingValoration) {
+            return next(AppError.badRequest("Este ticket ya tiene una valoración"));
+        }
+
+        // Crear la valoración
+        const newValoration = await this.prisma.ticketValoration.create({
+            data: {
+                ticketId: ticketIdNumber,
+                rating,
+                comments
+            }
+        });
+
+        res.status(201).json(newValoration);
+
+    } catch (error) {
+        console.error("Error creando valoración:", error);
+        next(error);
+    }
+};
+
 }
 function calculateHistoryPoints(priority: E_TicketPriority): number {
     switch (priority) {
@@ -428,4 +478,5 @@ function calculateHistoryPoints(priority: E_TicketPriority): number {
         default:
             return 0;
     }
+    
 }

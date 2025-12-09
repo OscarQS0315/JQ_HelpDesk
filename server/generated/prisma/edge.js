@@ -353,7 +353,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\oscar\\OneDrive\\Documentos\\GitHub\\JQ_HelpDesk\\server\\generated\\prisma",
+      "value": "C:\\Users\\Esteban\\Desktop\\Server JQHelpdesk\\JQ_HelpDesk\\server\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -367,7 +367,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\oscar\\OneDrive\\Documentos\\GitHub\\JQ_HelpDesk\\server\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\Esteban\\Desktop\\Server JQHelpdesk\\JQ_HelpDesk\\server\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
