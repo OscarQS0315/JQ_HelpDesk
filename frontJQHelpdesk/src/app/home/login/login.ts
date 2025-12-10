@@ -118,53 +118,48 @@ export class Login implements OnInit {
 
 
   onRegister() {
-  if (this.registerPassword !== this.confirmPassword) {
-    this.noti.error(
-      this.translocoService.translate('OperationFailed'),
-      this.translocoService.translate('PasswordsDoNotMatch'),
-      5000
-    );
-    return;
-  }
-
-  const newUser: CreateUserDTO = {
-    name: this.fullName.trim(),
-    lastName: this.lastName.trim(),
-    email: this.registerEmail.trim(),
-    password: this.registerPassword,
-    role: 'USER'
-  };
-
-
-  this.userService.register(newUser).subscribe({
-    next: (res) => {
-      this.noti.success(
-        this.translocoService.translate('OperationSuccesfull'),
-        this.translocoService.translate('UserCreatedSuccessfully'),
-        5000
-      );
-
-      // Opcional: enviar notificación interna al usuario recién creado
-      const notificationDTO = {
-        title: 'Cuenta creada',
-        message: `Hola ${newUser.name}, tu cuenta ha sido creada exitosamente.`,
-        type: E_NotificationType.LOGIN, // usa un tipo existente de tu enum
-        toUserId: res.id
-      };
-      this.appNoti.newUserNotification(notificationDTO);
-
-      this.router.navigate(['/Inicio']); // redirigir al login o dashboard
-    },
-    error: (err) => {
+    if (this.registerPassword !== this.confirmPassword) {
       this.noti.error(
         this.translocoService.translate('OperationFailed'),
-        this.translocoService.translate('CouldNotCreateUser'),
+        this.translocoService.translate('PasswordsDoNotMatch'),
         5000
       );
-      console.error('Error al registrar usuario', err);
-    },
-  });
-}
+      return;
+    }
+
+    const newUser: CreateUserDTO = {
+      name: this.fullName.trim(),
+      lastName: this.lastName.trim(),
+      email: this.registerEmail.trim(),
+      password: this.registerPassword,
+      role: 'USER'
+    };
 
 
+    this.userService.register(newUser).subscribe({
+      next: (res) => {
+        this.noti.success(
+          this.translocoService.translate('OperationSuccesfull'),
+          'Usuario registrado exitosamente',
+          5000
+        );
+
+      },
+      error: (err) => {
+        if (err.status === 409) {
+          this.noti.error(
+            this.translocoService.translate('OperationFailed'),
+            'El correo ya está en uso',
+            5000
+          );
+        } else {
+          this.noti.error(
+            this.translocoService.translate('OperationFailed'),
+            'Error interno del servidor',
+            5000
+          );
+        }
+      }
+    });
+  }
 }

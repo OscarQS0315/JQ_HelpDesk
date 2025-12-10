@@ -19,6 +19,7 @@ import { availableLanguages, AvailableLanguages } from './transloco-config';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { NotificacionesModule } from './notificaciones/notificaciones-module';
 import { HttpAuthInterceptorService } from './share/interceptor/http-auth-interceptor.service';
+import { UsuariosModule } from './usuarios/usuarios-module';
 
 
 registerLocaleData(localeEs);
@@ -37,7 +38,8 @@ registerLocaleData(localeEs);
     FormsModule,
     ReactiveFormsModule,
     TranslocoModule,
-    NotificacionesModule
+    NotificacionesModule,
+    UsuariosModule
   ],
   providers: [
     

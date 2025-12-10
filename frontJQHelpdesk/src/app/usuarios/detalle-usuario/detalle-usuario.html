@@ -1,0 +1,71 @@
+<div class="profile-container">
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="profile-image">
+                <img [src]="userProfile.imageUrl" alt="Profile Picture" (error)="handleImageError($event)">
+            </div>
+            @if(!isEditMode && isOwner){
+            <button class="edit-btn" (click)="toggleEditMode()">
+                Edit Profile
+            </button>
+            }
+        </div>
+
+        @if(!isEditMode){
+
+        <div class="profile-content">
+            <div class="info-group">
+                <label>Nombre: </label>
+                <p>{{userProfile.Name}}</p>
+            </div>
+            <div class="info-group">
+                <label>Apellido: </label>
+                <p>{{userProfile.lastName}}</p>
+            </div>
+            <div class="info-group">
+                <label>Email:</label>
+                <p>{{userProfile.email}}</p>
+            </div>
+            <div class="info-group">
+                <label>Télefono: </label>
+                <p>{{userProfile.phone}}</p>
+            </div>
+        </div>
+        }
+
+
+        @if(isEditMode){
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="edit-form">
+            <div class="form-group">
+                <label>Nombre: </label>
+                <input type="text" formControlName="Name" class="form-input">
+                @if(profileForm.get('Name')?.touched && profileForm.get('Name')?.errors?.['required']){
+                <div class="error-message">El nombre es requerido</div>
+                }
+            </div>
+
+            <div class="form-group">
+                <label>Apellido: </label>
+                <input type="text" formControlName="lastName" class="form-input">
+                @if(profileForm.get('lastName')?.touched && profileForm.get('lastName')?.errors?.['required']){
+                <div class="error-message">El apellido es requerido</div>
+                }
+
+            </div>
+
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" formControlName="email" class="form-input">
+                @if(profileForm.get('email')?.touched && profileForm.get('email')?.errors?.['required']){<div class="error-message">El email es requerido</div>}
+                @if(profileForm.get('email')?.touched && profileForm.get('email')?.errors?.['email']){<div class="error-message">Por favor ingrese un email válido</div>}
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="save-btn" [disabled]="!profileForm.valid">Guardar Cambios</button>
+                <button type="button" class="cancel-btn" (click)="cancelEdit()">Cancelar</button>
+            </div>
+        </form>
+        }
+
+    </div>
+</div>

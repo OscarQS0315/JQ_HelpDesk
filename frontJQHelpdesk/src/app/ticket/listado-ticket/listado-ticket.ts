@@ -1,4 +1,4 @@
-import { Component, computed, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BreadcrumbBackComponent } from '../../share/components/breadcrumb-back/breadcrumb-back.component';
@@ -11,6 +11,7 @@ import { TechnicianModel } from '../../share/models/TechnicianModel';
 import { TechnicianService } from '../../share/services/api/technician.service';
 import { FormsModule } from '@angular/forms';
 import { NotificationService } from '../../share/services/app/notification.service';
+import { AuthenticationService } from '../../share/services/app/authentication.service';
 
 interface CalendarDay {
   date: Date;
@@ -43,21 +44,32 @@ export class ListadoTicket implements OnInit {
   data = signal<{ tickets: any[] }>({ tickets: [] });
   searchQuery: string = '';
 
-  authUser = 1;
+  authService = inject(AuthenticationService);
+  readonly currentUser = this.authService.user;
 
 
   constructor(private ticketService: TicketService, private transloco: TranslocoService, private TechService: TechnicianService, private noti: NotificationService) { }
 
   ngOnInit() {
+    const user = this.currentUser();
+
+    if (!user) return;
+
+    const userId = user.id;
+    const role = user.role;
+
+    if (role === 'ADMIN') {
+      this.listAllTickets();
+    }
+
+    if (role === 'TECHNICIAN') {
+      this.listTicketsByTechnician(userId);
+    }
+
     this.generateCalendarDays();
     this.generateWeekViewDays();
-    this.listTickets(this.authUser);
-    this.ticketService.get().subscribe((response: TicketModel[]) => {
-      this.tickets.set(
-        response.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
-      );
-    });
   }
+
 
   getTicketsForDate(date: Date): TicketModel[] {
     return this.tickets().filter(ticket => {
@@ -224,39 +236,55 @@ export class ListadoTicket implements OnInit {
   }
 
   onConfirm(): void {
+    const user = this.currentUser();
+    if (!user) return;
+
     if (this.showTechniciansSection) {
       console.log("Asignando técnico:", this.selectedItem);
       const tiketId = this.selectedTicket.id;
       const technicianId = this.selectedItem?.id;
-      const payload = { technicianId: technicianId };
+      const payload = { technicianId };
       this.ticketService.putMethod(`manual-assign/${tiketId}`, payload).subscribe({
         next: (response) => {
-          console.log("Técnico  asignado manualmente:", response);
-          this.listTickets(this.authUser);
-          this.noti.success(this.transloco.translate('OperationSuccesfull'), `${this.transloco.translate('Ticket')} ${response.updatedTicket.id} ${this.transloco.translate('AssignedManually')} ${response.updatedTicket.technician.user.name} ${response.updatedTicket.technician.user.lastName}`, 5000);
-          this.ngOnInit();
+          console.log("Técnico asignado manualmente:", response);
+          // Recargar tickets según rol del usuario logueado
+          if (user.role === 'ADMIN') {
+            this.listAllTickets();
+          } else if (user.role === 'TECHNICIAN') {
+            this.listTicketsByTechnician(user.id);
+          }
+          this.noti.success(
+            this.transloco.translate('OperationSuccesfull'),
+            `${this.transloco.translate('Ticket')} ${response.updatedTicket.id} ${this.transloco.translate('AssignedManually')} ${response.updatedTicket.technician.user.name} ${response.updatedTicket.technician.user.lastName}`,
+            5000
+          );
         },
         error: (error) => {
           console.error("Error al asignar técnico manualmente:", error);
         }
       });
     } else {
-
       console.log("Asignación automática activada");
       const tiketId = this.selectedTicket.id;
       this.ticketService.putMethod(`auto-assign/${tiketId}`).subscribe({
         next: (response) => {
-          console.log("Técnico  asignado automáticamente:", response);
-          this.listTickets(this.authUser);
-          this.noti.success(this.transloco.translate('OperationSuccesfull'), `${this.transloco.translate('Technician')} ${response.assignedTechnician.user.name} ${response.assignedTechnician.user.lastName} 
-                             ${this.transloco.translate('Points')}: ${response.puntaje}`, 5000);
-          this.ngOnInit();
+          console.log("Técnico asignado automáticamente:", response);
+          // Recargar tickets según rol del usuario logueado
+          if (user.role === 'ADMIN') {
+            this.listAllTickets();
+          } else if (user.role === 'TECHNICIAN') {
+            this.listTicketsByTechnician(user.id);
+          }
+          this.noti.success(
+            this.transloco.translate('OperationSuccesfull'),
+            `${this.transloco.translate('Technician')} ${response.assignedTechnician.user.name} ${response.assignedTechnician.user.lastName} ${this.transloco.translate('Points')}: ${response.puntaje}`,
+            5000
+          );
         },
         error: (error) => {
           console.error("Error al asignar técnico automáticamente:", error);
         }
       });
-
     }
 
     this.closeModal();
@@ -345,6 +373,28 @@ export class ListadoTicket implements OnInit {
       .subscribe((response: TicketModel | TicketModel[]) => {
         const tickets = Array.isArray(response) ? response : [response];
         this.data.set({ tickets }); // Guardar todos
+      });
+  }
+
+  listAllTickets(): void {
+    this.ticketService.get().subscribe((response: TicketModel[]) => {
+      this.tickets.set(
+        response.sort((a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        )
+      );
+    });
+  }
+
+  listTicketsByTechnician(userId: number): void {
+    this.ticketService.getMethod(`by-role/${userId}`)
+      .subscribe((response: TicketModel | TicketModel[]) => {
+        const tickets = Array.isArray(response) ? response : [response];
+        this.tickets.set(
+          tickets.sort((a, b) =>
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          )
+        );
       });
   }
 }

@@ -6,29 +6,55 @@
     <div class="form-container">
 
         @if (isLoginView) {
-
-
         <div class="login-form">
-            <h2>{{'Login' | transloco}}</h2>
-
+            <h2>{{ 'Login' | transloco }}</h2>
 
             <form [formGroup]="formulario" (ngSubmit)="submitForm()">
-
                 <div class="form-group">
-                    <input type="email" formControlName="email" placeholder="{{'EmailTechnician' | transloco}}">
+                    <input type="email" formControlName="email" placeholder="{{ 'EmailTechnician' | transloco }}">
+                    @if(formulario.get('email')?.invalid && formulario.get('email')?.touched){
+                    <div class="error-message">
+                        @if(formulario.get('email')?.errors?.['required']){
+                        <small>
+                            El correo es obligatorio.
+                        </small>
+                        }
+                        @if(formulario.get('email')?.errors?.['email']){
+                        <small>
+                            El correo no es válido.
+                        </small>
+                        }
+                    </div>
+                    }
                 </div>
 
                 <div class="form-group">
                     <input type="password" formControlName="password"
-                        placeholder="{{'passwordTechnician' | transloco}}">
+                        placeholder="{{ 'passwordTechnician' | transloco }}">
+                    @if(formulario.get('password')?.invalid && formulario.get('password')?.touched){
+                    <div class="error-message">
+                        @if(formulario.get('password')?.errors?.['required']){
+                        <small>
+                            La contraseña es obligatoria.
+                        </small>
+                        }
+                        @if(formulario.get('password')?.errors?.['minlength']){
+                        <small>
+                            La contraseña debe tener al menos 6 caracteres.
+                        </small>
+                        }
+
+                    </div>
+                    }
+
                 </div>
 
-                <button type="submit" class="btn-login">{{'Login' | transloco}}</button>
+                <button type="submit" class="btn-login">{{ 'Login' | transloco }}</button>
             </form>
 
             <p class="switch-form">
-                {{'Dont have an account?' | transloco}}
-                <a (click)="toggleView()">{{'Sign Up' | transloco}}</a>
+                {{ 'Dont have an account?' | transloco }}
+                <a (click)="toggleView()">{{ 'Sign Up' | transloco }}</a>
             </p>
         </div>
 
@@ -36,40 +62,77 @@
 
 
         <div class="register-form">
-            <h2>{{'Register' | transloco}}</h2>
+            <h2>{{ 'Register' | transloco }}</h2>
 
             <form (ngSubmit)="onRegister()">
+
+
                 <div class="form-group">
-                    <input type="text" [(ngModel)]="fullName" name="fullName" [ngModelOptions]="{standalone: true}"
-                        required>
+                    <input type="text" [(ngModel)]="fullName" name="fullName" [ngModelOptions]="{ standalone: true }"
+                        #fullNameCtrl="ngModel" placeholder="Nombre:" required>
+                    @if(fullNameCtrl.invalid && fullNameCtrl.touched){
+                    <div class="error-message">
+                        <small>El nombre es obligatorio.</small>
+                    </div>
+                    }
+
                 </div>
 
                 <div class="form-group">
-                    <input type="text" [(ngModel)]="lastName" name="lastName" [ngModelOptions]="{standalone: true}"
-                        required>
+                    <input type="text" [(ngModel)]="lastName" name="lastName" [ngModelOptions]="{ standalone: true }"
+                        #lastNameCtrl="ngModel" placeholder="Apellido:" required>
+                    @if(lastNameCtrl.invalid && lastNameCtrl.touched){
+                    <div class="error-message">
+                        <small>El apellido es obligatorio.</small>
+                    </div>
+                    }
                 </div>
 
                 <div class="form-group">
                     <input type="email" [(ngModel)]="registerEmail" name="registerEmail"
-                        placeholder="{{'EmailTechnician' | transloco}}" required>
+                        placeholder="{{ 'EmailTechnician' | transloco }}" required email #emailCtrl="ngModel">
+                    @if(emailCtrl.invalid && emailCtrl.touched){
+                    <div class="error-message">
+                        @if(emailCtrl.errors?.['required']){
+                        <small>El correo es obligatorio.</small>
+                        }
+                        @if(emailCtrl.errors?.['email']){
+                        <small>El correo no es válido.</small>
+                        }
+                    </div>
+                    }
+
                 </div>
 
                 <div class="form-group">
                     <input type="password" [(ngModel)]="registerPassword" name="registerPassword"
-                        placeholder="{{'passwordTechnician' | transloco}}" required>
+                        placeholder="{{ 'passwordTechnician' | transloco }}" required minlength="6" #passCtrl="ngModel">
+                    @if(passCtrl.invalid && passCtrl.touched){
+                    <div class="error-message">
+                        @if(passCtrl.errors?.['required']){<small>La contraseña es obligatoria.</small>}
+                        @if(passCtrl.errors?.['minlength']){<small>Debe tener al menos 6 caracteres.</small>}
+                    </div>
+                    }
+
                 </div>
 
+                <!-- CONFIRM PASSWORD -->
                 <div class="form-group">
                     <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword"
-                        placeholder="{{'passwordTechnicianConfirm' | transloco}}" required>
+                        placeholder="{{ 'passwordTechnicianConfirm' | transloco }}" required #confirmCtrl="ngModel">
+                    @if(confirmCtrl.touched && confirmPassword !== registerPassword){
+                    <div class="error-message">
+                        <small>Las contraseñas no coinciden.</small>
+                    </div>
+                    }
                 </div>
 
-                <button type="submit" class="btn-register">{{'Register' | transloco}}</button>
+                <button type="submit" class="btn-register">{{ 'Register' | transloco }}</button>
             </form>
 
             <p class="switch-form">
-                {{'AlreadyHaveAccount?' | transloco}}
-                <a (click)="toggleView()">{{'LoginHere' | transloco}}</a>
+                {{ 'AlreadyHaveAccount?' | transloco }}
+                <a (click)="toggleView()">{{ 'LoginHere' | transloco }}</a>
             </p>
         </div>
 

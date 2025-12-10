@@ -18,6 +18,8 @@ import { UpdateTicket } from './ticket/update-ticket/update-ticket';
 import { E_Role } from './share/models/enums/role.enum';
 import { authGuard } from './share/guards/auth.guard';
 import { Valoracion } from './ticket/valoracion/valoracion';
+import { ListadoUsuarios } from './usuarios/listado-usuarios/listado-usuarios';
+import { DetalleUsuario } from './usuarios/detalle-usuario/detalle-usuario';
 
 
 
@@ -39,6 +41,8 @@ const routes: Routes = [
   { path: 'Notificaciones', component: ListadoNotificaciones, canActivate: [authGuard]},
   { path: 'UpdateTicket/:id', component: UpdateTicket, canActivate: [authGuard], data: { roles: [E_Role.ADMIN, E_Role.TECHNICIAN] } },
   { path: 'Valoracion', component: Valoracion, canActivate: [authGuard], data: { roles: [E_Role.ADMIN, E_Role.USER] } },
+  { path: 'ListadoUsuarios', component: ListadoUsuarios, canActivate: [authGuard], data: { roles: [E_Role.ADMIN, E_Role.USER]}},
+  { path: 'DetalleUsuario/:id', component: DetalleUsuario, canActivate: [authGuard], data: { roles: [E_Role.ADMIN, E_Role.USER]}},
   { path: 'Inicio', component: Inicio},
   { path: '', redirectTo: '/Login', pathMatch: 'full' },
   { path: '**', component: PageNotFound }
