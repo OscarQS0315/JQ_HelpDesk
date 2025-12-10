@@ -42,8 +42,20 @@ register = async (req: Request, res: Response, next: NextFunction) => {
       message: 'Usuario creado',
       data: user,
     });
-  } catch (error) {
-    next(error);
+  } catch (error: any) {
+
+    if (error.code === 'P2002' && error.meta?.target?.includes('email')) {
+      return res.status(409).json({
+        success: false,
+        message: 'El correo ya está registrado',
+      });
+    }
+
+    console.error('Error al registrar usuario:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error interno del servidor'
+    });
   }
 };
 

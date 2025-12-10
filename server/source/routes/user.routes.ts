@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { UserController } from '../controllers/userController';
-import { authenticateJWT } from '../middleware/authMiddleware';
+import { authenticateJWT, authorizeRoles } from '../middleware/authMiddleware';
+import { E_Role } from '../../generated/prisma';
 
 export class UserRoutes {
     static get routes(): Router {
