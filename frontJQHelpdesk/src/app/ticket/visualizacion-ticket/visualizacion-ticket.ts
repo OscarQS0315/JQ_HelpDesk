@@ -16,7 +16,7 @@ import { E_Role } from '../../share/models/enums/role.enum';
   standalone: true,
   templateUrl: './visualizacion-ticket.html',
   styleUrls: ['./visualizacion-ticket.css'],
-  imports: [CommonModule, RouterModule, BreadcrumbBackComponent,TranslocoModule]
+  imports: [CommonModule, RouterModule, BreadcrumbBackComponent, TranslocoModule]
 })
 
 
@@ -25,19 +25,19 @@ export class VisualizacionTicket implements OnInit {
   authService = inject(AuthenticationService);
   readonly currentUser = this.authService.user;
   readonly isAuthenticated = computed(() => this.authService.authenticated());
-  
-
-   readonly role = computed(() => {
-      const user = this.currentUser();
-      return user?.role as E_Role | undefined;
-    });
-  
-    readonly isAdmin = computed(() => this.role() === E_Role.ADMIN);
-    readonly isUser = computed(() => this.role() === E_Role.USER);
-    readonly isTechnician = computed(() => this.role() === E_Role.TECHNICIAN);
 
 
-    authUser = this.currentUser()?.id;
+  readonly role = computed(() => {
+    const user = this.currentUser();
+    return user?.role as E_Role | undefined;
+  });
+
+  readonly isAdmin = computed(() => this.role() === E_Role.ADMIN);
+  readonly isUser = computed(() => this.role() === E_Role.USER);
+  readonly isTechnician = computed(() => this.role() === E_Role.TECHNICIAN);
+
+
+  authUser = this.currentUser()?.id;
 
   data = signal<TicketModel[]>([]);
 
@@ -54,7 +54,7 @@ export class VisualizacionTicket implements OnInit {
   }
 
 
-  
+
 
   listTickets(userId?: number): void {
     this.TService.getMethod(`by-role/${userId}`).subscribe((response: TicketModel | TicketModel[]) => {

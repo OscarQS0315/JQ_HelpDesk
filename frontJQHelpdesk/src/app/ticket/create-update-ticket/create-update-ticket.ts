@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit, ViewChild, ElementRef, signal, computed } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, signal, computed, inject } from "@angular/core";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 import { BreadcrumbBackComponent } from "../../share/components/breadcrumb-back/breadcrumb-back.component";
@@ -14,6 +14,8 @@ import { TicketService } from "../../share/services/api/ticket.service";
 import { NotificationService } from '../../share/services/app/notification.service';
 import { forkJoin } from 'rxjs';
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
+import { AuthenticationService } from "../../share/services/app/authentication.service";
+import { E_Role } from "../../share/models/enums/role.enum";
 
 
 interface Step {
@@ -39,7 +41,22 @@ interface Category {
 })
 export class CreateUpdateTicket {
 
-  userId = signal<number>(10);
+
+  authService = inject(AuthenticationService);
+  readonly currentUser = this.authService.user;
+  readonly isAuthenticated = computed(() => this.authService.authenticated());
+
+
+  readonly role = computed(() => {
+    const user = this.currentUser();
+    return user?.role as E_Role | undefined;
+  });
+
+  readonly isAdmin = computed(() => this.role() === E_Role.ADMIN);
+  readonly isUser = computed(() => this.role() === E_Role.USER);
+  readonly isTechnician = computed(() => this.role() === E_Role.TECHNICIAN);
+
+  userId = signal<number>(this.authService.user()?.id ?? 0);
 
   authUser = signal<UserModel | null>(null);
 

@@ -11,6 +11,10 @@ import { TechnicianModel } from '../../share/models/TechnicianModel';
 import { TechnicianService } from '../../share/services/api/technician.service';
 import { FormsModule } from '@angular/forms';
 import { NotificationService } from '../../share/services/app/notification.service';
+import { NotificationDTO } from '../../share/models/DTOs/NotificationDTO';
+import { E_NotificationType } from '../../share/models/enums/notificationType.enum';
+import { AuthenticationService } from '../../share/services/app/authentication.service';
+import { UserNotificationAppService } from '../../share/services/app/user-notification.service';
 
 @Component({
   selector: 'app-status-card',
@@ -39,7 +43,9 @@ export class Asignaciones implements OnInit {
     private UService: UserService,
     private TechService: TechnicianService,
     private noti: NotificationService,
-    private transloco: TranslocoService
+    private transloco: TranslocoService,
+    private authService: AuthenticationService,
+    private appNoti: UserNotificationAppService
   ) { }
 
   ngOnInit(): void {
@@ -81,6 +87,7 @@ export class Asignaciones implements OnInit {
   }
 
   onConfirm(): void {
+    
     if (this.showTechniciansSection) {
       console.log("Asignando técnico:", this.selectedItem);
       const tiketId = this.selectedTicket.id;
@@ -114,7 +121,16 @@ export class Asignaciones implements OnInit {
       });
 
     }
-
+    const notificationDTO : NotificationDTO = {
+              
+                      title: `Nuevo cambio de Estado de Ticket`,
+                      message: "Tu Ticket ha sido asigando a un técnico",
+                      type: E_NotificationType.TICKET_UPDATE,
+                      toUserId: this.selectedTicket.userId,
+                      fromUserId : this.authService.user()?.id
+                    };
+                    this.appNoti.newUserNotification(notificationDTO);
+                    console.log("Notification DTO", notificationDTO);
     this.closeModal();
   }
 
